@@ -8,6 +8,8 @@
 
 1.  このリポジトリページの右上の「Fork」をクリック  
 
+https://user-images.githubusercontent.com/74523584/232479651-871672f2-38b2-4eb1-b3c6-502938ed13b7.png
+
 2.  緑色の「CreateFork」をクリック
 
 3.  緑色の「Code」をクリックし、出てきたURLをコピーする
