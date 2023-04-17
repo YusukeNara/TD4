@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{4508db3d-e04e-440e-a24d-463a85943cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\ImGuiSource">
+      <UniqueIdentifier>{6b90125e-166d-4d38-8872-e8f6fe511aec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{2518b9df-e300-4ed0-af7f-495f7b26b6b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic">
+      <UniqueIdentifier>{727adfdb-4d28-48a1-94fa-5f03dbe2e7e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D">
+      <UniqueIdentifier>{18717d38-401e-4eee-8ea7-c537784e8154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\2D">
+      <UniqueIdentifier>{54d9ae9c-8bd5-459a-b33d-0d5a15be7f32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DIrectXBase">
+      <UniqueIdentifier>{3ec6546d-1fdd-41ed-b671-ff92b6709465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{cab2c916-80da-4cff-b8da-e63974f80d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{0d575b48-1cb5-4ad9-88fb-7e7592ef03e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sound">
+      <UniqueIdentifier>{93d131f0-0f5c-4903-931c-581a3a6394b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{dc2723fa-905a-45e4-9e0a-fb3bb9ab6c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Manager">
+      <UniqueIdentifier>{a99b161a-5fe3-48c1-b4c8-190175013148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Particle">
+      <UniqueIdentifier>{845fa9d4-ff3e-4d08-8a80-69eb4197783f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\OBJ">
+      <UniqueIdentifier>{9682318a-06dd-4199-8bd5-52cc7855a0b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Sprite">
+      <UniqueIdentifier>{e87ddc05-8e6c-440b-9a38-b9cb92c324b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Particle">
+      <UniqueIdentifier>{0dc3c0d4-ac2e-4113-9340-a9a4689145a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{370fd596-cc5e-4219-abc2-f30d23e9165f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\mpShaders">
+      <UniqueIdentifier>{dddaede9-d7b2-4cd4-ae63-aab3df568d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SceneFactory">
+      <UniqueIdentifier>{34f70541-4181-43c6-8ae0-b6ee3ee72892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\modelData">
+      <UniqueIdentifier>{19e92a90-86ce-40df-a0e4-3fc583776fc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\modelData\FBX">
+      <UniqueIdentifier>{8ee7fdb3-0112-4869-833d-0991e5925eee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behavior">
+      <UniqueIdentifier>{c177c3b1-5c29-4bac-983e-c6cd638e1841}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\lights">
+      <UniqueIdentifier>{e03dd0b6-ae7d-4cb9-acd4-7dc5e2b511b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Colision">
+      <UniqueIdentifier>{34dab5dc-7f98-4d82-937d-0b22911a16d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{8ac95e0a-b45c-4106-a7a5-63a71609b940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object">
+      <UniqueIdentifier>{c33c6641-3922-4708-b839-08b8d01bda6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behavior\Navigation">
+      <UniqueIdentifier>{a9b11ca7-e184-4d58-a91f-06161dd44417}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Raki_imguiMgr.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_dx12.cpp">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_win32.cpp">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="NY_Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="NY_Object3DMgr.cpp">
+      <Filter>Graphic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="NY_Object3D.cpp">
+      <Filter>Graphic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="NY_Model.cpp">
+      <Filter>Graphic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="TexManager.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Raki_DX12B.cpp">
+      <Filter>DIrectXBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Raki_WinAPI.cpp">
+      <Filter>DIrectXBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Raki_Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Graphic\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Graphic\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="FPS.cpp">
+      <Filter>DIrectXBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>sound</Filter>
+    </ClCompile>
+    <ClCompile Include="RVector.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleManager.cpp">
+      <Filter>Graphic\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="NY_random.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstructSceneFactory.cpp">
+      <Filter>Scene\SceneFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFactory.cpp">
+      <Filter>Scene\SceneFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleManager2D.cpp">
+      <Filter>Graphic\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetManager.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="RTex.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="FbxLoader.cpp">
+      <Filter>Graphic\3D\modelData\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="fbxModel.cpp">
+      <Filter>Graphic\3D\modelData\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="AI_BehaviorBaseNode.cpp">
+      <Filter>Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorTree.cpp">
+      <Filter>Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorEditor.cpp">
+      <Filter>Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseLight.cpp">
+      <Filter>Graphic\3D\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Graphic\3D\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
+      <Filter>Graphic\3D\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="DifferrdRenderingMgr.cpp">
+      <Filter>Graphic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraCalc.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseColider.cpp">
+      <Filter>Colision</Filter>
+    </ClCompile>
+    <ClCompile Include="ColisionManager.cpp">
+      <Filter>Colision</Filter>
+    </ClCompile>
+    <ClCompile Include="Colider.cpp">
+      <Filter>Colision</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderInfo.cpp">
+      <Filter>Colision</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelDataManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMeshAstar.cpp">
+      <Filter>Behavior\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMash.cpp">
+      <Filter>Behavior\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMeshData.cpp">
+      <Filter>Behavior\Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugDrawer.cpp">
+      <Filter>Graphic\3D</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Raki_imguiMgr.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui.h">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imconfig.h">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_dx12.h">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_win32.h">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>imgui\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="NY_Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="NY_Model.h">
+      <Filter>Graphic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="NY_Object3D.h">
+      <Filter>Graphic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="NY_Object3DMgr.h">
+      <Filter>Graphic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="TexManager.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Raki_DX12B.h">
+      <Filter>DIrectXBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Raki_WinAPI.h">
+      <Filter>DIrectXBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Raki_Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Graphic\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Graphic\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="RVector.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="FPS.h">
+      <Filter>DIrectXBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleManager.h">
+      <Filter>Graphic\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="NY_random.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstructSceneFactory.h">
+      <Filter>Scene\SceneFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFactory.h">
+      <Filter>Scene\SceneFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleManager2D.h">
+      <Filter>Graphic\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetManager.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="RTex.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="FbxLoader.h">
+      <Filter>Graphic\3D\modelData\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="fbxModel.h">
+      <Filter>Graphic\3D\modelData\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorTree.h">
+      <Filter>Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="AI_BehaviorBaseNode.h">
+      <Filter>Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior_ActionBase.h">
+      <Filter>Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior_JudgeBase.h">
+      <Filter>Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorData.h">
+      <Filter>Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorEditor.h">
+      <Filter>Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLight.h">
+      <Filter>Graphic\3D\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Graphic\3D\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h">
+      <Filter>Graphic\3D\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="DifferrdRenderingMgr.h">
+      <Filter>Graphic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraCalc.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseColider.h">
+      <Filter>Colision</Filter>
+    </ClInclude>
+    <ClInclude Include="ColisionManager.h">
+      <Filter>Colision</Filter>
+    </ClInclude>
+    <ClInclude Include="Colider.h">
+      <Filter>Colision</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderInfo.h">
+      <Filter>Colision</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderShapeType.h">
+      <Filter>Colision</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelDataManager.h">
+      <Filter>Graphic\3D\modelData</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMash.h">
+      <Filter>Behavior\Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshAstar.h">
+      <Filter>Behavior\Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshTestData.h">
+      <Filter>Behavior\Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshData.h">
+      <Filter>Behavior\Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugDrawer.h">
+      <Filter>Graphic\3D</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\OBJGeometryShader.hlsl">
+      <Filter>リソース ファイル\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\OBJPixelShader.hlsl">
+      <Filter>リソース ファイル\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\OBJVertexShader.hlsl">
+      <Filter>リソース ファイル\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\SpritePS.hlsl">
+      <Filter>リソース ファイル\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\SpriteVS.hlsl">
+      <Filter>リソース ファイル\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\mpVertexShader.hlsl">
+      <Filter>リソース ファイル\mpShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\mpPixelShader.hlsl">
+      <Filter>リソース ファイル\mpShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\mpEffectPixelShader.hlsl">
+      <Filter>リソース ファイル\Sprite</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\OBJShaderHeader.hlsli">
+      <Filter>リソース ファイル\OBJ</Filter>
+    </None>
+    <None Include="Shaders\Sprite.hlsli">
+      <Filter>リソース ファイル\Sprite</Filter>
+    </None>
+    <None Include="Shaders\mpShaderHeader.hlsli">
+      <Filter>リソース ファイル\mpShaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

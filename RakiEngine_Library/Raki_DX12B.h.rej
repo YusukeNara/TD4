@@ -1,0 +1,9 @@
+diff a/Raki_DX12B.h b/Raki_DX12B.h	(rejected hunks)
+@@ -48,6 +48,7 @@
+ 	/// </summary>
+ 	void EndDraw();
+ 
++	/// <summary>
+ 	/// �]���̕`��J�n
+ 	/// </summary>
+ 	void StartDraw2();
