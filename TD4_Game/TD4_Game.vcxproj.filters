@@ -13,10 +13,110 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="リソース ファイル\shaders">
+      <UniqueIdentifier>{8d657c9b-528c-4bd3-a98d-ad6cb9cacc65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\shaders\FBX">
+      <UniqueIdentifier>{44b421f8-95ba-4e02-854a-45595c982737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\shaders\OBJ">
+      <UniqueIdentifier>{8e2d1a7c-f8a4-4c41-ae47-d5691add6108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\shaders\Diff">
+      <UniqueIdentifier>{b099ab8e-46d1-474a-9ef6-41359ca74239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\shaders\Sprite">
+      <UniqueIdentifier>{b4337125-6345-4952-b894-abfabbd8acb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\shaders\Particle">
+      <UniqueIdentifier>{39333f35-c67d-4358-9a89-746d921d0cee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Resources\Shaders\mpEffectPixelShader.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\mpPixelShader.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\mpVertexShader.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\FBXVertexShader.hlsl">
+      <Filter>リソース ファイル\shaders\FBX</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\OBJGeometryShader.hlsl">
+      <Filter>リソース ファイル\shaders\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\OBJPixelShader.hlsl">
+      <Filter>リソース ファイル\shaders\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\OBJVertexShader.hlsl">
+      <Filter>リソース ファイル\shaders\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\LIT_OBJPixelShader.hlsl">
+      <Filter>リソース ファイル\shaders\Diff</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\LIT_OBJVertexShader.hlsl">
+      <Filter>リソース ファイル\shaders\Diff</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SpriteGS.hlsl">
+      <Filter>リソース ファイル\shaders\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SpriteVS.hlsl">
+      <Filter>リソース ファイル\shaders\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SpriteSepiaPS.hlsl">
+      <Filter>リソース ファイル\shaders\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
+      <Filter>リソース ファイル\shaders\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SpriteLineGS.hlsl">
+      <Filter>リソース ファイル\shaders\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ShadowMapVS.hlsl">
+      <Filter>リソース ファイル\shaders\Diff</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ShadowMapFbxVS.hlsl">
+      <Filter>リソース ファイル\shaders\Diff</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ShadowMapPS.hlsl">
+      <Filter>リソース ファイル\shaders\Diff</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ParticleVS.hlsl">
+      <Filter>リソース ファイル\shaders\Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ParticlePS.hlsl">
+      <Filter>リソース ファイル\shaders\Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ParticleGS.hlsl">
+      <Filter>リソース ファイル\shaders\Particle</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\mpShaderHeader.hlsli">
+      <Filter>リソース ファイル\shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\OBJShaderHeader.hlsli">
+      <Filter>リソース ファイル\shaders\OBJ</Filter>
+    </None>
+    <None Include="Resources\Shaders\LIT_OBJHeader.hlsli">
+      <Filter>リソース ファイル\shaders\Diff</Filter>
+    </None>
+    <None Include="Resources\Shaders\Sprite.hlsli">
+      <Filter>リソース ファイル\shaders\Sprite</Filter>
+    </None>
+    <None Include="Resources\Shaders\ShadowMapShaderHeader.hlsli">
+      <Filter>リソース ファイル\shaders\Diff</Filter>
+    </None>
+    <None Include="Resources\Shaders\ParticleShaderHeader.hlsli">
+      <Filter>リソース ファイル\shaders\Particle</Filter>
+    </None>
   </ItemGroup>
 </Project>
