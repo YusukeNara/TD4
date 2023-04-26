@@ -51,19 +51,23 @@ private:
 	//イージング用座標
 	std::array<RVector3, 5> easepos;
 
+	//頭の移動フレーム
+	const int HEAD_EASE_FRAME = 30;
+	int headEaseFrame = 0;
+
 
 	/// スコア
-
+	int score = 0;
 
 
 
 	/// タイム
-
+	int time = 0;
 
 
 
 	/// ゲームシーン
-
+	ProtoPlayer player;
 
 
 

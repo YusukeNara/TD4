@@ -31,16 +31,14 @@ void AfroHead::Init()
 
 void AfroHead::Update()
 {
-	// 頭が有効化されたら
-	if (isactive) {
-		//入力を受け付ける
 
+	if (isSlaped) {
+		pos.x -= 5.f;
 	}
 
-
 	//オブジェクト描画位置を設定
-	headObject->SetAffineParamTranslate(pos + headOffset);
-	afroObject->SetAffineParamTranslate(pos + hearOffset);
+	headObject->SetAffineParam(scale, rot, pos + headOffset);
+	afroObject->SetAffineParam(scale, rot, pos + hearOffset);
 }
 
 void AfroHead::Draw()
@@ -55,4 +53,25 @@ void AfroHead::Finalize()
 
 
 
+}
+
+void AfroHead::HairCut()
+{
+	//有効化されている場合のみ
+	if (!isactive) { return; }
+
+	hairHP--;
+
+	//髪を小さくする
+	scale = scale * (float(hairHP) / 5.f);
+}
+
+void AfroHead::Slap()
+{
+	//有効化されている場合のみ
+	if (!isactive) { return; }
+
+	//無効化
+	isactive = false;
+	isSlaped = true;
 }

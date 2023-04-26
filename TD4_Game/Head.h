@@ -1,8 +1,10 @@
 #pragma once
 #include <RVector.h>
+#include <memory>
 
 #include "ProtoPlayer.h"
 
+class ProtoPlayer;
 
 class Head
 {
@@ -19,7 +21,7 @@ public:
 
 	virtual void Finalize() {};
 
-	void SetPlayer(std::shared_ptr<ProtoPlayer> ptr) {
+	void SetPlayer(ProtoPlayer *ptr) {
 		this->ptr = ptr;
 	}
 
@@ -27,15 +29,20 @@ public:
 		isactive = true;
 	}
 
+	virtual void HairCut() {};
+
+	virtual void Slap() {};
+
 public:
 	//アフィン変換
 	RVector3 pos, rot, scale;
 
 	//有効化フラグ
 	bool isactive = false;
+	bool isSlaped = false;
 
 	//プレイヤーポインタ
-	std::weak_ptr<ProtoPlayer> ptr;
+	ProtoPlayer *ptr;
 
 };
 

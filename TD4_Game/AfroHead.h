@@ -19,6 +19,10 @@ public:
 
 	void Finalize() override;
 
+	void HairCut() override;
+
+	void Slap() override;
+
 private:
 
 	std::shared_ptr<Object3d> headObject;
@@ -29,6 +33,8 @@ private:
 	RVector3 hearOffset;
 
 	UINT afroheadTex;
+
+	int hairHP = 5;
 
 };
 
