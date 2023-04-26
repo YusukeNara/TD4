@@ -158,7 +158,14 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AfroHead.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="HageHead.cpp" />
+    <ClCompile Include="Head.cpp" />
+    <ClCompile Include="HeadManager.cpp" />
+    <ClCompile Include="LightHearHead.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ProtoPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DirectXTex\DirectXTex_Desktop_2019_Win10.vcxproj">
@@ -257,6 +264,15 @@
     <None Include="Resources\Shaders\ParticleShaderHeader.hlsli" />
     <None Include="Resources\Shaders\ShadowMapShaderHeader.hlsli" />
     <None Include="Resources\Shaders\Sprite.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AfroHead.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="HageHead.h" />
+    <ClInclude Include="Head.h" />
+    <ClInclude Include="HeadManager.h" />
+    <ClInclude Include="LightHearHead.h" />
+    <ClInclude Include="ProtoPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
