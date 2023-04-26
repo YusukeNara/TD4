@@ -5,10 +5,14 @@
 #include "Audio.h"
 #include "TexManager.h"
 #include <RenderTargetManager.h>
+#include <DifferrdRenderingMgr.h>
 
 #include "NY_Object3DMgr.h"
 #include "SpriteManager.h"
 #include "Raki_imguiMgr.h"
+#include <NY_Camera.h>
+
+#include "GameManager.h"
 
 using namespace DirectX;
 using namespace Microsoft::WRL;
@@ -45,7 +49,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     //‰¹
     Audio::Init();
 
+    DiferredRenderingMgr diffMgr;
+    diffMgr.Init(RAKI_DX12B_DEV, RAKI_DX12B_CMD);
+
     //ƒV[ƒ“ŠÇ—
+    RVector3 eye(0.f, 100.f, -100.f);
+    RVector3 target(0.f, 0.f, 0.f);
+    RVector3 up(0.f, 1.f, 0.f);
+    NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
+
+    GameManager gmgr;
+
+    gmgr.Init();
 
 #pragma endregion GameValue
 
@@ -59,11 +74,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         Input::StartGetInputState();
 
 
+        //XV‚±‚±‚Ü‚Å
 
+        gmgr.Update();
+
+        //•`‰æ‚±‚±‚©‚ç
         RenderTargetManager::GetInstance()->CrearAndStartDraw();
 
 
+        NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
 
+        gmgr.Draw();
+
+        diffMgr.Rendering(&NY_Object3DManager::Get()->m_gBuffer, &NY_Object3DManager::Get()->m_shadomMap);
+
+
+        //•`‰æ‚±‚±‚Ü‚Å
         RenderTargetManager::GetInstance()->SwapChainBufferFlip();
 
         FPS::Get()->run();
