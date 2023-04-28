@@ -89,19 +89,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
 
-        gmgr.Draw();
+        //gmgr.Draw();
 
         sceneMgr->Draw();
 
         NY_Object3DManager::Get()->CloseDrawObject3D();
+
         diffMgr.Rendering(&NY_Object3DManager::Get()->m_gBuffer, &NY_Object3DManager::Get()->m_shadomMap);
 
         SpriteManager::Get()->SetCommonBeginDraw();
 
         sceneMgr->Draw2D();
-
-        
-
 
         //•`‰æ‚±‚±‚Ü‚Å
         RenderTargetManager::GetInstance()->SwapChainBufferFlip();

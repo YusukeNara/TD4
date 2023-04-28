@@ -13,6 +13,11 @@ SceneManager::SceneManager() :mNextScene(eScene_None) {
     Initialize();
 }
 
+SceneManager::~SceneManager()
+{
+    delete nowScene;
+}
+
 void SceneManager::Initialize()
 {
     //ƒV[ƒ“‚Ì‰Šú‰»

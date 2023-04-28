@@ -21,8 +21,7 @@ private:
 public:
     //コンスタラクタ
     SceneManager();
-    ~SceneManager() {
-    }
+    ~SceneManager() override;
     void Initialize() override;//初期化
     void Finalize() override;//終了処理
     void Update() override;//更新
