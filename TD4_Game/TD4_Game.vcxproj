@@ -166,6 +166,7 @@
     <ClCompile Include="LightHearHead.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProtoPlayer.cpp" />
+    <ClCompile Include="Result.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +275,7 @@
     <ClInclude Include="HeadManager.h" />
     <ClInclude Include="LightHearHead.h" />
     <ClInclude Include="ProtoPlayer.h" />
+    <ClInclude Include="Result.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
