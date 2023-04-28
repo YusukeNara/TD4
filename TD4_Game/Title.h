@@ -1,42 +1,18 @@
 #pragma once
-#include <vector>
-#include <memory>
-#include <array>
-#include <NY_Object3dMgr.h>
-#include <Sprite.h>
+#include "BaseScene.h"
+#include "ISceneChanger.h"
 
-#include "Head.h"
-#include "ProtoPlayer.h"
 
-class Title
-{
+class Title : public BaseScene {
+
 public:
-	Title();
-	~Title();
+    Title(ISceneChanger *changer);
+    ~Title() override;
 
-	void Init();
-
-	void Update();
-
-	void Draw();
-
-	void UIDraw();
-
-	void Finalize();
-
-private:
-	//3D素材
-	//タイトル背景
-	Object3d titleBack3D;
-
-	//2D素材
-	//タイトル背景
-	Sprite titleBack2D;
-	//タイトルロゴ
-	Sprite titleLogo;
-	//スタートボタンUI
-	Sprite startButtonUI;
-
-	//変数
-
+    void Initialize() override;    //初期化処理をオーバーライド。
+    void Finalize() override ;   //終了処理をオーバーライド。
+    void Update() override;        //更新処理をオーバーライド。
+    void Draw() override;          //描画処理をオーバーライド。
+    void Draw2D() override;
 };
+

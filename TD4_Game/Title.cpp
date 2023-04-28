@@ -1,29 +1,38 @@
 #include "Title.h"
 
-Title::Title()
-{
+Title::Title(ISceneChanger *changer) : BaseScene(changer) {
+
+
 }
 
 Title::~Title()
 {
+
 }
 
-void Title::Init()
-{
-}
+//èâä˙âª
+void Title::Initialize() {
 
-void Title::Update()
-{
-}
-
-void Title::Draw()
-{
-}
-
-void Title::UIDraw()
-{
 }
 
 void Title::Finalize()
+{
+
+}
+
+//çXêV
+void Title::Update() {
+
+    
+}
+
+//ï`âÊ
+void Title::Draw() {
+
+
+
+}
+
+void Title::Draw2D()
 {
 }
