@@ -19,6 +19,8 @@ public:
 
 	virtual void Finalize() {};
 
+	virtual void SlappingMove() {};
+
 	void SetPlayer(std::shared_ptr<ProtoPlayer> ptr) {
 		this->ptr = ptr;
 	}
