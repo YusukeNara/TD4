@@ -3,6 +3,7 @@
 #include <memory>
 #include <array>
 #include <NY_Object3dMgr.h>
+#include <Sprite.h>
 
 #include "Head.h"
 #include "ProtoPlayer.h"
@@ -24,5 +25,18 @@ public:
 	void Finalize();
 
 private:
-	//タイトルロゴとかのリソース
+	//3D素材
+	//タイトル背景
+	Object3d titleBack3D;
+
+	//2D素材
+	//タイトル背景
+	Sprite titleBack2D;
+	//タイトルロゴ
+	Sprite titleLogo;
+	//スタートボタンUI
+	Sprite startButtonUI;
+
+	//変数
+
 };
