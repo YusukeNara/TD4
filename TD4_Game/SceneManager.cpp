@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 #include "GameScene.h"
-#include "Title.h"
+#include "TitleScene.h"
 
 //Raki_DX12B         *SceneManager::dx12b  = nullptr;
 //NY_Object3DManager *SceneManager::objmgr = nullptr;
@@ -9,7 +9,7 @@
 SceneManager::SceneManager() :mNextScene(eScene_None) {
 
     //各シーンのインスタンス生成
-    nowScene = (BaseScene *) new Title(this);
+    nowScene = (BaseScene *) new TitleScene(this);
     Initialize();
 }
 
@@ -32,7 +32,7 @@ void SceneManager::Update()
         
         switch (mNextScene) {       //シーンによって処理を分岐
         case eScene_Title:        //次の画面がメニューなら
-            nowScene = (BaseScene*) new Title(this);
+            nowScene = (BaseScene*) new TitleScene(this);
             break;//以下略
         case eScene_Game:
             nowScene = (BaseScene*) new GameScene(this);

@@ -1,38 +1,49 @@
-#include "Title.h"
+#include "TitleScene.h"
+#include <iostream>
 
-Title::Title(ISceneChanger *changer) : BaseScene(changer) {
+TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
+	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
 
+	testobject = std::make_shared<Object3d>();
+	testobject.reset(NY_Object3DManager::Get()->CreateModel_Box(50.f, 10.f, 10.f, testTex));
 
+	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 45, 0), RVector3(0, 0, 0));
+
+	testsp.Create(testTex);
 }
 
-Title::~Title()
+TitleScene::~TitleScene()
 {
-
+	if (testobject) {
+		std::cout << "Object deleted" << endl;
+	}
 }
 
 //‰Šú‰»
-void Title::Initialize() {
+void TitleScene::Initialize() {
 
 }
 
-void Title::Finalize()
+void TitleScene::Finalize()
 {
 
 }
 
 //XV
-void Title::Update() {
+void TitleScene::Update() {
 
-    
+	if (Input::Get()->isKeyTrigger(DIK_2)) {
+		mSceneChanger->ChangeScene(eScene_Game);
+	}
 }
 
 //•`‰æ
-void Title::Draw() {
-
-
-
+void TitleScene::Draw() {
+	testobject->DrawObject();
 }
 
-void Title::Draw2D()
+void TitleScene::Draw2D()
 {
+	testsp.DrawSprite(0, 0);
+	testsp.Draw();
 }
