@@ -6,6 +6,7 @@
 #include "TexManager.h"
 #include <RenderTargetManager.h>
 #include <DifferrdRenderingMgr.h>
+#include "SceneManager.h"
 
 #include "NY_Object3DMgr.h"
 #include "SpriteManager.h"
@@ -60,6 +61,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
     GameManager gmgr;
 
+    std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
+
+
     gmgr.Init();
 
 #pragma endregion GameValue
@@ -78,16 +82,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         gmgr.Update();
 
+        sceneMgr->Update();
+
         //•`‰æ‚±‚±‚©‚ç
         RenderTargetManager::GetInstance()->CrearAndStartDraw();
 
-
         NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
 
-        gmgr.Draw();
+        //gmgr.Draw();
+
+        sceneMgr->Draw();
+
+        NY_Object3DManager::Get()->CloseDrawObject3D();
 
         diffMgr.Rendering(&NY_Object3DManager::Get()->m_gBuffer, &NY_Object3DManager::Get()->m_shadomMap);
 
+        SpriteManager::Get()->SetCommonBeginDraw();
+
+        sceneMgr->Draw2D();
 
         //•`‰æ‚±‚±‚Ü‚Å
         RenderTargetManager::GetInstance()->SwapChainBufferFlip();
