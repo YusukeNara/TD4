@@ -5,7 +5,7 @@
 AfroHead::AfroHead()
 {
 	headOffset = RVector3(0, 10.f, 0);
-	hearOffset = RVector3(0, 20.0f, 0);
+	hairOffset = RVector3(0, 20.0f, 0);
 }
 
 AfroHead::~AfroHead()
@@ -40,7 +40,7 @@ void AfroHead::Update()
 
 	//オブジェクト描画位置を設定
 	headObject->SetAffineParamTranslate(pos + headOffset);
-	afroObject->SetAffineParamTranslate(pos + hearOffset);
+	afroObject->SetAffineParamTranslate(pos + hairOffset);
 }
 
 void AfroHead::Draw()
@@ -55,4 +55,12 @@ void AfroHead::Finalize()
 
 
 
+}
+
+void AfroHead::SlappingMove()
+{
+}
+
+void AfroHead::CuttingHair()
+{
 }
