@@ -44,7 +44,6 @@ void EngineDebugScene::Update()
 
 void EngineDebugScene::Draw()
 {
-	//testobject->DrawObject();
 	testFBX_NoBone->DrawObject();
 	testFBX_YesBone->DrawObject();
 
