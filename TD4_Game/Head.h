@@ -33,11 +33,17 @@ public:
 	//アフィン変換
 	RVector3 pos, rot, scale;
 
+	//客のタイプ
+	int HeadType;
+
 	//有効化フラグ
 	bool isactive = false;
 
 	//待機時間
 	int waitTime = 0;
+
+	//髪を切られた・抜かれたかどうか
+	bool isHairDestroy;
 
 	//怒っているかどうか
 	bool isAngree = false;
