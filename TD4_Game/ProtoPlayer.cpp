@@ -38,4 +38,16 @@ void ProtoPlayer::CutHair()
 
 void ProtoPlayer::ChangeItem()
 {
+	if (enemyType == SkinHead)
+	{
+		handItemType = Hand;
+	}
+	if (enemyType == Thinning)
+	{
+		handItemType = Scissors;
+	}
+	if (enemyType == Afro)
+	{
+		handItemType = Clippers;
+	}
 }
