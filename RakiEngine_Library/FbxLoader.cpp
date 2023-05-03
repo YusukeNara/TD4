@@ -293,6 +293,10 @@ void FbxLoader::ParseSkin(fbxModel* model, FbxMesh* fbxMesh)
     FbxSkin* skin = static_cast<FbxSkin*>(fbxMesh->GetDeformer(0, FbxDeformer::eSkin));
 
     if (skin == nullptr) {
+        for (int i = 0; i < model->vertices.size(); i++) {
+            model->vertices[i].boneIndex[0]     = 0;
+            model->vertices[i].boneWeight[0]    = 1.0f;
+        }
         return;
     }
 

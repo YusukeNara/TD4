@@ -1,16 +1,17 @@
 #pragma once
 #include "BaseScene.h"
-#include "ISceneChanger.h"
-#include "NY_Object3DMgr.h"
-#include "Raki_Input.h"
 
 #include <NY_Object3DMgr.h>
 #include <Sprite.h>
+#include <Raki_Input.h>
 
-class GameScene : public BaseScene {
+//エンジン側検証用シーン
+//このクラスもいじらないこと
+class EngineDebugScene : public BaseScene
+{
 public:
-    GameScene(ISceneChanger *changer);
-    ~GameScene() override;
+    EngineDebugScene(ISceneChanger* changer);
+    ~EngineDebugScene() override;
     void Initialize() override;    //初期化処理をオーバーライド。
     void Finalize() override;        //終了処理をオーバーライド。
     void Update() override;        //更新処理をオーバーライド。
@@ -19,6 +20,9 @@ public:
 
     Sprite testsp;
     std::shared_ptr<Object3d> testobject;
+
+    std::shared_ptr<Object3d> testFBX_YesBone;
+    std::shared_ptr<Object3d> testFBX_NoBone;
 
 };
 
