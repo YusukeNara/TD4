@@ -89,8 +89,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
 
-        //gmgr.Draw();
-
         sceneMgr->Draw();
 
         NY_Object3DManager::Get()->CloseDrawObject3D();
