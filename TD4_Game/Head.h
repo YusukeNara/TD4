@@ -54,6 +54,9 @@ public:
 	//反撃するかどうか
 	bool isCounter = false;
 
+	//処理が終わったかどうか
+	bool isAllMove = false;
+
 	//プレイヤーポインタ
 	std::weak_ptr<ProtoPlayer> ptr;
 
