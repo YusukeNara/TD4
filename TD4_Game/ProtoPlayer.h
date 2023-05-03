@@ -7,6 +7,11 @@
 
 
 
+enum CheraType
+{
+	SkinHead, Thinning, Afro,
+};
+
 class ProtoPlayer
 {
 public:
@@ -30,11 +35,18 @@ public:
 	//¶è‚ÌƒAƒCƒeƒ€‚ğØ‚è‘Ö‚¦‚é
 	void ChangeItem();
 
+	enum ItemType
+	{
+		Hand, Scissors, Clippers
+	};
+
 private:
 	
 	RVector3 position;
 	RVector3 rotation;
 	RVector3 scale;
+	int enemyType = SkinHead;
+	int handItemType = Hand;
 
 	std::shared_ptr<Object3d> player = nullptr;
 	std::shared_ptr<Object3d> scissor = nullptr;
