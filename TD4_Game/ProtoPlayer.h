@@ -9,7 +9,7 @@
 
 enum CheraType
 {
-	SkinHead, Thinning, Afro,
+	None,SkinHead, Thinning, Afro,
 };
 
 class ProtoPlayer
