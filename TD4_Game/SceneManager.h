@@ -27,6 +27,7 @@ public:
     void Update() override;//更新
     void Draw() override;//描画
     void Draw2D() override;
+    void DrawImgui() override;
 
     // 引数 nextScene にシーンを変更する
     void ChangeScene(eScene NextScene) override;

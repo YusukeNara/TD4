@@ -37,7 +37,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     rakiWinApp = new Raki_WinAPI;
     rakiWinApp->CreateGameWindow();
 
-    Raki_DX12B::Get()->Initialize(rakiWinApp);
+    //ƒGƒ“ƒWƒ“‘¤‚ÌƒGƒ‰[AŒx‚ð–³Ž‹‚µ‚È‚¢Ý’è‚É‚·‚é‚Æ‚«‚ÍA‚±‚ÌŠÖ”‚Ì‘æ“ñˆø”‚Étrue‚ð“n‚·‚Æ—Ç‚¢
+    Raki_DX12B::Get()->Initialize(rakiWinApp, false);
 
     myImgui::InitializeImGui(Raki_DX12B::Get()->GetDevice(), Raki_WinAPI::GetHWND());
 
@@ -98,6 +99,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         SpriteManager::Get()->SetCommonBeginDraw();
 
         sceneMgr->Draw2D();
+
+        sceneMgr->DrawImgui();
 
         //•`‰æ‚±‚±‚Ü‚Å
         RenderTargetManager::GetInstance()->SwapChainBufferFlip();
