@@ -28,6 +28,7 @@ public:
     virtual void Update() override {}        //更新処理をオーバーライド。
     virtual void Draw() override{}            //描画処理をオーバーライド。
     virtual void Draw2D() override{}
+    virtual void DrawImgui() override{}
 
 };
 
