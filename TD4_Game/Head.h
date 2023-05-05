@@ -55,7 +55,7 @@ public:
 	bool isCounter = false;
 
 	//処理が終わったかどうか
-	bool isAllMove = false;
+	bool isAllMoveFinish = false;
 
 	//プレイヤーポインタ
 	std::weak_ptr<ProtoPlayer> ptr;
