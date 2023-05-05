@@ -34,6 +34,9 @@ void AfroHead::Update()
 	// 頭が有効化されたら
 	if (isactive) {
 		//入力を受け付ける
+		SlappingMove();
+
+		CuttingHair();
 
 	}
 
@@ -47,7 +50,10 @@ void AfroHead::Draw()
 {
 	//オブジェクト描画
 	headObject->DrawObject();
-	afroObject->DrawObject();
+	if (!isHairDestroy)
+	{
+		afroObject->DrawObject();
+	}
 }
 
 void AfroHead::Finalize()
@@ -59,8 +65,34 @@ void AfroHead::Finalize()
 
 void AfroHead::SlappingMove()
 {
+	if (!isHairDestroy)
+	{
+		return;
+	}
+
+	//プレイヤーの入力を受け付けたら
+	//if(ptr->)
+	//{}
+
+	isAllMove = true;
 }
 
 void AfroHead::CuttingHair()
 {
+	if (isHairDestroy)
+	{
+		return;
+	}
+
+	//プレイヤーの入力を受け付けたら
+	//if(ptr->)
+	//{
+	CutCount++;
+	//}
+
+	
+	if (CutCount >= MaxCutCount)
+	{
+		isHairDestroy = true;
+	}
 }

@@ -34,5 +34,9 @@ private:
 
 	UINT afroheadTex;
 
+	//”¯‚ğa‚Á‚½‰ñ”
+	int CutCount = 0;
+	const int MaxCutCount = 3;
+
 };
 
