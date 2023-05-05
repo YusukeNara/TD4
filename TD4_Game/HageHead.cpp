@@ -21,6 +21,7 @@ void HageHead::Init()
 	rot = RVector3(0, 0, 0);
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
+	isHairDestroy = true;
 }
 
 void HageHead::Update()
@@ -42,6 +43,15 @@ void HageHead::Finalize()
 
 void HageHead::SlappingMove()
 {
-	//プレイヤーからの入力があったら更新
+	if (!isHairDestroy)
+	{
+		return;
+	}
+
+	//プレイヤーの入力を受け付けたら
+	//if(ptr->)
+	//{}
+
+	isAllMoveFinish = true;
 
 }

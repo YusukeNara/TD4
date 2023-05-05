@@ -30,7 +30,9 @@ void LightHairHead::Update()
 	// 頭が有効化されたら
 	if (isactive) {
 		//入力を受け付ける
+		SlappingMove();
 
+		PullOutHair();
 	}
 
 
@@ -43,7 +45,10 @@ void LightHairHead::Draw()
 {
 	//オブジェクト描画
 	headObject->DrawObject();
-	hairObject->DrawObject();
+	if (!isHairDestroy)
+	{
+		hairObject->DrawObject();
+	}
 }
 
 void LightHairHead::Finalize()
@@ -52,8 +57,29 @@ void LightHairHead::Finalize()
 
 void LightHairHead::SlappingMove()
 {
+	if (!isHairDestroy)
+	{
+		return;
+	}
+
+	//プレイヤーの入力を受け付けたら
+	//if(ptr->)
+	//{}
+
+	isAllMoveFinish = true;
 }
 
 void LightHairHead::PullOutHair()
 {
+	if (isHairDestroy)
+	{
+		return;
+	}
+
+	//プレイヤーの入力を受け付けたら
+	//if(ptr->)
+	//{
+	//}
+
+	isHairDestroy = true;
 }

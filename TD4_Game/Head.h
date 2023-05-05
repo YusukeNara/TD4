@@ -43,7 +43,7 @@ public:
 	int waitTime = 0;
 
 	//”¯‚ğØ‚ç‚ê‚½E”²‚©‚ê‚½‚©‚Ç‚¤‚©
-	bool isHairDestroy;
+	bool isHairDestroy = false;
 
 	//“{‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
 	bool isAngree = false;
