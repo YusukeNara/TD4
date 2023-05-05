@@ -74,7 +74,7 @@ void AfroHead::SlappingMove()
 	//if(ptr->)
 	//{}
 
-	isAllMove = true;
+	isAllMoveFinish = true;
 }
 
 void AfroHead::CuttingHair()
