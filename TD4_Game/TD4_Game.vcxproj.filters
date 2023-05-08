@@ -45,9 +45,6 @@
     <ClCompile Include="ProtoPlayer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Head.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="HeadManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>

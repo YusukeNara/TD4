@@ -1,4 +1,4 @@
-#include "HageHead.h"
+ï»¿#include "HageHead.h"
 
 HageHead::HageHead()
 {
@@ -48,7 +48,7 @@ void HageHead::SlappingMove()
 		return;
 	}
 
-	//ƒvƒŒƒCƒ„[‚Ì“ü—Í‚ðŽó‚¯•t‚¯‚½‚ç
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ãŸã‚‰
 	//if(ptr->)
 	//{}
 

@@ -164,7 +164,6 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="HageHead.cpp" />
-    <ClCompile Include="Head.cpp" />
     <ClCompile Include="HeadManager.cpp" />
     <ClCompile Include="ISceneChanger.cpp" />
     <ClCompile Include="LightHearHead.cpp" />
