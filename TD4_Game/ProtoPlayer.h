@@ -9,7 +9,7 @@
 
 enum CheraType
 {
-	None,SkinHead, Thinning, Afro,
+	None, SkinHead, Thinning, Afro,
 };
 
 class ProtoPlayer
@@ -24,15 +24,20 @@ public:
 
 	void Draw();
 
+	void Attack();
+
 	void Finalize();
 
-	//ƒrƒ“ƒ^
+	//ãƒ“ãƒ³ã‚¿
 	void HandAttack();
 
-	//”¯‚ğØ‚é
+	//é«ªã‚’åˆ‡ã‚‹
 	void CutHair();
 
-	//¶è‚ÌƒAƒCƒeƒ€‚ğØ‚è‘Ö‚¦‚é
+	//ãƒãƒªã‚«ãƒ³
+	void Clip();
+
+	//å·¦æ‰‹ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 	void ChangeItem();
 
 	enum ItemType
