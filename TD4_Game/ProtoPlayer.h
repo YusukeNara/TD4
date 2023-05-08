@@ -9,7 +9,7 @@
 
 enum CheraType
 {
-	SkinHead, Thinning, Afro,
+	None, SkinHead, Thinning, Afro,
 };
 
 class ProtoPlayer
@@ -24,6 +24,8 @@ public:
 
 	void Draw();
 
+	void Attack();
+
 	void Finalize();
 
 	//ビンタ
@@ -31,6 +33,9 @@ public:
 
 	//髪を切る
 	void CutHair();
+
+	//バリカン
+	void Clip();
 
 	//左手のアイテムを切り替える
 	void ChangeItem();
