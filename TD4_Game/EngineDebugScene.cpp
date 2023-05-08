@@ -14,8 +14,9 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testsp.Create(testTex);
 
 	testFBX_YesBone = std::make_shared<Object3d>();
-	testFBX_YesBone.reset(LoadModel_FBXFile("hageBoonYes"));
-	testFBX_YesBone->SetAffineParam(RVector3(0.002f, 0.002f, 0.002f), RVector3(90, 0, 0), RVector3(-50.f, 0, 0));
+	testFBX_YesBone.reset(LoadModel_FBXFile("hage_1"));
+	testFBX_YesBone->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(90, 0, 0), RVector3(-50.f, 0, 0));
+	testFBX_YesBone->PlayAnimation();
 
 	testFBX_NoBone = std::make_shared<Object3d>();
 	testFBX_NoBone.reset(LoadModel_FBXFile("hageBoonNo"));
