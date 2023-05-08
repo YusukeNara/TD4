@@ -1,4 +1,4 @@
-#include "HeadManager.h"
+ï»¿#include "HeadManager.h"
 #include"HageHead.h"
 #include"AfroHead.h"
 #include"LightHearHead.h"
@@ -25,7 +25,7 @@ void HeadManager::Initialize()
 
 void HeadManager::Update()
 {
-	//—v‘f”‚ªMAX‚æ‚è‚à­‚È‚¢ê‡‘‚â‚·
+	//è¦ç´ æ•°ãŒMAXã‚ˆã‚Šã‚‚å°‘ãªã„å ´åˆå¢—ã‚„ã™
 	if (heads.size() < HEAD_DISPLAY_MAX)
 	{
 		Head *ptr = HeadSpawn(HEAD_DISPLAY_MAX - 1);
@@ -35,7 +35,7 @@ void HeadManager::Update()
 		heads[HEAD_DISPLAY_MAX - 1]->Init();
 		heads[HEAD_DISPLAY_MAX - 1]->pos = easepos[HEAD_DISPLAY_MAX - 1];
 	}
-	//XVˆ—
+	//æ›´æ–°å‡¦ç†
 	for (auto &h : heads) {
 		h->Update();
 	}
@@ -49,7 +49,7 @@ void HeadManager::Draw()
 void HeadManager::PopFront()
 {
 	heads.erase(heads.begin());
-	//æ“ª‚ª•Ï‚í‚é‚Ì‚Å‘®«‚àˆÚ“®‚³‚¹‚Ä‚¨‚­
+	//å…ˆé ­ãŒå¤‰ã‚ã‚‹ã®ã§å±æ€§ã‚‚ç§»å‹•ã•ã›ã¦ãŠã
 	for (int i = 0; i < HEAD_DISPLAY_MAX - 1; i++) {
 		charaType[i] = charaType[i + 1];
 	}
@@ -63,7 +63,7 @@ CheraType HeadManager::GetFrontType()
 
 void HeadManager::FirstSpawn()
 {
-	//5‰ñƒXƒ|[ƒ“AˆÊ’uİ’è
+	//5å›ã‚¹ãƒãƒ¼ãƒ³ã€ä½ç½®è¨­å®š
 	for (int i = 0; i < HEAD_DISPLAY_MAX; i++) {
 
 		Head *ptr = HeadSpawn(i);
@@ -79,7 +79,7 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 {
 	Head *head;
 
-	//ƒ‰ƒ“ƒ_ƒ€‚Å“ª‚ğ¶¬
+	//ãƒ©ãƒ³ãƒ€ãƒ ã§é ­ã‚’ç”Ÿæˆ
 	head = new AfroHead();
 	charaType[arrayNum] = SkinHead;
 	return head;

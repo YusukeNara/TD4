@@ -1,4 +1,4 @@
-#include "GameManager.h"
+ï»¿#include "GameManager.h"
 
 #include "AfroHead.h"
 
@@ -48,7 +48,7 @@ void GameManager::Draw()
 
 	for (const auto& h : heads) { h->Draw(); }
 
-	//°
+	//åºŠ
 	groundObject->DrawObject();
 
 	NY_Object3DManager::Get()->CloseDrawObject3D();
@@ -64,7 +64,7 @@ void GameManager::Finalize()
 
 void GameManager::FirstSpawn()
 {
-	//5‰ñƒXƒ|[ƒ“AˆÊ’uİ’è
+	//5å›ã‚¹ãƒãƒ¼ãƒ³ã€ä½ç½®è¨­å®š
 	for (int i = 0; i < 5; i++) {
 
 		Head* ptr = HeadSpawn();
@@ -90,7 +90,7 @@ Head* GameManager::HeadSpawn()
 {
 	Head* head;
 
-	//ƒ‰ƒ“ƒ_ƒ€‚Å“ª‚ğ¶¬
+	//ãƒ©ãƒ³ãƒ€ãƒ ã§é ­ã‚’ç”Ÿæˆ
 	head = new AfroHead();
 
 	return head;

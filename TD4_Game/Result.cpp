@@ -1,4 +1,4 @@
-#include "Result.h"
+ï»¿#include "Result.h"
 
 Result::Result()
 {
@@ -26,7 +26,7 @@ void Result::Draw()
 {
 	NY_Object3DManager::Get()->SetRestartObject3D();
 
-	//°
+	//åºŠ
 	groundObject->DrawObject();
 
 	NY_Object3DManager::Get()->CloseDrawObject3D();
