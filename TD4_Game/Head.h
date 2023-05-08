@@ -34,7 +34,7 @@ public:
 	RVector3 pos, rot, scale;
 
 	//客のタイプ
-	int HeadType;
+	CheraType HeadType = CheraType::None;
 
 	//有効化フラグ
 	bool isactive = false;
