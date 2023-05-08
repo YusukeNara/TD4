@@ -74,4 +74,6 @@ private:
 	FbxImporter* fbxImporter = nullptr;
 };
 
+static const int MAX_BONES = 32;
+
 #pragma warning (pop)

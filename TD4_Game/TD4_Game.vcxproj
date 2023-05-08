@@ -159,15 +159,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AfroHead.cpp" />
+    <ClCompile Include="BaseScene.cpp" />
+    <ClCompile Include="EngineDebugScene.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="HageHead.cpp" />
     <ClCompile Include="Head.cpp" />
     <ClCompile Include="HeadManager.cpp" />
+    <ClCompile Include="ISceneChanger.cpp" />
     <ClCompile Include="LightHearHead.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProtoPlayer.cpp" />
     <ClCompile Include="Result.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DirectXTex\DirectXTex_Desktop_2019_Win10.vcxproj">
@@ -269,14 +275,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AfroHead.h" />
+    <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="EngineDebugScene.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="HageHead.h" />
     <ClInclude Include="Head.h" />
     <ClInclude Include="HeadManager.h" />
+    <ClInclude Include="ISceneChanger.h" />
     <ClInclude Include="LightHearHead.h" />
     <ClInclude Include="ProtoPlayer.h" />
     <ClInclude Include="Result.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Task.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
