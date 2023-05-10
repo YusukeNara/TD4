@@ -52,6 +52,8 @@ void SceneManager::Update()
             break;
         }
         mNextScene = eScene_None;    //次のシーン情報をクリア
+
+        nowScene->Initialize();
     }
 
     nowScene->Update(); //シーンの更新
