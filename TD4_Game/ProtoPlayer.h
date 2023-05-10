@@ -28,16 +28,16 @@ public:
 
 	void Finalize();
 
-	//ƒrƒ“ƒ^
+	//ãƒ“ãƒ³ã‚¿
 	void HandAttack();
 
-	//”¯‚ğØ‚é
+	//é«ªã‚’åˆ‡ã‚‹
 	void CutHair();
 
-	//ƒoƒŠƒJƒ“
+	//ãƒãƒªã‚«ãƒ³
 	void Clip();
 
-	//¶è‚ÌƒAƒCƒeƒ€‚ğØ‚è‘Ö‚¦‚é
+	//å·¦æ‰‹ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 	void ChangeItem();
 
 	enum ItemType
