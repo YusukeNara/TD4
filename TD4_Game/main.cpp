@@ -81,8 +81,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         //XV‚±‚±‚Ü‚Å
 
-        gmgr.Update();
-
         sceneMgr->Update();
 
         //•`‰æ‚±‚±‚©‚ç
