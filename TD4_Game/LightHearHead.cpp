@@ -66,7 +66,11 @@ void LightHairHead::SlappingMove()
 	//if(ptr->)
 	//{}
 
-	isAllMoveFinish = true;
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		isAllMoveFinish = true;
+
+	}
 }
 
 void LightHairHead::PullOutHair()
