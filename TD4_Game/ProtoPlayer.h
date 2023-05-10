@@ -4,12 +4,16 @@
 #include <memory>
 #include <array>
 #include <NY_Object3D.h>
-
+#include "Raki_Input.h"
 
 
 enum CheraType
 {
 	None, SkinHead, Thinning, Afro,
+};
+enum ItemType
+{
+	Hand, Scissors, Clippers
 };
 
 class ProtoPlayer
@@ -40,10 +44,7 @@ public:
 	//左手のアイテムを切り替える
 	void ChangeItem();
 
-	enum ItemType
-	{
-		Hand, Scissors, Clippers
-	};
+	ItemType GetItemType();
 
 private:
 	
