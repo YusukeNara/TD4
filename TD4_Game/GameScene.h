@@ -16,6 +16,7 @@ public:
     void Update() override;        //更新処理をオーバーライド。
     void Draw() override;            //描画処理をオーバーライド。
     void Draw2D() override;
+    void DrawImgui() override;
 
     Sprite testsp;
     std::shared_ptr<Object3d> testobject;

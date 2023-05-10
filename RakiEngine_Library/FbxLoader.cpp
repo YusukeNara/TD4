@@ -233,11 +233,10 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
 void FbxLoader::ParseMaterial(fbxModel* model, FbxNode* node)
 {
     const int materialCount = node->GetMaterialCount();
+    bool textureLoaded = false;
     if (materialCount > 0) {
 
         FbxSurfaceMaterial* material = node->GetMaterial(0);
-
-        bool textureLoaded = false;
 
         if (material) {
             if (material->GetClassId().Is(FbxSurfaceLambert::ClassId)) {
@@ -276,6 +275,8 @@ void FbxLoader::ParseMaterial(fbxModel* model, FbxNode* node)
             model->material.texNumber = TexManager::LoadTexture(baseDir + defaultTexName);
         }
     }
+
+    if (!textureLoaded) {model->material.texNumber = TexManager::LoadTexture(baseDir + defaultTexName);}
 
 }
 

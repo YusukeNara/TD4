@@ -45,3 +45,7 @@ void GameScene::Draw2D()
 	testsp.DrawSprite(640, 360);
 	testsp.Draw();
 }
+
+void GameScene::DrawImgui()
+{
+}
