@@ -1,4 +1,4 @@
-#include "AfroHead.h"
+ï»¿#include "AfroHead.h"
 
 #include <Raki_Input.h>
 
@@ -31,23 +31,29 @@ void AfroHead::Init()
 
 void AfroHead::Update()
 {
-	// “ª‚ª—LŒø‰»‚³‚ê‚½‚ç
+	// é ­ãŒæœ‰åŠ¹åŒ–ã•ã‚ŒãŸã‚‰
 	if (isactive) {
-		//“ü—Í‚ðŽó‚¯•t‚¯‚é
+		//å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ã‚‹
+		SlappingMove();
+
+		CuttingHair();
 
 	}
 
 
-	//ƒIƒuƒWƒFƒNƒg•`‰æˆÊ’u‚ðÝ’è
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæç”»ä½ç½®ã‚’è¨­å®š
 	headObject->SetAffineParamTranslate(pos + headOffset);
 	afroObject->SetAffineParamTranslate(pos + hairOffset);
 }
 
 void AfroHead::Draw()
 {
-	//ƒIƒuƒWƒFƒNƒg•`‰æ
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæç”»
 	headObject->DrawObject();
-	afroObject->DrawObject();
+	if (!isHairDestroy)
+	{
+		afroObject->DrawObject();
+	}
 }
 
 void AfroHead::Finalize()
@@ -59,8 +65,34 @@ void AfroHead::Finalize()
 
 void AfroHead::SlappingMove()
 {
+	if (!isHairDestroy)
+	{
+		return;
+	}
+
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ãŸã‚‰
+	//if(ptr->)
+	//{}
+
+	isAllMoveFinish = true;
 }
 
 void AfroHead::CuttingHair()
 {
+	if (isHairDestroy)
+	{
+		return;
+	}
+
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ãŸã‚‰
+	//if(ptr->)
+	//{
+	CutCount++;
+	//}
+
+	
+	if (CutCount >= MaxCutCount)
+	{
+		isHairDestroy = true;
+	}
 }

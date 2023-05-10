@@ -1,4 +1,4 @@
-#include "HageHead.h"
+ï»¿#include "HageHead.h"
 
 HageHead::HageHead()
 {
@@ -21,6 +21,7 @@ void HageHead::Init()
 	rot = RVector3(0, 0, 0);
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
+	isHairDestroy = true;
 }
 
 void HageHead::Update()
@@ -42,6 +43,15 @@ void HageHead::Finalize()
 
 void HageHead::SlappingMove()
 {
-	//ƒvƒŒƒCƒ„[‚©‚ç‚Ì“ü—Í‚ª‚ ‚Á‚½‚çXV
+	if (!isHairDestroy)
+	{
+		return;
+	}
+
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ãŸã‚‰
+	//if(ptr->)
+	//{}
+
+	isAllMoveFinish = true;
 
 }

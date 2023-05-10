@@ -2,6 +2,8 @@
 typedef enum {
     eScene_Title,   //タイトル画面
     eScene_Game,    //ゲーム画面
+
+    eScene_Debug,   //エンジン側検証用
     eScene_None,    //無し
 } eScene;
 

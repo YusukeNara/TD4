@@ -50,6 +50,15 @@ void Object3d::InitObject3D(ID3D12Device *dev)
 	);
 	constBuffB1.Get()->SetName(L"Object3d_cbuffSkin");
 
+	//’PˆÊs—ñ‚Å‰Šú‰»
+	ConstBufferDataSkin* constMapSkin = nullptr;
+	if (SUCCEEDED(constBuffSkin->Map(0, nullptr, (void**)&constMapSkin))) {
+		for (int i = 0; i < MAX_BONES; i++) {
+			constMapSkin->bones[i] = XMMatrixIdentity();
+		}
+		constBuffSkin->Unmap(0, nullptr);
+	}
+
 	frameTime.SetTime(0, 0, 0, 1, 0, FbxTime::EMode::eFrames60);
 
 }

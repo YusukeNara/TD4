@@ -34,7 +34,7 @@ public:
 	RVector3 pos, rot, scale;
 
 	//客のタイプ
-	int HeadType;
+	CheraType HeadType = CheraType::None;
 
 	//有効化フラグ
 	bool isactive = false;
@@ -43,7 +43,7 @@ public:
 	int waitTime = 0;
 
 	//髪を切られた・抜かれたかどうか
-	bool isHairDestroy;
+	bool isHairDestroy = false;
 
 	//怒っているかどうか
 	bool isAngree = false;
@@ -55,7 +55,7 @@ public:
 	bool isCounter = false;
 
 	//処理が終わったかどうか
-	bool isAllMove = false;
+	bool isAllMoveFinish = false;
 
 	//プレイヤーポインタ
 	std::weak_ptr<ProtoPlayer> ptr;

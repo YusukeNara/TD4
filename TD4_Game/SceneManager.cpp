@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "GameScene.h"
-#include "Title.h"
+#include "TitleScene.h"
+#include "EngineDebugScene.h"
 
 //Raki_DX12B         *SceneManager::dx12b  = nullptr;
 //NY_Object3DManager *SceneManager::objmgr = nullptr;
@@ -9,8 +10,13 @@
 SceneManager::SceneManager() :mNextScene(eScene_None) {
 
     //各シーンのインスタンス生成
-    nowScene = (BaseScene *) new Title(this);
+    nowScene = (BaseScene *) new TitleScene(this);
     Initialize();
+}
+
+SceneManager::~SceneManager()
+{
+    delete nowScene;
 }
 
 void SceneManager::Initialize()
@@ -26,16 +32,23 @@ void SceneManager::Finalize()
 
 void SceneManager::Update()
 {
+    //デバッグモード
+    if (Input::Get()->isKeyTrigger(DIK_F12)) { mNextScene = eScene_Debug; }
+    if(Input::Get()->isKeyTrigger(DIK_F1)) { mNextScene = eScene_Title; }
+
     if (mNextScene != eScene_None) {    //次のシーンがセットされていたら
         delete nowScene;
         nowScene = nullptr;
         
         switch (mNextScene) {       //シーンによって処理を分岐
         case eScene_Title:        //次の画面がメニューなら
-            nowScene = (BaseScene*) new Title(this);
+            nowScene = (BaseScene*) new TitleScene(this);
             break;//以下略
         case eScene_Game:
             nowScene = (BaseScene*) new GameScene(this);
+            break;
+        case eScene_Debug:
+            nowScene = (BaseScene*) new EngineDebugScene(this);
             break;
         }
         mNextScene = eScene_None;    //次のシーン情報をクリア
