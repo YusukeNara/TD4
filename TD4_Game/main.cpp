@@ -82,14 +82,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         gmgr.Update();
 
-        sceneMgr->Update();
+        //sceneMgr->Update();
 
         //描画ここから
         RenderTargetManager::GetInstance()->CrearAndStartDraw();
 
         NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
 
-        sceneMgr->Draw();
+        //sceneMgr->Draw();
+        gmgr.Draw();
 
         NY_Object3DManager::Get()->CloseDrawObject3D();
 

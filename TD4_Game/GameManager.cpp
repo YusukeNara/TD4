@@ -13,6 +13,7 @@ GameManager::GameManager()
 
 	groundObject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 0, 0), RVector3(0, 0, 0));
 
+	headMan = std::make_unique<HeadManager>();
 }
 
 GameManager::~GameManager()
@@ -23,30 +24,19 @@ void GameManager::Init()
 {
 
 	RVector3 easeOffset(0, 0, 100.f);
-	int i = 0;
-	for (auto& ep : easepos) {
-		ep = easeOffset * float(i);
-		i++;
-	}
-
-	FirstSpawn();
-
+	headMan->Initialize();
 }
 
 void GameManager::Update()
 {
-	for (auto& h : heads) {
-		h->Update();
-	}
-
-
+	headMan->Update();
 }
 
 void GameManager::Draw()
 {
 	NY_Object3DManager::Get()->SetRestartObject3D();
 
-	for (const auto& h : heads) { h->Draw(); }
+	headMan->Draw();
 
 	//床
 	groundObject->DrawObject();
@@ -60,38 +50,4 @@ void GameManager::UIDraw()
 
 void GameManager::Finalize()
 {
-}
-
-void GameManager::FirstSpawn()
-{
-	//5回スポーン、位置設定
-	for (int i = 0; i < 5; i++) {
-
-		Head* ptr = HeadSpawn();
-		
-		heads.push_back(std::make_shared<Head>());
-		heads[i].reset(ptr);
-		heads[i]->Init();
-		heads[i]->pos = easepos[i];
-
-		
-	}
-}
-
-void GameManager::SpawnManagement()
-{
-	//
-
-
-
-}
-
-Head* GameManager::HeadSpawn()
-{
-	Head* head;
-
-	//ランダムで頭を生成
-	head = new AfroHead();
-
-	return head;
 }
