@@ -49,7 +49,7 @@ public:
 	/// <summary>
 	/// DirectX12の一括初期化
 	/// </summary>
-	void Initialize(Raki_WinAPI *win);
+	void Initialize(Raki_WinAPI* win, bool isStopifFatalErrorDetected = false);
 
 	/// <summary>
 	/// 1パス目描画開始

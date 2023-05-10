@@ -47,3 +47,7 @@ void TitleScene::Draw2D()
 	testsp.DrawSprite(0, 0);
 	testsp.Draw();
 }
+
+void TitleScene::DrawImgui()
+{
+}

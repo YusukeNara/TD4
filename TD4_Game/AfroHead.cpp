@@ -71,10 +71,14 @@ void AfroHead::SlappingMove()
 	}
 
 	//プレイヤーの入力を受け付けたら
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		isAllMoveFinish = true;
+
+	}
 	//if(ptr->)
 	//{}
 
-	isAllMoveFinish = true;
 }
 
 void AfroHead::CuttingHair()
@@ -87,10 +91,13 @@ void AfroHead::CuttingHair()
 	//プレイヤーの入力を受け付けたら
 	//if(ptr->)
 	//{
-	CutCount++;
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		CutCount++;
+	}
 	//}
 
-	
+
 	if (CutCount >= MaxCutCount)
 	{
 		isHairDestroy = true;
