@@ -35,6 +35,16 @@ void HeadManager::Update()
 		heads[HEAD_DISPLAY_MAX - 1]->Init();
 		heads[HEAD_DISPLAY_MAX - 1]->pos = easepos[HEAD_DISPLAY_MAX - 1];
 	}
+
+	//先頭の人の処理が終わったら先頭を消す
+	for (int headNum = 0; headNum < heads.size(); headNum++)
+	{
+		if (heads[headNum]->isAllMoveFinish)
+		{
+			PopFront();
+		}
+	}
+
 	//更新処理
 	for (auto &h : heads) {
 		h->Update();
@@ -81,6 +91,6 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 
 	//ランダムで頭を生成
 	head = new AfroHead();
-	charaType[arrayNum] = SkinHead;
+	charaType[arrayNum] = CheraType::SkinHead;
 	return head;
 }
