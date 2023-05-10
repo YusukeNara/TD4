@@ -42,7 +42,7 @@ VSOutput main(VSInput input)
 {
     SkinOutput skined = CompureSkin(input);
 	
-    float4 wn = normalize(mul(mat, float4(skined.normal, 0)));
+    float4 wn = normalize(mul(wMat, float4(skined.normal, 0)));
 	
 	VSOutput output;//ピクセルシェーダーに渡す値
     output.worldPos = input.svpos;

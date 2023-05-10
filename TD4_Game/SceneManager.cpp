@@ -68,6 +68,11 @@ void SceneManager::Draw2D()
     nowScene->Draw2D();
 }
 
+void SceneManager::DrawImgui()
+{
+    nowScene->DrawImgui();
+}
+
 void SceneManager::ChangeScene(eScene NextScene)
 {
     //次のシーン番号をセット

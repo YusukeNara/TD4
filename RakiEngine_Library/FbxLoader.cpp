@@ -1,6 +1,8 @@
 ﻿#include "FbxLoader.h"
 #include <iostream>
 #include <algorithm>
+#include <cassert>
+#include <assert.h>
 
 const std::string FbxLoader::baseDir = "Resources/";
 
@@ -128,7 +130,7 @@ void FbxLoader::ParseMesh(fbxModel* model, FbxNode* fbxnode)
 {
     FbxMesh* fbxmesh = fbxnode->GetMesh();
 
-    ParseMeshVertices(model, fbxmesh);
+    //ParseMeshVertices(model, fbxmesh);
 
     ParseMeshFaces(model, fbxmesh);
 
@@ -163,11 +165,14 @@ void FbxLoader::ParseMeshVertices(fbxModel* model, FbxMesh* mesh)
     const int ctrlPointCount = mesh->GetControlPointsCount();
 
     fbxVertex v{};
-    model->vertices.resize(ctrlPointCount, v);
+    //model->vertices.resize(ctrlPointCount, v);
 
     FbxVector4 *pCoord = mesh->GetControlPoints();
 
-    for (int i = 0; i < ctrlPointCount; i++) {
+    for (int i = 0; i < mesh->GetPolygonCount(); i++) {
+        for (int j = 0; j < 3; j++) {
+
+        }
         fbxVertex& vertex = vertices[i];
         vertex.pos.x = (float)pCoord[i][0];
         vertex.pos.y = (float)pCoord[i][1];
@@ -188,15 +193,24 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
     FbxStringList uvNames;
     mesh->GetUVSetNames(uvNames);
 
+    FbxVector4* pCoord = mesh->GetControlPoints();
+    fbxVertex v = {};
+
     for (int i = 0; i < polygonCount; i++) {
         const int polygonsize = mesh->GetPolygonSize(i);
-        assert(polygonsize <= 4);
+        
+        assert(polygonCount == 3 && "Rectangular polygons were detected in the file being read. Only model data consisting only of triangular polygons are supported. Please prepare model data with only triangle polygons.");
 
         for (int j = 0; j < polygonsize; j++) {
             int index = mesh->GetPolygonVertex(i, j);
             assert(index >= 0);
 
-            fbxVertex& v = vertices[index];
+
+
+            v.pos.x = (float)(*(pCoord + index))[0];
+            v.pos.y = (float)(*(pCoord + index))[1];
+            v.pos.z = (float)(*(pCoord + index))[2];
+
             FbxVector4 normal;
             if (mesh->GetPolygonVertexNormal(i, j, normal)) {
                 v.normal.x = (float)normal[0];
@@ -214,30 +228,34 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
                 }
             }
 
-            if (j < 3) {
-                indices.push_back(index);
-            }
-            else {
-                int index2 = indices[indices.size() - 1];
-                int index3 = index;
-                int index0 = indices[indices.size() - 3];
-                indices.push_back(index2);
-                indices.push_back(index3);
-                indices.push_back(index0);
-            }
+            //if (j < 3) {
+            //    indices.push_back(index);
+            //}
+            //else {
+            //    int index2 = indices[indices.size() - 1];
+            //    int index3 = index;
+            //    int index0 = indices[indices.size() - 3];
+            //    indices.push_back(index2);
+            //    indices.push_back(index3);
+            //    indices.push_back(index0);
+            //}
+
+            indices.push_back(unsigned short(vertices.size()));
+            vertices.push_back(v);
         }
     }
+
+    
 
 }
 
 void FbxLoader::ParseMaterial(fbxModel* model, FbxNode* node)
 {
     const int materialCount = node->GetMaterialCount();
+    bool textureLoaded = false;
     if (materialCount > 0) {
 
         FbxSurfaceMaterial* material = node->GetMaterial(0);
-
-        bool textureLoaded = false;
 
         if (material) {
             if (material->GetClassId().Is(FbxSurfaceLambert::ClassId)) {
@@ -276,6 +294,8 @@ void FbxLoader::ParseMaterial(fbxModel* model, FbxNode* node)
             model->material.texNumber = TexManager::LoadTexture(baseDir + defaultTexName);
         }
     }
+
+    if (!textureLoaded) {model->material.texNumber = TexManager::LoadTexture(baseDir + defaultTexName);}
 
 }
 
