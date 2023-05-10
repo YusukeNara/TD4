@@ -81,9 +81,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         //譖ｴ譁ｰ縺薙％縺ｾ縺ｧ
 
-        gmgr.Update();
 
-        //sceneMgr->Update();
+        sceneMgr->Update();
+
 
         //謠冗判縺薙％縺九ｉ
         RenderTargetManager::GetInstance()->CrearAndStartDraw();
