@@ -28,7 +28,7 @@ void ProtoPlayer::Draw()
 
 void ProtoPlayer::Attack()
 {
-	if (XPAD_BUTTON_A)
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
 		if (handItemType == Hand)
 		{
@@ -75,4 +75,9 @@ void ProtoPlayer::ChangeItem()
 	{
 		handItemType = Clippers;
 	}
+}
+
+ItemType ProtoPlayer::GetItemType()
+{
+	return ItemType();
 }
