@@ -76,3 +76,8 @@ void ProtoPlayer::ChangeItem()
 		handItemType = Clippers;
 	}
 }
+
+ItemType ProtoPlayer::GetItemType()
+{
+	return ItemType();
+}

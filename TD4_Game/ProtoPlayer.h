@@ -11,6 +11,10 @@ enum CheraType
 {
 	None, SkinHead, Thinning, Afro,
 };
+enum ItemType
+{
+	Hand, Scissors, Clippers
+};
 
 class ProtoPlayer
 {
@@ -37,13 +41,11 @@ public:
 	//バリカン
 	void Clip();
 
+	void ReturnItem();
+
 	//左手のアイテムを切り替える
 	void ChangeItem();
 
-	enum ItemType
-	{
-		Hand, Scissors, Clippers
-	};
 
 private:
 	
