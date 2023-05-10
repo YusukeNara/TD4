@@ -10,4 +10,5 @@ public:
     virtual void Update() = 0;   //更新処理は必ず継承先で実装する
     virtual void Draw() = 0;   //描画処理は必ず継承先で実装する
     virtual void Draw2D() = 0;
+    virtual void DrawImgui() = 0;
 };

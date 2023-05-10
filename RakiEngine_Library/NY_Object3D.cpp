@@ -214,6 +214,17 @@ void Object3d::UpdateObject3D()
 
 			auto& bones = fbxmodel->GetBones();
 
+			//メッシュノードのグローバルトランスフォーム
+			XMMATRIX grovalScale = XMMatrixScaling(1.f, 1.f, 1.f);
+			XMMATRIX grovalRot = XMMatrixIdentity();
+			grovalRot *= XMMatrixRotationZ(0);
+			grovalRot *= XMMatrixRotationX(0);
+			grovalRot *= XMMatrixRotationY(0);
+			XMMATRIX grovalTrans = XMMatrixTranslation(0, 0, 0);
+
+			XMMATRIX meshGrovalTrans = grovalScale * grovalRot * grovalTrans;
+			XMMATRIX meshGrovalrev = XMMatrixInverse(nullptr, meshGrovalTrans);
+
 			ConstBufferDataSkin* constMapSkin = nullptr;
 			if (SUCCEEDED(constBuffSkin->Map(0, nullptr, (void**)&constMapSkin))) {
 				for (int i = 0; i < bones.size(); i++) {
@@ -222,7 +233,11 @@ void Object3d::UpdateObject3D()
 
 					FbxLoader::GetInstance()->ConvertMatrixFromFbx(&matcurrentPose, fbxCurrentPose);
 
-					constMapSkin->bones[i] = bones[i].invInitialBone * matcurrentPose;
+					//メッシュノード対策
+					constMapSkin->bones[i] = meshGrovalTrans * 
+						bones[i].invInitialBone * 
+						matcurrentPose * 
+						meshGrovalrev;
 				}
 				constBuffSkin->Unmap(0, nullptr);
 			}
