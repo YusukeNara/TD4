@@ -3,6 +3,7 @@
 
 #include "ProtoPlayer.h"
 
+using namespace Rv3Ease;
 
 class Head
 {

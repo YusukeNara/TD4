@@ -69,7 +69,6 @@ void LightHairHead::SlappingMove()
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
 		isAllMoveFinish = true;
-
 	}
 }
 
@@ -85,5 +84,8 @@ void LightHairHead::PullOutHair()
 	//{
 	//}
 
-	isHairDestroy = true;
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		isHairDestroy = true;
+	}
 }

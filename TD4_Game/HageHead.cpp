@@ -54,8 +54,6 @@ void HageHead::SlappingMove()
 
 	//アニメーションしてふっとんっでいく処理
 
-
-
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
 		isAllMoveFinish = true;
