@@ -60,12 +60,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     RVector3 up(0.f, 1.f, 0.f);
     NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
 
-    GameManager gmgr;
+
 
     std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
 
 
-    gmgr.Init();
+
 
 #pragma endregion GameValue
 
