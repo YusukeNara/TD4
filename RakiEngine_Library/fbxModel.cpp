@@ -6,7 +6,7 @@ const int fbxModel::BONE_INDICES_MAX;
 
 fbxModel::~fbxModel()
 {
-	//fbxScene->Destroy();
+	if (fbxScene != nullptr) { fbxScene->Destroy(); }
 }
 
 void fbxModel::CreateBuffers()
