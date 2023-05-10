@@ -7,6 +7,7 @@
 
 #include "Head.h"
 #include "ProtoPlayer.h"
+#include"HeadManager.h"
 
 //ゲームフロー管理クラス
 class GameManager
@@ -29,7 +30,7 @@ public:
 	//スポーン管理関数
 
 	//初回スポーン
-	void FirstSpawn();
+	//void FirstSpawn();
 	//ゲーム中スポーン管理
 	void SpawnManagement();
 
@@ -41,16 +42,17 @@ private:
 
 	/// スポーン管理
 
-	Head* HeadSpawn();
+	//Head* HeadSpawn();
 	
-	//頭コンテナ
-	std::vector<std::shared_ptr<Head>> heads;
+	////頭コンテナ
+	//std::vector<std::shared_ptr<Head>> heads;
 
-	//表示最大数
-	const int HEAD_DISPLAY_MAX = 5;
-	//イージング用座標
-	std::array<RVector3, 5> easepos;
+	////表示最大数
+	//const int HEAD_DISPLAY_MAX = 5;
+	////イージング用座標
+	//std::array<RVector3, 5> easepos;
 
+	std::unique_ptr<HeadManager> headMan;
 
 	/// スコア
 

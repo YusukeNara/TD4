@@ -1,4 +1,4 @@
-#include "ProtoPlayer.h"
+﻿#include "ProtoPlayer.h"
 
 ProtoPlayer::ProtoPlayer()
 {
@@ -18,10 +18,31 @@ void ProtoPlayer::Init()
 
 void ProtoPlayer::Update()
 {
+	Attack();
 }
 
 void ProtoPlayer::Draw()
 {
+	player->DrawObject();
+}
+
+void ProtoPlayer::Attack()
+{
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		if (handItemType == Hand)
+		{
+			HandAttack();
+		}
+		else if (handItemType == Scissors)
+		{
+			CutHair();
+		}
+		else if (handItemType == Clippers)
+		{
+			Clip();
+		}
+	}
 }
 
 void ProtoPlayer::Finalize()
@@ -33,6 +54,10 @@ void ProtoPlayer::HandAttack()
 }
 
 void ProtoPlayer::CutHair()
+{
+}
+
+void ProtoPlayer::Clip()
 {
 }
 
@@ -50,4 +75,9 @@ void ProtoPlayer::ChangeItem()
 	{
 		handItemType = Clippers;
 	}
+}
+
+ItemType ProtoPlayer::GetItemType()
+{
+	return ItemType();
 }

@@ -1,4 +1,4 @@
-#include<iostream>
+ï¿½ï½¿#include<iostream>
 
 #include "Raki_DX12B.h"
 #include "FPS.h"
@@ -21,12 +21,12 @@ using namespace Microsoft::WRL;
 //-----------RakiEngine_Alpha.ver-----------//
 
 
-//ƒRƒ“ƒ\[ƒ‹•\Ž¦—pƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒgØ‚è‘Ö‚¦
-//Release‚Å‚àƒRƒ“ƒ\[ƒ‹‚µ‚½‚¢ê‡AƒvƒƒpƒeƒB->ƒŠƒ“ƒJ[->ƒTƒuƒVƒXƒeƒ€‚ðƒRƒ“ƒ\[ƒ‹‚ÉØ‚è‘Ö‚¦‚Ä‚©‚çAWinMain‚ðmain‚É‚·‚é
+//ç¹§ï½³ç¹ï½³ç¹§ï½½ç¹ï½¼ç¹ï½«é™¦ï½¨é‰ï½ºé€•ï½¨ç¹§ï½¨ç¹ï½³ç¹åŒ»Îœç¹ï½¼ç¹æ˜´ã†ç¹ï½³ç¹äº¥ï¿½ç¹§é ‘å´›ç¸º
+//Releaseç¸ºï½§ç¹§ã‚…ã•ç¹ï½³ç¹§ï½½ç¹ï½¼ç¹ï½«ç¸ºåŠ±â—†ç¸ºï¿½ï½´èœ·åŒ»âˆšï¿½ç¹ï½­ç¹ä»£ãƒ¦ç¹§ï½£->ç¹ï½ªç¹ï½³ç¹§ï½«ç¹ï½¼->ç¹§ï½µç¹æ‚¶ã™ç¹§ï½¹ç¹ï¿½Î’ç¹§åµã•ç¹ï½³ç¹§ï½½ç¹ï½¼ç¹ï½«ç¸ºï½«è›»ï¿½ï½Šè­–ï½¿ç¸ºåŒ»â€»ç¸ºä¹ï½‰ç¸²ä»inMainç¹§çŸ¥ainç¸ºï½«ç¸ºå¶ï½‹
 #ifdef _DEBUG
 int main()
 #else
-// WindowsƒAƒvƒŠ‚Å‚ÌƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg(mainŠÖ”)
+// Windowsç¹§ï½¢ç¹åŠ±Îœç¸ºï½§ç¸ºï½®ç¹§ï½¨ç¹ï½³ç¹åŒ»Îœç¹ï½¼ç¹æ˜´ã†ç¹ï½³ç¹(mainé«¢ï½¢è¬¨ï½°)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #endif
 {
@@ -37,24 +37,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     rakiWinApp = new Raki_WinAPI;
     rakiWinApp->CreateGameWindow();
 
-    //ƒGƒ“ƒWƒ“‘¤‚ÌƒGƒ‰[AŒx‚ð–³Ž‹‚µ‚È‚¢Ý’è‚É‚·‚é‚Æ‚«‚ÍA‚±‚ÌŠÖ”‚Ì‘æ“ñˆø”‚Étrue‚ð“n‚·‚Æ—Ç‚¢
+    //ã‚¨ãƒ³ã‚¸ãƒ³å´ã®ã‚¨ãƒ©ãƒ¼ã€è­¦å‘Šã‚’ç„¡è¦–ã—ãªã„è¨­å®šã«ã™ã‚‹ã¨ãã¯ã€ã“ã®é–¢æ•°ã®ç¬¬äºŒå¼•æ•°ã«trueã‚’æ¸¡ã™ã¨è‰¯ã„
     Raki_DX12B::Get()->Initialize(rakiWinApp, false);
 
     myImgui::InitializeImGui(Raki_DX12B::Get()->GetDevice(), Raki_WinAPI::GetHWND());
 
-    //ƒIƒuƒWƒFƒNƒgŠÇ—
+    //ç¹§ï½ªç¹æ‚¶ãšç¹§ï½§ç¹§ï½¯ç¹è‚²ï½®ï½¡é€…
     NY_Object3DManager::Get()->CreateObject3DManager();
     SpriteManager::Get()->CreateSpriteManager(Raki_DX12B::Get()->GetDevice(), Raki_DX12B::Get()->GetGCommandList(),
         rakiWinApp->window_width, rakiWinApp->window_height);
     TexManager::InitTexManager();
 
-    //‰¹
+    //é«»ï½³
     Audio::Init();
 
     DiferredRenderingMgr diffMgr;
     diffMgr.Init(RAKI_DX12B_DEV, RAKI_DX12B_CMD);
 
-    //ƒV[ƒ“ŠÇ—
+    //ç¹§ï½·ç¹ï½¼ç¹ï½³é‚‚ï½¡é€…
     RVector3 eye(0.f, 100.f, -100.f);
     RVector3 target(0.f, 0.f, 0.f);
     RVector3 up(0.f, 1.f, 0.f);
@@ -71,24 +71,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
     FPS::Get()->Start();
 
-    while (true)  // ƒQ[ƒ€ƒ‹[ƒv
+    while (true)  // ç¹§ï½²ç¹ï½¼ç¹ç¹ï½«ç¹ï½¼ç¹
     {
         if (rakiWinApp->ProcessMessage()) { break; }
 
-        //XV
+        //è­–ï½´è­ï½°
         Input::StartGetInputState();
 
 
-        //XV‚±‚±‚Ü‚Å
+        //è­–ï½´è­ï½°ç¸ºè–™ï¼…ç¸ºï½¾ç¸ºï½§
+
 
         sceneMgr->Update();
 
-        //•`‰æ‚±‚±‚©‚ç
+
+        //è¬ å†—åˆ¤ç¸ºè–™ï¼…ç¸ºä¹ï½‰
         RenderTargetManager::GetInstance()->CrearAndStartDraw();
 
         NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
 
-        sceneMgr->Draw();
+        //sceneMgr->Draw();
+        gmgr.Draw();
 
         NY_Object3DManager::Get()->CloseDrawObject3D();
 
@@ -98,9 +101,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         sceneMgr->Draw2D();
 
+
+        //è¬ å†—åˆ¤ç¸ºè–™ï¼…ç¸ºï½¾ç¸ºï½§
+
         sceneMgr->DrawImgui();
 
-        //•`‰æ‚±‚±‚Ü‚Å
+        //æç”»ã“ã“ã¾ã§
+
         RenderTargetManager::GetInstance()->SwapChainBufferFlip();
 
         FPS::Get()->run();
@@ -108,10 +115,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 
-    //imguiI—¹
+    //imguié‚¨ã‚†ï½º
     myImgui::FinalizeImGui();
 
-    // ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚ð“o˜^‰ðœ
+    // ç¹§ï½¦ç¹§ï½£ç¹ï½³ç¹å³¨ãˆç¹§ï½¯ç¹ï½©ç¹§ï½¹ç¹§å ¤åŒ³éª­ï½²éš—ï½£é«¯ï½¤
     rakiWinApp->DeleteGameWindow();
 
     delete rakiWinApp;
