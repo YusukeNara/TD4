@@ -4,12 +4,16 @@
 #include <memory>
 #include <array>
 #include <NY_Object3D.h>
-
+#include "Raki_Input.h"
 
 
 enum CheraType
 {
-	SkinHead, Thinning, Afro,
+	None, SkinHead, Thinning, Afro,
+};
+enum ItemType
+{
+	Hand, Scissors, Clippers
 };
 
 class ProtoPlayer
@@ -24,21 +28,23 @@ public:
 
 	void Draw();
 
+	void Attack();
+
 	void Finalize();
 
-	//ƒrƒ“ƒ^
+	//ãƒ“ãƒ³ã‚¿
 	void HandAttack();
 
-	//”¯‚ğØ‚é
+	//é«ªã‚’åˆ‡ã‚‹
 	void CutHair();
 
-	//¶è‚ÌƒAƒCƒeƒ€‚ğØ‚è‘Ö‚¦‚é
+	//ãƒãƒªã‚«ãƒ³
+	void Clip();
+
+	//å·¦æ‰‹ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 	void ChangeItem();
 
-	enum ItemType
-	{
-		Hand, Scissors, Clippers
-	};
+	ItemType GetItemType();
 
 private:
 	

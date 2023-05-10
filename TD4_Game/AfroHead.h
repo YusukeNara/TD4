@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Head.h"
 
 #include <NY_Object3dMgr.h>
@@ -28,11 +28,15 @@ private:
 	std::shared_ptr<Object3d> headObject;
 	std::shared_ptr<Object3d> afroObject;
 
-	//�ʒu�̃I�t�Z�b�g
+	//位置のオフセット
 	RVector3 headOffset;
 	RVector3 hairOffset;
 
 	UINT afroheadTex;
+
+	//髪を斬った回数
+	int CutCount = 0;
+	const int MaxCutCount = 3;
 
 };
 
