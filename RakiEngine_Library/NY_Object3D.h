@@ -82,6 +82,9 @@ public:
 		fbxmodel = make_shared<fbxModel>();
 	};
 	~Object3d() {
+		if (model) {
+
+		}
 	}
 
 	//オブジェクトの初期化

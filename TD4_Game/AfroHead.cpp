@@ -5,7 +5,7 @@
 AfroHead::AfroHead()
 {
 	headOffset = RVector3(0, 10.f, 0);
-	hearOffset = RVector3(0, 20.0f, 0);
+	hairOffset = RVector3(0, 20.0f, 0);
 }
 
 AfroHead::~AfroHead()
@@ -34,20 +34,26 @@ void AfroHead::Update()
 	// 頭が有効化されたら
 	if (isactive) {
 		//入力を受け付ける
+		SlappingMove();
+
+		CuttingHair();
 
 	}
 
 
 	//オブジェクト描画位置を設定
 	headObject->SetAffineParamTranslate(pos + headOffset);
-	afroObject->SetAffineParamTranslate(pos + hearOffset);
+	afroObject->SetAffineParamTranslate(pos + hairOffset);
 }
 
 void AfroHead::Draw()
 {
 	//オブジェクト描画
 	headObject->DrawObject();
-	afroObject->DrawObject();
+	if (!isHairDestroy)
+	{
+		afroObject->DrawObject();
+	}
 }
 
 void AfroHead::Finalize()
@@ -55,4 +61,38 @@ void AfroHead::Finalize()
 
 
 
+}
+
+void AfroHead::SlappingMove()
+{
+	if (!isHairDestroy)
+	{
+		return;
+	}
+
+	//プレイヤーの入力を受け付けたら
+	//if(ptr->)
+	//{}
+
+	isAllMoveFinish = true;
+}
+
+void AfroHead::CuttingHair()
+{
+	if (isHairDestroy)
+	{
+		return;
+	}
+
+	//プレイヤーの入力を受け付けたら
+	//if(ptr->)
+	//{
+	CutCount++;
+	//}
+
+	
+	if (CutCount >= MaxCutCount)
+	{
+		isHairDestroy = true;
+	}
 }
