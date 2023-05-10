@@ -3,6 +3,7 @@
 #include "ISceneChanger.h"
 #include "NY_Object3DMgr.h"
 #include "Raki_Input.h"
+#include "GameManager.h"
 
 #include <NY_Object3DMgr.h>
 #include <Sprite.h>
@@ -21,5 +22,6 @@ public:
     Sprite testsp;
     std::shared_ptr<Object3d> testobject;
 
+    GameManager gmgr;
 };
 

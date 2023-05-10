@@ -15,6 +15,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 class Node
 {
@@ -73,7 +74,6 @@ struct fbxMaterial
 	}
 };
 
-
 class fbxModel
 {
 private:
@@ -126,7 +126,7 @@ private:
 
 	fbxMaterial material;
 
-	FbxScene* fbxScene = nullptr;
+	FbxScene *fbxScene = nullptr;
 };
 
 #pragma warning (pop)

@@ -60,12 +60,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     RVector3 up(0.f, 1.f, 0.f);
     NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
 
-    GameManager gmgr;
+
 
     std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
 
 
-    gmgr.Init();
+
 
 #pragma endregion GameValue
 
@@ -83,14 +83,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         gmgr.Update();
 
-        sceneMgr->Update();
+        //sceneMgr->Update();
 
         //謠冗判縺薙％縺九ｉ
         RenderTargetManager::GetInstance()->CrearAndStartDraw();
 
         NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
 
-        sceneMgr->Draw();
+        //sceneMgr->Draw();
+        gmgr.Draw();
 
         NY_Object3DManager::Get()->CloseDrawObject3D();
 
