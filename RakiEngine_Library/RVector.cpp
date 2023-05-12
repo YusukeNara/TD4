@@ -117,6 +117,28 @@ const RVector3 Rv3Ease::InOutQuad(const RVector3 &s, const RVector3 &e, const fl
 	return t < 0.5f ? (start * (1.0f - t)) + end * (t * t) : start * (1.0f - t) + end * (1 - (float)pow(-2 * t + 2, 2) / 2);
 }
 
+const RVector3 Rv3Ease::InCubic(const RVector3& s, const RVector3& e, const float t)
+{
+	RVector3 start = s;
+	RVector3 end = e;
+	return start * (1.0f - (t * t * t)) + end * (t * t * t);
+}
+
+const RVector3 Rv3Ease::OutCubic(const RVector3& s, const RVector3& e, const float t)
+{
+	RVector3 start = s;
+	RVector3 end = e;
+	return start * (1.0f - (1.0f - (float)pow(1.0f - t, 3))) + end * (1.0f - (float)pow(1.0f - t, 3));
+}
+
+const RVector3 Rv3Ease::InOutCubic(const RVector3& s, const RVector3& e, const float t)
+{
+	RVector3 start = s;
+	RVector3 end = e;
+	return t < 0.5 ? (start * (1.0f - (4.0f * t * t * t)) + end * (4.0f * t * t * t)) : 
+		start * (1.0f - (1.0f - float(pow(-2.0f * t + 2.0f, 3) / 2.0f))) + end * (1.0f - float(pow(-2.0f * t + 2.0f, 3) / 2.0f));
+}
+
 float CalcVelocityToForceAndMass(const float force, const float mass, float nowVel, float &acc)
 {
 	float accel = acc + CalcAccelToForceAndMass(force, mass);
@@ -159,4 +181,64 @@ float CalcGravity(float start, float end, float v0, int time,float &v1)
 
 	//結果
 	return next;
+}
+
+void Rv3Ease::Rv3Easing::Init(RV3_EASE_TYPE type, RVector3 startPos, RVector3 endPos, int playFrame)
+{
+	this->startPos	=	startPos;
+	this->endPos	=	endPos;
+	this->playFrame =	playFrame;
+	this->type		=	type;
+}
+
+void Rv3Ease::Rv3Easing::Play()
+{
+	if (!isplay) { isplay = true; }
+}
+
+RVector3 Rv3Ease::Rv3Easing::Update()
+{
+	if (!isplay) { return startPos; }
+
+	if (frame >= playFrame) { return endPos; }
+
+	frame++;
+
+	float rate = float(frame) / float(playFrame);
+
+	//各種イージング計算
+	switch (type)
+	{
+	case Rv3Ease::RV3_EASE_TYPE::EASE_LERP:
+		resultPos = Rv3Ease::lerp(startPos, endPos, rate);
+		break;
+	case Rv3Ease::RV3_EASE_TYPE::EASE_QUAD_IN:
+		resultPos = Rv3Ease::InQuad(startPos, endPos, rate);
+		break;
+	case Rv3Ease::RV3_EASE_TYPE::EASE_QUAD_OUT:
+		resultPos = Rv3Ease::OutQuad(startPos, endPos, rate);
+		break;
+	case Rv3Ease::RV3_EASE_TYPE::EASE_QUAD_INOUT:
+		resultPos = Rv3Ease::InOutQuad(startPos, endPos, rate);
+		break;
+	case Rv3Ease::RV3_EASE_TYPE::EASE_CUBIC_IN:
+		resultPos = Rv3Ease::InCubic(startPos, endPos, rate);
+		break;
+	case RV3_EASE_TYPE::EASE_CUBIC_OUT:
+		resultPos = Rv3Ease::OutCubic(startPos, endPos, rate);
+		break;
+	case RV3_EASE_TYPE::EASE_CUBIC_INOUT:
+		resultPos = Rv3Ease::InOutCubic(startPos, endPos, rate);
+		break;
+	default:
+		break;
+	}
+	return resultPos;
+}
+
+void Rv3Ease::Rv3Easing::Reset()
+{
+	frame = 0;
+	isplay = false;
+	resultPos = startPos;
 }
