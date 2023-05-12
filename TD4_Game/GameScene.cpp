@@ -39,7 +39,7 @@ void GameScene::Update() {
 
 //•`‰æ
 void GameScene::Draw() {
-	testobject->DrawObject();
+	//testobject->DrawObject();
 
 	gmgr.Draw();
 }
@@ -47,7 +47,7 @@ void GameScene::Draw() {
 void GameScene::Draw2D()
 {
 	testsp.DrawSprite(640, 360);
-	testsp.Draw();
+	//testsp.Draw();
 
 	gmgr.UIDraw();
 }
