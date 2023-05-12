@@ -29,11 +29,13 @@ void HeadManager::Update()
 	while (heads.size() < HEAD_DISPLAY_MAX)
 	{
 		Head *ptr = HeadSpawn((heads.size() + 1) - 1);
+		std::unique_ptr<Head> head = std::make_unique<Head>();
 
-		heads.push_back(std::make_unique<Head>());
-		heads[(heads.size() + 1) - 1].reset(ptr);
-		heads[(heads.size() + 1) - 1]->Init();
-		heads[(heads.size() + 1) - 1]->pos = easepos[(heads.size() + 1) - 1];
+		head.reset(HeadSpawn((heads.size() + 1) - 1));
+
+		head->Init();
+		head->pos = easepos[(heads.size() + 1) - 1];
+		heads.push_back(std::move(head));
 	}
 
 	//先頭の人の処理が終わったら先頭を消す
@@ -78,10 +80,13 @@ void HeadManager::FirstSpawn()
 
 		Head *ptr = HeadSpawn(i);
 
-		heads.push_back(std::make_unique<Head>());
-		heads[i].reset(ptr);
-		heads[i]->Init();
-		heads[i]->pos = easepos[i];
+		std::unique_ptr<Head> head = std::make_unique<Head>();
+
+		head.reset(HeadSpawn(i));
+
+		head->Init();
+		head->pos = easepos[i];
+		heads.push_back(std::move(head));
 	}
 }
 
