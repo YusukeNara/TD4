@@ -27,23 +27,56 @@ void AfroHead::Init()
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
 	afroObject->SetAffineParam(scale, rot, pos);
+	SlapCount = 0;
+	isKramer = false;
+	isactive = false;
+	ResetFrontEase();
+}
+
+void AfroHead::ResetFrontEase()
+{
+	FrontStart = pos;
+	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - FrontLength };
+	isFrontEase = true;
 }
 
 void AfroHead::Update()
 {
+	//オブジェクト描画位置を設定
+	headObject->SetAffineParamTranslate(pos + headOffset);
+	afroObject->SetAffineParamTranslate(pos + hairOffset);
+
+	if (isMostFront && !isFrontEase)
+	{
+		isactive = true;
+	}
+
+	if (isFrontEase)
+	{
+		if (pos.z <= FrontEnd.z)
+		{
+			pos.z = FrontEnd.z;
+			isFrontEase = false;
+		}
+		else
+		{
+			pos.z -= FrontLength;
+		}
+	}
+
 	// 頭が有効化されたら
-	if (isactive) {
+	if (isactive) 
+	{
+		if (!isMostFront)
+		{
+			return;
+		}
+
 		//入力を受け付ける
 		SlappingMove();
 
 		CuttingHair();
-
 	}
-
-
-	//オブジェクト描画位置を設定
-	headObject->SetAffineParamTranslate(pos + headOffset);
-	afroObject->SetAffineParamTranslate(pos + hairOffset);
 }
 
 void AfroHead::Draw()
@@ -70,15 +103,35 @@ void AfroHead::SlappingMove()
 		return;
 	}
 
-	//プレイヤーの入力を受け付けたら
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
-	{
-		isAllMoveFinish = true;
-
-	}
 	//if(ptr->)
 	//{}
 
+	//プレイヤーの入力を受け付けたら
+	if (isSlap)
+	{
+		if (isKramer)
+		{
+			SlapCount++;
+			if (SlapCount >= 3)
+			{
+				isAllMoveFinish = true;
+			}
+			isSlap = false;
+		}
+		else
+		{
+			pos.x -= 0.5f;
+			if (pos.x < -3)
+			{
+				isAllMoveFinish = true;
+			}
+		}
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		isSlap = true;
+	}
 }
 
 void AfroHead::CuttingHair()

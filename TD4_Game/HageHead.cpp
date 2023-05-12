@@ -22,12 +22,47 @@ void HageHead::Init()
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
 	isHairDestroy = true;
+	SlapCount = 0;
+	isKramer = false;
+	isactive = false;
+	ResetFrontEase();
+}
+
+void HageHead::ResetFrontEase()
+{
+	FrontStart = pos;
+	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - 100.0f };
+	isFrontEase = true;
 }
 
 void HageHead::Update()
 {
+	headObject->SetAffineParam(scale, rot, pos);
+
+	if (isMostFront && !isFrontEase)
+	{
+		isactive = true;
+	}
+
+	if (isFrontEase && !isactive)
+	{
+		if (pos.z <= FrontEnd.z)
+		{
+			pos.z = FrontEnd.z;
+			isFrontEase = false;
+		}
+		else
+		{
+			pos.z -= FrontLength;
+		}
+	}
+
 	if (isactive)
 	{
+		if (!isMostFront)
+		{
+			return;
+		}
 		SlappingMove();
 	}
 }
@@ -54,10 +89,30 @@ void HageHead::SlappingMove()
 
 	//アニメーションしてふっとんっでいく処理
 
+	if (isSlap)
+	{
+		if (isKramer)
+		{
+			SlapCount++;
+			if (SlapCount >= 3)
+			{
+				isAllMoveFinish = true;
+			}
+			isSlap = false;
+		}
+		else
+		{
+			pos.x -= 0.5f;
+			if (pos.x < -3)
+			{
+				isAllMoveFinish = true;
+			}
+		}
+	}
+
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
-		isAllMoveFinish = true;
-
+		isSlap = true;
 	}
 
 }

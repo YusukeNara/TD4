@@ -13,10 +13,11 @@ HeadManager::~HeadManager()
 
 void HeadManager::Initialize()
 {
-	RVector3 easeOffset(0, 0, 100.f);
+	RVector3 easeOffset(0, 0, 100.0f);
 	int i = 0;
 	for (auto &ep : easepos) {
 		ep = easeOffset * float(i);
+		ep.z += 100.0f;
 		i++;
 	}
 
@@ -25,15 +26,19 @@ void HeadManager::Initialize()
 
 void HeadManager::Update()
 {
+	heads.begin()->get()->isMostFront = true;
 	//要素数がMAXよりも少ない場合増やす
-	if (heads.size() < HEAD_DISPLAY_MAX)
+	while (heads.size() < HEAD_DISPLAY_MAX)
 	{
-		Head *ptr = HeadSpawn(HEAD_DISPLAY_MAX - 1);
+		Head *ptr = HeadSpawn((heads.size() + 1) - 1);
+		std::unique_ptr<Head> head = std::make_unique<Head>();
 
-		heads.push_back(std::make_shared<Head>());
-		heads[HEAD_DISPLAY_MAX - 1].reset(ptr);
-		heads[HEAD_DISPLAY_MAX - 1]->Init();
-		heads[HEAD_DISPLAY_MAX - 1]->pos = easepos[HEAD_DISPLAY_MAX - 1];
+		head.reset(HeadSpawn((heads.size() + 1) - 1));
+
+		head->Init();
+		head->pos = easepos[(heads.size() + 1) - 1];
+		head->ResetFrontEase();
+		heads.push_back(std::move(head));
 	}
 
 	//先頭の人の処理が終わったら先頭を消す
@@ -42,6 +47,11 @@ void HeadManager::Update()
 		if (heads[headNum]->isAllMoveFinish)
 		{
 			PopFront();
+
+			for (auto &h : heads)
+			{
+				h->ResetFrontEase();
+			}
 		}
 	}
 
@@ -78,10 +88,14 @@ void HeadManager::FirstSpawn()
 
 		Head *ptr = HeadSpawn(i);
 
-		heads.push_back(std::make_shared<Head>());
-		heads[i].reset(ptr);
-		heads[i]->Init();
-		heads[i]->pos = easepos[i];
+		std::unique_ptr<Head> head = std::make_unique<Head>();
+
+		head.reset(HeadSpawn(i));
+
+		head->Init();
+		head->pos = easepos[i];
+		head->ResetFrontEase();
+		heads.push_back(std::move(head));
 	}
 }
 
@@ -90,7 +104,7 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 	Head *head;
 
 	//ランダムで頭を生成
-	head = new AfroHead();
+	head = new HageHead();
 	charaType[arrayNum] = CheraType::SkinHead;
 	return head;
 }
