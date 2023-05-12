@@ -46,13 +46,12 @@ void LightHairHead::Update()
 	{
 		if (pos.z <= FrontEnd.z)
 		{
-			isactive = true;
+			pos.z = FrontEnd.z;
 			isFrontEase = false;
 		}
 		else
 		{
-			pos = Rv3Ease::OutQuad(FrontStart, FrontEnd, (float)FrontEaseT);
-			FrontEaseT++;
+			pos.z -= FrontLength;
 		}
 	}
 
