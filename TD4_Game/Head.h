@@ -61,6 +61,12 @@ public:
 	//プレイヤーポインタ
 	std::weak_ptr<ProtoPlayer> ptr;
 
+	//クレーマーかどうか
+	bool isKramer = false;
+
+	//ビンタされた回数
+	int SlapCount = 0;
+
 	//イージング用変数
 	//前に進む時
 	float FrontEaseT = 0.0f;		//時間
