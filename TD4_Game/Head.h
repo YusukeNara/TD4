@@ -1,5 +1,6 @@
 #pragma once
 #include <RVector.h>
+#include<ParticleManager.h>
 
 #include "ProtoPlayer.h"
 
@@ -33,6 +34,10 @@ public:
 	}
 
 public:
+	//ビンタされた時のパーティクル
+	std::unique_ptr<ParticleManager> SlapParticle;
+	UINT slapTex;
+
 	//アフィン変換
 	RVector3 pos, rot, scale;
 
