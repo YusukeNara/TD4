@@ -24,6 +24,7 @@ void HageHead::Init()
 	isHairDestroy = true;
 	SlapCount = 0;
 	isKramer = false;
+	isactive = true;
 }
 
 void HageHead::Update()
@@ -56,7 +57,7 @@ void HageHead::SlappingMove()
 
 	//アニメーションしてふっとんっでいく処理
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	if (isSlap)
 	{
 		if (isKramer)
 		{
@@ -65,6 +66,7 @@ void HageHead::SlappingMove()
 			{
 				isAllMoveFinish = true;
 			}
+			isSlap = false;
 		}
 		else
 		{
@@ -74,6 +76,11 @@ void HageHead::SlappingMove()
 				isAllMoveFinish = true;
 			}
 		}
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		isSlap = true;
 	}
 
 }

@@ -64,6 +64,9 @@ public:
 	//クレーマーかどうか
 	bool isKramer = false;
 
+	//ビンタフラグ
+	bool isSlap = false;
+
 	//ビンタされた回数
 	int SlapCount = 0;
 
