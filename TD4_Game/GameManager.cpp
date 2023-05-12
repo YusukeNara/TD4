@@ -39,7 +39,7 @@ void GameManager::Draw()
 	headMan->Draw();
 
 	//床
-	groundObject->DrawObject();
+	//groundObject->DrawObject();
 
 	NY_Object3DManager::Get()->CloseDrawObject3D();
 }

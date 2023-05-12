@@ -75,9 +75,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		Input::StartGetInputState();
 
-
-
-		sceneMgr->Update();
+        sceneMgr->Update();
 
 
 		RenderTargetManager::GetInstance()->CrearAndStartDraw();

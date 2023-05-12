@@ -68,7 +68,11 @@ void HageHead::SlappingMove()
 		}
 		else
 		{
-			isAllMoveFinish = true;
+			headObject->position.x -= 0.5f;
+			if (headObject->position.x < -3)
+			{
+				isAllMoveFinish = true;
+			}
 		}
 	}
 

@@ -90,7 +90,7 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 	Head *head;
 
 	//ランダムで頭を生成
-	head = new AfroHead();
+	head = new HageHead();
 	charaType[arrayNum] = CheraType::SkinHead;
 	return head;
 }
