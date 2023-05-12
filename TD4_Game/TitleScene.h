@@ -18,8 +18,14 @@ public:
     void Draw2D() override;
     void DrawImgui() override;
 
+    void Animation();
+
     Sprite testsp;
     std::shared_ptr<Object3d> testobject;
 
+    const int animationCountMax = 1200;
+    int animationCount = 0;
+
+    RVector3 testObjPos;
 };
 
