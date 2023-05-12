@@ -29,13 +29,45 @@ void AfroHead::Init()
 	afroObject->SetAffineParam(scale, rot, pos);
 	SlapCount = 0;
 	isKramer = false;
-	isactive = true;
+	isactive = false;
+	ResetFrontEase();
+}
+
+void AfroHead::ResetFrontEase()
+{
+	FrontStart = pos;
+	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - FrontLength };
+	isFrontEase = true;
 }
 
 void AfroHead::Update()
 {
+	//オブジェクト描画位置を設定
+	headObject->SetAffineParamTranslate(pos + headOffset);
+	afroObject->SetAffineParamTranslate(pos + hairOffset);
+
+	if (isFrontEase)
+	{
+		if (pos.z <= FrontEnd.z)
+		{
+			isactive = true;
+			isFrontEase = false;
+		}
+		else
+		{
+			pos = Rv3Ease::OutQuad(FrontStart, FrontEnd, (float)FrontEaseT);
+			FrontEaseT++;
+		}
+	}
+
 	// 頭が有効化されたら
-	if (isactive) {
+	if (isactive) 
+	{
+		if (!isMostFront)
+		{
+			//return;
+		}
+
 		//入力を受け付ける
 		SlappingMove();
 
@@ -44,9 +76,6 @@ void AfroHead::Update()
 	}
 
 
-	//オブジェクト描画位置を設定
-	headObject->SetAffineParamTranslate(pos + headOffset);
-	afroObject->SetAffineParamTranslate(pos + hairOffset);
 }
 
 void AfroHead::Draw()
