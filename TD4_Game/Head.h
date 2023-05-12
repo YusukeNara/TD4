@@ -3,6 +3,7 @@
 
 #include "ProtoPlayer.h"
 
+using namespace Rv3Ease;
 
 class Head
 {
@@ -34,7 +35,7 @@ public:
 	RVector3 pos, rot, scale;
 
 	//客のタイプ
-	int HeadType;
+	CheraType HeadType = CheraType::None;
 
 	//有効化フラグ
 	bool isactive = false;
@@ -59,6 +60,12 @@ public:
 
 	//プレイヤーポインタ
 	std::weak_ptr<ProtoPlayer> ptr;
+
+	//クレーマーかどうか
+	bool isKramer = false;
+
+	//ビンタされた回数
+	int SlapCount = 0;
 
 	//イージング用変数
 	//前に進む時

@@ -21,100 +21,99 @@ using namespace Microsoft::WRL;
 //-----------RakiEngine_Alpha.ver-----------//
 
 
-//ƒRƒ“ƒ\[ƒ‹•\Ž¦—pƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒgØ‚è‘Ö‚¦
-//Release‚Å‚àƒRƒ“ƒ\[ƒ‹‚µ‚½‚¢ê‡AƒvƒƒpƒeƒB->ƒŠƒ“ƒJ[->ƒTƒuƒVƒXƒeƒ€‚ðƒRƒ“ƒ\[ƒ‹‚ÉØ‚è‘Ö‚¦‚Ä‚©‚çAWinMain‚ðmain‚É‚·‚é
 #ifdef _DEBUG
 int main()
 #else
-// WindowsƒAƒvƒŠ‚Å‚ÌƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg(mainŠÖ”)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #endif
 {
 
 #pragma region GameValue
 
-    Raki_WinAPI* rakiWinApp;
-    rakiWinApp = new Raki_WinAPI;
-    rakiWinApp->CreateGameWindow();
+	Raki_WinAPI* rakiWinApp;
+	rakiWinApp = new Raki_WinAPI;
+	rakiWinApp->CreateGameWindow();
 
-    Raki_DX12B::Get()->Initialize(rakiWinApp);
+	//ã‚¨ãƒ³ã‚¸ãƒ³å´ã®ã‚¨ãƒ©ãƒ¼ã€è­¦å‘Šã‚’ç„¡è¦–ã—ãªã„è¨­å®šã«ã™ã‚‹ã¨ãã¯ã€ã“ã®é–¢æ•°ã®ç¬¬äºŒå¼•æ•°ã«trueã‚’æ¸¡ã™ã¨è‰¯ã„
+	Raki_DX12B::Get()->Initialize(rakiWinApp, false);
 
-    myImgui::InitializeImGui(Raki_DX12B::Get()->GetDevice(), Raki_WinAPI::GetHWND());
+	myImgui::InitializeImGui(Raki_DX12B::Get()->GetDevice(), Raki_WinAPI::GetHWND());
 
-    //ƒIƒuƒWƒFƒNƒgŠÇ—
-    NY_Object3DManager::Get()->CreateObject3DManager();
-    SpriteManager::Get()->CreateSpriteManager(Raki_DX12B::Get()->GetDevice(), Raki_DX12B::Get()->GetGCommandList(),
-        rakiWinApp->window_width, rakiWinApp->window_height);
-    TexManager::InitTexManager();
+	
+	NY_Object3DManager::Get()->CreateObject3DManager();
+	SpriteManager::Get()->CreateSpriteManager(Raki_DX12B::Get()->GetDevice(), Raki_DX12B::Get()->GetGCommandList(),
+		rakiWinApp->window_width, rakiWinApp->window_height);
+	TexManager::InitTexManager();
 
-    //‰¹
-    Audio::Init();
+	
+	Audio::Init();
 
-    DiferredRenderingMgr diffMgr;
-    diffMgr.Init(RAKI_DX12B_DEV, RAKI_DX12B_CMD);
-
-    //ƒV[ƒ“ŠÇ—
-    RVector3 eye(0.f, 100.f, -100.f);
-    RVector3 target(0.f, 0.f, 0.f);
-    RVector3 up(0.f, 1.f, 0.f);
-    NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
-
-    GameManager gmgr;
-
-    std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
+	DiferredRenderingMgr diffMgr;
+	diffMgr.Init(RAKI_DX12B_DEV, RAKI_DX12B_CMD);
 
 
-    gmgr.Init();
+	RVector3 eye(0.f, 100.f, -100.f);
+	RVector3 target(0.f, 0.f, 0.f);
+	RVector3 up(0.f, 1.f, 0.f);
+	NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
+
+
+
+	std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
+
+
+
 
 #pragma endregion GameValue
 
-    FPS::Get()->Start();
+	FPS::Get()->Start();
 
-    while (true)  // ƒQ[ƒ€ƒ‹[ƒv
-    {
-        if (rakiWinApp->ProcessMessage()) { break; }
-
-        //XV
-        Input::StartGetInputState();
+	while (true)
+	{
+		if (rakiWinApp->ProcessMessage()) { break; }
 
 
-        //XV‚±‚±‚Ü‚Å
-
-        gmgr.Update();
-
-        sceneMgr->Update();
-
-        //•`‰æ‚±‚±‚©‚ç
-        RenderTargetManager::GetInstance()->CrearAndStartDraw();
-
-        NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
-
-        sceneMgr->Draw();
-
-        NY_Object3DManager::Get()->CloseDrawObject3D();
-
-        diffMgr.Rendering(&NY_Object3DManager::Get()->m_gBuffer, &NY_Object3DManager::Get()->m_shadomMap);
-
-        SpriteManager::Get()->SetCommonBeginDraw();
-
-        sceneMgr->Draw2D();
-
-        //•`‰æ‚±‚±‚Ü‚Å
-        RenderTargetManager::GetInstance()->SwapChainBufferFlip();
-
-        FPS::Get()->run();
-    }
+		Input::StartGetInputState();
 
 
 
-    //imguiI—¹
-    myImgui::FinalizeImGui();
+		sceneMgr->Update();
 
-    // ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚ð“o˜^‰ðœ
-    rakiWinApp->DeleteGameWindow();
 
-    delete rakiWinApp;
-    rakiWinApp = nullptr;
+		RenderTargetManager::GetInstance()->CrearAndStartDraw();
 
-    return 0;
+		NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
+
+		sceneMgr->Draw();
+
+		NY_Object3DManager::Get()->CloseDrawObject3D();
+
+		diffMgr.Rendering(&NY_Object3DManager::Get()->m_gBuffer, &NY_Object3DManager::Get()->m_shadomMap);
+
+		SpriteManager::Get()->SetCommonBeginDraw();
+
+		sceneMgr->Draw2D();
+
+
+		sceneMgr->DrawImgui();
+
+		//æç”»ã“ã“ã¾ã§
+
+		RenderTargetManager::GetInstance()->SwapChainBufferFlip();
+
+		FPS::Get()->run();
+	}
+
+
+
+	
+	myImgui::FinalizeImGui();
+
+	
+	rakiWinApp->DeleteGameWindow();
+
+	delete rakiWinApp;
+	rakiWinApp = nullptr;
+
+	return 0;
 }

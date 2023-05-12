@@ -21,7 +21,7 @@ GameScene::~GameScene()
 
 //‰Šú‰»
 void GameScene::Initialize() {
-
+	gmgr.Init();
 }
 
 void GameScene::Finalize()
@@ -33,15 +33,25 @@ void GameScene::Update() {
 	if (Input::Get()->isKeyTrigger(DIK_1)) {
 		mSceneChanger->ChangeScene(eScene_Title);
 	}
+
+	gmgr.Update();
 }
 
 //•`‰æ
 void GameScene::Draw() {
 	testobject->DrawObject();
+
+	gmgr.Draw();
 }
 
 void GameScene::Draw2D()
 {
 	testsp.DrawSprite(640, 360);
 	testsp.Draw();
+
+	gmgr.UIDraw();
+}
+
+void GameScene::DrawImgui()
+{
 }

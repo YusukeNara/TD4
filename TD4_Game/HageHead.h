@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Head.h"
 
 #include <NY_Object3dMgr.h>
@@ -24,7 +24,7 @@ private:
 
 	std::shared_ptr<Object3d> headObject;
 
-	//ˆÊ’u‚ÌƒIƒtƒZƒbƒg
+	//ä½ç½®ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 	RVector3 headOffset;
 
 	UINT hageheadTex;

@@ -1,4 +1,4 @@
-#include "HageHead.h"
+﻿#include "HageHead.h"
 
 HageHead::HageHead()
 {
@@ -22,6 +22,8 @@ void HageHead::Init()
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
 	isHairDestroy = true;
+	SlapCount = 0;
+	isKramer = false;
 }
 
 void HageHead::Update()
@@ -48,10 +50,26 @@ void HageHead::SlappingMove()
 		return;
 	}
 
-	//�v���C���[�̓��͂��󂯕t������
+	//プレイヤーの入力を受け付けたら
 	//if(ptr->)
 	//{}
 
-	isAllMoveFinish = true;
+	//アニメーションしてふっとんっでいく処理
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		if (isKramer)
+		{
+			SlapCount++;
+			if (SlapCount >= 3)
+			{
+				isAllMoveFinish = true;
+			}
+		}
+		else
+		{
+			isAllMoveFinish = true;
+		}
+	}
 
 }

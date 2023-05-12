@@ -24,6 +24,7 @@ bool Raki_DX12B::InitDXGIDevice()
 		debugController->EnableDebugLayer();
 		debugController->SetEnableGPUBasedValidation(TRUE);
 	}
+
 #endif
 
 	// 対応レベルの配列
@@ -524,7 +525,7 @@ Raki_DX12B::~Raki_DX12B()
 #endif
 }
 
-void Raki_DX12B::Initialize(Raki_WinAPI *win)
+void Raki_DX12B::Initialize(Raki_WinAPI *win, bool isStopifFatalErrorDetected)
 {
 	// nullptrチェック
 	assert(win);
@@ -558,6 +559,22 @@ void Raki_DX12B::Initialize(Raki_WinAPI *win)
 
 	//レンダーターゲットマネージャー初期化
 	RenderTargetManager::GetInstance()->InitRenderTargetManager(device.Get(), commandList.Get());
+
+#ifdef _DEBUG
+
+	//致命的エラー検出時、即座に停止する設定
+	ID3D12InfoQueue* infoqueue = nullptr;
+	if (SUCCEEDED(device->QueryInterface(IID_PPV_ARGS(&infoqueue)))) {
+		if (isStopifFatalErrorDetected) {
+			infoqueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true);
+			infoqueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
+			infoqueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
+		}
+	}
+
+#endif // _DEBUG
+
+
 }
 
 void Raki_DX12B::StartDraw()

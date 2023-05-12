@@ -13,8 +13,6 @@ public:
 	void Initialize();
 	void Update();
 	void Draw();
-	//先頭の人を消す
-	void PopFront();
 	//先頭の人が何かを判別する
 	CheraType GetFrontType();
 private:
@@ -22,9 +20,11 @@ private:
 	void FirstSpawn();
 	/// スポーン管理
 	Head *HeadSpawn(const int arrayNum);
+	//先頭の人を消す
+	void PopFront();
 private:
 	//頭コンテナ
-	std::vector<std::shared_ptr<Head>> heads;
+	std::vector<std::unique_ptr<Head>> heads;
 	//イージング用座標
 	std::array<RVector3, HEAD_DISPLAY_MAX> easepos;
 	//属性

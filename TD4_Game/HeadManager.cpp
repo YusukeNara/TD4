@@ -1,4 +1,4 @@
-#include "HeadManager.h"
+ï»¿#include "HeadManager.h"
 #include"HageHead.h"
 #include"AfroHead.h"
 #include"LightHearHead.h"
@@ -25,17 +25,27 @@ void HeadManager::Initialize()
 
 void HeadManager::Update()
 {
-	//—v‘f”‚ªMAX‚æ‚è‚à­‚È‚¢ê‡‘‚â‚·
-	if (heads.size() < HEAD_DISPLAY_MAX)
+	//è¦ç´ æ•°ãŒMAXã‚ˆã‚Šã‚‚å°‘ãªã„å ´åˆå¢—ã‚„ã™
+	while (heads.size() < HEAD_DISPLAY_MAX)
 	{
-		Head *ptr = HeadSpawn(HEAD_DISPLAY_MAX - 1);
+		Head *ptr = HeadSpawn((heads.size() + 1) - 1);
 
-		heads.push_back(std::make_shared<Head>());
-		heads[HEAD_DISPLAY_MAX - 1].reset(ptr);
-		heads[HEAD_DISPLAY_MAX - 1]->Init();
-		heads[HEAD_DISPLAY_MAX - 1]->pos = easepos[HEAD_DISPLAY_MAX - 1];
+		heads.push_back(std::make_unique<Head>());
+		heads[(heads.size() + 1) - 1].reset(ptr);
+		heads[(heads.size() + 1) - 1]->Init();
+		heads[(heads.size() + 1) - 1]->pos = easepos[(heads.size() + 1) - 1];
 	}
-	//XVˆ—
+
+	//å…ˆé ­ã®äººã®å‡¦ç†ãŒçµ‚ã‚ã£ãŸã‚‰å…ˆé ­ã‚’æ¶ˆã™
+	for (int headNum = 0; headNum < heads.size(); headNum++)
+	{
+		if (heads[headNum]->isAllMoveFinish)
+		{
+			PopFront();
+		}
+	}
+
+	//æ›´æ–°å‡¦ç†
 	for (auto &h : heads) {
 		h->Update();
 	}
@@ -49,7 +59,7 @@ void HeadManager::Draw()
 void HeadManager::PopFront()
 {
 	heads.erase(heads.begin());
-	//æ“ª‚ª•Ï‚í‚é‚Ì‚Å‘®«‚àˆÚ“®‚³‚¹‚Ä‚¨‚­
+	//å…ˆé ­ãŒå¤‰ã‚ã‚‹ã®ã§å±æ€§ã‚‚ç§»å‹•ã•ã›ã¦ãŠã
 	for (int i = 0; i < HEAD_DISPLAY_MAX - 1; i++) {
 		charaType[i] = charaType[i + 1];
 	}
@@ -63,12 +73,12 @@ CheraType HeadManager::GetFrontType()
 
 void HeadManager::FirstSpawn()
 {
-	//5‰ñƒXƒ|[ƒ“AˆÊ’uİ’è
+	//5å›ã‚¹ãƒãƒ¼ãƒ³ã€ä½ç½®è¨­å®š
 	for (int i = 0; i < HEAD_DISPLAY_MAX; i++) {
 
 		Head *ptr = HeadSpawn(i);
 
-		heads.push_back(std::make_shared<Head>());
+		heads.push_back(std::make_unique<Head>());
 		heads[i].reset(ptr);
 		heads[i]->Init();
 		heads[i]->pos = easepos[i];
@@ -79,8 +89,8 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 {
 	Head *head;
 
-	//ƒ‰ƒ“ƒ_ƒ€‚Å“ª‚ğ¶¬
+	//ãƒ©ãƒ³ãƒ€ãƒ ã§é ­ã‚’ç”Ÿæˆ
 	head = new AfroHead();
-	charaType[arrayNum] = SkinHead;
+	charaType[arrayNum] = CheraType::SkinHead;
 	return head;
 }
