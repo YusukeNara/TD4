@@ -25,6 +25,7 @@ void HeadManager::Initialize()
 
 void HeadManager::Update()
 {
+	heads.begin()->get()->isMostFront = true;
 	//要素数がMAXよりも少ない場合増やす
 	while (heads.size() < HEAD_DISPLAY_MAX)
 	{
@@ -35,6 +36,7 @@ void HeadManager::Update()
 
 		head->Init();
 		head->pos = easepos[(heads.size() + 1) - 1];
+		head->ResetFrontEase();
 		heads.push_back(std::move(head));
 	}
 
@@ -44,6 +46,11 @@ void HeadManager::Update()
 		if (heads[headNum]->isAllMoveFinish)
 		{
 			PopFront();
+
+			for (auto &h : heads)
+			{
+				h->ResetFrontEase();
+			}
 		}
 	}
 
@@ -86,6 +93,7 @@ void HeadManager::FirstSpawn()
 
 		head->Init();
 		head->pos = easepos[i];
+		head->ResetFrontEase();
 		heads.push_back(std::move(head));
 	}
 }
