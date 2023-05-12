@@ -23,6 +23,9 @@ void LightHairHead::Init()
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
 	hairObject->SetAffineParam(scale, rot, pos);
+	SlapCount = 0;
+	isKramer = false;
+	isactive = true;
 }
 
 void LightHairHead::Update()
@@ -66,7 +69,7 @@ void LightHairHead::SlappingMove()
 	//if(ptr->)
 	//{}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	if (isSlap)
 	{
 		if (isKramer)
 		{
@@ -75,11 +78,21 @@ void LightHairHead::SlappingMove()
 			{
 				isAllMoveFinish = true;
 			}
+			isSlap = false;
 		}
 		else
 		{
-			isAllMoveFinish = true;
+			pos.x -= 0.5f;
+			if (pos.x < -3)
+			{
+				isAllMoveFinish = true;
+			}
 		}
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		isSlap = true;
 	}
 }
 
