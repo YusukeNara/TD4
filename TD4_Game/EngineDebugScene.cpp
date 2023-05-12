@@ -2,14 +2,18 @@
 
 #include <Raki_imguiMgr.h>
 
+using namespace Rv3Ease;
+
 EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 {
 	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
 
 	testobject = std::make_shared<Object3d>();
-	testobject.reset(NY_Object3DManager::Get()->CreateModel_Box(50.f, 10.f, 10.f, testTex));
-
+	testobject.reset(NY_Object3DManager::Get()->CreateModel_Box(10.f, 1.f, 1.f, testTex));
 	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 0, 0), RVector3(0, 0, 0));
+	testEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(0, 0, 0),
+		RVector3(0, 50, 0), 30);
+
 
 	testsp.Create(testTex);
 
@@ -42,11 +46,16 @@ void EngineDebugScene::Finalize()
 
 void EngineDebugScene::Update()
 {
-	
+	if (Input::isKeyTrigger(DIK_Q)) { testEase.Play(); }
+	else if (Input::isKeyTrigger(DIK_E)) { testEase.Reset(); }
+
+	testobject->SetAffineParamTranslate(testEase.Update());
 }
 
 void EngineDebugScene::Draw()
 {
+	testobject->DrawObject();
+
 	testFBX_NoBone->DrawObject();
 	testFBX_YesBone->DrawObject();
 
