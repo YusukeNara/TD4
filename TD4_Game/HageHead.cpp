@@ -39,12 +39,16 @@ void HageHead::Update()
 {
 	headObject->SetAffineParam(scale, rot, pos);
 
+	if (isMostFront && !isFrontEase)
+	{
+		isactive = true;
+	}
+
 	if (isFrontEase && !isactive)
 	{
 		if (pos.z <= FrontEnd.z)
 		{
 			pos.z = FrontEnd.z;
-			isactive = true;
 			isFrontEase = false;
 		}
 		else
