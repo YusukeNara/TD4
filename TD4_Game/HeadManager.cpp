@@ -26,14 +26,14 @@ void HeadManager::Initialize()
 void HeadManager::Update()
 {
 	//要素数がMAXよりも少ない場合増やす
-	if (heads.size() < HEAD_DISPLAY_MAX)
+	while (heads.size() < HEAD_DISPLAY_MAX)
 	{
-		Head *ptr = HeadSpawn(HEAD_DISPLAY_MAX - 1);
+		Head *ptr = HeadSpawn((heads.size() + 1) - 1);
 
-		heads.push_back(std::make_shared<Head>());
-		heads[HEAD_DISPLAY_MAX - 1].reset(ptr);
-		heads[HEAD_DISPLAY_MAX - 1]->Init();
-		heads[HEAD_DISPLAY_MAX - 1]->pos = easepos[HEAD_DISPLAY_MAX - 1];
+		heads.push_back(std::make_unique<Head>());
+		heads[(heads.size() + 1) - 1].reset(ptr);
+		heads[(heads.size() + 1) - 1]->Init();
+		heads[(heads.size() + 1) - 1]->pos = easepos[(heads.size() + 1) - 1];
 	}
 
 	//先頭の人の処理が終わったら先頭を消す
@@ -78,7 +78,7 @@ void HeadManager::FirstSpawn()
 
 		Head *ptr = HeadSpawn(i);
 
-		heads.push_back(std::make_shared<Head>());
+		heads.push_back(std::make_unique<Head>());
 		heads[i].reset(ptr);
 		heads[i]->Init();
 		heads[i]->pos = easepos[i];
