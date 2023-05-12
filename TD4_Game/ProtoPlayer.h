@@ -4,6 +4,7 @@
 #include <memory>
 #include <array>
 #include <NY_Object3D.h>
+#include <NY_Object3dMgr.h>
 #include "Raki_Input.h"
 
 
@@ -58,5 +59,6 @@ private:
 	std::shared_ptr<Object3d> scissor = nullptr;
 
 	UINT modelPlayer;
+	UINT modelScissor;
 };
 
