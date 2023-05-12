@@ -13,10 +13,11 @@ HeadManager::~HeadManager()
 
 void HeadManager::Initialize()
 {
-	RVector3 easeOffset(0, 0, 100.f);
+	RVector3 easeOffset(0, 0, 100.0f);
 	int i = 0;
 	for (auto &ep : easepos) {
 		ep = easeOffset * float(i);
+		ep.z += 100.0f;
 		i++;
 	}
 
