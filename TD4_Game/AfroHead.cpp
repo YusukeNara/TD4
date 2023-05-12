@@ -70,15 +70,25 @@ void AfroHead::SlappingMove()
 		return;
 	}
 
-	//プレイヤーの入力を受け付けたら
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
-	{
-		isAllMoveFinish = true;
-
-	}
 	//if(ptr->)
 	//{}
 
+	//プレイヤーの入力を受け付けたら
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		if (isKramer)
+		{
+			SlapCount++;
+			if (SlapCount >= 3)
+			{
+				isAllMoveFinish = true;
+			}
+		}
+		else
+		{
+			isAllMoveFinish = true;
+		}
+	}
 }
 
 void AfroHead::CuttingHair()

@@ -68,7 +68,18 @@ void LightHairHead::SlappingMove()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
-		isAllMoveFinish = true;
+		if (isKramer)
+		{
+			SlapCount++;
+			if (SlapCount >= 3)
+			{
+				isAllMoveFinish = true;
+			}
+		}
+		else
+		{
+			isAllMoveFinish = true;
+		}
 	}
 }
 

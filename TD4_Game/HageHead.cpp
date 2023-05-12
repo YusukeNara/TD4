@@ -22,6 +22,8 @@ void HageHead::Init()
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
 	isHairDestroy = true;
+	SlapCount = 0;
+	isKramer = false;
 }
 
 void HageHead::Update()
@@ -56,8 +58,22 @@ void HageHead::SlappingMove()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
-		isAllMoveFinish = true;
-
+		if (isKramer)
+		{
+			SlapCount++;
+			if (SlapCount >= 3)
+			{
+				isAllMoveFinish = true;
+			}
+		}
+		else
+		{
+			headObject->position.x -= 0.5f;
+			if (headObject->position.x < -3)
+			{
+				isAllMoveFinish = true;
+			}
+		}
 	}
 
 }
