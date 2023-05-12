@@ -32,6 +32,7 @@ void HageHead::Update()
 	if (isactive)
 	{
 		SlappingMove();
+		headObject->SetAffineParam(scale, rot, pos);
 	}
 }
 
@@ -70,8 +71,8 @@ void HageHead::SlappingMove()
 		}
 		else
 		{
-			headObject->position.x -= 0.5f;
-			if (headObject->position.x < -3)
+			pos.x -= 0.5f;
+			if (pos.x < -3)
 			{
 				isAllMoveFinish = true;
 			}

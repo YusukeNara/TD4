@@ -27,6 +27,9 @@ void AfroHead::Init()
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
 	afroObject->SetAffineParam(scale, rot, pos);
+	SlapCount = 0;
+	isKramer = false;
+	isactive = true;
 }
 
 void AfroHead::Update()
@@ -74,7 +77,7 @@ void AfroHead::SlappingMove()
 	//{}
 
 	//プレイヤーの入力を受け付けたら
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	if (isSlap)
 	{
 		if (isKramer)
 		{
@@ -83,11 +86,21 @@ void AfroHead::SlappingMove()
 			{
 				isAllMoveFinish = true;
 			}
+			isSlap = false;
 		}
 		else
 		{
-			isAllMoveFinish = true;
+			pos.x -= 0.5f;
+			if (pos.x < -3)
+			{
+				isAllMoveFinish = true;
+			}
 		}
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	{
+		isSlap = true;
 	}
 }
 
