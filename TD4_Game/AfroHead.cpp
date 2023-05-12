@@ -29,7 +29,7 @@ void AfroHead::Init()
 	afroObject->SetAffineParam(scale, rot, pos);
 	SlapCount = 0;
 	isKramer = false;
-	isactive = true;
+	isactive = false;
 	ResetFrontEase();
 }
 

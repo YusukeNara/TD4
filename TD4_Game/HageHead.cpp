@@ -39,17 +39,17 @@ void HageHead::Update()
 {
 	headObject->SetAffineParam(scale, rot, pos);
 
-	if (isFrontEase)
+	if (isFrontEase && !isactive)
 	{
 		if (pos.z <= FrontEnd.z)
 		{
+			pos.z = FrontEnd.z;
 			isactive = true;
 			isFrontEase = false;
 		}
 		else
 		{
-			pos = Rv3Ease::OutQuad(FrontStart, FrontEnd, (float)FrontEaseT);
-			FrontEaseT++;
+			pos.z -= FrontLength;
 		}
 	}
 

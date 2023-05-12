@@ -81,7 +81,7 @@ public:
 	RVector3 FrontStart = {};
 	RVector3 FrontEnd = {};
 	int FrontEaseT = 0;		//ŽžŠÔ
-	const float FrontLength = 100.0f;	//•Ï‰»—Ê
+	const float FrontLength = 2.0f;	//•Ï‰»—Ê
 	//ƒrƒ“ƒ^‚³‚ê‚½‚Æ‚«
 	float SlapEaseT = 0.0f;			//ŽžŠÔ
 	const float SlapLength = 1.0f;	//•Ï‰»—Ê
