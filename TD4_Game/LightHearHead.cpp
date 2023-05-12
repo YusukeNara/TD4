@@ -26,22 +26,49 @@ void LightHairHead::Init()
 	SlapCount = 0;
 	isKramer = false;
 	isactive = true;
+	ResetFrontEase();
+}
+
+void LightHairHead::ResetFrontEase()
+{
+	FrontStart = pos;
+	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - FrontLength };
+	isFrontEase = true;
 }
 
 void LightHairHead::Update()
 {
+	//オブジェクト描画位置を設定
+	headObject->SetAffineParamTranslate(pos + headOffset);
+	hairObject->SetAffineParamTranslate(pos + hairOffset);
+
+	if (isFrontEase)
+	{
+		if (pos.z <= FrontEnd.z)
+		{
+			isactive = true;
+			isFrontEase = false;
+		}
+		else
+		{
+			pos = Rv3Ease::OutQuad(FrontStart, FrontEnd, (float)FrontEaseT);
+			FrontEaseT++;
+		}
+	}
+
 	// 頭が有効化されたら
-	if (isactive) {
+	if (isactive) 
+	{
+		if (!isMostFront)
+		{
+			//return;
+		}
+
 		//入力を受け付ける
 		SlappingMove();
 
 		PullOutHair();
 	}
-
-
-	//オブジェクト描画位置を設定
-	headObject->SetAffineParamTranslate(pos + headOffset);
-	hairObject->SetAffineParamTranslate(pos + hairOffset);
 }
 
 void LightHairHead::Draw()

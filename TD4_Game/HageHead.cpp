@@ -24,15 +24,42 @@ void HageHead::Init()
 	isHairDestroy = true;
 	SlapCount = 0;
 	isKramer = false;
-	isactive = true;
+	isactive = false;
+	ResetFrontEase();
+}
+
+void HageHead::ResetFrontEase()
+{
+	FrontStart = pos;
+	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - FrontLength };
+	isFrontEase = true;
 }
 
 void HageHead::Update()
 {
+	headObject->SetAffineParam(scale, rot, pos);
+
+	if (isFrontEase)
+	{
+		if (pos.z <= FrontEnd.z)
+		{
+			isactive = true;
+			isFrontEase = false;
+		}
+		else
+		{
+			pos = Rv3Ease::OutQuad(FrontStart, FrontEnd, (float)FrontEaseT);
+			FrontEaseT++;
+		}
+	}
+
 	if (isactive)
 	{
+		if (!isMostFront)
+		{
+			//return;
+		}
 		SlappingMove();
-		headObject->SetAffineParam(scale, rot, pos);
 	}
 }
 
