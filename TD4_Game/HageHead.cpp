@@ -31,7 +31,7 @@ void HageHead::Init()
 void HageHead::ResetFrontEase()
 {
 	FrontStart = pos;
-	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - FrontLength };
+	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - 100.0f };
 	isFrontEase = true;
 }
 
@@ -57,7 +57,7 @@ void HageHead::Update()
 	{
 		if (!isMostFront)
 		{
-			//return;
+			return;
 		}
 		SlappingMove();
 	}

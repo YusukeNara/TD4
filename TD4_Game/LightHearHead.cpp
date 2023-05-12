@@ -61,7 +61,7 @@ void LightHairHead::Update()
 	{
 		if (!isMostFront)
 		{
-			//return;
+			return;
 		}
 
 		//入力を受け付ける
