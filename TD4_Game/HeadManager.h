@@ -24,7 +24,7 @@ private:
 	void PopFront();
 private:
 	//頭コンテナ
-	std::vector<std::shared_ptr<Head>> heads;
+	std::vector<std::unique_ptr<Head>> heads;
 	//イージング用座標
 	std::array<RVector3, HEAD_DISPLAY_MAX> easepos;
 	//属性
