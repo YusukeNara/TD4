@@ -46,17 +46,21 @@ void AfroHead::Update()
 	headObject->SetAffineParamTranslate(pos + headOffset);
 	afroObject->SetAffineParamTranslate(pos + hairOffset);
 
+	if (isMostFront && !isFrontEase)
+	{
+		isactive = true;
+	}
+
 	if (isFrontEase)
 	{
 		if (pos.z <= FrontEnd.z)
 		{
-			isactive = true;
+			pos.z = FrontEnd.z;
 			isFrontEase = false;
 		}
 		else
 		{
-			pos = Rv3Ease::OutQuad(FrontStart, FrontEnd, (float)FrontEaseT);
-			FrontEaseT++;
+			pos.z -= FrontLength;
 		}
 	}
 
@@ -72,10 +76,7 @@ void AfroHead::Update()
 		SlappingMove();
 
 		CuttingHair();
-
 	}
-
-
 }
 
 void AfroHead::Draw()
