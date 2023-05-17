@@ -171,6 +171,7 @@
     <ClCompile Include="ProtoPlayer.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
@@ -286,6 +287,7 @@
     <ClInclude Include="ProtoPlayer.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="TitleScene.h" />

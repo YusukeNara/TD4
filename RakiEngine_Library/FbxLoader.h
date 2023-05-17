@@ -68,7 +68,6 @@ private:
 	
 	//テクスチャはテクスチャマネージャーのしごと
 
-
 	FbxManager* fbxmgr = nullptr;
 
 	FbxImporter* fbxImporter = nullptr;

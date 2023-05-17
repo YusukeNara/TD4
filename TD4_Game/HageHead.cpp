@@ -129,6 +129,7 @@ void HageHead::SlappingMove()
 			//設定構造体のインスタンス
 			ParticleGrainState pgstate{};
 			//パラメータ設定
+			pgstate.position = RVector3(pos.x + 5, pos.y, pos.z);
 			pgstate.position = RVector3(pos.x + 5, 0, 0);
 			pgstate.vel = v * 4.0f;
 			pgstate.acc = -(v / 10);

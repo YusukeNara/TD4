@@ -9,6 +9,8 @@ HeadManager::HeadManager()
 
 HeadManager::~HeadManager()
 {
+	delete scoreManager;
+	scoreManager = nullptr;
 }
 
 void HeadManager::Initialize()
@@ -22,6 +24,9 @@ void HeadManager::Initialize()
 	}
 
 	FirstSpawn();
+
+	scoreManager = new ScoreManager();
+	scoreManager->Initialize();
 }
 
 void HeadManager::Update()
@@ -44,6 +49,7 @@ void HeadManager::Update()
 	//先頭の人の処理が終わったら先頭を消す
 	for (int headNum = 0; headNum < heads.size(); headNum++)
 	{
+		scoreManager->Update(heads[headNum].get(), charaType[0]);
 		if (heads[headNum]->isAllMoveFinish)
 		{
 			PopFront();
@@ -103,8 +109,30 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 {
 	Head *head;
 
-	//ランダムで頭を生成
-	head = new HageHead();
-	charaType[arrayNum] = CheraType::SkinHead;
+	//ランダムで頭を生成(1～100)
+	int probability = NY_random::intrand_sl(100, 1);
+	//1～20だったらはげ
+	if (probability >= 1 && probability <= 20)
+	{
+		head = new HageHead();
+		charaType[arrayNum] = CheraType::SkinHead;
+	}
+	//21～60だったら一本はげ
+	else if (probability >= 21 && probability <= 60)
+	{
+		head = new LightHairHead();
+		charaType[arrayNum] = CheraType::Thinning;
+	}
+	//61～100だったらアフロ
+	else if (probability >= 61 && probability <= 100)
+	{
+		head = new AfroHead();
+		charaType[arrayNum] = CheraType::Afro;
+	}
+	else
+	{
+		head = new HageHead();
+		charaType[arrayNum] = CheraType::SkinHead;
+	}
 	return head;
 }
