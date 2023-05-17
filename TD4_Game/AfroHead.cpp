@@ -156,6 +156,7 @@ void AfroHead::SlappingMove()
 			ParticleGrainState pgstate{};
 			//パラメータ設定
 			pgstate.position = RVector3(pos.x + 5, pos.y, pos.z);
+			pgstate.position = RVector3(pos.x + 5, 0, 0);
 			pgstate.vel = v * 4.0f;
 			pgstate.acc = -(v / 10);
 			pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
