@@ -5,6 +5,8 @@
 #include <Sprite.h>
 #include <Raki_Input.h>
 
+#include <CameraCalc.h>
+
 //エンジン側検証用シーン
 //このクラスもいじらないこと
 class EngineDebugScene : public BaseScene
@@ -27,7 +29,14 @@ public:
 
     Rv3Ease::Rv3Easing testEase;
 
+    int testmode = 0;
+    int testanimnum = 0;
+
     //デバッグ用変数
     float rotX = 0.f, rotY = 0.f, rotZ = 0.f;
+
+    float camrot = 0.f;
+
+    CameraCalc testcam;
 };
 
