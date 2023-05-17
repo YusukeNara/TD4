@@ -116,6 +116,59 @@ inline RVector3 CalcRVector3Rotate(RVector3& rotateEuler, RVector3& rotateVec) {
 //RVector3を使用した、3次元線形補間
 namespace Rv3Ease {
 
+	enum class RV3_EASE_TYPE
+	{
+		EASE_LERP,
+		EASE_QUAD_IN,
+		EASE_QUAD_OUT,
+		EASE_QUAD_INOUT,
+		EASE_CUBIC_IN,
+		EASE_CUBIC_OUT,
+		EASE_CUBIC_INOUT,
+	};
+
+	class Rv3Easing
+	{
+	public:
+		Rv3Easing() = default;
+		~Rv3Easing() = default;
+
+		/// <summary>
+		/// イージング初期化
+		/// </summary>
+		/// <param name="type">イージングの種類</param>
+		/// <param name="startPos">開始座標</param>
+		/// <param name="endPos">終了座標</param>
+		/// <param name="playFrame">再生フレーム</param>
+		void Init(RV3_EASE_TYPE type, RVector3 startPos, RVector3 endPos, int playFrame);
+
+		//イージングを再生
+		void Play();
+
+		//現在座標を取得
+		RVector3 Update();
+
+		//イージングをリセット
+		void Reset();
+
+
+	private:
+		//各種イージング関数
+
+		//以下変数
+		RV3_EASE_TYPE	type;
+		RVector3		startPos;
+		RVector3		endPos;
+		int				playFrame;
+
+		int				frame = 0;
+		bool			isplay = false;
+		RVector3		resultPos;
+
+	};
+
+
+
 	/// <summary>
 	/// 線形補間（引数は基本全部この形）
 	/// </summary>
@@ -130,6 +183,12 @@ namespace Rv3Ease {
 	const RVector3 OutQuad(const RVector3 &s, const RVector3 &e, const float t);
 
 	const RVector3 InOutQuad(const RVector3 &s, const RVector3 &e, const float t);
+
+	const RVector3 InCubic(const RVector3& s, const RVector3& e, const float t);
+
+	const RVector3 OutCubic(const RVector3& s, const RVector3& e, const float t);
+
+	const RVector3 InOutCubic(const RVector3& s, const RVector3& e, const float t);
 
 }
 

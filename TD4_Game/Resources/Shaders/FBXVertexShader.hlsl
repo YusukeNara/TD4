@@ -45,7 +45,7 @@ VSOutput main(VSInput input)
     float4 wn = normalize(mul(wMat, float4(skined.normal, 0)));
 	
 	VSOutput output;//ピクセルシェーダーに渡す値
-    output.worldPos = input.svpos;
+    output.worldPos = mul(wMat, input.svpos);
 	output.svpos = mul(mat, skined.pos);
     output.normal = wn.xyz;
 	output.uv = input.uv;
