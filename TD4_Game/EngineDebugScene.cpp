@@ -38,6 +38,7 @@ EngineDebugScene::~EngineDebugScene()
 
 void EngineDebugScene::Initialize()
 {
+	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0));
 }
 
 void EngineDebugScene::Finalize()
@@ -76,7 +77,15 @@ void EngineDebugScene::DrawImgui()
 	ImGui::SliderFloat("rotY", &rotY, 0.f, 360.f);
 	ImGui::SliderFloat("rotZ", &rotZ, 0.f, 360.f);
 
+	ImGui::Text("test cam eye %.2f,%.2f,%.2f", testcam._eyepos.x, testcam._eyepos.y, testcam._eyepos.z);
+	ImGui::Text("test cam target %.2f,%.2f,%.2f", testcam._targetVec.x, testcam._targetVec.y, testcam._targetVec.z);
+	ImGui::Text("test cam up %.2f,%.2f,%.2f", testcam._upVec.x, testcam._upVec.y, testcam._upVec.z);
+
+	ImGui::SliderFloat("camrot", &camrot, 0.f, 2.0f);
+
 	myImgui::EndDrawImGui();
+
+	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0), camrot);
 
 	testFBX_NoBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testFBX_YesBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
