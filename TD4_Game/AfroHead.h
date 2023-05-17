@@ -26,6 +26,9 @@ private:
 	void CuttingHair();
 
 private:
+	//毛を刈った時のパーティクル
+	std::unique_ptr<ParticleManager> CutParticle;
+	UINT cutTex;
 
 	std::shared_ptr<Object3d> headObject;
 	std::shared_ptr<Object3d> afroObject;
