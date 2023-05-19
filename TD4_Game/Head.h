@@ -71,7 +71,7 @@ public:
 	bool isAllMoveFinish = false;
 
 	//プレイヤーポインタ
-	static std::weak_ptr<ProtoPlayer> playerPtr;
+	std::weak_ptr<ProtoPlayer> playerPtr;
 
 	//クレーマーかどうか
 	bool isKramer = false;

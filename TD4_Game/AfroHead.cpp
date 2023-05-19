@@ -118,6 +118,11 @@ void AfroHead::SlappingMove()
 		return;
 	}
 
+	if (playerPtr.lock()->GetItemType() != ItemType::Hand)
+	{
+		return;
+	}
+
 	//プレイヤーの入力を受け付けたら
 	if (isSlap)
 	{
@@ -172,6 +177,11 @@ void AfroHead::SlappingMove()
 void AfroHead::CuttingHair()
 {
 	if (isHairDestroy || isKramer)
+	{
+		return;
+	}
+
+	if (playerPtr.lock()->GetItemType() != ItemType::Scissors)
 	{
 		return;
 	}

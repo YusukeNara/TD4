@@ -111,6 +111,11 @@ void LightHairHead::SlappingMove()
 		return;
 	}
 
+	if (playerPtr.lock()->GetItemType() != ItemType::Hand)
+	{
+		return;
+	}
+
 	if (isSlap)
 	{
 		//クレーマーなら
@@ -164,6 +169,11 @@ void LightHairHead::SlappingMove()
 void LightHairHead::PullOutHair()
 {
 	if (isHairDestroy || isKramer)
+	{
+		return;
+	}
+
+	if (playerPtr.lock()->GetItemType() != ItemType::Clippers)
 	{
 		return;
 	}

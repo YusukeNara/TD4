@@ -89,6 +89,11 @@ void HageHead::SlappingMove()
 		return;
 	}
 
+	if (playerPtr.lock()->GetItemType() != ItemType::Hand)
+	{
+		return;
+	}
+
 	//プレイヤーの入力を受け付けたら
 	//アニメーションしてふっとんっでいく処理
 	if (isSlap)
