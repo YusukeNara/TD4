@@ -46,7 +46,7 @@ void AfroHead::Init()
 void AfroHead::ResetFrontEase()
 {
 	FrontStart = pos;
-	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - FrontLength };
+	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - 100.0f };
 	isFrontEase = true;
 }
 
@@ -61,7 +61,7 @@ void AfroHead::Update()
 		isactive = true;
 	}
 
-	if (isFrontEase)
+	if (isFrontEase && !isactive)
 	{
 		if (pos.z <= FrontEnd.z)
 		{
@@ -193,8 +193,8 @@ void AfroHead::CuttingHair()
 			pgstate.position = RVector3(pos.x, pos.y + 5, pos.z);
 			pgstate.vel = v * 4.0f;
 			pgstate.acc = -(v / 10);
-			pgstate.color_start = XMFLOAT4(1, 1, 1, 1);
-			pgstate.color_end = XMFLOAT4(1, 1, 1, 1);
+			pgstate.color_start = XMFLOAT4(0, 0, 0, 1);
+			pgstate.color_end = XMFLOAT4(0, 0, 0, 1);
 			pgstate.scale_start = 2.0f;
 			pgstate.scale_end = 2.5f;
 			pgstate.aliveTime = 20;
