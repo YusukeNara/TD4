@@ -1,6 +1,8 @@
 #include "TitleScene.h"
 #include <iostream>
 
+using namespace Rv3Ease;
+
 TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
 
@@ -13,6 +15,8 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(30, 0, 0));
 	titlePlayer->PlayAnimation();
 
+	titleEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(0, 0, 0),
+		RVector3(0, 50, 0), 30);
 
 	testobject = std::make_shared<Object3d>();
 	testobject.reset(NY_Object3DManager::Get()->CreateModel_Box(50.f, 10.f, 10.f, testTex));
