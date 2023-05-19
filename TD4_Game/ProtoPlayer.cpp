@@ -8,6 +8,14 @@ ProtoPlayer::ProtoPlayer()
 	player = std::make_shared<Object3d>();
 
 	player.reset(NY_Object3DManager::Get()->CreateModel_Box(5.f, 1.f, 1.f, modelPlayer));
+
+	UITexHand = TexManager::LoadTexture("Resources/hand.png");
+	UITexClip = TexManager::LoadTexture("Resources/pull.png");
+	UITexScis = TexManager::LoadTexture("Resources/cut.png");
+
+	handUI.Create(UITexHand);
+	clipUI.Create(UITexClip);
+	scisUI.Create(UITexScis);
 }
 
 ProtoPlayer::~ProtoPlayer()
@@ -20,6 +28,10 @@ void ProtoPlayer::Init()
 	rotation = { 0,0,0 };
 	scale = { 3,3,3 };
 	player->SetAffineParam(scale, rotation, position);
+
+	uiOffsetHand = { 50,600 };
+	uiOffsetScis = { 170,600 };
+	uiOffsetClip = { 290,600 };
 }
 
 void ProtoPlayer::Update()
@@ -32,6 +44,16 @@ void ProtoPlayer::Update()
 void ProtoPlayer::Draw()
 {
 	player->DrawObject();
+}
+
+void ProtoPlayer::DrawUI()
+{
+	handUI.DrawExtendSprite(uiOffsetHand.x, uiOffsetHand.y, uiOffsetHand.x + 100, uiOffsetHand.y + 100);
+	handUI.Draw();
+	clipUI.DrawExtendSprite(uiOffsetClip.x, uiOffsetClip.y, uiOffsetClip.x + 100, uiOffsetClip.y + 100);
+	clipUI.Draw();
+	scisUI.DrawExtendSprite(uiOffsetScis.x, uiOffsetScis.y, uiOffsetScis.x + 100, uiOffsetScis.y + 100);
+	scisUI.Draw();
 }
 
 void ProtoPlayer::Attack()
@@ -71,6 +93,7 @@ void ProtoPlayer::Clip()
 
 void ProtoPlayer::ChangeItem()
 {
+	//アイテムの切り替え
 	if (handItemType == Hand)
 	{
 		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_RB))
@@ -103,6 +126,26 @@ void ProtoPlayer::ChangeItem()
 		{
 			handItemType = Scissors;
 		}
+	}
+
+	//--------------------UI---------------------
+	if (handItemType == Hand)
+	{
+		uiOffsetHand.y = 570;//
+		uiOffsetClip.y = 600;
+		uiOffsetScis.y = 600;
+	}
+	else if (handItemType == Clippers)
+	{
+		uiOffsetHand.y = 600;
+		uiOffsetClip.y = 570;//
+		uiOffsetScis.y = 600;
+	}
+	else
+	{
+		uiOffsetHand.y = 600;
+		uiOffsetClip.y = 600;
+		uiOffsetScis.y = 570;//
 	}
 }
 
