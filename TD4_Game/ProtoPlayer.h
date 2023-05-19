@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <array>
+#include <Sprite.h>
 #include <NY_Object3D.h>
 #include <NY_Object3dMgr.h>
 #include "Raki_Input.h"
@@ -29,6 +30,8 @@ public:
 
 	void Draw();
 
+	void DrawUI();
+
 	void Attack();
 
 	void Finalize();
@@ -48,7 +51,7 @@ public:
 	ItemType GetItemType();
 
 private:
-	
+
 	RVector3 position;
 	RVector3 rotation;
 	RVector3 scale;
@@ -60,5 +63,16 @@ private:
 
 	UINT modelPlayer;
 	UINT modelScissor;
+
+	UINT UITexHand;
+	UINT UITexClip;
+	UINT UITexScis;
+	Sprite handUI;
+	Sprite clipUI;
+	Sprite scisUI;
+
+	XMFLOAT2 uiOffsetHand;
+	XMFLOAT2 uiOffsetClip;
+	XMFLOAT2 uiOffsetScis;
 };
 

@@ -3,45 +3,62 @@
 #include"AfroHead.h"
 #include"LightHearHead.h"
 
-HeadManager::HeadManager()
+HeadManager::HeadManager(ProtoPlayer *player)
 {
+	this->player = player;
 }
 
 HeadManager::~HeadManager()
 {
+	delete scoreManager;
+	scoreManager = nullptr;
 }
 
 void HeadManager::Initialize()
 {
-	RVector3 easeOffset(0, 0, 100.f);
+	RVector3 easeOffset(0, 0, 100.0f);
 	int i = 0;
 	for (auto &ep : easepos) {
 		ep = easeOffset * float(i);
+		ep.z += 100.0f;
 		i++;
 	}
 
 	FirstSpawn();
+
+	scoreManager = new ScoreManager();
+	scoreManager->Initialize();
 }
 
 void HeadManager::Update()
 {
+	heads.begin()->get()->isMostFront = true;
 	//要素数がMAXよりも少ない場合増やす
 	while (heads.size() < HEAD_DISPLAY_MAX)
 	{
 		Head *ptr = HeadSpawn((heads.size() + 1) - 1);
+		std::unique_ptr<Head> head = std::make_unique<Head>();
 
-		heads.push_back(std::make_unique<Head>());
-		heads[(heads.size() + 1) - 1].reset(ptr);
-		heads[(heads.size() + 1) - 1]->Init();
-		heads[(heads.size() + 1) - 1]->pos = easepos[(heads.size() + 1) - 1];
+		head.reset(HeadSpawn((heads.size() + 1) - 1));
+
+		head->Init();
+		head->pos = easepos[(heads.size() + 1) - 1];
+		head->ResetFrontEase();
+		heads.push_back(std::move(head));
 	}
 
 	//先頭の人の処理が終わったら先頭を消す
 	for (int headNum = 0; headNum < heads.size(); headNum++)
 	{
+		scoreManager->Update(heads[headNum].get(), charaType[0], player->GetItemType());
 		if (heads[headNum]->isAllMoveFinish)
 		{
 			PopFront();
+
+			for (auto &h : heads)
+			{
+				h->ResetFrontEase();
+			}
 		}
 	}
 
@@ -78,10 +95,14 @@ void HeadManager::FirstSpawn()
 
 		Head *ptr = HeadSpawn(i);
 
-		heads.push_back(std::make_unique<Head>());
-		heads[i].reset(ptr);
-		heads[i]->Init();
-		heads[i]->pos = easepos[i];
+		std::unique_ptr<Head> head = std::make_unique<Head>();
+
+		head.reset(HeadSpawn(i));
+
+		head->Init();
+		head->pos = easepos[i];
+		head->ResetFrontEase();
+		heads.push_back(std::move(head));
 	}
 }
 
@@ -89,8 +110,35 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 {
 	Head *head;
 
-	//ランダムで頭を生成
-	head = new HageHead();
-	charaType[arrayNum] = CheraType::SkinHead;
+	//ランダムで頭を生成(全ての出現確率の合計)
+	int probability = NY_random::intrand_sl(HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + AFROHEAD_SPAWN_NUM, 1);
+	//1 ～ HAGEHEAD_SPAWN_NUMだったらはげ
+	if (probability >= 1 && probability <= HAGEHEAD_SPAWN_NUM)
+	{
+		head = new HageHead();
+		head->SetPlayer(player);
+		charaType[arrayNum] = CheraType::SkinHead;
+	}
+	//HAGEHEAD_SPAWN_NUM + 1 ～ HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUMだったら一本はげ
+	else if (probability >= (HAGEHEAD_SPAWN_NUM + 1) && probability <= (HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM))
+	{
+		head = new LightHairHead();
+		head->SetPlayer(player);
+		charaType[arrayNum] = CheraType::Thinning;
+	}
+	//HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + 1 ～ HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + AFROHEAD_SPAWN_NUMだったらアフロ
+	else if (probability >= ((HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM) + 1) &&
+		probability <= (HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + AFROHEAD_SPAWN_NUM))
+	{
+		head = new AfroHead();
+		head->SetPlayer(player);
+		charaType[arrayNum] = CheraType::Afro;
+	}
+	else
+	{
+		head = new HageHead();
+		head->SetPlayer(player);
+		charaType[arrayNum] = CheraType::SkinHead;
+	}
 	return head;
 }

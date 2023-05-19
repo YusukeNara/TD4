@@ -34,6 +34,10 @@ void GameScene::Update() {
 		mSceneChanger->ChangeScene(eScene_Title);
 	}
 
+	if (Input::Get()->isKeyTrigger(DIK_2)) {
+		mSceneChanger->ChangeScene(eScene_Result);
+	}
+
 	gmgr.Update();
 }
 

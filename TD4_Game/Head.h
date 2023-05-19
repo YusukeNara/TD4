@@ -1,5 +1,6 @@
 #pragma once
 #include <RVector.h>
+#include<ParticleManager.h>
 
 #include "ProtoPlayer.h"
 
@@ -14,6 +15,8 @@ public:
 
 	virtual void Init() {};
 
+	virtual void ResetFrontEase() {};
+
 	virtual void Update() {};
 
 	virtual void Draw() {};
@@ -22,8 +25,10 @@ public:
 
 	virtual void SlappingMove() {};
 
-	void SetPlayer(std::shared_ptr<ProtoPlayer> ptr) {
-		this->ptr = ptr;
+	static void setPlayerPtr(std::shared_ptr<ProtoPlayer> ptr);
+
+	void SetPlayer(ProtoPlayer* ptr) {
+		this->playerPtr = ptr;
 	}
 
 	void Activate() {
@@ -31,11 +36,18 @@ public:
 	}
 
 public:
+	//ビンタされた時のパーティクル
+	std::unique_ptr<ParticleManager> SlapParticle;
+	UINT slapTex;
+
 	//アフィン変換
 	RVector3 pos, rot, scale;
 
 	//客のタイプ
 	CheraType HeadType = CheraType::None;
+
+	//先頭かどうか
+	bool isMostFront = false;
 
 	//有効化フラグ
 	bool isactive = false;
@@ -59,18 +71,27 @@ public:
 	bool isAllMoveFinish = false;
 
 	//プレイヤーポインタ
-	std::weak_ptr<ProtoPlayer> ptr;
+	ProtoPlayer* playerPtr;
 
 	//クレーマーかどうか
 	bool isKramer = false;
 
+	//ビンタフラグ
+	bool isSlap = false;
+
 	//ビンタされた回数
 	int SlapCount = 0;
 
+	//ビンタの最大回数
+	const int ManSlapCount = 7;
+
 	//イージング用変数
 	//前に進む時
-	float FrontEaseT = 0.0f;		//時間
-	const float Length = 10.0f;		//変化量
+	bool isFrontEase = false;		//前に進むか
+	RVector3 FrontStart = {};
+	RVector3 FrontEnd = {};
+	int FrontEaseT = 0;		//時間
+	const float FrontLength = 2.5f;	//変化量
 	//ビンタされたとき
 	float SlapEaseT = 0.0f;			//時間
 	const float SlapLength = 1.0f;	//変化量

@@ -50,6 +50,12 @@ struct ParticleVertex
 	XMFLOAT3 pos;
 };
 
+enum class ANIMATION_PLAYMODE
+{
+	ANIM_MODE_FIRST,
+	ANIM_MODE_ROOP,
+};
+
 // 2022/03/16 クラスの依存関係を変更
 //mgr -> object3d -> model3d
 //このクラスは中間に位置させ、modelを所有する
@@ -129,7 +135,12 @@ public:
 
 	void CreateModel_Box(float size, float uv_x, float uv_y, UINT useTexNum);
 
-	void PlayAnimation();
+	//アニメーション関連
+
+	//再生
+	void PlayAnimation(ANIMATION_PLAYMODE playmode, int animNum = 0);
+
+	void StopAnimation();
 
 	//アフィン変換情報
 	RVector3 scale = { 1,1,1 };
@@ -160,6 +171,7 @@ private:
 	FbxTime startTime;
 	FbxTime endTime;
 	FbxTime currentTime;
+	ANIMATION_PLAYMODE playmode;
 
 	bool isPlay = false;
 

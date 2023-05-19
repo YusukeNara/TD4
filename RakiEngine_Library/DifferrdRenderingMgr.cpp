@@ -8,11 +8,11 @@ void DiferredRenderingMgr::Init(ID3D12Device* dev, ID3D12GraphicsCommandList* cm
 	m_dev = dev;
 	m_cmd = cmd;
 
-    DirectionalLight::SetLightPos(RVector3(500.f, 1000.f, 500.f),
-        RVector3(0.f, 0.f, 0.f),
-        RVector3(0.f, 1.f, 0.f));
+    //DirectionalLight::SetLightPos(RVector3(500.f, 1000.f, 500.f),
+        //RVector3(0.f, 0.f, 0.f),
+        //RVector3(0.f, 1.f, 0.f));
      
-    //DirectionalLight::SetLightDir(1.0f, -1.0f, 1.0f);
+    DirectionalLight::SetLightDir(1.0f, -1.0f, 1.0f);
 
 	ShaderCompile();
 

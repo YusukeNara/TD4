@@ -12,6 +12,8 @@ public:
 
 	void Init() override;
 
+	void ResetFrontEase() override;
+
 	void Update() override;
 
 	void Draw() override;
@@ -24,6 +26,9 @@ private:
 	void CuttingHair();
 
 private:
+	//毛を刈った時のパーティクル
+	std::unique_ptr<ParticleManager> CutParticle;
+	UINT cutTex;
 
 	std::shared_ptr<Object3d> headObject;
 	std::shared_ptr<Object3d> afroObject;
@@ -33,6 +38,8 @@ private:
 	RVector3 hairOffset;
 
 	UINT afroheadTex;
+
+	RVector3 AfroSize = {};
 
 	//髪を斬った回数
 	int CutCount = 0;

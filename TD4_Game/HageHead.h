@@ -12,6 +12,8 @@ public:
 
 	void Init() override;
 
+	void ResetFrontEase() override;
+
 	void Update() override;
 
 	void Draw() override;
