@@ -25,8 +25,10 @@ public:
 
 	virtual void SlappingMove() {};
 
+	static void setPlayerPtr(std::shared_ptr<ProtoPlayer> ptr);
+
 	void SetPlayer(std::shared_ptr<ProtoPlayer> ptr) {
-		this->ptr = ptr;
+		this->playerPtr = ptr;
 	}
 
 	void Activate() {
@@ -69,7 +71,7 @@ public:
 	bool isAllMoveFinish = false;
 
 	//プレイヤーポインタ
-	std::weak_ptr<ProtoPlayer> ptr;
+	static std::weak_ptr<ProtoPlayer> playerPtr;
 
 	//クレーマーかどうか
 	bool isKramer = false;
