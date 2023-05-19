@@ -113,21 +113,19 @@ void AfroHead::Finalize()
 
 void AfroHead::SlappingMove()
 {
-	if (!isHairDestroy)
+	if (!isHairDestroy && !isKramer)
 	{
 		return;
 	}
 
-	//if(ptr->)
-	//{}
-
 	//プレイヤーの入力を受け付けたら
 	if (isSlap)
 	{
+		//クレーマーなら
 		if (isKramer)
 		{
 			SlapCount++;
-			if (SlapCount >= 3)
+			if (SlapCount >= ManSlapCount)
 			{
 				isAllMoveFinish = true;
 			}
@@ -173,7 +171,7 @@ void AfroHead::SlappingMove()
 
 void AfroHead::CuttingHair()
 {
-	if (isHairDestroy)
+	if (isHairDestroy || isKramer)
 	{
 		return;
 	}

@@ -84,7 +84,7 @@ void HageHead::Finalize()
 
 void HageHead::SlappingMove()
 {
-	if (!isHairDestroy)
+	if (!isHairDestroy && !isKramer)
 	{
 		return;
 	}
@@ -93,10 +93,11 @@ void HageHead::SlappingMove()
 	//アニメーションしてふっとんっでいく処理
 	if (isSlap)
 	{
+		//クレーマーなら
 		if (isKramer)
 		{
 			SlapCount++;
-			if (SlapCount >= 3)
+			if (SlapCount >= ManSlapCount)
 			{
 				isAllMoveFinish = true;
 			}
@@ -129,7 +130,7 @@ void HageHead::SlappingMove()
 			pgstate.position = RVector3(pos.x + 5, 0, 0);
 			pgstate.vel = v * 4.0f;
 			pgstate.acc = -(v / 10);
-			pgstate.color_start =XMFLOAT4(1, 0, 0, 1);
+			pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
 			pgstate.color_end = XMFLOAT4(1, 0, 0, 1);
 			pgstate.scale_start = 2.0f;
 			pgstate.scale_end = 2.5f;

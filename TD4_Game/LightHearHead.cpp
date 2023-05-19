@@ -101,17 +101,18 @@ void LightHairHead::Finalize()
 
 void LightHairHead::SlappingMove()
 {
-	if (!isHairDestroy)
+	if (!isHairDestroy && !isKramer)
 	{
 		return;
 	}
 
 	if (isSlap)
 	{
+		//クレーマーなら
 		if (isKramer)
 		{
 			SlapCount++;
-			if (SlapCount >= 3)
+			if (SlapCount >= ManSlapCount)
 			{
 				isAllMoveFinish = true;
 			}
@@ -157,7 +158,7 @@ void LightHairHead::SlappingMove()
 
 void LightHairHead::PullOutHair()
 {
-	if (isHairDestroy)
+	if (isHairDestroy || isKramer)
 	{
 		return;
 	}

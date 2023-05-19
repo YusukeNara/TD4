@@ -80,6 +80,9 @@ public:
 	//ビンタされた回数
 	int SlapCount = 0;
 
+	//ビンタの最大回数
+	const int ManSlapCount = 7;
+
 	//イージング用変数
 	//前に進む時
 	bool isFrontEase = false;		//前に進むか
