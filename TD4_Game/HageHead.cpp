@@ -89,7 +89,7 @@ void HageHead::SlappingMove()
 		return;
 	}
 
-	if (playerPtr.lock()->GetItemType() != ItemType::Hand)
+	if (playerPtr->GetItemType() != ItemType::Hand)
 	{
 		return;
 	}
