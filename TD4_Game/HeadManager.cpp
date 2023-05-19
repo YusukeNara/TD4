@@ -3,14 +3,17 @@
 #include"AfroHead.h"
 #include"LightHearHead.h"
 
-HeadManager::HeadManager()
+HeadManager::HeadManager(ProtoPlayer *player)
 {
+	this->player = player;
 }
 
 HeadManager::~HeadManager()
 {
 	delete scoreManager;
 	scoreManager = nullptr;
+	delete player;
+	player = nullptr;
 }
 
 void HeadManager::Initialize()
@@ -115,12 +118,14 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 	if (probability >= 1 && probability <= HAGEHEAD_SPAWN_NUM)
 	{
 		head = new HageHead();
+		head->SetPlayer(player);
 		charaType[arrayNum] = CheraType::SkinHead;
 	}
 	//HAGEHEAD_SPAWN_NUM + 1 ～ HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUMだったら一本はげ
 	else if (probability >= (HAGEHEAD_SPAWN_NUM + 1) && probability <= (HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM))
 	{
 		head = new LightHairHead();
+		head->SetPlayer(player);
 		charaType[arrayNum] = CheraType::Thinning;
 	}
 	//HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + 1 ～ HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + AFROHEAD_SPAWN_NUMだったらアフロ
@@ -128,11 +133,13 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 		probability <= (HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + AFROHEAD_SPAWN_NUM))
 	{
 		head = new AfroHead();
+		head->SetPlayer(player);
 		charaType[arrayNum] = CheraType::Afro;
 	}
 	else
 	{
 		head = new HageHead();
+		head->SetPlayer(player);
 		charaType[arrayNum] = CheraType::SkinHead;
 	}
 	return head;
