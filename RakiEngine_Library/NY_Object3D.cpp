@@ -162,7 +162,17 @@ void Object3d::UpdateObject3D()
 		currentTime += frameTime;
 
 		if (currentTime > endTime) {
-			currentTime = startTime;
+			switch (playmode)
+			{
+			case ANIMATION_PLAYMODE::ANIM_MODE_FIRST:
+				StopAnimation();
+				break;
+			case ANIMATION_PLAYMODE::ANIM_MODE_ROOP:
+				currentTime = startTime;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -507,7 +517,7 @@ void Object3d::CreateModel_Box(float size, float uv_x, float uv_y, UINT useTexNu
 	model.get()->CreateBoxModel(size, uv_x, uv_y, useTexNum);
 }
 
-void Object3d::PlayAnimation()
+void Object3d::PlayAnimation(ANIMATION_PLAYMODE playmode, int animNum)
 {
 	if (fbxmodel == nullptr) {
 		return;
@@ -515,7 +525,14 @@ void Object3d::PlayAnimation()
 
 	FbxScene* fbxScene = fbxmodel->GetFbxScene();
 
-	FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(0);
+	if (fbxScene->GetSrcObject<FbxAnimStack>(animNum) != nullptr) {
+		FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(animNum);
+	}
+	else {
+		FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(0);
+	}
+
+	FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(animNum);
 
 	const char* animStackName = animStack->GetName();
 
@@ -527,6 +544,15 @@ void Object3d::PlayAnimation()
 
 	isPlay = true;
 
+	this->playmode = playmode;
+
+}
+
+void Object3d::StopAnimation()
+{
+	isPlay = false;
+
+	currentTime = endTime;
 }
 
 

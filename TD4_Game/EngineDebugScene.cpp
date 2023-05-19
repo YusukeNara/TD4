@@ -20,7 +20,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testFBX_YesBone = std::make_shared<Object3d>();
 	testFBX_YesBone.reset(LoadModel_FBXFile("hage_1"));
 	testFBX_YesBone->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(90, 0, 0), RVector3(-50.f, 0, 0));
-	testFBX_YesBone->PlayAnimation();
+	testFBX_YesBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP,1);
 
 	testFBX_NoBone = std::make_shared<Object3d>();
 	testFBX_NoBone.reset(LoadModel_FBXFile("hageBoonNo"));
@@ -38,6 +38,7 @@ EngineDebugScene::~EngineDebugScene()
 
 void EngineDebugScene::Initialize()
 {
+	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0));
 }
 
 void EngineDebugScene::Finalize()
@@ -68,13 +69,23 @@ void EngineDebugScene::Draw2D()
 
 void EngineDebugScene::DrawImgui()
 {
+	int oldmode = testmode;
+
 	myImgui::StartDrawImGui("fbx control", 150, 700);
 
 	ImGui::SliderFloat("rotX", &rotX, 0.f, 360.f);
 	ImGui::SliderFloat("rotY", &rotY, 0.f, 360.f);
 	ImGui::SliderFloat("rotZ", &rotZ, 0.f, 360.f);
 
+	ImGui::Text("test cam eye %.2f,%.2f,%.2f", testcam._eyepos.x, testcam._eyepos.y, testcam._eyepos.z);
+	ImGui::Text("test cam target %.2f,%.2f,%.2f", testcam._targetVec.x, testcam._targetVec.y, testcam._targetVec.z);
+	ImGui::Text("test cam up %.2f,%.2f,%.2f", testcam._upVec.x, testcam._upVec.y, testcam._upVec.z);
+
+	ImGui::SliderFloat("camrot", &camrot, 0.f, 2.0f);
+
 	myImgui::EndDrawImGui();
+
+	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0), camrot);
 
 	testFBX_NoBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testFBX_YesBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
