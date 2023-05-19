@@ -12,8 +12,6 @@ HeadManager::~HeadManager()
 {
 	delete scoreManager;
 	scoreManager = nullptr;
-	delete player;
-	player = nullptr;
 }
 
 void HeadManager::Initialize()
