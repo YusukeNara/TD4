@@ -27,6 +27,8 @@ public:
     std::shared_ptr<Object3d> testFBX_YesBone;
     std::shared_ptr<Object3d> testFBX_NoBone;
 
+    std::shared_ptr<Object3d> testobj;
+
     Rv3Ease::Rv3Easing testEase;
 
     int testmode = 0;
@@ -38,5 +40,7 @@ public:
     float camrot = 0.f;
 
     CameraCalc testcam;
+
+    RQuaternion q1, q2;
 };
 
