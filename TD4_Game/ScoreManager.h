@@ -53,7 +53,7 @@ public:
 	//初期化処理
 	void Initialize();
 	//更新処理
-	void Update(Head *heads, const CheraType cheraType);
+	void Update(Head *heads, const CheraType cheraType, const ItemType itemType);
 	//スコアの参照
 	static const float &GetScore() { return totalScore; }
 	//レビューの参照

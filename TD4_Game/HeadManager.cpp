@@ -50,7 +50,7 @@ void HeadManager::Update()
 	//先頭の人の処理が終わったら先頭を消す
 	for (int headNum = 0; headNum < heads.size(); headNum++)
 	{
-		scoreManager->Update(heads[headNum].get(), charaType[0]);
+		scoreManager->Update(heads[headNum].get(), charaType[0], player->GetItemType());
 		if (heads[headNum]->isAllMoveFinish)
 		{
 			PopFront();
