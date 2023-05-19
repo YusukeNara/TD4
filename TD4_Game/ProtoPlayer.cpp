@@ -25,6 +25,8 @@ void ProtoPlayer::Init()
 void ProtoPlayer::Update()
 {
 	Attack();
+
+	ChangeItem();
 }
 
 void ProtoPlayer::Draw()
