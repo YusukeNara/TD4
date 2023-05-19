@@ -13,9 +13,9 @@ GameManager::GameManager()
 
 	groundObject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 0, 0), RVector3(0, 0, 0));
 
-	headMan = std::make_unique<HeadManager>();
 
 	player = std::make_unique<ProtoPlayer>();
+	headMan = std::make_unique<HeadManager>(player.get());
 }
 
 GameManager::~GameManager()
@@ -51,6 +51,7 @@ void GameManager::Draw()
 
 void GameManager::UIDraw()
 {
+	player->DrawUI();
 }
 
 void GameManager::Finalize()
