@@ -51,6 +51,7 @@ void GameManager::Draw()
 
 void GameManager::UIDraw()
 {
+	player->DrawUI();
 }
 
 void GameManager::Finalize()
