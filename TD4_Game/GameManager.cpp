@@ -14,6 +14,8 @@ GameManager::GameManager()
 	groundObject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 0, 0), RVector3(0, 0, 0));
 
 	headMan = std::make_unique<HeadManager>();
+
+	player = std::make_unique<ProtoPlayer>();
 }
 
 GameManager::~GameManager()
@@ -22,6 +24,7 @@ GameManager::~GameManager()
 
 void GameManager::Init()
 {
+	player->Init();
 
 	RVector3 easeOffset(0, 0, 100.f);
 	headMan->Initialize();
@@ -29,6 +32,8 @@ void GameManager::Init()
 
 void GameManager::Update()
 {
+	player->Update();
+
 	headMan->Update();
 }
 

@@ -18,6 +18,7 @@ SceneManager::SceneManager() :mNextScene(eScene_None) {
 SceneManager::~SceneManager()
 {
     delete nowScene;
+    nowScene = nullptr;
 }
 
 void SceneManager::Initialize()

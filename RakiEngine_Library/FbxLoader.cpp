@@ -1,8 +1,6 @@
 ﻿#include "FbxLoader.h"
 #include <iostream>
 #include <algorithm>
-#include <cassert>
-#include <assert.h>
 
 const std::string FbxLoader::baseDir = "Resources/";
 
@@ -71,7 +69,7 @@ fbxModel* FbxLoader::LoadFBXFile(string filename)
     return model;
 }
 
-void FbxLoader::ParseNodeRecursive(fbxModel* model, FbxNode* fbxnode,Node *parent)
+void FbxLoader::ParseNodeRecursive(fbxModel* model, FbxNode* fbxnode, Node* parent)
 {
     string name = fbxnode->GetName();
 
@@ -108,7 +106,7 @@ void FbxLoader::ParseNodeRecursive(fbxModel* model, FbxNode* fbxnode,Node *paren
 
         node.globalTransform *= parent->globalTransform;
     }
-    
+
 
     FbxNodeAttribute* fbxNodeAttribute = fbxnode->GetNodeAttribute();
     if (fbxNodeAttribute) {
@@ -121,7 +119,7 @@ void FbxLoader::ParseNodeRecursive(fbxModel* model, FbxNode* fbxnode,Node *paren
     std::cout << fbxnode->GetChildCount() << std::endl;
     //子ノードに対し再帰呼び出し
     for (int i = 0; i < fbxnode->GetChildCount(); i++) {
-        ParseNodeRecursive(model, fbxnode->GetChild(i),&node);
+        ParseNodeRecursive(model, fbxnode->GetChild(i), &node);
     }
 
 }
@@ -130,7 +128,7 @@ void FbxLoader::ParseMesh(fbxModel* model, FbxNode* fbxnode)
 {
     FbxMesh* fbxmesh = fbxnode->GetMesh();
 
-    //ParseMeshVertices(model, fbxmesh);
+    ParseMeshVertices(model, fbxmesh);
 
     ParseMeshFaces(model, fbxmesh);
 
@@ -165,14 +163,11 @@ void FbxLoader::ParseMeshVertices(fbxModel* model, FbxMesh* mesh)
     const int ctrlPointCount = mesh->GetControlPointsCount();
 
     fbxVertex v{};
-    //model->vertices.resize(ctrlPointCount, v);
+    model->vertices.resize(ctrlPointCount, v);
 
-    FbxVector4 *pCoord = mesh->GetControlPoints();
+    FbxVector4* pCoord = mesh->GetControlPoints();
 
-    for (int i = 0; i < mesh->GetPolygonCount(); i++) {
-        for (int j = 0; j < 3; j++) {
-
-        }
+    for (int i = 0; i < ctrlPointCount; i++) {
         fbxVertex& vertex = vertices[i];
         vertex.pos.x = (float)pCoord[i][0];
         vertex.pos.y = (float)pCoord[i][1];
@@ -193,24 +188,14 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
     FbxStringList uvNames;
     mesh->GetUVSetNames(uvNames);
 
-    FbxVector4* pCoord = mesh->GetControlPoints();
-    fbxVertex v = {};
-
     for (int i = 0; i < polygonCount; i++) {
         const int polygonsize = mesh->GetPolygonSize(i);
-        
-        assert(polygonCount == 3 && "Rectangular polygons were detected in the file being read. Only model data consisting only of triangular polygons are supported. Please prepare model data with only triangle polygons.");
 
         for (int j = 0; j < polygonsize; j++) {
             int index = mesh->GetPolygonVertex(i, j);
             assert(index >= 0);
 
-
-
-            v.pos.x = (float)(*(pCoord + index))[0];
-            v.pos.y = (float)(*(pCoord + index))[1];
-            v.pos.z = (float)(*(pCoord + index))[2];
-
+            fbxVertex& v = vertices[index];
             FbxVector4 normal;
             if (mesh->GetPolygonVertexNormal(i, j, normal)) {
                 v.normal.x = (float)normal[0];
@@ -228,24 +213,19 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
                 }
             }
 
-            //if (j < 3) {
-            //    indices.push_back(index);
-            //}
-            //else {
-            //    int index2 = indices[indices.size() - 1];
-            //    int index3 = index;
-            //    int index0 = indices[indices.size() - 3];
-            //    indices.push_back(index2);
-            //    indices.push_back(index3);
-            //    indices.push_back(index0);
-            //}
-
-            indices.push_back(unsigned short(vertices.size()));
-            vertices.push_back(v);
+            if (j < 3) {
+                indices.push_back(index);
+            }
+            else {
+                int index2 = indices[indices.size() - 1];
+                int index3 = index;
+                int index0 = indices[indices.size() - 3];
+                indices.push_back(index2);
+                indices.push_back(index3);
+                indices.push_back(index0);
+            }
         }
     }
-
-    
 
 }
 
@@ -295,8 +275,7 @@ void FbxLoader::ParseMaterial(fbxModel* model, FbxNode* node)
         }
     }
 
-    if (!textureLoaded) {model->material.texNumber = TexManager::LoadTexture(baseDir + defaultTexName);}
-
+    if (!textureLoaded) { model->material.texNumber = TexManager::LoadTexture(baseDir + defaultTexName); }
 }
 
 void FbxLoader::ConvertMatrixFromFbx(DirectX::XMMATRIX* dst, const FbxAMatrix& src)
@@ -314,8 +293,8 @@ void FbxLoader::ParseSkin(fbxModel* model, FbxMesh* fbxMesh)
 
     if (skin == nullptr) {
         for (int i = 0; i < model->vertices.size(); i++) {
-            model->vertices[i].boneIndex[0]     = 0;
-            model->vertices[i].boneWeight[0]    = 1.0f;
+            model->vertices[i].boneIndex[0] = 0;
+            model->vertices[i].boneWeight[0] = 1.0f;
         }
         return;
     }
@@ -394,9 +373,5 @@ void FbxLoader::ParseSkin(fbxModel* model, FbxMesh* fbxMesh)
                 }
             }
         }
-
-
-
     }
-
 }

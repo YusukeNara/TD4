@@ -25,6 +25,7 @@ public:
     std::shared_ptr<Object3d> testFBX_YesBone;
     std::shared_ptr<Object3d> testFBX_NoBone;
 
+    Rv3Ease::Rv3Easing testEase;
 
     //デバッグ用変数
     float rotX = 0.f, rotY = 0.f, rotZ = 0.f;
