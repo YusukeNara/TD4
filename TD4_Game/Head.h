@@ -27,7 +27,7 @@ public:
 
 	static void setPlayerPtr(std::shared_ptr<ProtoPlayer> ptr);
 
-	void SetPlayer(std::shared_ptr<ProtoPlayer> ptr) {
+	void SetPlayer(ProtoPlayer* ptr) {
 		this->playerPtr = ptr;
 	}
 
@@ -71,7 +71,7 @@ public:
 	bool isAllMoveFinish = false;
 
 	//プレイヤーポインタ
-	std::weak_ptr<ProtoPlayer> playerPtr;
+	ProtoPlayer* playerPtr;
 
 	//クレーマーかどうか
 	bool isKramer = false;

@@ -118,7 +118,7 @@ void AfroHead::SlappingMove()
 		return;
 	}
 
-	if (playerPtr.lock()->GetItemType() != ItemType::Hand)
+	if (playerPtr->GetItemType() != ItemType::Hand)
 	{
 		return;
 	}
@@ -181,7 +181,7 @@ void AfroHead::CuttingHair()
 		return;
 	}
 
-	if (playerPtr.lock()->GetItemType() != ItemType::Scissors)
+	if (playerPtr->GetItemType() != ItemType::Scissors)
 	{
 		return;
 	}

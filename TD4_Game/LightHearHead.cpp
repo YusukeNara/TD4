@@ -111,7 +111,7 @@ void LightHairHead::SlappingMove()
 		return;
 	}
 
-	if (playerPtr.lock()->GetItemType() != ItemType::Hand)
+	if (playerPtr->GetItemType() != ItemType::Hand)
 	{
 		return;
 	}
@@ -173,7 +173,7 @@ void LightHairHead::PullOutHair()
 		return;
 	}
 
-	if (playerPtr.lock()->GetItemType() != ItemType::Clippers)
+	if (playerPtr->GetItemType() != ItemType::Clippers)
 	{
 		return;
 	}
