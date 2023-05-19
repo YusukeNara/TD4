@@ -37,6 +37,7 @@ void AfroHead::Init()
 	headObject->SetAffineParam(scale, rot, pos);
 	afroObject->SetAffineParam(scale, rot, pos);
 	SlapCount = 0;
+	AfroSize = afroObject->scale / 4;
 	isKramer = false;
 	isactive = false;
 	ResetFrontEase();
@@ -74,7 +75,7 @@ void AfroHead::Update()
 	}
 
 	// 頭が有効化されたら
-	if (isactive) 
+	if (isactive)
 	{
 		if (!isMostFront)
 		{
@@ -178,8 +179,6 @@ void AfroHead::CuttingHair()
 	}
 
 	//プレイヤーの入力を受け付けたら
-	//if(ptr->)
-	//{
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
 		CutCount++;
@@ -204,6 +203,8 @@ void AfroHead::CuttingHair()
 
 			CutParticle->Add(pgstate);
 		}
+
+		afroObject->scale -= AfroSize;
 	}
 
 

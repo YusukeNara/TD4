@@ -90,11 +90,7 @@ void HageHead::SlappingMove()
 	}
 
 	//プレイヤーの入力を受け付けたら
-	//if(ptr->)
-	//{}
-
 	//アニメーションしてふっとんっでいく処理
-
 	if (isSlap)
 	{
 		if (isKramer)

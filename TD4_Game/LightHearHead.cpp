@@ -106,10 +106,6 @@ void LightHairHead::SlappingMove()
 		return;
 	}
 
-	//プレイヤーの入力を受け付けたら
-	//if(ptr->)
-	//{}
-
 	if (isSlap)
 	{
 		if (isKramer)
@@ -167,10 +163,6 @@ void LightHairHead::PullOutHair()
 	}
 
 	//プレイヤーの入力を受け付けたら
-	//if(ptr->)
-	//{
-	//}
-
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
 		isHairDestroy = true;
