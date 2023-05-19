@@ -34,7 +34,7 @@ void ScoreManager::Initialize()
 	totalReview = oldReview / reviewNum.size();
 }
 
-void ScoreManager::Update(Head *heads, CheraType cheraType)
+void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 {
 	if (heads->isAllMoveFinish)
 	{
@@ -72,81 +72,93 @@ void ScoreManager::Update(Head *heads, CheraType cheraType)
 		if (cheraType == CheraType::SkinHead)
 		{
 			//最悪なことをしたとき
-			//if()
-			//基礎レビュー
-			skinheadReview = DEFO_HAGEHEAD_REVIEW - BAD_ACTION;
-			//経過時間分も含める
-			skinheadReview += reduceReview;
-			if (skinheadReview > 5)
+			if (itemType == ItemType::Hand)
 			{
-				skinheadReview = 5;
+				//基礎レビュー
+				skinheadReview = DEFO_HAGEHEAD_REVIEW - BAD_ACTION;
+				//経過時間分も含める
+				skinheadReview += reduceReview;
+				if (skinheadReview > 5)
+				{
+					skinheadReview = 5;
+				}
+				reviewNum.push_back(skinheadReview);
 			}
-			reviewNum.push_back(skinheadReview);
 			//あっていることをしたとき
-			//if()
-			//基礎レビュー
-			skinheadReview = DEFO_HAGEHEAD_REVIEW + GOOD_ACTION;
-			//経過時間分も含める
-			skinheadReview += reduceReview;
-			if (skinheadReview > 5)
+			if (itemType == ItemType::Clippers || itemType == ItemType::Scissors)
 			{
-				skinheadReview = 5;
+				//基礎レビュー
+				skinheadReview = DEFO_HAGEHEAD_REVIEW + GOOD_ACTION;
+				//経過時間分も含める
+				skinheadReview += reduceReview;
+				if (skinheadReview > 5)
+				{
+					skinheadReview = 5;
+				}
+				reviewNum.push_back(skinheadReview);
 			}
-			reviewNum.push_back(skinheadReview);
 
 			oldReview += reviewNum[reviewNum.size() - 1];
 		}
 		if (cheraType == CheraType::Thinning)
 		{
 			//最悪なことをしたとき
-			//if()
-			//基礎レビュー
-			thinningReview = DEFO_LIGHTHEAD_REVIEW - BAD_ACTION;
-			//経過時間分も含める
-			thinningReview += reduceReview;
-			if (thinningReview > 5)
+			if (itemType == ItemType::Scissors)
 			{
-				thinningReview = 5;
+				//基礎レビュー
+				thinningReview = DEFO_LIGHTHEAD_REVIEW - BAD_ACTION;
+				//経過時間分も含める
+				thinningReview += reduceReview;
+				if (thinningReview > 5)
+				{
+					thinningReview = 5;
+				}
+				reviewNum.push_back(thinningReview);
 			}
-			reviewNum.push_back(thinningReview);
 			//あっていることをしたとき
-			//if()
-			//基礎レビュー
-			thinningReview = DEFO_LIGHTHEAD_REVIEW + GOOD_ACTION;
-			//経過時間分も含める
-			thinningReview += reduceReview;
-			if (thinningReview > 5)
+			if (itemType == ItemType::Hand || itemType == ItemType::Clippers)
 			{
-				thinningReview = 5;
+				//基礎レビュー
+				thinningReview = DEFO_LIGHTHEAD_REVIEW + GOOD_ACTION;
+				//経過時間分も含める
+				thinningReview += reduceReview;
+				if (thinningReview > 5)
+				{
+					thinningReview = 5;
+				}
+				reviewNum.push_back(thinningReview);
 			}
-			reviewNum.push_back(thinningReview);
 
 			oldReview += reviewNum[reviewNum.size() - 1];
 		}
 		if (cheraType == CheraType::Afro)
 		{
 			//最悪なことをしたとき
-			//if()
-			//基礎レビュー
-			afroheadReview = DEFO_AFROHEAD_REVIEW - BAD_ACTION;
-			//経過時間分も含める
-			afroheadReview += reduceReview;
-			if (afroheadReview > 5)
+			if (itemType == ItemType::Clippers)
 			{
-				afroheadReview = 5;
+				//基礎レビュー
+				afroheadReview = DEFO_AFROHEAD_REVIEW - BAD_ACTION;
+				//経過時間分も含める
+				afroheadReview += reduceReview;
+				if (afroheadReview > 5)
+				{
+					afroheadReview = 5;
+				}
+				reviewNum.push_back(afroheadReview);
 			}
-			reviewNum.push_back(afroheadReview);
 			//あっていることをしたとき
-			//if()
-			//基礎レビュー
-			afroheadReview = DEFO_AFROHEAD_REVIEW + GOOD_ACTION;
-			//経過時間分も含める
-			afroheadReview += reduceReview;
-			if (afroheadReview > 5)
+			if (itemType == ItemType::Hand || itemType == ItemType::Scissors)
 			{
-				afroheadReview = 5;
+				//基礎レビュー
+				afroheadReview = DEFO_AFROHEAD_REVIEW + GOOD_ACTION;
+				//経過時間分も含める
+				afroheadReview += reduceReview;
+				if (afroheadReview > 5)
+				{
+					afroheadReview = 5;
+				}
+				reviewNum.push_back(afroheadReview);
 			}
-			reviewNum.push_back(afroheadReview);
 
 			oldReview += reviewNum[reviewNum.size() - 1];
 		}

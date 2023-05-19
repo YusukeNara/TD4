@@ -9,11 +9,11 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	titleHage = std::make_shared<Object3d>();
 	titleHage.reset(LoadModel_FBXFile("hage_1"));
 	titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(-30, 0, 0));
-	titleHage->PlayAnimation();
+	titleHage->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 0);
 	titlePlayer = std::make_shared<Object3d>();
 	titlePlayer.reset(LoadModel_FBXFile("hage_1"));
 	titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(30, 0, 0));
-	titlePlayer->PlayAnimation();
+	titlePlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 0);
 
 	titleEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(0, 0, 0),
 		RVector3(0, 50, 0), 30);
