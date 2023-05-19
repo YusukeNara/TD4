@@ -106,5 +106,5 @@ void ProtoPlayer::ChangeItem()
 
 ItemType ProtoPlayer::GetItemType()
 {
-	return ItemType();
+	return handItemType;
 }
