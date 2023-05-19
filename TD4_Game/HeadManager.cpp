@@ -3,8 +3,9 @@
 #include"AfroHead.h"
 #include"LightHearHead.h"
 
-HeadManager::HeadManager()
+HeadManager::HeadManager(ProtoPlayer *player)
 {
+	this->player = player;
 }
 
 HeadManager::~HeadManager()
@@ -109,29 +110,34 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 {
 	Head *head;
 
-	//ランダムで頭を生成(1～100)
-	int probability = NY_random::intrand_sl(100, 1);
-	//1～20だったらはげ
-	if (probability >= 1 && probability <= 20)
+	//ランダムで頭を生成(全ての出現確率の合計)
+	int probability = NY_random::intrand_sl(HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + AFROHEAD_SPAWN_NUM, 1);
+	//1 ～ HAGEHEAD_SPAWN_NUMだったらはげ
+	if (probability >= 1 && probability <= HAGEHEAD_SPAWN_NUM)
 	{
 		head = new HageHead();
+		head->SetPlayer(player);
 		charaType[arrayNum] = CheraType::SkinHead;
 	}
-	//21～60だったら一本はげ
-	else if (probability >= 21 && probability <= 60)
+	//HAGEHEAD_SPAWN_NUM + 1 ～ HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUMだったら一本はげ
+	else if (probability >= (HAGEHEAD_SPAWN_NUM + 1) && probability <= (HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM))
 	{
 		head = new LightHairHead();
+		head->SetPlayer(player);
 		charaType[arrayNum] = CheraType::Thinning;
 	}
-	//61～100だったらアフロ
-	else if (probability >= 61 && probability <= 100)
+	//HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + 1 ～ HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + AFROHEAD_SPAWN_NUMだったらアフロ
+	else if (probability >= ((HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM) + 1) &&
+		probability <= (HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + AFROHEAD_SPAWN_NUM))
 	{
 		head = new AfroHead();
+		head->SetPlayer(player);
 		charaType[arrayNum] = CheraType::Afro;
 	}
 	else
 	{
 		head = new HageHead();
+		head->SetPlayer(player);
 		charaType[arrayNum] = CheraType::SkinHead;
 	}
 	return head;

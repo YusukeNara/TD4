@@ -35,7 +35,7 @@ void AfroHead::Init()
 	rot = RVector3(0, 0, 0);
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
-	afroObject->SetAffineParam(scale, rot, pos);
+	afroObject->SetAffineParam({ 1.1,1.2,1.1 }, rot, pos);
 	SlapCount = 0;
 	AfroSize = afroObject->scale / 4;
 	isKramer = false;
@@ -118,7 +118,7 @@ void AfroHead::SlappingMove()
 		return;
 	}
 
-	if (playerPtr.lock()->GetItemType() != ItemType::Hand)
+	if (playerPtr->GetItemType() != ItemType::Hand)
 	{
 		return;
 	}
@@ -181,7 +181,7 @@ void AfroHead::CuttingHair()
 		return;
 	}
 
-	if (playerPtr.lock()->GetItemType() != ItemType::Scissors)
+	if (playerPtr->GetItemType() != ItemType::Scissors)
 	{
 		return;
 	}

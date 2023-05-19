@@ -40,7 +40,7 @@ void HageHead::ResetFrontEase()
 
 void HageHead::Update()
 {
-	headObject->SetAffineParam(scale, rot, pos);
+	headObject->SetAffineParamTranslate(pos + headOffset);
 
 	if (isMostFront && !isFrontEase)
 	{
@@ -89,7 +89,7 @@ void HageHead::SlappingMove()
 		return;
 	}
 
-	if (playerPtr.lock()->GetItemType() != ItemType::Hand)
+	if (playerPtr->GetItemType() != ItemType::Hand)
 	{
 		return;
 	}

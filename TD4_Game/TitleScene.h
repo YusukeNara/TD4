@@ -2,7 +2,10 @@
 #include "BaseScene.h"
 #include "ISceneChanger.h"
 #include "FbxLoader.h"
+#include <DirectXMath.h>
+#include <cmath>
 
+#include <Raki_Input.h>
 #include <NY_Object3DMgr.h>
 #include <Sprite.h>
 
@@ -26,6 +29,8 @@ public:
 
     std::shared_ptr<Object3d> titleHage;
     std::shared_ptr<Object3d> titlePlayer;
+
+    Rv3Ease::Rv3Easing titleEase;
 
     const int animationCountMax = 1200;
     int animationCount = 0;
