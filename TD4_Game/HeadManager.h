@@ -9,6 +9,12 @@ class HeadManager
 private:
 	//表示最大数
 	static const int HEAD_DISPLAY_MAX = 5;
+	//はげの出現確率
+	static const int HAGEHEAD_SPAWN_NUM = 30;
+	//一本はげの出現確率
+	static const int LIGHTHEAD_SPAWN_NUM = 30;
+	//アフロの出現確率
+	static const int AFROHEAD_SPAWN_NUM = 30;
 public:
 	HeadManager();
 	~HeadManager();

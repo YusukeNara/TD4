@@ -1,4 +1,6 @@
 #pragma once
+#include<time.h>
+
 #include"Head.h"
 
 class ScoreManager
@@ -8,6 +10,16 @@ private:
 	static const int FIRST_NUM_MAX = 10;
 	//最大レビュー
 	static const int MAX_REVIEW = 5;
+	//はげの基本レビュー
+	static const int DEFO_HAGEHEAD_REVIEW = 3;
+	//一本はげの基本レビュー
+	static const int DEFO_LIGHTHEAD_REVIEW = 3;
+	//アフロの基本レビュー
+	static const int DEFO_AFROHEAD_REVIEW = 3;
+	//いい選択（ゲーム的には悪い選択）(基本レビューに足す値)
+	static const int GOOD_ACTION = 1;
+	//悪い選択(ゲーム的には良い選択)（基本レビューから引く値）
+	static const int BAD_ACTION = 2;
 	//基本のスコア
 	static const int DEFO_SCORE = 800;
 private:
@@ -18,15 +30,22 @@ private:
 
 	//一時保存用のレビュー
 	float oldReview;
+	//増減させる為のレビュー
+	float reduceReview;
 	//レビューの計算用
 	std::vector<float> reviewNum;
 
+	//時間計測
+	time_t beginTime;
+	time_t endTime;
+	double elpsedTime;
+
 	//はげのスコア
-	float SKINHEAD_SCORE_NUM = 5;
-	//一本はげ
-	float THINNING_SCORE_NUM = 4;
-	//アフロ
-	float AFROHEAD_SCORE_NUM = 3;
+	float skinheadReview;
+	//一本はげのスコア
+	float thinningReview;
+	//アフロのスコア
+	float afroheadReview;
 private:
 	//最初のNumセット
 	void FirstNumSet();
