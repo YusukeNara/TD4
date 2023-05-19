@@ -4,6 +4,7 @@
 #include <memory>
 #include <array>
 #include <NY_Object3D.h>
+#include <NY_Object3dMgr.h>
 #include "Raki_Input.h"
 
 
@@ -52,11 +53,12 @@ private:
 	RVector3 rotation;
 	RVector3 scale;
 	int enemyType = SkinHead;
-	int handItemType = Hand;
+	ItemType handItemType = Hand;
 
 	std::shared_ptr<Object3d> player = nullptr;
 	std::shared_ptr<Object3d> scissor = nullptr;
 
 	UINT modelPlayer;
+	UINT modelScissor;
 };
 

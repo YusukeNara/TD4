@@ -12,6 +12,8 @@ public:
 
 	void Init() override;
 
+	void ResetFrontEase() override;
+
 	void Update() override;
 
 	void Draw() override;
@@ -24,6 +26,9 @@ private:
 	void PullOutHair();
 
 private:
+	//毛を抜いた時のパーティクル
+	std::unique_ptr<ParticleManager> PullParticle;
+	UINT pullTex;
 
 	std::shared_ptr<Object3d> headObject;
 	std::shared_ptr<Object3d> hairObject;

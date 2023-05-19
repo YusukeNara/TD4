@@ -1,6 +1,8 @@
 #pragma once
 #include "Head.h"
 #include "ProtoPlayer.h"
+#include"ScoreManager.h"
+#include"NY_random.h"
 
 class HeadManager
 {
@@ -15,6 +17,8 @@ public:
 	void Draw();
 	//先頭の人が何かを判別する
 	CheraType GetFrontType();
+public:
+	const ScoreManager *GetScoreManager() { return scoreManager; }
 private:
 	//初回スポーン
 	void FirstSpawn();
@@ -24,10 +28,12 @@ private:
 	void PopFront();
 private:
 	//頭コンテナ
-	std::vector<std::shared_ptr<Head>> heads;
+	std::vector<std::unique_ptr<Head>> heads;
 	//イージング用座標
 	std::array<RVector3, HEAD_DISPLAY_MAX> easepos;
 	//属性
 	std::array<CheraType, HEAD_DISPLAY_MAX> charaType;
+
+	ScoreManager *scoreManager;
 };
 

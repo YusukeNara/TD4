@@ -1,6 +1,6 @@
 ﻿#include "Result.h"
 
-Result::Result()
+Result::Result(ISceneChanger *changer)
 {
 	groundTex = TexManager::LoadTexture("Resources/asp3.png");
 
@@ -14,12 +14,19 @@ Result::~Result()
 {
 }
 
-void Result::Init()
+void Result::Initialize()
 {
+}
+
+void Result::Finalize()
+{
+
 }
 
 void Result::Update()
 {
+	float a = ScoreManager::GetScore();
+	float b = ScoreManager::GetReview();
 }
 
 void Result::Draw()
@@ -32,10 +39,6 @@ void Result::Draw()
 	NY_Object3DManager::Get()->CloseDrawObject3D();
 }
 
-void Result::UIDraw()
-{
-}
-
-void Result::Finalize()
+void Result::Draw2D()
 {
 }
