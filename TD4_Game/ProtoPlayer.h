@@ -53,7 +53,7 @@ private:
 	RVector3 rotation;
 	RVector3 scale;
 	int enemyType = SkinHead;
-	int handItemType = Hand;
+	ItemType handItemType = Hand;
 
 	std::shared_ptr<Object3d> player = nullptr;
 	std::shared_ptr<Object3d> scissor = nullptr;

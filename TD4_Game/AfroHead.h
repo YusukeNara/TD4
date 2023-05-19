@@ -39,6 +39,8 @@ private:
 
 	UINT afroheadTex;
 
+	RVector3 AfroSize = {};
+
 	//髪を斬った回数
 	int CutCount = 0;
 	const int MaxCutCount = 3;

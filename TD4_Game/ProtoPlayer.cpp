@@ -69,21 +69,42 @@ void ProtoPlayer::Clip()
 
 void ProtoPlayer::ChangeItem()
 {
-	if (enemyType == SkinHead)
+	if (handItemType == Hand)
 	{
-		handItemType = Hand;
+		if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_OPTION_R))
+		{
+			handItemType = Scissors;
+		}
+		if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_OPTION_L))
+		{
+			handItemType = Clippers;
+		}
 	}
-	if (enemyType == Thinning)
+	else if (handItemType == Scissors)
 	{
-		handItemType = Scissors;
+		if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_OPTION_R))
+		{
+			handItemType = Clippers;
+		}
+		if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_OPTION_L))
+		{
+			handItemType = Hand;
+		}
 	}
-	if (enemyType == Afro)
+	else if (handItemType == Clippers)
 	{
-		handItemType = Clippers;
+		if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_OPTION_R))
+		{
+			handItemType = Hand;
+		}
+		if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_OPTION_L))
+		{
+			handItemType = Scissors;
+		}
 	}
 }
 
 ItemType ProtoPlayer::GetItemType()
 {
-	return ItemType();
+	return handItemType;
 }

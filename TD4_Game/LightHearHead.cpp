@@ -42,7 +42,7 @@ void LightHairHead::Init()
 void LightHairHead::ResetFrontEase()
 {
 	FrontStart = pos;
-	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - FrontLength };
+	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - 100.0f };
 	isFrontEase = true;
 }
 
@@ -52,7 +52,12 @@ void LightHairHead::Update()
 	headObject->SetAffineParamTranslate(pos + headOffset);
 	hairObject->SetAffineParamTranslate(pos + hairOffset);
 
-	if (isFrontEase)
+	if (isMostFront && !isFrontEase)
+	{
+		isactive = true;
+	}
+
+	if (isFrontEase && !isactive)
 	{
 		if (pos.z <= FrontEnd.z)
 		{
@@ -101,21 +106,23 @@ void LightHairHead::Finalize()
 
 void LightHairHead::SlappingMove()
 {
-	if (!isHairDestroy)
+	if (!isHairDestroy && !isKramer)
 	{
 		return;
 	}
 
-	//プレイヤーの入力を受け付けたら
-	//if(ptr->)
-	//{}
+	if (playerPtr.lock()->GetItemType() != ItemType::Hand)
+	{
+		return;
+	}
 
 	if (isSlap)
 	{
+		//クレーマーなら
 		if (isKramer)
 		{
 			SlapCount++;
-			if (SlapCount >= 3)
+			if (SlapCount >= ManSlapCount)
 			{
 				isAllMoveFinish = true;
 			}
@@ -161,16 +168,17 @@ void LightHairHead::SlappingMove()
 
 void LightHairHead::PullOutHair()
 {
-	if (isHairDestroy)
+	if (isHairDestroy || isKramer)
+	{
+		return;
+	}
+
+	if (playerPtr.lock()->GetItemType() != ItemType::Clippers)
 	{
 		return;
 	}
 
 	//プレイヤーの入力を受け付けたら
-	//if(ptr->)
-	//{
-	//}
-
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
 		isHairDestroy = true;
@@ -187,8 +195,8 @@ void LightHairHead::PullOutHair()
 			pgstate.position = RVector3(pos.x, pos.y + 5, pos.z);
 			pgstate.vel = v * 4.0f;
 			pgstate.acc = -(v / 10);
-			pgstate.color_start = XMFLOAT4(1, 1, 1, 1);
-			pgstate.color_end = XMFLOAT4(1, 1, 1, 1);
+			pgstate.color_start = XMFLOAT4(0, 0, 0, 1);
+			pgstate.color_end = XMFLOAT4(0, 0, 0, 1);
 			pgstate.scale_start = 2.0f;
 			pgstate.scale_end = 2.5f;
 			pgstate.aliveTime = 20;

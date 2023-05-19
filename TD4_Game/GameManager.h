@@ -54,6 +54,8 @@ private:
 
 	std::unique_ptr<HeadManager> headMan;
 
+	std::unique_ptr<ProtoPlayer> player;
+
 	/// ÉXÉRÉA
 
 
