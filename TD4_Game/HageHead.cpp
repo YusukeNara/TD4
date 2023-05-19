@@ -40,7 +40,7 @@ void HageHead::ResetFrontEase()
 
 void HageHead::Update()
 {
-	headObject->SetAffineParam(scale, rot, pos);
+	headObject->SetAffineParamTranslate(pos + headOffset);
 
 	if (isMostFront && !isFrontEase)
 	{

@@ -4,6 +4,8 @@
 
 LightHairHead::LightHairHead()
 {
+	headOffset = RVector3(0, 10.f, 0);
+	hairOffset = RVector3(0, 20.0f, 0);
 }
 
 LightHairHead::~LightHairHead()
@@ -32,7 +34,7 @@ void LightHairHead::Init()
 	rot = RVector3(0, 0, 0);
 	pos.zero();
 	headObject->SetAffineParam(scale, rot, pos);
-	hairObject->SetAffineParam(scale, rot, pos);
+	hairObject->SetAffineParam({ 0.2,0.5,0.2 }, rot, pos);
 	SlapCount = 0;
 	isKramer = false;
 	isactive = false;
