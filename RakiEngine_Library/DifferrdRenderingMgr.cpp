@@ -313,7 +313,7 @@ void DiferredRenderingMgr::UpdateConstBuff()
     cbuffer_b0* ConstMapB0 = nullptr;
     HRESULT result = m_constBuffEyePos->Map(0, nullptr, (void**)&ConstMapB0);
     if (SUCCEEDED(result)) {
-        ConstMapB0->eyePos = { 500.f,500.f,500.f };
+        ConstMapB0->eyePos = camera->GetEye();
         m_constBuffEyePos->Unmap(0, nullptr);
     }
 

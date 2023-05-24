@@ -18,16 +18,16 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testsp.Create(testTex);
 
 	testFBX_YesBone = std::make_shared<Object3d>();
-	testFBX_YesBone.reset(LoadModel_FBXFile("saru"));
-	testFBX_YesBone->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(75.f, 0, 0));
+	testFBX_YesBone.reset(LoadModel_FBXFile("SpiralPBR"));
+	testFBX_YesBone->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(75.f, 0, -50.f));
 
 	testFBX_NoBone = std::make_shared<Object3d>();
 	testFBX_NoBone.reset(LoadModel_FBXFile("cube"));
-	testFBX_NoBone->SetAffineParam(RVector3(0.5f, 0.5f, 0.5f), RVector3(90, 0, 0), RVector3(0, 0, 0));
+	testFBX_NoBone->SetAffineParam(RVector3(0.5f, 0.5f, 0.5f), RVector3(90, 0, 0), RVector3(0, 0, -50.0f));
 
 	testobj = std::make_shared<Object3d>();
 	testobj.reset(LoadModel_FBXFile("SpherePBR"));
-	testobj->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(-75.f, 0, 0));
+	testobj->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(-75.f, 0, -50.f));
 
 
 	RVector3 eye(0.f, 0.f, -200.f);
