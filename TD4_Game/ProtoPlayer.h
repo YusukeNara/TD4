@@ -50,6 +50,16 @@ public:
 
 	ItemType GetItemType();
 
+	/// <summary>
+	/// 退職金(HP)
+	/// </summary>
+	int RetirementMoney = 0;
+
+	/// <summary>
+	/// 退職金の最大値
+	/// </summary>
+	const int MaxRetirementMoney = 500;
+
 private:
 
 	RVector3 position;
@@ -60,9 +70,6 @@ private:
 
 	std::shared_ptr<Object3d> player = nullptr;
 	std::shared_ptr<Object3d> scissor = nullptr;
-
-	int RetirementMoney = 0;
-	const int MaxRetirementMoney = 500;
 
 	UINT modelPlayer;
 	UINT modelScissor;

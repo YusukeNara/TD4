@@ -168,6 +168,11 @@ void LightHairHead::SlappingMove()
 	}
 }
 
+void LightHairHead::FailMove()
+{
+	playerPtr->RetirementMoney -= 20;
+}
+
 void LightHairHead::PullOutHair()
 {
 	if (isHairDestroy || isKramer)

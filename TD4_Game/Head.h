@@ -25,6 +25,8 @@ public:
 
 	virtual void SlappingMove() {};
 
+	virtual void FailMove() {};
+
 	static void setPlayerPtr(std::shared_ptr<ProtoPlayer> ptr);
 
 	void SetPlayer(ProtoPlayer* ptr) {

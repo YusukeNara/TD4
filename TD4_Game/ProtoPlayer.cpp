@@ -32,6 +32,8 @@ void ProtoPlayer::Init()
 	uiOffsetHand = { 50,600 };
 	uiOffsetScis = { 170,600 };
 	uiOffsetClip = { 290,600 };
+
+	RetirementMoney = MaxRetirementMoney;
 }
 
 void ProtoPlayer::Update()

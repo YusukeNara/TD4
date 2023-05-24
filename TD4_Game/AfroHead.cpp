@@ -174,6 +174,11 @@ void AfroHead::SlappingMove()
 	}
 }
 
+void AfroHead::FailMove()
+{
+	playerPtr->RetirementMoney -= 20;
+}
+
 void AfroHead::CuttingHair()
 {
 	if (isHairDestroy || isKramer)

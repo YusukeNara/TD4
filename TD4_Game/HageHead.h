@@ -22,6 +22,8 @@ public:
 
 	void SlappingMove() override;
 
+	void FailMove() override;
+
 private:
 
 	std::shared_ptr<Object3d> headObject;

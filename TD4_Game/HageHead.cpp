@@ -146,3 +146,8 @@ void HageHead::SlappingMove()
 	}
 
 }
+
+void HageHead::FailMove()
+{
+	playerPtr->RetirementMoney -= 20;
+}
