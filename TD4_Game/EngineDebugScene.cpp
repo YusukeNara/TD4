@@ -26,7 +26,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testFBX_NoBone->SetAffineParam(RVector3(0.5f, 0.5f, 0.5f), RVector3(90, 0, 0), RVector3(0, 0, 0));
 
 	testobj = std::make_shared<Object3d>();
-	testobj.reset(LoadModel_ObjFile("Sphere"));
+	testobj.reset(LoadModel_FBXFile("SpherePBR"));
 	testobj->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(-75.f, 0, 0));
 
 
