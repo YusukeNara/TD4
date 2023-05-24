@@ -239,17 +239,23 @@ void FbxLoader::ParseMaterial(fbxModel* model, FbxNode* node)
 
         if (material) {
             if (material->GetClassId().Is(FbxSurfaceLambert::ClassId)) {
-                FbxSurfaceLambert* lambert = static_cast<FbxSurfaceLambert*>(material);
+                //FbxSurfaceLambert* lambert = static_cast<FbxSurfaceLambert*>(material);
+                FbxSurfacePhong* phong = static_cast<FbxSurfacePhong*>(material);
 
-                FbxPropertyT<FbxDouble3> ambient = lambert->Ambient;
+                FbxPropertyT<FbxDouble3> ambient = phong->Ambient;
                 model->material.ambient.x = (float)ambient.Get()[0];
                 model->material.ambient.y = (float)ambient.Get()[1];
                 model->material.ambient.z = (float)ambient.Get()[2];
 
-                FbxPropertyT<FbxDouble3> diffuse = lambert->Diffuse;
+                FbxPropertyT<FbxDouble3> diffuse = phong->Diffuse;
                 model->material.diffuse.x = (float)diffuse.Get()[0];
                 model->material.diffuse.y = (float)diffuse.Get()[1];
                 model->material.diffuse.z = (float)diffuse.Get()[2];
+
+                FbxPropertyT<FbxDouble3> specular = phong->Specular;
+                model->material.specurar.x = (float)specular.Get()[0];
+                model->material.specurar.y = (float)specular.Get()[1];
+                model->material.specurar.z = (float)specular.Get()[2];
             }
 
             const FbxProperty diffuseProperty = material->FindProperty(FbxSurfaceMaterial::sDiffuse);

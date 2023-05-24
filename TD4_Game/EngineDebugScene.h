@@ -21,11 +21,14 @@ public:
     void Draw2D() override;
     void DrawImgui() override;
 
-    Sprite testsp;
+    Sprite testsp1;
+    Sprite testsp2;
     std::shared_ptr<Object3d> testobject;
 
     std::shared_ptr<Object3d> testFBX_YesBone;
     std::shared_ptr<Object3d> testFBX_NoBone;
+
+    std::shared_ptr<Object3d> testobj;
 
     Rv3Ease::Rv3Easing testEase;
 
@@ -38,5 +41,9 @@ public:
     float camrot = 0.f;
 
     CameraCalc testcam;
+
+    RQuaternion q1, q2;
+
+    RVector3 lightdir;
 };
 

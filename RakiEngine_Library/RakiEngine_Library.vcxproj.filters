@@ -243,6 +243,9 @@
     <ClCompile Include="DebugDrawer.cpp">
       <Filter>Graphic\3D</Filter>
     </ClCompile>
+    <ClCompile Include="FontDrawer.cpp">
+      <Filter>Graphic\2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raki_imguiMgr.h">
@@ -415,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="DebugDrawer.h">
       <Filter>Graphic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="FontDrawer.h">
+      <Filter>Graphic\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
