@@ -61,6 +61,9 @@ private:
 	std::shared_ptr<Object3d> player = nullptr;
 	std::shared_ptr<Object3d> scissor = nullptr;
 
+	int RetirementMoney = 0;
+	const int MaxRetirementMoney = 500;
+
 	UINT modelPlayer;
 	UINT modelScissor;
 
