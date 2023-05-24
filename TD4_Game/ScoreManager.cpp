@@ -20,6 +20,8 @@ void ScoreManager::Initialize()
 	oldReview = 0;
 	totalScore = 0;
 	elpsedTime = 0;
+	scorePrintFlag = false;
+	scorePos = { 0,0 };
 
 	//現在の時間をセット
 	beginTime = time(NULL);
@@ -32,6 +34,8 @@ void ScoreManager::Initialize()
 	}
 
 	totalReview = oldReview / reviewNum.size();
+
+	spriteScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 }
 
 void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
@@ -170,6 +174,27 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 		totalReview = oldReview / reviewNum.size();
 
 		//スコアの計算
-		totalScore += DEFO_SCORE * (MAX_REVIEW - totalReview);
+		scoreNum.push_back(DEFO_SCORE * (MAX_REVIEW - totalReview));
+		scorePrintFlag = true;
+		totalScore += scoreNum[scoreNum.size() - 1];
 	}
+	if (scorePrintFlag == true)
+	{
+		scorePos.y--;
+
+	}
+}
+
+void ScoreManager::Draw()
+{
+	float drawScore = 128;
+	
+	spriteScore.uvOffsetHandle = (int)drawScore / 100;
+	spriteScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
+	spriteScore.uvOffsetHandle = ((int)drawScore / 10) % 10;
+	spriteScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
+	spriteScore.uvOffsetHandle = (int)drawScore % 10;
+	spriteScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
+	spriteScore.Draw();
+	//spriteReview.Draw();
 }

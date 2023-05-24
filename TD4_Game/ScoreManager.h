@@ -1,5 +1,6 @@
 #pragma once
 #include<time.h>
+#include<Sprite.h>
 
 #include"Head.h"
 
@@ -23,10 +24,17 @@ private:
 	//基本のスコア
 	static const int DEFO_SCORE = 800;
 private:
+	//スプライト
+	Sprite spriteScore;
+	Sprite spriteReview;
+
 	//総合的なスコア
 	static float totalScore;
 	//総合的なレビュー
 	static float totalReview;
+
+	//一時保存用のスコア
+	std::vector<float> scoreNum;
 
 	//一時保存用のレビュー
 	float oldReview;
@@ -46,6 +54,11 @@ private:
 	float thinningReview;
 	//アフロのスコア
 	float afroheadReview;
+
+	//スコアが足される表示のためのフラグ
+	bool scorePrintFlag;
+	//スコアの位置
+	XMFLOAT2 scorePos;
 private:
 	//最初のNumセット
 	void FirstNumSet();
@@ -54,6 +67,8 @@ public:
 	void Initialize();
 	//更新処理
 	void Update(Head *heads, const CheraType cheraType, const ItemType itemType);
+	//描画
+	void Draw();
 	//スコアの参照
 	static const float &GetScore() { return totalScore; }
 	//レビューの参照
