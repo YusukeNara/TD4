@@ -737,7 +737,7 @@ void Sprite::DrawRenderTexture(int handle)
     spdata->insWorldMatrixes.shrink_to_fit();
 }
 
-void Sprite::DrawSprite(float posX, float posY)
+void Sprite::DrawSprite(float posX, float posY, DirectX::XMFLOAT4 color)
 {
     //���W�����Ƃɕ��s�ړ��s��쐬
     XMMATRIX trans = XMMatrixTranslation(posX, posY, 0);
@@ -752,11 +752,11 @@ void Sprite::DrawSprite(float posX, float posY)
     ins.uvOffset = spdata->uvOffsets[uvOffsetHandle];
     //�f�t�H���g�T�C�Y���i�[
     ins.drawsize = TEXTURE_DEFAULT_SIZE;
-    ins.color = sprite_color;
+    ins.color = color;
     spdata->insWorldMatrixes.push_back(ins);
 }
 
-void Sprite::DrawExtendSprite(float x1, float y1, float x2, float y2)
+void Sprite::DrawExtendSprite(float x1, float y1, float x2, float y2, DirectX::XMFLOAT4 color)
 {
     //���W�����Ƃɕ��s�ړ��s����쐬
     XMMATRIX trans = XMMatrixTranslation(x1, y1, 0);
@@ -773,11 +773,11 @@ void Sprite::DrawExtendSprite(float x1, float y1, float x2, float y2)
     ins.uvOffset = spdata->uvOffsets[uvOffsetHandle];
     ins.drawsize = { x2 - x1, y2 - y1 };
     //�s��R���e�i�Ɋi�[
-    ins.color = sprite_color;
+    ins.color = color;
     spdata->insWorldMatrixes.push_back(ins);
 }
 
-void Sprite::DrawRotaSprite(float x1, float y1, float x2, float y2, float angle)
+void Sprite::DrawRotaSprite(float x1, float y1, float x2, float y2, float angle, DirectX::XMFLOAT4 color)
 {
 
     XMMATRIX trans = XMMatrixTranslation(x1, y1, 0);
@@ -794,12 +794,12 @@ void Sprite::DrawRotaSprite(float x1, float y1, float x2, float y2, float angle)
     ins.uvOffset = spdata->uvOffsets[uvOffsetHandle];
     ins.drawsize = { x2 - x1, y2 - y1 };
     //�s��R���e�i�Ɋi�[
-    ins.color = sprite_color;
+    ins.color = color;
     spdata->insWorldMatrixes.push_back(ins);
 
 }
 
-void Sprite::DrawLine(float x1, float y1, float x2, float y2)
+void Sprite::DrawLine(float x1, float y1, float x2, float y2, DirectX::XMFLOAT4 color)
 {
     XMMATRIX trans = XMMatrixTranslation(x1, y1, 0);
     XMMATRIX rot = XMMatrixIdentity();

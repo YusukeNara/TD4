@@ -12,7 +12,7 @@ void DiferredRenderingMgr::Init(ID3D12Device* dev, ID3D12GraphicsCommandList* cm
         //RVector3(0.f, 0.f, 0.f),
         //RVector3(0.f, 1.f, 0.f));
      
-    DirectionalLight::SetLightDir(1.0f, -1.0f, 1.0f);
+    DirectionalLight::SetLightDir(0.0f, 0.0f, 1.0f);
 
 	ShaderCompile();
 
@@ -313,7 +313,7 @@ void DiferredRenderingMgr::UpdateConstBuff()
     cbuffer_b0* ConstMapB0 = nullptr;
     HRESULT result = m_constBuffEyePos->Map(0, nullptr, (void**)&ConstMapB0);
     if (SUCCEEDED(result)) {
-        ConstMapB0->eyePos = { 500.f,500.f,500.f };
+        ConstMapB0->eyePos = camera->GetEye();
         m_constBuffEyePos->Unmap(0, nullptr);
     }
 
