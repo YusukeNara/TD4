@@ -42,5 +42,7 @@ public:
     CameraCalc testcam;
 
     RQuaternion q1, q2;
+
+    RVector3 lightdir;
 };
 

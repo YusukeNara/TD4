@@ -103,6 +103,16 @@ void EngineDebugScene::DrawImgui()
 
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0), camrot);
 
+	myImgui::StartDrawImGui("light ctrl", 150, 300);
+
+	ImGui::SliderFloat("light x", &lightdir.x, -1.f, 1.0f);
+	ImGui::SliderFloat("light y", &lightdir.y, -1.f, 1.0f);
+	ImGui::SliderFloat("light z", &lightdir.z, -1.f, 1.0f);
+
+	DirectionalLight::SetLightDir(lightdir.x, lightdir.y, lightdir.z);
+
+	myImgui::EndDrawImGui();
+
 	testFBX_NoBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testFBX_YesBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testobj->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));

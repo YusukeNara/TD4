@@ -39,11 +39,11 @@ float4 main(VSOutput input) : SV_TARGET
     lig = color * t;
     
     //ƒXƒyƒLƒ…ƒ‰
-    //float3 toEye = normalize(eyePos - worldPos);
-    //float3 r = reflect(dirLight, normal);
-    //t = max(0.0f, dot(toEye, r));
-    //t = pow(t, 2.0f);
-    //lig += color * t;
+    float3 toEye = normalize(eyePos - worldPos);
+    float3 r = reflect(dirLight, normal);
+    t = max(0.0f, dot(toEye, r));
+    t = pow(t, 2.0f);
+    lig += color * t;
     
     float4 resultColor = albedo;
     resultColor.xyz *= lig;
