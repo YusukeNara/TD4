@@ -128,7 +128,7 @@ void FbxLoader::ParseMesh(fbxModel* model, FbxNode* fbxnode)
 {
     FbxMesh* fbxmesh = fbxnode->GetMesh();
 
-    ParseMeshVertices(model, fbxmesh);
+    //ParseMeshVertices(model, fbxmesh);
 
     ParseMeshFaces(model, fbxmesh);
 
@@ -188,14 +188,26 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
     FbxStringList uvNames;
     mesh->GetUVSetNames(uvNames);
 
-    for (int i = 0; i < polygonCount; i++) {
-        const int polygonsize = mesh->GetPolygonSize(i);
+    FbxVector4* pCoord = mesh->GetControlPoints();
+    fbxVertex v{};
 
-        for (int j = 0; j < polygonsize; j++) {
+    for (int i = 0; i < polygonCount; i++) {
+        const int polygonSize = mesh->GetPolygonSize(i);
+        if (polygonSize > 3)
+        {
+            assert(polygonSize <= 3);
+        }
+
+        for (int j = 0; j < polygonSize; j++) {
             int index = mesh->GetPolygonVertex(i, j);
             assert(index >= 0);
 
-            fbxVertex& v = vertices[index];
+            v.pos.x = (float)(*(pCoord + index))[0];
+            v.pos.y = (float)(*(pCoord + index))[1];
+            v.pos.z = (float)(*(pCoord + index))[2];
+
+            //fbxVertex& v = vertices[index];
+
             FbxVector4 normal;
             if (mesh->GetPolygonVertexNormal(i, j, normal)) {
                 v.normal.x = (float)normal[0];
@@ -213,17 +225,21 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
                 }
             }
 
-            if (j < 3) {
-                indices.push_back(index);
-            }
-            else {
-                int index2 = indices[indices.size() - 1];
-                int index3 = index;
-                int index0 = indices[indices.size() - 3];
-                indices.push_back(index2);
-                indices.push_back(index3);
-                indices.push_back(index0);
-            }
+            //if (j < 3) {
+            //    indices.push_back(index);
+            //}
+            //else {
+            //    int index2 = indices[indices.size() - 1];
+            //    int index3 = index;
+            //    int index0 = indices[indices.size() - 3];
+            //    indices.push_back(index2);
+            //    indices.push_back(index3);
+            //    indices.push_back(index0);
+            //}
+
+            //頂点とインデックスを動的に増やす
+            indices.push_back(unsigned short(vertices.size()));
+            vertices.push_back(v);
         }
     }
 
