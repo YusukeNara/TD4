@@ -29,6 +29,8 @@ public:
 
 	virtual void FailMove() {};
 
+	virtual void GoHome() {};
+
 	static void setPlayerPtr(std::shared_ptr<ProtoPlayer> ptr);
 
 	void SetPlayer(ProtoPlayer* ptr) {
@@ -58,16 +60,22 @@ public:
 
 	//‘Ò‹@ŠÔ
 	int waitTime = 0;
+	const int MaxWaitTime = 1200;
+
+	//‹A‚é‚©‚Ç‚¤‚©
+	bool isGoHome = false;
 
 	//”¯‚ğØ‚ç‚ê‚½E”²‚©‚ê‚½‚©‚Ç‚¤‚©
 	bool isHairDestroy = false;
+
+	//ŠÔˆá‚¦‚½‚©‚Ç‚¤‚©
+	bool isFail = false;
 
 	//“{‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
 	bool isAngree = false;
 
 	//“{‚Á‚Ä‚¢‚éŠÔ
 	int AngreeTime = 0;
-
 	const int MaxAngreeTime = 180;
 
 	//”½Œ‚‚·‚é‚©‚Ç‚¤‚©

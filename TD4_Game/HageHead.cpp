@@ -66,9 +66,18 @@ void HageHead::Update()
 		{
 			return;
 		}
+		waitTime++;
+		if (waitTime >= MaxWaitTime)
+		{
+			isGoHome = true;
+		}
+		GoHome();
+
 		KramerMove();
 
 		SlappingMove();
+
+		FailMove();
 	}
 
 	SlapParticle->Update();
@@ -104,13 +113,14 @@ void HageHead::KramerMove()
 
 void HageHead::SlappingMove()
 {
-	if (!isHairDestroy && !isKramer)
+	if (!isHairDestroy && !isKramer || isGoHome || isFail)
 	{
 		return;
 	}
 
 	if (playerPtr->GetItemType() != ItemType::Hand)
 	{
+		isFail = true;
 		return;
 	}
 
@@ -169,5 +179,25 @@ void HageHead::SlappingMove()
 
 void HageHead::FailMove()
 {
+	if (!isFail)
+	{
+		return;
+	}
 	playerPtr->RetirementMoney -= 20;
+	isFail = false;
+}
+
+void HageHead::GoHome()
+{
+	if (!isGoHome && isKramer)
+	{
+		return;
+	}
+
+	pos.x += 2.0;
+
+	if (pos.x >= 10)
+	{
+		isAllMoveFinish = true;
+	}
 }

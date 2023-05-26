@@ -26,6 +26,8 @@ public:
 
 	void FailMove() override;
 
+	void GoHome() override;
+
 private:
 
 	std::shared_ptr<Object3d> headObject;
