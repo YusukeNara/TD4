@@ -19,7 +19,7 @@ bool NY_Object3DManager::CreateObject3DManager()
     this->dev = RAKI_DX12B_DEV;
 
     //Object3D用パイプライン生成
-    object3dPipelineSet = Create3DPipelineState(RAKI_DX12B_DEV);
+    //object3dPipelineSet = Create3DPipelineState(RAKI_DX12B_DEV);
 
     //デイファードレンダリング用パイプラインを生成
     m_diferredRenderingPipeline = CreateDiferredRenderingPipelineState();
@@ -329,6 +329,85 @@ Pipeline3D NY_Object3DManager::CreateDiferredRenderingPipelineState()
 {
     HRESULT result;
 
+    ComPtr<ID3DBlob> errorBlob = nullptr; //エラーオブジェクト
+
+    //頂点シェーダーの読み込みとコンパイル
+    result = D3DCompileFromFile(
+        L"Resources/Shaders/OBJVertexShader.hlsl", //シェーダーファイル名
+        nullptr,//シェーダーマクロオブジェクト（今回は使わない）
+        D3D_COMPILE_STANDARD_FILE_INCLUDE, //インクルードオブジェクト（インクルード可能にする）
+        "main", "vs_5_0", //エントリーポイント名、シェーダーモデル指定
+        D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,//デバッグ用設定
+        0,
+        &obj_VS, &errorBlob
+    );
+    //シェーダーのエラー内容を表示
+    if (FAILED(result))
+    {
+        //errorBlobからエラー内容をstring型にコピー
+        std::string errstr;
+        errstr.resize(errorBlob->GetBufferSize());
+
+        std::copy_n((char*)errorBlob->GetBufferPointer(),
+            errorBlob->GetBufferSize(),
+            errstr.begin());
+        errstr += "\n";
+        //エラー内容を出力ウインドウに表示
+        OutputDebugStringA(errstr.c_str());
+        exit(1);
+    }
+
+    //標準ジオメトリシェーダーの読み込みとコンパイル
+    result = D3DCompileFromFile(
+        L"Resources/Shaders/OBJGeometryShader.hlsl", //シェーダーファイル名
+        nullptr,//シェーダーマクロオブジェクト（今回は使わない）
+        D3D_COMPILE_STANDARD_FILE_INCLUDE, //インクルードオブジェクト（インクルード可能にする）
+        "main", "gs_5_0", //エントリーポイント名、シェーダーモデル指定
+        D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,//デバッグ用設定
+        0,
+        &obj_GS, &errorBlob
+    );
+    //シェーダーのエラー内容を表示
+    if (FAILED(result))
+    {
+        //errorBlobからエラー内容をstring型にコピー
+        std::string errstr;
+        errstr.resize(errorBlob->GetBufferSize());
+
+        std::copy_n((char*)errorBlob->GetBufferPointer(),
+            errorBlob->GetBufferSize(),
+            errstr.begin());
+        errstr += "\n";
+        //エラー内容を出力ウインドウに表示
+        OutputDebugStringA(errstr.c_str());
+        exit(1);
+    }
+
+    //ピクセルシェーダーの読み込みとコンパイル
+    result = D3DCompileFromFile(
+        L"Resources/Shaders/OBJPixelShader.hlsl",
+        nullptr,
+        D3D_COMPILE_STANDARD_FILE_INCLUDE,
+        "main", "ps_5_0",
+        D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
+        0,
+        &obj_PS, &errorBlob
+    );
+    //シェーダーのエラー内容を表示
+    if (FAILED(result))
+    {
+        std::string errstr;
+        errstr.resize(errorBlob->GetBufferSize());
+
+        std::copy_n((char*)errorBlob->GetBufferPointer(),
+            errorBlob->GetBufferSize(),
+            errstr.begin());
+        errstr += "\n";
+        //エラー内容を出力ウインドウに表示
+        OutputDebugStringA(errstr.c_str());
+        exit(1);
+    }
+
     //-----頂点レイアウト-----//
     D3D12_INPUT_ELEMENT_DESC inputLayout[] = {
         {//xyz座標
@@ -441,7 +520,6 @@ Pipeline3D NY_Object3DManager::CreateDiferredRenderingPipelineState()
     Pipeline3D pipelineset;
 
     //ルートシグネチャの生成
-    ComPtr<ID3DBlob> errorBlob = nullptr; //エラーオブジェクト
     D3D12_ROOT_SIGNATURE_DESC rootsignatureDesc{};
     rootsignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
     rootsignatureDesc.pParameters = rootparams;//ルートパラメーターの先頭アドレス
@@ -573,14 +651,13 @@ Pipeline3D NY_Object3DManager::CreateFbxPipeline()
 
     //ルートパラメーターの設定
     //定数用
-    CD3DX12_ROOT_PARAMETER rootparams[5] = {};
+    CD3DX12_ROOT_PARAMETER rootparams[4] = {};
     rootparams[0].InitAsConstantBufferView(0);//定数バッファ用
     rootparams[1].InitAsConstantBufferView(1);
     //テクスチャ用
     rootparams[2].InitAsDescriptorTable(1, &descRangeSRV, D3D12_SHADER_VISIBILITY_ALL);//標準
     //fbx
     rootparams[3].InitAsConstantBufferView(3);
-    rootparams[4].InitAsConstantBufferView(4);
 
     //テクスチャサンプラー設定
     D3D12_STATIC_SAMPLER_DESC samplerDesc{};
@@ -994,7 +1071,7 @@ void NY_Object3DManager::ClearObjects()
 
 void NY_Object3DManager::SetCommonBeginDrawObject3D()
 {
-    RenderTargetManager::GetInstance()->SetMultiRenderTargets(&m_gBuffer, 3, true);
+    RenderTargetManager::GetInstance()->SetMultiRenderTargets(&m_gBuffer, 4, true);
     //パイプラインステートをセット
     Raki_DX12B::Get()->GetGCommandList()->SetPipelineState(m_diferredRenderingPipeline.pipelinestate.Get());
     //ルートシグネチャをセット
