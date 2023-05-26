@@ -141,6 +141,8 @@ void AfroHead::KramerMove()
 		//反撃アニメーションをして、退職金を減らす
 
 		playerPtr->RetirementMoney -= 30;
+
+		isGoHome = true;
 	}
 }
 
@@ -220,12 +222,12 @@ void AfroHead::FailMove()
 
 void AfroHead::GoHome()
 {
-	if (!isGoHome && isKramer)
+	if (!isGoHome)
 	{
 		return;
 	}
 
-	pos.x += 2.0;
+	pos.x += 1.0;
 
 	if (pos.x >= 10)
 	{
