@@ -40,6 +40,8 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	q2 = quaternion(2, 3, 4, 1);
 
 	q1 *= q2;
+
+	lightdir = RVector3(0, 0, 1);
 }
 
 EngineDebugScene::~EngineDebugScene()
