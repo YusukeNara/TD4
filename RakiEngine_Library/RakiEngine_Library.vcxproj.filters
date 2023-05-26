@@ -94,6 +94,9 @@
     <Filter Include="Behavior\Navigation">
       <UniqueIdentifier>{a9b11ca7-e184-4d58-a91f-06161dd44417}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\3D\rendering">
+      <UniqueIdentifier>{c7f329f1-ed45-4794-9319-d95b0dabd3f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Raki_imguiMgr.cpp">
@@ -127,9 +130,6 @@
       <Filter>Graphic\3D</Filter>
     </ClCompile>
     <ClCompile Include="NY_Object3D.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="NY_Model.cpp">
       <Filter>Graphic\3D</Filter>
     </ClCompile>
     <ClCompile Include="TexManager.cpp">
@@ -174,12 +174,6 @@
     <ClCompile Include="ParticleManager2D.cpp">
       <Filter>Graphic\2D</Filter>
     </ClCompile>
-    <ClCompile Include="RenderTargetManager.cpp">
-      <Filter>Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="RTex.cpp">
-      <Filter>Graphic</Filter>
-    </ClCompile>
     <ClCompile Include="FbxLoader.cpp">
       <Filter>Graphic\3D\modelData\FBX</Filter>
     </ClCompile>
@@ -206,9 +200,6 @@
     </ClCompile>
     <ClCompile Include="SpotLight.cpp">
       <Filter>Graphic\3D\lights</Filter>
-    </ClCompile>
-    <ClCompile Include="DifferrdRenderingMgr.cpp">
-      <Filter>Graphic\3D</Filter>
     </ClCompile>
     <ClCompile Include="CameraCalc.cpp">
       <Filter>Math</Filter>
@@ -246,6 +237,21 @@
     <ClCompile Include="FontDrawer.cpp">
       <Filter>Graphic\2D</Filter>
     </ClCompile>
+    <ClCompile Include="DifferrdRenderingMgr.cpp">
+      <Filter>Graphic\3D\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetManager.cpp">
+      <Filter>Graphic\3D\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="RTex.cpp">
+      <Filter>Graphic\3D\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="NY_Model.cpp">
+      <Filter>Graphic\3D\modelData</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raki_imguiMgr.h">
@@ -277,9 +283,6 @@
     </ClInclude>
     <ClInclude Include="NY_Camera.h">
       <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="NY_Model.h">
-      <Filter>Graphic\3D</Filter>
     </ClInclude>
     <ClInclude Include="NY_Object3D.h">
       <Filter>Graphic\3D</Filter>
@@ -335,12 +338,6 @@
     <ClInclude Include="ParticleManager2D.h">
       <Filter>Graphic\2D</Filter>
     </ClInclude>
-    <ClInclude Include="RenderTargetManager.h">
-      <Filter>Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="RTex.h">
-      <Filter>Graphic</Filter>
-    </ClInclude>
     <ClInclude Include="FbxLoader.h">
       <Filter>Graphic\3D\modelData\FBX</Filter>
     </ClInclude>
@@ -376,9 +373,6 @@
     </ClInclude>
     <ClInclude Include="SpotLight.h">
       <Filter>Graphic\3D\lights</Filter>
-    </ClInclude>
-    <ClInclude Include="DifferrdRenderingMgr.h">
-      <Filter>Graphic\3D</Filter>
     </ClInclude>
     <ClInclude Include="CameraCalc.h">
       <Filter>Math</Filter>
@@ -421,6 +415,21 @@
     </ClInclude>
     <ClInclude Include="FontDrawer.h">
       <Filter>Graphic\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="DifferrdRenderingMgr.h">
+      <Filter>Graphic\3D\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetManager.h">
+      <Filter>Graphic\3D\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="RTex.h">
+      <Filter>Graphic\3D\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="NY_Model.h">
+      <Filter>Graphic\3D\modelData</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugCamera.h">
+      <Filter>Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

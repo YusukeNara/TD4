@@ -38,7 +38,7 @@ void Object3d::InitObject3D(ID3D12Device *dev)
 	);
 	constBuffB1.Get()->SetName(L"Object3d_cbuffB1");
 
-	auto skinresdesc = CD3DX12_RESOURCE_DESC::Buffer((sizeof(constBuffSkin) + 0xff) & ~0xff);
+	auto skinresdesc = CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstBufferDataSkin) + 0xff) & ~0xff);
 
 	result = dev->CreateCommittedResource(
 		&HEAP_PROP,
@@ -48,7 +48,7 @@ void Object3d::InitObject3D(ID3D12Device *dev)
 		nullptr,
 		IID_PPV_ARGS(&constBuffSkin)
 	);
-	constBuffB1.Get()->SetName(L"Object3d_cbuffSkin");
+	constBuffSkin.Get()->SetName(L"Object3d_cbuffSkin");
 
 	//単位行列で初期化
 	ConstBufferDataSkin* constMapSkin = nullptr;
@@ -392,7 +392,7 @@ void Object3d::DrawObject()
 		RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(0, constBuffB0->GetGPUVirtualAddress());
 		//定数バッファ設定
 		RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(1, constBuffB1->GetGPUVirtualAddress());
-		RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(4, constBuffSkin->GetGPUVirtualAddress());
+		RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(3, constBuffSkin->GetGPUVirtualAddress());
 
 		fbxmodel->Draw();
 	}
