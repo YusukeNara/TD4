@@ -57,13 +57,13 @@ public:
 	void Draw();
 	void DrawRenderTexture(int handle);
 
-	void DrawSprite(float posX, float posY);
+	void DrawSprite(float posX, float posY, DirectX::XMFLOAT4 color = { 1.f,1.f,1.f,1.f });
 
-	void DrawExtendSprite(float x1, float y1, float x2, float y2);
+	void DrawExtendSprite(float x1, float y1, float x2, float y2, DirectX::XMFLOAT4 color = { 1.f,1.f,1.f,1.f });
 
-	void DrawRotaSprite(float x1, float y1, float x2, float y2, float angle);
+	void DrawRotaSprite(float x1, float y1, float x2, float y2, float angle, DirectX::XMFLOAT4 color = { 1.f,1.f,1.f,1.f });
 
-	void DrawLine(float x1, float y1, float x2, float y2);
+	void DrawLine(float x1, float y1, float x2, float y2, DirectX::XMFLOAT4 color = { 1.f,1.f,1.f,1.f });
 
 	void DrawRTexSprite(int handle, float x1, float y1, float x2, float y2, float angle, DirectX::XMFLOAT4 freedata01 = { 1,1,1,1 });
 
@@ -72,6 +72,8 @@ public:
 
 private:
 	static DirectX::XMFLOAT4 sprite_color;
+
+	DirectX::XMFLOAT4 sp_color = { 1.0f,1.0f,1.0f,1.0f };
 
 	UINT sizeInsVB;
 

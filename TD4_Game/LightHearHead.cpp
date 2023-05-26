@@ -79,11 +79,21 @@ void LightHairHead::Update()
 		{
 			return;
 		}
+		waitTime++;
+		if (waitTime >= MaxWaitTime)
+		{
+			isGoHome = true;
+		}
+		GoHome();
+
+		KramerMove();
 
 		//入力を受け付ける
 		SlappingMove();
 
 		PullOutHair();
+
+		FailMove();
 	}
 
 	SlapParticle->Update();
@@ -93,10 +103,18 @@ void LightHairHead::Update()
 void LightHairHead::Draw()
 {
 	//オブジェクト描画
-	headObject->DrawObject();
-	if (!isHairDestroy)
+	if (isKramer)
 	{
+		headObject->DrawObject();
 		hairObject->DrawObject();
+	}
+	else
+	{
+		headObject->DrawObject();
+		if (!isHairDestroy)
+		{
+			hairObject->DrawObject();
+		}
 	}
 	SlapParticle->Draw(slapTex);
 	PullParticle->Draw(pullTex);
@@ -106,15 +124,35 @@ void LightHairHead::Finalize()
 {
 }
 
+void LightHairHead::KramerMove()
+{
+	if (!isKramer)
+	{
+		return;
+	}
+
+	AngreeTime++;
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//反撃アニメーションをして、退職金を減らす
+
+		playerPtr->RetirementMoney -= 30;
+
+		isGoHome = true;
+	}
+}
+
 void LightHairHead::SlappingMove()
 {
-	if (!isHairDestroy && !isKramer)
+	if (!isHairDestroy && !isKramer || isGoHome || isFail)
 	{
 		return;
 	}
 
 	if (playerPtr->GetItemType() != ItemType::Hand)
 	{
+		isFail = true;
 		return;
 	}
 
@@ -168,15 +206,41 @@ void LightHairHead::SlappingMove()
 	}
 }
 
+void LightHairHead::FailMove()
+{
+	if (!isFail)
+	{
+		return;
+	}
+	playerPtr->RetirementMoney -= 20;
+	isFail = false;
+}
+
+void LightHairHead::GoHome()
+{
+	if (!isGoHome)
+	{
+		return;
+	}
+
+	pos.x += 1.0;
+
+	if (pos.x >= 10)
+	{
+		isAllMoveFinish = true;
+	}
+}
+
 void LightHairHead::PullOutHair()
 {
-	if (isHairDestroy || isKramer)
+	if (isHairDestroy || isKramer || isGoHome || isFail || isCounter)
 	{
 		return;
 	}
 
 	if (playerPtr->GetItemType() != ItemType::Clippers)
 	{
+		isFail = true;
 		return;
 	}
 
@@ -205,5 +269,21 @@ void LightHairHead::PullOutHair()
 
 			PullParticle->Add(pgstate);
 		}
+	}
+}
+
+void LightHairHead::CounterMove()
+{
+	if (!isCounter)
+	{
+		return;
+	}
+
+	AngreeTime++;
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//逆ギレして帰る
+		isGoHome = true;
 	}
 }

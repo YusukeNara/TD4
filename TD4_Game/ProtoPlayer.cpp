@@ -32,6 +32,8 @@ void ProtoPlayer::Init()
 	uiOffsetHand = { 50,600 };
 	uiOffsetScis = { 170,600 };
 	uiOffsetClip = { 290,600 };
+
+	RetirementMoney = MaxRetirementMoney;
 }
 
 void ProtoPlayer::Update()
@@ -94,7 +96,7 @@ void ProtoPlayer::Clip()
 void ProtoPlayer::ChangeItem()
 {
 	//アイテムの切り替え
-	if (handItemType == Hand)
+	/*if (handItemType == Hand)
 	{
 		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_RB))
 		{
@@ -126,6 +128,21 @@ void ProtoPlayer::ChangeItem()
 		{
 			handItemType = Scissors;
 		}
+	}*/
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
+	{
+		handItemType = Hand;
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	{
+		handItemType = Scissors;
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B))
+	{
+		handItemType = Clippers;
 	}
 
 	//--------------------UI---------------------

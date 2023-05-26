@@ -20,7 +20,13 @@ public:
 
 	void Finalize() override;
 
+	void KramerMove() override;
+
 	void SlappingMove() override;
+
+	void FailMove() override;
+
+	void GoHome() override;
 
 private:
 	void CuttingHair();
