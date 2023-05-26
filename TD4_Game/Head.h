@@ -23,6 +23,8 @@ public:
 
 	virtual void Finalize() {};
 
+	virtual void KramerMove() {};
+
 	virtual void SlappingMove() {};
 
 	virtual void FailMove() {};
@@ -66,6 +68,8 @@ public:
 	//怒っている時間
 	int AngreeTime = 0;
 
+	const int MaxAngreeTime = 180;
+
 	//反撃するかどうか
 	bool isCounter = false;
 
@@ -85,7 +89,7 @@ public:
 	int SlapCount = 0;
 
 	//ビンタの最大回数
-	const int ManSlapCount = 7;
+	const int ManSlapCount = 5;
 
 	//イージング用変数
 	//前に進む時

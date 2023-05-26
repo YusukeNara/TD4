@@ -81,6 +81,7 @@ void AfroHead::Update()
 		{
 			return;
 		}
+		KramerMove();
 
 		//入力を受け付ける
 		SlappingMove();
@@ -109,6 +110,23 @@ void AfroHead::Finalize()
 
 
 
+}
+
+void AfroHead::KramerMove()
+{
+	if (!isKramer)
+	{
+		return;
+	}
+
+	AngreeTime++;
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//反撃アニメーションをして、退職金を減らす
+
+		playerPtr->RetirementMoney -= 30;
+	}
 }
 
 void AfroHead::SlappingMove()

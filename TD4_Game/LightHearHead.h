@@ -20,12 +20,16 @@ public:
 
 	void Finalize() override;
 
+	void KramerMove() override;
+
 	void SlappingMove() override;
 
 	void FailMove() override;
 
 private:
 	void PullOutHair();
+
+	void CounterMove();
 
 private:
 	//毛を抜いた時のパーティクル

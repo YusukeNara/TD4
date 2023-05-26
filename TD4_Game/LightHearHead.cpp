@@ -79,6 +79,7 @@ void LightHairHead::Update()
 		{
 			return;
 		}
+		KramerMove();
 
 		//入力を受け付ける
 		SlappingMove();
@@ -104,6 +105,23 @@ void LightHairHead::Draw()
 
 void LightHairHead::Finalize()
 {
+}
+
+void LightHairHead::KramerMove()
+{
+	if (!isKramer)
+	{
+		return;
+	}
+
+	AngreeTime++;
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//反撃アニメーションをして、退職金を減らす
+
+		playerPtr->RetirementMoney -= 30;
+	}
 }
 
 void LightHairHead::SlappingMove()
@@ -210,5 +228,13 @@ void LightHairHead::PullOutHair()
 
 			PullParticle->Add(pgstate);
 		}
+	}
+}
+
+void LightHairHead::CounterMove()
+{
+	if (!isCounter)
+	{
+		return;
 	}
 }

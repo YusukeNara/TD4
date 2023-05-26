@@ -66,6 +66,8 @@ void HageHead::Update()
 		{
 			return;
 		}
+		KramerMove();
+
 		SlappingMove();
 	}
 
@@ -80,6 +82,24 @@ void HageHead::Draw()
 
 void HageHead::Finalize()
 {
+}
+
+void HageHead::KramerMove()
+{
+	if (!isKramer)
+	{
+		return;
+	}
+
+	AngreeTime++;
+	//怒ってるアニメーション
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//反撃アニメーションをして、退職金を減らす
+
+		playerPtr->RetirementMoney -= 30;
+	}
 }
 
 void HageHead::SlappingMove()
