@@ -249,6 +249,9 @@
     <ClCompile Include="NY_Model.cpp">
       <Filter>Graphic\3D\modelData</Filter>
     </ClCompile>
+    <ClCompile Include="DebugCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raki_imguiMgr.h">
@@ -424,6 +427,9 @@
     </ClInclude>
     <ClInclude Include="NY_Model.h">
       <Filter>Graphic\3D\modelData</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugCamera.h">
+      <Filter>Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

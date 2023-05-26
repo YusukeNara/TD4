@@ -46,6 +46,7 @@
     <ClCompile Include="Colider.cpp" />
     <ClCompile Include="ColisionManager.cpp" />
     <ClCompile Include="ColliderInfo.cpp" />
+    <ClCompile Include="DebugCamera.cpp" />
     <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="DifferrdRenderingMgr.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="ColisionManager.h" />
     <ClInclude Include="ColliderInfo.h" />
     <ClInclude Include="ColliderShapeType.h" />
+    <ClInclude Include="DebugCamera.h" />
     <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="DifferrdRenderingMgr.h" />
     <ClInclude Include="DirectionalLight.h" />
