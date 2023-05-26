@@ -15,19 +15,20 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(0, 0, 0),
 		RVector3(0, 50, 0), 30);
 
-	testsp.Create(testTex);
+	testsp1.Create(testTex);
+	testsp2.Create(testTex);
 
 	testFBX_YesBone = std::make_shared<Object3d>();
-	testFBX_YesBone.reset(LoadModel_FBXFile("saru"));
-	testFBX_YesBone->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(75.f, 0, 0));
+	testFBX_YesBone.reset(LoadModel_FBXFile("SpiralPBR"));
+	testFBX_YesBone->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(75.f, 0, -50.f));
 
 	testFBX_NoBone = std::make_shared<Object3d>();
-	testFBX_NoBone.reset(LoadModel_FBXFile("cube"));
-	testFBX_NoBone->SetAffineParam(RVector3(0.5f, 0.5f, 0.5f), RVector3(90, 0, 0), RVector3(0, 0, 0));
+	testFBX_NoBone.reset(LoadModel_FBXFile("saru"));
+	testFBX_NoBone->SetAffineParam(RVector3(20.5f, 20.5f, 20.5f), RVector3(90, 0, 0), RVector3(0, 0, -50.0f));
 
 	testobj = std::make_shared<Object3d>();
-	testobj.reset(LoadModel_ObjFile("Sphere"));
-	testobj->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(-75.f, 0, 0));
+	testobj.reset(LoadModel_FBXFile("SpherePBR"));
+	testobj->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(-75.f, 0, -50.f));
 
 
 	RVector3 eye(0.f, 0.f, -200.f);
@@ -75,7 +76,10 @@ void EngineDebugScene::Draw()
 
 void EngineDebugScene::Draw2D()
 {
+	testsp1.DrawExtendSprite(0, 0, 100, 100, { 1,1,1,0.5 });
+	testsp1.DrawExtendSprite(100, 100, 200, 200, { 1,1,1,1 });
 
+	testsp1.Draw();
 }
 
 void EngineDebugScene::DrawImgui()
@@ -102,6 +106,16 @@ void EngineDebugScene::DrawImgui()
 	myImgui::EndDrawImGui();
 
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0), camrot);
+
+	myImgui::StartDrawImGui("light ctrl", 150, 300);
+
+	ImGui::SliderFloat("light x", &lightdir.x, -1.f, 1.0f);
+	ImGui::SliderFloat("light y", &lightdir.y, -1.f, 1.0f);
+	ImGui::SliderFloat("light z", &lightdir.z, -1.f, 1.0f);
+
+	DirectionalLight::SetLightDir(lightdir.x, lightdir.y, lightdir.z);
+
+	myImgui::EndDrawImGui();
 
 	testFBX_NoBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testFBX_YesBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
