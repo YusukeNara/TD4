@@ -94,6 +94,8 @@ void AfroHead::Update()
 		SlappingMove();
 
 		CuttingHair();
+
+		FailMove();
 	}
 
 	SlapParticle->Update();
