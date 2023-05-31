@@ -221,7 +221,7 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
 
                 if (mesh->GetPolygonVertexUV(i, j, uvNames[0], uvs, lUnmappedUV)) {
                     v.uv.x = (float)uvs[0];
-                    v.uv.y = (float)uvs[1];
+                    v.uv.y = 1.0f - (float)uvs[1];
                 }
             }
 
