@@ -19,7 +19,9 @@ ResultScene::ResultScene(ISceneChanger* changer) : BaseScene(changer)
 
 ResultScene::~ResultScene()
 {
-
+	if (resultPlayer) {
+		std::cout << "player deleted" << endl;
+	}
 }
 
 void ResultScene::Initialize()
