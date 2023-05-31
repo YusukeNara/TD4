@@ -120,12 +120,6 @@ void HageHead::SlappingMove()
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Hand)
-	{
-		isFail = true;
-		return;
-	}
-
 	//プレイヤーの入力を受け付けたら
 	//アニメーションしてふっとんっでいく処理
 	if (isSlap)
@@ -152,6 +146,15 @@ void HageHead::SlappingMove()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Hand)
+		{
+			isFail = true;
+			ShakeBacePos = pos;
+			pos.x = pos.x + ShakeOffset;
+			FailCount = 0;
+			return;
+		}
+
 		isSlap = true;
 
 		//パーティクル生成
@@ -185,8 +188,21 @@ void HageHead::FailMove()
 	{
 		return;
 	}
-	playerPtr->RetirementMoney -= 20;
-	isFail = false;
+
+	FailCount++;
+
+	if (FailCount % 2 == 0)
+	{
+		ShakeOffset *= -1;
+		pos.x += ShakeBacePos.x + (ShakeOffset * 2);
+	}
+
+	if (FailCount >= 20)
+	{
+		pos = ShakeBacePos;
+		playerPtr->RetirementMoney -= 20;
+		isFail = false;
+	}
 }
 
 void HageHead::GoHome()

@@ -70,6 +70,9 @@ public:
 
 	//ŠÔˆá‚¦‚½‚©‚Ç‚¤‚©
 	bool isFail = false;
+	int FailCount = 0;
+	RVector3 ShakeBacePos = {};
+	float ShakeOffset = 1.0f;
 
 	//“{‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
 	bool isAngree = false;
