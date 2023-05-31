@@ -36,6 +36,12 @@ TitleScene::~TitleScene()
 	if (testobject) {
 		std::cout << "Object deleted" << endl;
 	}
+	if (titleHage) {
+		std::cout << "Hage deleted" << endl;
+	}
+	if (titlePlayer) {
+		std::cout << "player deleted" << endl;
+	}
 }
 
 //‰Šú‰»
@@ -53,6 +59,9 @@ void TitleScene::Update() {
 	Animation();
 	if (Input::Get()->isKeyTrigger(DIK_2)) {
 		mSceneChanger->ChangeScene(eScene_Game);
+	}
+	if (Input::Get()->isKeyTrigger(DIK_3)) {
+		mSceneChanger->ChangeScene(eScene_Result);
 	}
 }
 
