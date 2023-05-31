@@ -48,9 +48,13 @@ void ResultScene::Draw2D()
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			spriteStar[i].DrawSprite(starPos.x, starPos.y);
+			spriteStar[i].DrawSprite(starPos.x + (i * 128), starPos.y);
 			spriteStar[i].Draw();
 		}
+	}
+	if (scoreTexIsDraw)
+	{
+		scoreTex.Draw();
 	}
 }
 
