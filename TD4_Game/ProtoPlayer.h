@@ -50,6 +50,16 @@ public:
 
 	ItemType GetItemType();
 
+	/// <summary>
+	/// 退職金(HP)
+	/// </summary>
+	int RetirementMoney = 0;
+
+	/// <summary>
+	/// 退職金の最大値
+	/// </summary>
+	const int MaxRetirementMoney = 500;
+
 private:
 
 	RVector3 position;

@@ -66,7 +66,18 @@ void HageHead::Update()
 		{
 			return;
 		}
+		waitTime++;
+		if (waitTime >= MaxWaitTime)
+		{
+			isGoHome = true;
+		}
+		GoHome();
+
+		KramerMove();
+
 		SlappingMove();
+
+		FailMove();
 	}
 
 	SlapParticle->Update();
@@ -82,15 +93,36 @@ void HageHead::Finalize()
 {
 }
 
+void HageHead::KramerMove()
+{
+	if (!isKramer)
+	{
+		return;
+	}
+
+	AngreeTime++;
+	//怒ってるアニメーション
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//反撃アニメーションをして、退職金を減らす
+
+		playerPtr->RetirementMoney -= 30;
+
+		isGoHome = true;
+	}
+}
+
 void HageHead::SlappingMove()
 {
-	if (!isHairDestroy && !isKramer)
+	if (!isHairDestroy && !isKramer || isGoHome || isFail)
 	{
 		return;
 	}
 
 	if (playerPtr->GetItemType() != ItemType::Hand)
 	{
+		isFail = true;
 		return;
 	}
 
@@ -145,4 +177,29 @@ void HageHead::SlappingMove()
 		}
 	}
 
+}
+
+void HageHead::FailMove()
+{
+	if (!isFail)
+	{
+		return;
+	}
+	playerPtr->RetirementMoney -= 20;
+	isFail = false;
+}
+
+void HageHead::GoHome()
+{
+	if (!isGoHome)
+	{
+		return;
+	}
+
+	pos.x += 1.0;
+
+	if (pos.x >= 10)
+	{
+		isAllMoveFinish = true;
+	}
 }

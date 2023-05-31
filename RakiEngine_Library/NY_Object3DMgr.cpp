@@ -391,6 +391,13 @@ Pipeline3D NY_Object3DManager::CreateDiferredRenderingPipelineState()
     //レンダーターゲットにするGBufferを作成
     float clearcolors[4] = { 0.0f,0.0f,0.0f,0.0f };
     //レンダーターゲット設定
+    //上から
+    //basecolor
+    //normal(法線)
+    //world(ワールド座標)
+    //ambient
+    //diffuse
+    //specular
     RenderTextureOption option[4] = {
         {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},
         {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},

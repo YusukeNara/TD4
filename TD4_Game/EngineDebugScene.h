@@ -21,7 +21,8 @@ public:
     void Draw2D() override;
     void DrawImgui() override;
 
-    Sprite testsp;
+    Sprite testsp1;
+    Sprite testsp2;
     std::shared_ptr<Object3d> testobject;
 
     std::shared_ptr<Object3d> testFBX_YesBone;
@@ -42,5 +43,7 @@ public:
     CameraCalc testcam;
 
     RQuaternion q1, q2;
+
+    RVector3 lightdir;
 };
 

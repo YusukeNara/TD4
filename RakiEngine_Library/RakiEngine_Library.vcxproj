@@ -51,6 +51,7 @@
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="FbxLoader.cpp" />
     <ClCompile Include="fbxModel.cpp" />
+    <ClCompile Include="FontDrawer.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="FbxLoader.h" />
     <ClInclude Include="fbxModel.h" />
+    <ClInclude Include="FontDrawer.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="imgui\imconfig.h" />
