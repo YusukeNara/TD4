@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include "BaseScene.h"
 #include "ISceneChanger.h"
 #include "FbxLoader.h"
@@ -9,19 +10,14 @@
 #include <NY_Object3DMgr.h>
 #include <Sprite.h>
 
-//アニメーションのトータル時間
-const int animationCountMax = 1200;
-//タイトルスプライトの最終位置
-const float titleLastPos = 300.0f;
-
-class TitleScene : public BaseScene {
-
+class ResultScene : public BaseScene
+{
 public:
-    TitleScene(ISceneChanger *changer);
-    ~TitleScene() override;
+	ResultScene(ISceneChanger* changer);
+	~ResultScene() override;
 
     void Initialize() override;    //初期化処理をオーバーライド。
-    void Finalize() override ;   //終了処理をオーバーライド。
+    void Finalize() override;   //終了処理をオーバーライド。
     void Update() override;        //更新処理をオーバーライド。
     void Draw() override;          //描画処理をオーバーライド。
     void Draw2D() override;
@@ -29,20 +25,16 @@ public:
 
     void Animation();
 
-    Sprite testsp;
+    Sprite spriteStar[5];
+    Sprite scoreTex;
     std::shared_ptr<Object3d> testobject;
+    std::shared_ptr<Object3d> resultPlayer;
 
-    std::shared_ptr<Object3d> titleHage;
-    std::shared_ptr<Object3d> titlePlayer;
-
-    Rv3Ease::Rv3Easing titleEase;
-
+    const int animationCountMax = 1200;
     int animationCount = 0;
+    bool starIsDraw;
+    bool scoreTexIsDraw;
 
-    XMFLOAT2 titleSpritePos;
-
-    RVector3 titleObjPos;
-    RVector3 titlePlayerPos;
-    RVector3 titleHagePos;
+    XMFLOAT2 starPos;
 };
 

@@ -155,12 +155,6 @@ void AfroHead::SlappingMove()
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Hand)
-	{
-		isFail = true;
-		return;
-	}
-
 	//プレイヤーの入力を受け付けたら
 	if (isSlap)
 	{
@@ -186,6 +180,12 @@ void AfroHead::SlappingMove()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Hand)
+		{
+			isFail = true;
+			return;
+		}
+
 		isSlap = true;
 
 		//パーティクル生成
@@ -244,15 +244,15 @@ void AfroHead::CuttingHair()
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Scissors)
-	{
-		isFail = true;
-		return;
-	}
-
 	//プレイヤーの入力を受け付けたら
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Scissors)
+		{
+			isFail = true;
+			return;
+		}
+
 		CutCount++;
 
 		//パーティクル生成

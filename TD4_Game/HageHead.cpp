@@ -120,12 +120,6 @@ void HageHead::SlappingMove()
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Hand)
-	{
-		isFail = true;
-		return;
-	}
-
 	//プレイヤーの入力を受け付けたら
 	//アニメーションしてふっとんっでいく処理
 	if (isSlap)
@@ -152,6 +146,12 @@ void HageHead::SlappingMove()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Hand)
+		{
+			isFail = true;
+			return;
+		}
+
 		isSlap = true;
 
 		//パーティクル生成
