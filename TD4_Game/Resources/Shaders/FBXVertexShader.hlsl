@@ -15,25 +15,25 @@ SkinOutput CompureSkin(VSInput input)
     weight = input.boneWeights.x;
     m = matSkinning[iBone];
     output.pos += weight * mul(m, input.svpos);
-    output.normal += weight * mul((float3x3) m, input.normal);
+    output.normal += weight * mul(m, float4(input.normal, 0));
 	
     iBone = input.boneIndices.y;
     weight = input.boneWeights.y;
     m = matSkinning[iBone];
     output.pos += weight * mul(m, input.svpos);
-    output.normal += weight * mul((float3x3) m, input.normal);
+    output.normal += weight * mul(m, float4(input.normal, 0));
 	
     iBone = input.boneIndices.z;
     weight = input.boneWeights.z;
     m = matSkinning[iBone];
     output.pos += weight * mul(m, input.svpos);
-    output.normal += weight * mul((float3x3) m, input.normal);
+    output.normal += weight * mul(m, float4(input.normal, 0));
 	
     iBone = input.boneIndices.w;
     weight = input.boneWeights.w;
     m = matSkinning[iBone];
     output.pos += weight * mul(m, input.svpos);
-    output.normal += weight * mul((float3x3) m, input.normal);
+    output.normal += weight * mul(m, float4(input.normal, 0));
 	
     return output;
 }
