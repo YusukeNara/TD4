@@ -150,12 +150,6 @@ void LightHairHead::SlappingMove()
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Hand)
-	{
-		isFail = true;
-		return;
-	}
-
 	if (isSlap)
 	{
 		//クレーマーなら
@@ -180,6 +174,12 @@ void LightHairHead::SlappingMove()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Hand)
+		{
+			isFail = true;
+			return;
+		}
+
 		isSlap = true;
 
 		//パーティクル生成
@@ -238,15 +238,15 @@ void LightHairHead::PullOutHair()
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Clippers)
-	{
-		isFail = true;
-		return;
-	}
-
 	//プレイヤーの入力を受け付けたら
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Clippers)
+		{
+			isFail = true;
+			return;
+		}
+
 		isHairDestroy = true;
 
 		//パーティクル生成
