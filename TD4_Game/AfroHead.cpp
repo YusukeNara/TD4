@@ -81,11 +81,21 @@ void AfroHead::Update()
 		{
 			return;
 		}
+		waitTime++;
+		if (waitTime >= MaxWaitTime)
+		{
+			isGoHome = true;
+		}
+		GoHome();
+
+		KramerMove();
 
 		//入力を受け付ける
 		SlappingMove();
 
 		CuttingHair();
+
+		FailMove();
 	}
 
 	SlapParticle->Update();
@@ -95,10 +105,18 @@ void AfroHead::Update()
 void AfroHead::Draw()
 {
 	//オブジェクト描画
-	headObject->DrawObject();
-	if (!isHairDestroy)
+	if (isKramer)
 	{
+		headObject->DrawObject();
 		afroObject->DrawObject();
+	}
+	else
+	{
+		headObject->DrawObject();
+		if (!isHairDestroy)
+		{
+			afroObject->DrawObject();
+		}
 	}
 	SlapParticle->Draw(slapTex);
 	CutParticle->Draw(cutTex);
@@ -111,15 +129,35 @@ void AfroHead::Finalize()
 
 }
 
+void AfroHead::KramerMove()
+{
+	if (!isKramer)
+	{
+		return;
+	}
+
+	AngreeTime++;
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//反撃アニメーションをして、退職金を減らす
+
+		playerPtr->RetirementMoney -= 30;
+
+		isGoHome = true;
+	}
+}
+
 void AfroHead::SlappingMove()
 {
-	if (!isHairDestroy && !isKramer)
+	if (!isHairDestroy && !isKramer || isGoHome || isFail)
 	{
 		return;
 	}
 
 	if (playerPtr->GetItemType() != ItemType::Hand)
 	{
+		isFail = true;
 		return;
 	}
 
@@ -174,15 +212,41 @@ void AfroHead::SlappingMove()
 	}
 }
 
+void AfroHead::FailMove()
+{
+	if (!isFail)
+	{
+		return;
+	}
+	playerPtr->RetirementMoney -= 20;
+	isFail = false;
+}
+
+void AfroHead::GoHome()
+{
+	if (!isGoHome)
+	{
+		return;
+	}
+
+	pos.x += 1.0;
+
+	if (pos.x >= 10)
+	{
+		isAllMoveFinish = true;
+	}
+}
+
 void AfroHead::CuttingHair()
 {
-	if (isHairDestroy || isKramer)
+	if (isHairDestroy || isKramer || isGoHome || isFail)
 	{
 		return;
 	}
 
 	if (playerPtr->GetItemType() != ItemType::Scissors)
 	{
+		isFail = true;
 		return;
 	}
 
