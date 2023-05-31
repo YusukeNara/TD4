@@ -44,6 +44,7 @@ void ScoreManager::Initialize()
 
 	spriteScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
+	spriteLife.Create(TexManager::LoadTexture("Resources/life.png"));
 }
 
 void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
@@ -680,6 +681,11 @@ void ScoreManager::Draw()
 		spriteScore.uvOffsetHandle = (int)handleNum % 10;
 		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
 	}
+
+	//‘Ì—Í‚Ì•\Ž¦
+	spriteLife.DrawExtendSprite(LIFE_POS.x, LIFE_POS.y, LIFE_POS.x + life, LIFE_POS.y + LIFE_SIZE_Y);
+
 	spriteScore.Draw();
 	spriteReview.Draw();
+	spriteLife.Draw();
 }

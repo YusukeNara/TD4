@@ -27,10 +27,15 @@ private:
 	const XMFLOAT2 TOTALREVIEW_POS = { 32,64 };
 	//捌いた数の位置
 	const XMFLOAT2 HANDLE_POS = { 32,0 };
+	//体力の左上座標
+	const XMFLOAT2 LIFE_POS = { 0,0 };
+	//体力のサイズ
+	const float LIFE_SIZE_Y = 32;
 private:
 	//スプライト
 	Sprite spriteScore;
 	Sprite spriteReview;
+	Sprite spriteLife;
 
 	//総合的なスコア
 	static float totalScore;
@@ -75,6 +80,9 @@ private:
 	bool reviewPrintFlag;
 	//レビューのアルファ値
 	float reviewA;
+
+	//退職金
+	int life;
 private:
 	//最初のNumセット
 	void FirstNumSet();
@@ -91,5 +99,8 @@ public:
 	static const float &GetReview() { return totalReview; }
 	//捌いた数の参照
 	static const int &GetHandle() { return handleNum; }
+
+	//playerから退職金を取得する
+	void SetLife(const int &life) { this->life = life; }
 };
 
