@@ -24,9 +24,9 @@ private:
 	//基本のスコア
 	static const int DEFO_SCORE = 200;
 	//総合レビューの位置
-	const XMFLOAT2 TOTALREVIEW_POS = { 32,64 };
+	const XMFLOAT2 TOTALREVIEW_POS = { 32,256 };
 	//捌いた数の位置
-	const XMFLOAT2 HANDLE_POS = { 32,0 };
+	const XMFLOAT2 HANDLE_POS = { 32,128 };
 	//体力の左上座標
 	const XMFLOAT2 LIFE_POS = { 0,0 };
 	//体力のサイズ
@@ -36,6 +36,9 @@ private:
 	Sprite spriteScore;
 	Sprite spriteReview;
 	Sprite spriteLife;
+	Sprite spriteScoreTitle;
+	Sprite spriteTotalReview;
+	Sprite spriteGuest;
 
 	//総合的なスコア
 	static float totalScore;

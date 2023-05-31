@@ -45,6 +45,9 @@ void ScoreManager::Initialize()
 	spriteScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
 	spriteLife.Create(TexManager::LoadTexture("Resources/life.png"));
+	spriteScoreTitle.Create(TexManager::LoadTexture("Resources/ScoreTitle.png"));
+	spriteTotalReview.Create(TexManager::LoadTexture("Resources/TotalReview.png"));
+	spriteGuest.Create(TexManager::LoadTexture("Resources/Guest.png"));
 }
 
 void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
@@ -416,6 +419,8 @@ void ScoreManager::Draw()
 		}
 	}
 	//トータルレビューの表示
+	spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y-64.f, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y);
+
 	if (totalReview <= 5 && totalReview >= 4.75f)
 	{
 		spriteReview.uvOffsetHandle = 2;
@@ -586,6 +591,7 @@ void ScoreManager::Draw()
 		}
 	}
 	//トータルのスコアの表示
+	spriteScoreTitle.DrawExtendSprite(1280.f - 384.f, 720 - 128.f, 1280.f - 64.f, 720.f - 64.f);
 	if (totalScore >= 1000000)
 	{
 		spriteScore.uvOffsetHandle = 9;
@@ -651,6 +657,8 @@ void ScoreManager::Draw()
 	}
 
 	//捌いた人数
+	spriteGuest.DrawExtendSprite(HANDLE_POS.x + 0.f, HANDLE_POS.y - 64.f, HANDLE_POS.x + 320.f, HANDLE_POS.y);
+
 	if (handleNum >= 1000)
 	{
 		spriteScore.uvOffsetHandle = 9;
@@ -688,4 +696,7 @@ void ScoreManager::Draw()
 	spriteScore.Draw();
 	spriteReview.Draw();
 	spriteLife.Draw();
+	spriteScoreTitle.Draw();
+	spriteTotalReview.Draw();
+	spriteGuest.Draw();
 }
