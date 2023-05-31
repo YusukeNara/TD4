@@ -2,7 +2,7 @@
 #include "GameScene.h"
 #include "TitleScene.h"
 #include "EngineDebugScene.h"
-#include"Result.h"
+#include "ResultScene.h"
 
 //Raki_DX12B         *SceneManager::dx12b  = nullptr;
 //NY_Object3DManager *SceneManager::objmgr = nullptr;
@@ -50,7 +50,7 @@ void SceneManager::Update()
             nowScene = (BaseScene*) new GameScene(this);
             break;
         case eScene_Result:
-            nowScene = (BaseScene *) new Result(this);
+            nowScene = (BaseScene *) new ResultScene(this);
             break;
         case eScene_Debug:
             nowScene = (BaseScene*) new EngineDebugScene(this);

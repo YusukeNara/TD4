@@ -15,18 +15,18 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(30, 0, 0));
 	titlePlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 0);
 
-	titleEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(0, 0, 0),
-		RVector3(0, 50, 0), 30);
+	titleEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(400, -200, 0),
+		RVector3(400, 200, 0), 100);
 
 	testobject = std::make_shared<Object3d>();
 	testobject.reset(NY_Object3DManager::Get()->CreateModel_Box(50.f, 10.f, 10.f, testTex));
 
-	testObjPos = { 0,0,0 };
-	testPlayerPos = { 30,0,0 };
-	testHagePos = { -30,0,0 };
+	titleObjPos = { 0,0,0 };
+	titlePlayerPos = { 30,0,0 };
+	titleHagePos = { -30,0,0 };
 	titleSpritePos = { 400,-200 };
 
-	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 45, 0), testObjPos);
+	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 45, 0), titleObjPos);
 
 	testsp.Create(testTex);
 }
@@ -81,30 +81,30 @@ void TitleScene::Animation()
 	}
 	else
 	{
-		if (titleSpritePos.y < 300)
+		if (titleSpritePos.y < titleLastPos)
 		{
 			titleSpritePos.y++;
 		}
 	}
 	if (animationCount < animationCountMax / 4)
 	{
-		testPlayerPos.x += 1.0f;
-		testHagePos.x += 1.0f;
-		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), testPlayerPos);
-		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), testHagePos);
+		titlePlayerPos.x += 1.0f;
+		titleHagePos.x += 1.0f;
+		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titlePlayerPos);
+		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titleHagePos);
 	}
 	else if (animationCount < (animationCountMax / 4 * 3))
 	{
-		testPlayerPos.x -= 1.0f;
-		testHagePos.x -= 1.0f;
-		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), testPlayerPos);
-		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), testHagePos);
+		titlePlayerPos.x -= 1.0f;
+		titleHagePos.x -= 1.0f;
+		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), titlePlayerPos);
+		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), titleHagePos);
 	}
 	else if (animationCount < animationCountMax)
 	{
-		testPlayerPos.x += 1.0f;
-		testHagePos.x += 1.0f;
-		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), testPlayerPos);
-		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), testHagePos);
+		titlePlayerPos.x += 1.0f;
+		titleHagePos.x += 1.0f;
+		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titlePlayerPos);
+		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titleHagePos);
 	}
 }

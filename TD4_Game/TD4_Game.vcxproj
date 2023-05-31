@@ -171,6 +171,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProtoPlayer.cpp" />
     <ClCompile Include="Result.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="LightHearHead.h" />
     <ClInclude Include="ProtoPlayer.h" />
     <ClInclude Include="Result.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Task.h" />
