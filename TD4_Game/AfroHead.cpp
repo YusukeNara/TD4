@@ -81,11 +81,21 @@ void AfroHead::Update()
 		{
 			return;
 		}
+		waitTime++;
+		if (waitTime >= MaxWaitTime)
+		{
+			isGoHome = true;
+		}
+		GoHome();
+
+		KramerMove();
 
 		//入力を受け付ける
 		SlappingMove();
 
 		CuttingHair();
+
+		FailMove();
 	}
 
 	SlapParticle->Update();
@@ -95,10 +105,18 @@ void AfroHead::Update()
 void AfroHead::Draw()
 {
 	//オブジェクト描画
-	headObject->DrawObject();
-	if (!isHairDestroy)
+	if (isKramer)
 	{
+		headObject->DrawObject();
 		afroObject->DrawObject();
+	}
+	else
+	{
+		headObject->DrawObject();
+		if (!isHairDestroy)
+		{
+			afroObject->DrawObject();
+		}
 	}
 	SlapParticle->Draw(slapTex);
 	CutParticle->Draw(cutTex);
@@ -111,14 +129,28 @@ void AfroHead::Finalize()
 
 }
 
-void AfroHead::SlappingMove()
+void AfroHead::KramerMove()
 {
-	if (!isHairDestroy && !isKramer)
+	if (!isKramer)
 	{
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Hand)
+	AngreeTime++;
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//反撃アニメーションをして、退職金を減らす
+
+		playerPtr->RetirementMoney -= 30;
+
+		isGoHome = true;
+	}
+}
+
+void AfroHead::SlappingMove()
+{
+	if (!isHairDestroy && !isKramer || isGoHome || isFail)
 	{
 		return;
 	}
@@ -148,6 +180,15 @@ void AfroHead::SlappingMove()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Hand)
+		{
+			isFail = true;
+			ShakeBacePos = pos;
+			pos.x = pos.x + ShakeOffset;
+			FailCount = 0;
+			return;
+		}
+
 		isSlap = true;
 
 		//パーティクル生成
@@ -174,14 +215,47 @@ void AfroHead::SlappingMove()
 	}
 }
 
-void AfroHead::CuttingHair()
+void AfroHead::FailMove()
 {
-	if (isHairDestroy || isKramer)
+	if (!isFail)
 	{
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Scissors)
+	FailCount++;
+
+	if (FailCount % 2 == 0)
+	{
+		ShakeOffset *= -1;
+		pos.x += ShakeBacePos.x + (ShakeOffset * 2);
+	}
+
+	if (FailCount >= 20)
+	{
+		pos = ShakeBacePos;
+		playerPtr->RetirementMoney -= 20;
+		isFail = false;
+	}
+}
+
+void AfroHead::GoHome()
+{
+	if (!isGoHome)
+	{
+		return;
+	}
+
+	pos.x += 1.0;
+
+	if (pos.x >= 10)
+	{
+		isAllMoveFinish = true;
+	}
+}
+
+void AfroHead::CuttingHair()
+{
+	if (isHairDestroy || isKramer || isGoHome || isFail)
 	{
 		return;
 	}
@@ -189,6 +263,15 @@ void AfroHead::CuttingHair()
 	//プレイヤーの入力を受け付けたら
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Scissors)
+		{
+			isFail = true;
+			ShakeBacePos = pos;
+			pos.x = pos.x + ShakeOffset;
+			FailCount = 0;
+			return;
+		}
+
 		CutCount++;
 
 		//パーティクル生成

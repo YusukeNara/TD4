@@ -79,11 +79,21 @@ void LightHairHead::Update()
 		{
 			return;
 		}
+		waitTime++;
+		if (waitTime >= MaxWaitTime)
+		{
+			isGoHome = true;
+		}
+		GoHome();
+
+		KramerMove();
 
 		//入力を受け付ける
 		SlappingMove();
 
 		PullOutHair();
+
+		FailMove();
 	}
 
 	SlapParticle->Update();
@@ -93,10 +103,18 @@ void LightHairHead::Update()
 void LightHairHead::Draw()
 {
 	//オブジェクト描画
-	headObject->DrawObject();
-	if (!isHairDestroy)
+	if (isKramer)
 	{
+		headObject->DrawObject();
 		hairObject->DrawObject();
+	}
+	else
+	{
+		headObject->DrawObject();
+		if (!isHairDestroy)
+		{
+			hairObject->DrawObject();
+		}
 	}
 	SlapParticle->Draw(slapTex);
 	PullParticle->Draw(pullTex);
@@ -106,14 +124,28 @@ void LightHairHead::Finalize()
 {
 }
 
-void LightHairHead::SlappingMove()
+void LightHairHead::KramerMove()
 {
-	if (!isHairDestroy && !isKramer)
+	if (!isKramer)
 	{
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Hand)
+	AngreeTime++;
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//反撃アニメーションをして、退職金を減らす
+
+		playerPtr->RetirementMoney -= 30;
+
+		isGoHome = true;
+	}
+}
+
+void LightHairHead::SlappingMove()
+{
+	if (!isHairDestroy && !isKramer || isGoHome || isFail)
 	{
 		return;
 	}
@@ -142,6 +174,15 @@ void LightHairHead::SlappingMove()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Hand)
+		{
+			isFail = true;
+			ShakeBacePos = pos;
+			pos.x = pos.x + ShakeOffset;
+			FailCount = 0;
+			return;
+		}
+
 		isSlap = true;
 
 		//パーティクル生成
@@ -168,14 +209,47 @@ void LightHairHead::SlappingMove()
 	}
 }
 
-void LightHairHead::PullOutHair()
+void LightHairHead::FailMove()
 {
-	if (isHairDestroy || isKramer)
+	if (!isFail)
 	{
 		return;
 	}
 
-	if (playerPtr->GetItemType() != ItemType::Clippers)
+	FailCount++;
+
+	if (FailCount % 2 == 0)
+	{
+		ShakeOffset *= -1;
+		pos.x += ShakeBacePos.x + (ShakeOffset * 2);
+	}
+
+	if (FailCount >= 20)
+	{
+		pos = ShakeBacePos;
+		playerPtr->RetirementMoney -= 20;
+		isFail = false;
+	}
+}
+
+void LightHairHead::GoHome()
+{
+	if (!isGoHome)
+	{
+		return;
+	}
+
+	pos.x += 1.0;
+
+	if (pos.x >= 10)
+	{
+		isAllMoveFinish = true;
+	}
+}
+
+void LightHairHead::PullOutHair()
+{
+	if (isHairDestroy || isKramer || isGoHome || isFail || isCounter)
 	{
 		return;
 	}
@@ -183,6 +257,15 @@ void LightHairHead::PullOutHair()
 	//プレイヤーの入力を受け付けたら
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
 	{
+		if (playerPtr->GetItemType() != ItemType::Clippers)
+		{
+			isFail = true;
+			ShakeBacePos = pos;
+			pos.x = pos.x + ShakeOffset;
+			FailCount = 0;
+			return;
+		}
+
 		isHairDestroy = true;
 
 		//パーティクル生成
@@ -205,5 +288,21 @@ void LightHairHead::PullOutHair()
 
 			PullParticle->Add(pgstate);
 		}
+	}
+}
+
+void LightHairHead::CounterMove()
+{
+	if (!isCounter)
+	{
+		return;
+	}
+
+	AngreeTime++;
+
+	if (AngreeTime >= MaxAngreeTime)
+	{
+		//逆ギレして帰る
+		isGoHome = true;
 	}
 }

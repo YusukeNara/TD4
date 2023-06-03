@@ -9,6 +9,11 @@
 #include <NY_Object3DMgr.h>
 #include <Sprite.h>
 
+//アニメーションのトータル時間
+const int animationCountMax = 1200;
+//タイトルスプライトの最終位置
+const float titleLastPos = 300.0f;
+
 class TitleScene : public BaseScene {
 
 public:
@@ -32,13 +37,12 @@ public:
 
     Rv3Ease::Rv3Easing titleEase;
 
-    const int animationCountMax = 1200;
     int animationCount = 0;
 
     XMFLOAT2 titleSpritePos;
 
-    RVector3 testObjPos;
-    RVector3 testPlayerPos;
-    RVector3 testHagePos;
+    RVector3 titleObjPos;
+    RVector3 titlePlayerPos;
+    RVector3 titleHagePos;
 };
 
