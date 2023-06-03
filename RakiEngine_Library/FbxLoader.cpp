@@ -188,6 +188,7 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
     FbxStringList uvNames;
     mesh->GetUVSetNames(uvNames);
 
+    //コントロールポイント格納配列
     FbxVector4* pCoord = mesh->GetControlPoints();
     fbxVertex v{};
 
@@ -199,9 +200,11 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
         }
 
         for (int j = 0; j < polygonSize; j++) {
+            //制御点のインデックスを取得
             int index = mesh->GetPolygonVertex(i, j);
             assert(index >= 0);
 
+            //制御点配列のindex番目を参照
             v.pos.x = (float)(*(pCoord + index))[0];
             v.pos.y = (float)(*(pCoord + index))[1];
             v.pos.z = (float)(*(pCoord + index))[2];
@@ -224,6 +227,9 @@ void FbxLoader::ParseMeshFaces(fbxModel* model, FbxMesh* mesh)
                     v.uv.y = 1.0f - (float)uvs[1];
                 }
             }
+
+            //制御点インデックス番号を格納
+            v.controlPointIndex = index;
 
             //if (j < 3) {
             //    indices.push_back(index);
@@ -326,9 +332,11 @@ void FbxLoader::ParseSkin(fbxModel* model, FbxMesh* fbxMesh)
     int clusterCount = skin->GetClusterCount();
     bones.reserve(clusterCount);
 
+    //すべてのボーン
     for (int i = 0; i < clusterCount; i++) {
+        //i本目のボーン
         FbxCluster* fbxCluster = skin->GetCluster(i);
-
+        //ボーンのノードの名前
         const char* boneName = fbxCluster->GetLink()->GetName();
 
         bones.emplace_back(Bone(boneName));
@@ -350,35 +358,62 @@ void FbxLoader::ParseSkin(fbxModel* model, FbxMesh* fbxMesh)
             float weight;
         };
 
-        std::vector<std::list<WeightSet>> weightLists(model->vertices.size());
+        //二次元配列（vector：全制御点　list:頂点が影響を受けるボーンのリスト）
+        std::vector<std::list<WeightSet>> weightLists(fbxMesh->GetControlPointsCount());
 
+        //i番ボーン
         for (int i = 0; i < clusterCount; i++) {
             FbxCluster* fbxCluster = skin->GetCluster(i);
+            //制御点インデックスとウェイト配列の総数
             int controlPointIndicesCount = fbxCluster->GetControlPointIndicesCount();
 
+            model->ctrlPointIndicesCount = controlPointIndicesCount;
+
+            //制御点インデックス配列
             int* controlPointIndices = fbxCluster->GetControlPointIndices();
+            //制御点のウェイト配列
             double* controlPointWeights = fbxCluster->GetControlPointWeights();
 
+            //影響を受けるすべての制御点
             for (int j = 0; j < controlPointIndicesCount; j++) {
+                //制御点j番のインデックスとウェイトを取得
                 int vertIndex = controlPointIndices[j];
-
                 float weight = (float)controlPointWeights[j];
 
+                //制御点j番にi番ボーン、ウェイトを格納
                 weightLists[vertIndex].emplace_back(WeightSet{ (UINT)i,weight });
             }
 
+            //影響を受けるすべての頂点について
+            //for (int v = 0; v < model->vertices.size(); v++) {
+            //    //v番目の頂点のインデックス番号を取得
+            //    int vIndexNum = model->vertices[v].controlPointIndex;
+            //    //制御点v番のインデックスとウェイトを取得
+            //    int vertIndex = controlPointIndices[vIndexNum];
+            //    float weight = (float)controlPointWeights[vIndexNum];
+
+            //    //vertIndex番の頂点ウェイトリストに、ボーンインデックスiとウェイト値を格納
+            //    weightLists[vertIndex].emplace_back(WeightSet{ (UINT)i,weight });
+            //}
+
             auto& vertices = model->vertices;
 
+            //全頂点について
             for (int i = 0; i < vertices.size(); i++) {
-                auto& weightList = weightLists[i];
+                //頂点i番の制御点インデックスのウェイトリストを取得
+                auto& weightList = weightLists[vertices[i].controlPointIndex];
 
+                //もっとも影響度の高いボーン4つに絞る
                 weightList.sort([](auto const& l, auto const& r) {
                     return l.weight > r.weight;
                     });
 
                 int weightArrayIndex = 0;
 
+                //ソート済のウェイトリストを
                 for (auto& weightSet : weightList) {
+                    //頂点に書き込む
+                    //このとき参照するインデックスは
                     vertices[i].boneIndex[weightArrayIndex] = weightSet.index;
                     vertices[i].boneWeight[weightArrayIndex] = weightSet.weight;
 
