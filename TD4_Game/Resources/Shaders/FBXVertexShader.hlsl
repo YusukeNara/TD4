@@ -15,25 +15,25 @@ SkinOutput CompureSkin(VSInput input)
     weight = input.boneWeights.x;
     m = matSkinning[iBone];
     output.pos += weight * mul(m, input.svpos);
-    output.normal += weight * mul((float3x3) m, input.normal);
+    output.normal += weight * mul(m, float4(input.normal, 0));
 	
     iBone = input.boneIndices.y;
     weight = input.boneWeights.y;
     m = matSkinning[iBone];
     output.pos += weight * mul(m, input.svpos);
-    output.normal += weight * mul((float3x3) m, input.normal);
+    output.normal += weight * mul(m, float4(input.normal, 0));
 	
     iBone = input.boneIndices.z;
     weight = input.boneWeights.z;
     m = matSkinning[iBone];
     output.pos += weight * mul(m, input.svpos);
-    output.normal += weight * mul((float3x3) m, input.normal);
+    output.normal += weight * mul(m, float4(input.normal, 0));
 	
     iBone = input.boneIndices.w;
     weight = input.boneWeights.w;
     m = matSkinning[iBone];
     output.pos += weight * mul(m, input.svpos);
-    output.normal += weight * mul((float3x3) m, input.normal);
+    output.normal += weight * mul(m, float4(input.normal, 0));
 	
     return output;
 }
@@ -46,8 +46,10 @@ VSOutput main(VSInput input)
 	
 	VSOutput output;//ピクセルシェーダーに渡す値
     output.worldPos = mul(wMat, input.svpos);
-	output.svpos = mul(mat, skined.pos);
-    output.normal = wn.xyz;
+	//output.svpos = mul(mat, input.svpos);
+    //output.normal = normalize(mul(wMat, float4(input.normal, 0)));
+    output.svpos = mul(mat, skined.pos);
+    output.normal = normalize(mul(wMat, float4(skined.normal, 0)));
 	output.uv = input.uv;
 	return output;
 }
