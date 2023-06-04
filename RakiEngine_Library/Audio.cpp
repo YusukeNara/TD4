@@ -1,8 +1,10 @@
 ﻿#include "Audio.h"
 
+#include <algorithm>
+
 ComPtr<IXAudio2>        Audio::xAudio2;
 IXAudio2MasteringVoice *Audio::masterVoice;
-float                   Audio::volume;
+float                   Audio::mastervolume;
 
 void Audio::Init()
 {
@@ -11,7 +13,7 @@ void Audio::Init()
     //マスターボイス作成
     result = xAudio2->CreateMasteringVoice(&masterVoice);
     //ボリューム初期化(50%)
-    volume = 0.5f;
+    mastervolume = 0.5f;
 }
 
 SoundData Audio::LoadSound_wav(const char *filename)
@@ -123,8 +125,10 @@ void Audio::PlayLoadedSound(const SoundData &soundData, bool isSerialPlay)
     if (state.BuffersQueued != 0 && isSerialPlay) {
         StopLoadedSound(const_cast<SoundData&>(soundData));
     }
+
+    float playVolume = mastervolume * soundData.volume;
     
-    result = soundData.source->SetVolume(volume);
+    result = soundData.source->SetVolume(playVolume);
     //波形データ再生
     result = soundData.source->SubmitSourceBuffer(&soundData.buf);
     result = soundData.source->Start();
@@ -147,4 +151,14 @@ void Audio::StopLoadedSound(SoundData &soundData)
     result = soundData.source->Stop();
     result = soundData.source->FlushSourceBuffers();
     //result = soundData.source->SubmitSourceBuffer(&soundData.buf);
+}
+
+void Audio::SetMasterVolume(float volume)
+{
+    mastervolume = std::clamp(volume, 0.f, 1.0f);
+}
+
+void Audio::SetSoundDataVolume(SoundData& data, float volume)
+{
+    data.volume = std::clamp(volume, 0.f, 1.0f);
 }
