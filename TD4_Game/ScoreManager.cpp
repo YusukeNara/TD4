@@ -43,11 +43,14 @@ void ScoreManager::Initialize()
 	totalReview = oldReview / reviewNum.size();
 
 	spriteScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	spriteTotalScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
+	spriteTotalReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
+	spriteGuest.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 	spriteLife.Create(TexManager::LoadTexture("Resources/life.png"));
 	spriteScoreTitle.Create(TexManager::LoadTexture("Resources/ScoreTitle.png"));
-	spriteTotalReview.Create(TexManager::LoadTexture("Resources/TotalReview.png"));
-	spriteGuest.Create(TexManager::LoadTexture("Resources/Guest.png"));
+	spriteTotalReviewTitle.Create(TexManager::LoadTexture("Resources/TotalReview.png"));
+	spriteGuestTitle.Create(TexManager::LoadTexture("Resources/Guest.png"));
 }
 
 void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
@@ -419,150 +422,150 @@ void ScoreManager::Draw()
 		}
 	}
 	//トータルレビューの表示
-	spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y-64.f, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y);
+	spriteTotalReviewTitle.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y-64.f, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y);
 
 	if (totalReview <= 5 && totalReview >= 4.75f)
 	{
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else if (totalReview >= 4.25f)
 	{
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 1;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 1;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else if (totalReview >= 3.75f)
 	{
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else if (totalReview >= 3.25f)
 	{
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 1;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 1;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else if (totalReview >= 2.75f)
 	{
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else if (totalReview >= 2.25f)
 	{
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 1;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 1;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else if (totalReview >= 1.75f)
 	{
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else if (totalReview >= 1.25f)
 	{
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 1;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 1;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else if (totalReview >= 0.75f)
 	{
-		spriteReview.uvOffsetHandle = 2;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 2;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else if (totalReview >= 0.25f)
 	{
-		spriteReview.uvOffsetHandle = 1;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 1;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 	else
 	{
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
-		spriteReview.uvOffsetHandle = 0;
-		spriteReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 64.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 128.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 192.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y + 64.f);
+		spriteTotalReview.uvOffsetHandle = 0;
+		spriteTotalReview.DrawExtendSprite(TOTALREVIEW_POS.x + 256.f, TOTALREVIEW_POS.y, TOTALREVIEW_POS.x + 320.f, TOTALREVIEW_POS.y + 64.f);
 	}
 
 
@@ -594,109 +597,112 @@ void ScoreManager::Draw()
 	spriteScoreTitle.DrawExtendSprite(1280.f - 384.f, 720 - 128.f, 1280.f - 64.f, 720.f - 64.f);
 	if (totalScore >= 1000000)
 	{
-		spriteScore.uvOffsetHandle = 9;
-		spriteScore.DrawExtendSprite(1280.f - 384.f, 720.f - 64.f, 1280.0f - 320.f, 720.f);
-		spriteScore.uvOffsetHandle = 9;
-		spriteScore.DrawExtendSprite(1280.f - 320.f, 720.f - 64.f, 1280.0f - 256.f, 720.f);
-		spriteScore.uvOffsetHandle = 9;
-		spriteScore.DrawExtendSprite(1280.f - 256.f, 720.f - 64.f, 1280.0f - 192.f, 720.f);
-		spriteScore.uvOffsetHandle = 9;
-		spriteScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
-		spriteScore.uvOffsetHandle = 9;
-		spriteScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
-		spriteScore.uvOffsetHandle = 9;
-		spriteScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = 9;
+		spriteTotalScore.DrawExtendSprite(1280.f - 384.f, 720.f - 64.f, 1280.0f - 320.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = 9;
+		spriteTotalScore.DrawExtendSprite(1280.f - 320.f, 720.f - 64.f, 1280.0f - 256.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = 9;
+		spriteTotalScore.DrawExtendSprite(1280.f - 256.f, 720.f - 64.f, 1280.0f - 192.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = 9;
+		spriteTotalScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = 9;
+		spriteTotalScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = 9;
+		spriteTotalScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
 	}
 	else if (totalScore >= 100000)
 	{
-		spriteScore.uvOffsetHandle = (int)totalScore / 100000 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 384.f, 720.f - 64.f, 1280.0f - 320.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore / 10000 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 320.f, 720.f - 64.f, 1280.0f - 256.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 256.f, 720.f - 64.f, 1280.0f - 192.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore / 100 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
-		spriteScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
-		spriteScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore % 10;
-		spriteScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 100000 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 384.f, 720.f - 64.f, 1280.0f - 320.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 10000 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 320.f, 720.f - 64.f, 1280.0f - 256.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 256.f, 720.f - 64.f, 1280.0f - 192.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 100 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
 	}
 	else if (totalScore >= 10000)
 	{
-		spriteScore.uvOffsetHandle = (int)totalScore / 10000 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 320.f, 720.f - 64.f, 1280.0f - 256.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 256.f, 720.f - 64.f, 1280.0f - 192.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore / 100 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
-		spriteScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
-		spriteScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore % 10;
-		spriteScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 10000 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 320.f, 720.f - 64.f, 1280.0f - 256.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 256.f, 720.f - 64.f, 1280.0f - 192.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 100 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
 	}
 	else if (totalScore >= 1000)
 	{
-		spriteScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 256.f, 720.f - 64.f, 1280.0f - 192.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore / 100 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
-		spriteScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
-		spriteScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore % 10;
-		spriteScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 256.f, 720.f - 64.f, 1280.0f - 192.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 100 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
 	}
 	else
 	{
-		spriteScore.uvOffsetHandle = (int)totalScore / 100 % 10;
-		spriteScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
-		spriteScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
-		spriteScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
-		spriteScore.uvOffsetHandle = (int)totalScore % 10;
-		spriteScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore / 100 % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 192.f, 720.f - 64.f, 1280.0f - 128.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 128.f, 720.f - 64.f, 1280.0f - 64.f, 720.f);
+		spriteTotalScore.uvOffsetHandle = (int)totalScore % 10;
+		spriteTotalScore.DrawExtendSprite(1280.f - 64.f, 720.f - 64.f, 1280.0f - 0.f, 720.f);
 	}
 
 	//捌いた人数
-	spriteGuest.DrawExtendSprite(HANDLE_POS.x + 0.f, HANDLE_POS.y - 64.f, HANDLE_POS.x + 320.f, HANDLE_POS.y);
+	spriteGuestTitle.DrawExtendSprite(HANDLE_POS.x + 0.f, HANDLE_POS.y - 64.f, HANDLE_POS.x + 320.f, HANDLE_POS.y);
 
 	if (handleNum >= 1000)
 	{
-		spriteScore.uvOffsetHandle = 9;
-		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
-		spriteScore.uvOffsetHandle = 9;
-		spriteScore.DrawExtendSprite(HANDLE_POS.x + 64.f, HANDLE_POS.y, HANDLE_POS.x + 128.f, HANDLE_POS.y + 64.f);
-		spriteScore.uvOffsetHandle = 9;
-		spriteScore.DrawExtendSprite(HANDLE_POS.x + 0.f, HANDLE_POS.y, HANDLE_POS.x + 64.f, HANDLE_POS.y + 64.f);
+		spriteGuest.uvOffsetHandle = 9;
+		spriteGuest.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
+		spriteGuest.uvOffsetHandle = 9;
+		spriteGuest.DrawExtendSprite(HANDLE_POS.x + 64.f, HANDLE_POS.y, HANDLE_POS.x + 128.f, HANDLE_POS.y + 64.f);
+		spriteGuest.uvOffsetHandle = 9;
+		spriteGuest.DrawExtendSprite(HANDLE_POS.x + 0.f, HANDLE_POS.y, HANDLE_POS.x + 64.f, HANDLE_POS.y + 64.f);
 	}
 	else if (handleNum >= 100)
 	{
-		spriteScore.uvOffsetHandle = (int)handleNum % 10;
-		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
-		spriteScore.uvOffsetHandle = ((int)handleNum / 10) % 10;
-		spriteScore.DrawExtendSprite(HANDLE_POS.x + 64.f, HANDLE_POS.y, HANDLE_POS.x + 128.f, HANDLE_POS.y + 64.f);
-		spriteScore.uvOffsetHandle = (int)handleNum / 100 % 10;
-		spriteScore.DrawExtendSprite(HANDLE_POS.x + 0.f, HANDLE_POS.y, HANDLE_POS.x + 64.f, HANDLE_POS.y + 64.f);
+		spriteGuest.uvOffsetHandle = (int)handleNum % 10;
+		spriteGuest.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
+		spriteGuest.uvOffsetHandle = ((int)handleNum / 10) % 10;
+		spriteGuest.DrawExtendSprite(HANDLE_POS.x + 64.f, HANDLE_POS.y, HANDLE_POS.x + 128.f, HANDLE_POS.y + 64.f);
+		spriteGuest.uvOffsetHandle = (int)handleNum / 100 % 10;
+		spriteGuest.DrawExtendSprite(HANDLE_POS.x + 0.f, HANDLE_POS.y, HANDLE_POS.x + 64.f, HANDLE_POS.y + 64.f);
 	}
 	else if (handleNum >= 10)
 	{
-		spriteScore.uvOffsetHandle = (int)handleNum % 10;
-		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
-		spriteScore.uvOffsetHandle = ((int)handleNum / 10) % 10;
-		spriteScore.DrawExtendSprite(HANDLE_POS.x + 64.f, HANDLE_POS.y, HANDLE_POS.x + 128.f, HANDLE_POS.y + 64.f);
+		spriteGuest.uvOffsetHandle = (int)handleNum % 10;
+		spriteGuest.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
+		spriteGuest.uvOffsetHandle = ((int)handleNum / 10) % 10;
+		spriteGuest.DrawExtendSprite(HANDLE_POS.x + 64.f, HANDLE_POS.y, HANDLE_POS.x + 128.f, HANDLE_POS.y + 64.f);
 	}
 	else
 	{
-		spriteScore.uvOffsetHandle = (int)handleNum % 10;
-		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
+		spriteGuest.uvOffsetHandle = (int)handleNum % 10;
+		spriteGuest.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
 	}
 
 	//体力の表示
 	spriteLife.DrawExtendSprite(LIFE_POS.x, LIFE_POS.y, LIFE_POS.x + life, LIFE_POS.y + LIFE_SIZE_Y);
 
 	spriteScore.Draw();
+	spriteTotalScore.Draw();
 	spriteReview.Draw();
-	spriteLife.Draw();
-	spriteScoreTitle.Draw();
 	spriteTotalReview.Draw();
 	spriteGuest.Draw();
+	spriteLife.Draw();
+	spriteScoreTitle.Draw();
+	spriteTotalReviewTitle.Draw();
+	spriteGuestTitle.Draw();
 }
