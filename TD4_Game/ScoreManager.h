@@ -34,11 +34,14 @@ private:
 private:
 	//スプライト
 	Sprite spriteScore;
+	Sprite spriteTotalScore;
 	Sprite spriteReview;
-	Sprite spriteLife;
-	Sprite spriteScoreTitle;
 	Sprite spriteTotalReview;
 	Sprite spriteGuest;
+	Sprite spriteLife;
+	Sprite spriteScoreTitle;
+	Sprite spriteTotalReviewTitle;
+	Sprite spriteGuestTitle;
 
 	//総合的なスコア
 	static float totalScore;

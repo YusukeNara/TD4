@@ -178,7 +178,7 @@ void AfroHead::SlappingMove()
 		}
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
 	{
 		if (playerPtr->GetItemType() != ItemType::Hand)
 		{
@@ -212,6 +212,14 @@ void AfroHead::SlappingMove()
 
 			SlapParticle->Add(pgstate);
 		}
+	}
+	else
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
 	}
 }
 
@@ -261,16 +269,16 @@ void AfroHead::CuttingHair()
 	}
 
 	//プレイヤーの入力を受け付けたら
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
 	{
-		if (playerPtr->GetItemType() != ItemType::Scissors)
+		/*if (playerPtr->GetItemType() != ItemType::Scissors)
 		{
 			isFail = true;
 			ShakeBacePos = pos;
 			pos.x = pos.x + ShakeOffset;
 			FailCount = 0;
 			return;
-		}
+		}*/
 
 		CutCount++;
 
@@ -296,6 +304,14 @@ void AfroHead::CuttingHair()
 		}
 
 		afroObject->scale -= AfroSize;
+	}
+	else
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
 	}
 
 

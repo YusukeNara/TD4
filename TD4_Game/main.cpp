@@ -35,7 +35,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	rakiWinApp->CreateGameWindow();
 
 	//エンジン側のエラー、警告を無視しない設定にするときは、この関数の第二引数にtrueを渡すと良い
-	Raki_DX12B::Get()->Initialize(rakiWinApp, false);
+	Raki_DX12B::Get()->Initialize(rakiWinApp, true);
 
 	myImgui::InitializeImGui(Raki_DX12B::Get()->GetDevice(), Raki_WinAPI::GetHWND());
 
