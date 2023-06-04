@@ -41,6 +41,8 @@ struct SoundData {
 	XAUDIO2_BUFFER buf{};
 	//音量
 	float volume = 1.0f;
+	//一時停止フラグ
+	bool isPause = false;
 };
 
 
@@ -75,9 +77,9 @@ public:
 	//ループの設定(0~254でループ回数を指定。255の場合無限ループ。それ以外は無効)
 	static void SetPlayRoopmode(SoundData &soundData,int roopCount);
 	//再生
-	static void PlayLoadedSound(const SoundData &soundData,bool isSerialPlay = false);
+	static void PlayLoadedSound(SoundData &soundData,bool isSerialPlay = false);
 	//一時停止
-	static void PauseLoadedSound(const SoundData &soundData);
+	static void PauseLoadedSound(SoundData &soundData);
 	//停止
 	static void StopLoadedSound(SoundData &soundData);
 

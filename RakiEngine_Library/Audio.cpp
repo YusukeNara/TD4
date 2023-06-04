@@ -113,38 +113,50 @@ void Audio::SetPlayRoopmode(SoundData &soundData,int roopCount)
     }
 }
 
-void Audio::PlayLoadedSound(const SoundData &soundData, bool isSerialPlay)
+void Audio::PlayLoadedSound(SoundData &soundData, bool isSerialPlay)
 {
     HRESULT result;
-
     XAUDIO2_VOICE_STATE state;
-    soundData.source->GetState(&state);
-    if (state.BuffersQueued != 0 && !isSerialPlay) { return; }
 
-    //再生中だが連続再生するときは、止めてから再生する
-    if (state.BuffersQueued != 0 && isSerialPlay) {
-        StopLoadedSound(const_cast<SoundData&>(soundData));
+    if (soundData.isPause) {
+        result = soundData.source->Start();
+    }
+    else {
+        soundData.source->GetState(&state);
+        if (state.BuffersQueued != 0 && !isSerialPlay) { return; }
+
+        //再生中だが連続再生するときは、止めてから再生する
+        if (state.BuffersQueued != 0 && isSerialPlay) {
+            StopLoadedSound(const_cast<SoundData&>(soundData));
+        }
+
+        float playVolume = float(std::clamp(double(mastervolume * soundData.volume), 0.0, 1.0));
+
+        result = soundData.source->SetVolume(playVolume);
+        //波形データ再生
+        result = soundData.source->SubmitSourceBuffer(&soundData.buf);
+        result = soundData.source->Start();
     }
 
-    float playVolume = mastervolume * soundData.volume;
-    
-    result = soundData.source->SetVolume(playVolume);
-    //波形データ再生
-    result = soundData.source->SubmitSourceBuffer(&soundData.buf);
-    result = soundData.source->Start();
+
 }
 
-void Audio::PauseLoadedSound(const SoundData &soundData)
+void Audio::PauseLoadedSound(SoundData &soundData)
 {
+    //一時停止フラグ
+    soundData.isPause = true;
+
     HRESULT result;
 
     //波形データ停止
-    result = soundData.source->SubmitSourceBuffer(&soundData.buf);
+    //result = soundData.source->SubmitSourceBuffer(&soundData.buf);
     result = soundData.source->Stop();
 }
 
 void Audio::StopLoadedSound(SoundData &soundData)
 {
+    soundData.isPause = false;
+
     HRESULT result;
 
     //波形データ停止
