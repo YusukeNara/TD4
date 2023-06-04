@@ -60,7 +60,7 @@ void DiferredRenderingMgr::Rendering(RTex* gBuffer, RTex* shadowMap)
     //ディファードレンダリング結果出力
     m_cmd->DrawInstanced(6, 1, 0, 0);
 
-    shadowMap->ClearRenderTarget();
+    //shadowMap->ClearRenderTarget();
 
    
 

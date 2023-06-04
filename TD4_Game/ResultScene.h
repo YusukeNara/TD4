@@ -27,7 +27,6 @@ public:
 
     Sprite spriteStar[5];
     Sprite scoreTex;
-    std::shared_ptr<Object3d> testobject;
     std::shared_ptr<Object3d> resultPlayer;
 
     const int animationCountMax = 1200;
