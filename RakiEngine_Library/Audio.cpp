@@ -120,6 +120,7 @@ void Audio::PlayLoadedSound(SoundData &soundData, bool isSerialPlay)
 
     if (soundData.isPause) {
         result = soundData.source->Start();
+        soundData.isPause = false;
     }
     else {
         soundData.source->GetState(&state);
@@ -137,8 +138,6 @@ void Audio::PlayLoadedSound(SoundData &soundData, bool isSerialPlay)
         result = soundData.source->SubmitSourceBuffer(&soundData.buf);
         result = soundData.source->Start();
     }
-
-
 }
 
 void Audio::PauseLoadedSound(SoundData &soundData)
@@ -149,7 +148,6 @@ void Audio::PauseLoadedSound(SoundData &soundData)
     HRESULT result;
 
     //波形データ停止
-    //result = soundData.source->SubmitSourceBuffer(&soundData.buf);
     result = soundData.source->Stop();
 }
 
@@ -162,7 +160,6 @@ void Audio::StopLoadedSound(SoundData &soundData)
     //波形データ停止
     result = soundData.source->Stop();
     result = soundData.source->FlushSourceBuffers();
-    //result = soundData.source->SubmitSourceBuffer(&soundData.buf);
 }
 
 void Audio::SetMasterVolume(float volume)
