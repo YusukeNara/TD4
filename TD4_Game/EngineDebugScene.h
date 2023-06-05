@@ -6,6 +6,7 @@
 #include <Raki_Input.h>
 
 #include <CameraCalc.h>
+#include <Audio.h>
 
 //エンジン側検証用シーン
 //このクラスもいじらないこと
@@ -45,5 +46,9 @@ public:
     RQuaternion q1, q2;
 
     RVector3 lightdir;
+
+    //音
+    SoundData testSE;
+    SoundData testBGM;
 };
 

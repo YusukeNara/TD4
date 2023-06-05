@@ -172,7 +172,7 @@ void LightHairHead::SlappingMove()
 		}
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
 	{
 		if (playerPtr->GetItemType() != ItemType::Hand)
 		{
@@ -206,6 +206,14 @@ void LightHairHead::SlappingMove()
 
 			SlapParticle->Add(pgstate);
 		}
+	}
+	else
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
 	}
 }
 
@@ -255,16 +263,16 @@ void LightHairHead::PullOutHair()
 	}
 
 	//プレイヤーの入力を受け付けたら
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B))
 	{
-		if (playerPtr->GetItemType() != ItemType::Clippers)
+		/*if (playerPtr->GetItemType() != ItemType::Clippers)
 		{
 			isFail = true;
 			ShakeBacePos = pos;
 			pos.x = pos.x + ShakeOffset;
 			FailCount = 0;
 			return;
-		}
+		}*/
 
 		isHairDestroy = true;
 
@@ -288,6 +296,14 @@ void LightHairHead::PullOutHair()
 
 			PullParticle->Add(pgstate);
 		}
+	}
+	else
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
 	}
 }
 

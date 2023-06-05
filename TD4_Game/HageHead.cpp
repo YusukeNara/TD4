@@ -144,16 +144,16 @@ void HageHead::SlappingMove()
 		}
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
 	{
-		if (playerPtr->GetItemType() != ItemType::Hand)
+		/*if (playerPtr->GetItemType() != ItemType::Hand)
 		{
 			isFail = true;
 			ShakeBacePos = pos;
 			pos.x = pos.x + ShakeOffset;
 			FailCount = 0;
 			return;
-		}
+		}*/
 
 		isSlap = true;
 
@@ -178,6 +178,14 @@ void HageHead::SlappingMove()
 
 			SlapParticle->Add(pgstate);
 		}
+	}
+	else
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
 	}
 
 }
