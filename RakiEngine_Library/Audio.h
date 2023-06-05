@@ -39,16 +39,20 @@ struct SoundData {
 	IXAudio2SourceVoice *source;
 	//バッファ
 	XAUDIO2_BUFFER buf{};
+	//音量
+	float volume = 1.0f;
+	//一時停止フラグ
+	bool isPause = false;
 };
 
 
 class Audio
 {
-public:
+private:
 
 	static ComPtr<IXAudio2>        xAudio2;
 	static IXAudio2MasteringVoice *masterVoice;
-	static float volume;
+	static float mastervolume;
 
 public:
 
@@ -58,7 +62,7 @@ public:
 		//マスターボイス作成
 		result = xAudio2->CreateMasteringVoice(&masterVoice);
 		//ボリューム初期化(50%)
-		volume = 0.5f;
+		mastervolume = 0.5f;
 	}
 
 	//初期化
@@ -68,15 +72,20 @@ public:
 	static SoundData LoadSound_wav(const char *filename);
 	//サウンドデータのアンロード
 	static void UnloadSound(SoundData *data);
+	
 
 	//ループの設定(0~254でループ回数を指定。255の場合無限ループ。それ以外は無効)
 	static void SetPlayRoopmode(SoundData &soundData,int roopCount);
 	//再生
-	static void PlayLoadedSound(const SoundData &soundData,bool isSerialPlay = false);
+	static void PlayLoadedSound(SoundData &soundData,bool isSerialPlay = false);
 	//一時停止
-	static void PauseLoadedSound(const SoundData &soundData);
+	static void PauseLoadedSound(SoundData &soundData);
 	//停止
 	static void StopLoadedSound(SoundData &soundData);
 
+	//マスター音量変更
+	static void SetMasterVolume(float volume);
+	//音データ音量変更
+	static void SetSoundDataVolume(SoundData& data, float volume);
 };
 
