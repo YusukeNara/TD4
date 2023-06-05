@@ -39,19 +39,20 @@ void GameManager::Update()
 
 void GameManager::Draw()
 {
-	NY_Object3DManager::Get()->SetRestartObject3D();
 
 	headMan->Draw();
+	//NY_Object3DManager::Get()->SetRestartObject3D();
 
 	//床
 	//groundObject->DrawObject();
 
-	NY_Object3DManager::Get()->CloseDrawObject3D();
+	//NY_Object3DManager::Get()->CloseDrawObject3D();
 }
 
 void GameManager::UIDraw()
 {
 	player->DrawUI();
+	headMan->DrawUI();
 }
 
 void GameManager::Finalize()
