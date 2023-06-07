@@ -163,6 +163,7 @@
     <ClCompile Include="EngineDebugScene.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GameSoundMgr.cpp" />
     <ClCompile Include="HageHead.cpp" />
     <ClCompile Include="Head.cpp" />
     <ClCompile Include="HeadManager.cpp" />
@@ -281,6 +282,7 @@
     <ClInclude Include="EngineDebugScene.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GameSoundMgr.h" />
     <ClInclude Include="HageHead.h" />
     <ClInclude Include="Head.h" />
     <ClInclude Include="HeadManager.h" />

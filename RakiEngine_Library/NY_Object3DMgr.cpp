@@ -562,6 +562,9 @@ Pipeline3D NY_Object3DManager::CreateFbxPipeline()
         {
             "BONEWEIGHTS",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0
         },
+        {
+            "INDEX",0,DXGI_FORMAT_R32_UINT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0
+        },
     };
 
 
@@ -1182,7 +1185,7 @@ void NY_Object3DManager::SetCommonBeginDrawShadow_FBX()
 
 void NY_Object3DManager::ReturnShadowToDifferd()
 {
-    RenderTargetManager::GetInstance()->CloseMultiRenderTargets(&m_shadomMap, 1);
+    //RenderTargetManager::GetInstance()->CloseMultiRenderTargets(&m_shadomMap, 1);
 
     RenderTargetManager::GetInstance()->SetMultiRenderTargets(&m_gBuffer, 3);
 }
