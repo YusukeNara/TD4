@@ -16,9 +16,9 @@ ResultScene::ResultScene(ISceneChanger* changer) : BaseScene(changer)
 	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
 	spriteReviewTex.Create(reviewTex);
 	spriteScoreTex.Create(rescoreTex);
-	reviewSpritePos = { 510,0 };
-	scoreSpritePos = { 460,230 };
-	rankPos = { 460,540 };
+	reviewSpritePos = { -630,0 };
+	scoreSpritePos = { -558,230 };
+	rankPos = { 460,240 };
 	starIsDraw = false;
 	scoreTexIsDraw = false;
 	totalScore = ScoreManager::GetScore();
@@ -295,25 +295,13 @@ void ResultScene::Draw2D()
 		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
 	}
 	spriteRank.uvOffsetHandle = rank;
-	spriteRank.DrawExtendSprite(rankPos.x + 0.f, rankPos.y, rankPos.x + 128.f, rankPos.y + 128.f);
-	if (starIsDraw)
-	{
-		spriteReview.Draw();
-	}
-	if (scoreTexIsDraw)
-	{
-		spriteScore.Draw();
-	}
-	if (scoreTexSpriteIsDraw)
-	{
-		spriteScoreTex.DrawSprite(scoreSpritePos.x, scoreSpritePos.y);
-		spriteScoreTex.Draw();
-	}
-	if (starSpriteIsDraw)
-	{
-		spriteReviewTex.DrawSprite(reviewSpritePos.x, reviewSpritePos.y);
-		spriteReviewTex.Draw();
-	}
+	spriteRank.DrawExtendSprite(rankPos.x + 0.f, rankPos.y, rankPos.x + 256.f, rankPos.y + 256.f);
+	spriteReview.Draw();
+	spriteScore.Draw();
+	spriteScoreTex.DrawSprite(scoreSpritePos.x, scoreSpritePos.y);
+	spriteScoreTex.Draw();
+	spriteReviewTex.DrawSprite(reviewSpritePos.x, reviewSpritePos.y);
+	spriteReviewTex.Draw();
 	if (rankIsDraw)
 	{
 		spriteRank.Draw();
@@ -354,19 +342,25 @@ void ResultScene::Animation()
 	if (animationCount < animationCountMax)
 	{
 		animationCount++;
-	}
-	if (animationCount > animationCountMax / 4)
-	{
-		starSpriteIsDraw = true;
-	}
-	if (animationCount > animationCountMax / 3)
-	{
-		starIsDraw = true;
-	}
-	if (animationCount > animationCountMax / 2)
-	{
-		scoreTexSpriteIsDraw = true;
-		scoreTexIsDraw = true;
-		rankIsDraw = true;
+		if (animationCount < animationCountMax / 8)
+		{
+			reviewSpritePos.x += 10;
+		}
+		else if (animationCount < animationCountMax / 4)
+		{
+			TOTALREVIEW_POS.x += 10;
+		}
+		else if (animationCount < animationCountMax / 8 * 3)
+		{
+			scoreSpritePos.x += 10;
+		}
+		else if (animationCount < animationCountMax / 2)
+		{
+			SCORE_POS_X += 10;
+		}
+		else if (animationCount > animationCountMax / 4 * 3)
+		{
+			rankIsDraw = true;
+		}
 	}
 }

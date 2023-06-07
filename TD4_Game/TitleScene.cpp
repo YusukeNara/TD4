@@ -4,7 +4,7 @@
 using namespace Rv3Ease;
 
 TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
-	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
+	UINT testTex = TexManager::LoadTexture("Resources/titlemojitunage.png");
 
 	titleHage = std::make_shared<Object3d>();
 	titleHage.reset(LoadModel_FBXFile("hage_1"));
@@ -15,13 +15,13 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(30, 0, 0));
 	titlePlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 0);
 
-	titleEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(400, -200, 0),
-		RVector3(400, 200, 0), 100);
+	titleEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(0, -200, 0),
+		RVector3(0, 200, 0), 100);
 
 	titleObjPos = { 0,0,0 };
 	titlePlayerPos = { 30,0,0 };
 	titleHagePos = { -30,0,0 };
-	titleSpritePos = { 400,-200 };
+	titleSpritePos = { -220,-400 };
 
 	testsp.Create(testTex);
 }
@@ -84,7 +84,7 @@ void TitleScene::Animation()
 	{
 		if (titleSpritePos.y < titleLastPos)
 		{
-			titleSpritePos.y++;
+			titleSpritePos.y += 2;
 		}
 	}
 	if (animationCount < animationCountMax / 4)
