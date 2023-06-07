@@ -1236,6 +1236,20 @@ Object3d* LoadModel_FBXFile(string modelname)
     return object;
 }
 
+Object3d* SetModel_FBX(std::shared_ptr<fbxModel> fbxModelData)
+{
+    //オブジェクトデータを新規作成
+    Object3d* object = new Object3d;
+
+    //オブジェクト初期化
+    object->InitObject3D(RAKI_DX12B_DEV);
+
+    //生成したオブジェクトのモデルデータをセット
+    object->SetLoadedModelData(fbxModelData);
+
+    return object;
+}
+
 void DrawObject3d(Object3d *obj)
 {
     //描画準備
