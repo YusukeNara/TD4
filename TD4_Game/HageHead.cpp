@@ -16,13 +16,13 @@ void HageHead::Init()
 	SlapParticle.reset(ParticleManager::Create());
 	slapTex = TexManager::LoadTexture("Resources/white1x1.png");
 
-	/*headObject = std::make_shared<Object3d>();
-	headObject.reset(LoadModel_FBXFile("hage_1"));*/
+	headObjectSelf = std::make_unique<Object3d>();
+	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 
-	scale = RVector3(1, 1, 1);
-	rot = RVector3(0, 0, 0);
+	scale = RVector3(0.1, 0.1, 0.1);
+	rot = RVector3(0, 90, 0);
 	pos.zero();
-	headObject->SetAffineParam(scale, rot, pos);
+	headObjectSelf->SetAffineParam(scale, rot, pos);
 	isHairDestroy = true;
 	SlapCount = 0;
 	isKramer = false;
@@ -39,7 +39,7 @@ void HageHead::ResetFrontEase()
 
 void HageHead::Update()
 {
-	headObject->SetAffineParamTranslate(pos + headOffset);
+	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
 
 	if (isMostFront && !isFrontEase)
 	{
@@ -84,7 +84,7 @@ void HageHead::Update()
 
 void HageHead::Draw()
 {
-	headObject->DrawObject();
+	headObjectSelf->DrawObject();
 	SlapParticle->Draw(slapTex);
 }
 
@@ -143,17 +143,17 @@ void HageHead::SlappingMove()
 		}
 	}
 
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
+	}
+
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
 	{
-		/*if (playerPtr->GetItemType() != ItemType::Hand)
-		{
-			isFail = true;
-			ShakeBacePos = pos;
-			pos.x = pos.x + ShakeOffset;
-			FailCount = 0;
-			return;
-		}*/
-
 		isSlap = true;
 
 		//パーティクル生成
@@ -177,14 +177,6 @@ void HageHead::SlappingMove()
 
 			SlapParticle->Add(pgstate);
 		}
-	}
-	else
-	{
-		isFail = true;
-		ShakeBacePos = pos;
-		pos.x = pos.x + ShakeOffset;
-		FailCount = 0;
-		return;
 	}
 
 }
