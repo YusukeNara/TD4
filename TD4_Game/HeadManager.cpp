@@ -120,7 +120,6 @@ Head *HeadManager::HeadSpawn(const int arrayNum)
 
 	//ランダムで頭を生成(全ての出現確率の合計)
 	int probability = NY_random::intrand_sl(HAGEHEAD_SPAWN_NUM + LIGHTHEAD_SPAWN_NUM + AFROHEAD_SPAWN_NUM, 1);
-	probability = 80;
 	//1 ～ HAGEHEAD_SPAWN_NUMだったらはげ
 	if (probability >= 1 && probability <= HAGEHEAD_SPAWN_NUM)
 	{

@@ -35,7 +35,7 @@ void AfroHead::Init()
 	headObjectSelf->SetAffineParam(scale, rot, pos);
 	afroObjectSelf->SetAffineParam({ 0.101,0.101,0.101 }, rot, pos);
 	SlapCount = 0;
-	AfroSize = afroObjectSelf->scale / 6;
+	AfroSize = afroObjectSelf->scale / 8;
 	isKramer = false;
 	isactive = false;
 	ResetFrontEase();
