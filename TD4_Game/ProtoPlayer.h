@@ -62,14 +62,18 @@ public:
 
 private:
 
-	RVector3 position;
-	RVector3 rotation;
-	RVector3 scale;
+	RVector3 HandPositionOffset;
+	RVector3 HandRotationOffset;
+	RVector3 CutPositionOffset;
+	RVector3 CutRotationOffset;
+	RVector3 ClipPositionOffset;
+	RVector3 ClipRotationOffset;
 	int enemyType = SkinHead;
 	ItemType handItemType = Hand;
 
-	std::shared_ptr<Object3d> player = nullptr;
-	std::shared_ptr<Object3d> scissor = nullptr;
+	std::unique_ptr<Object3d> handObject = nullptr;
+	std::unique_ptr<Object3d> barikanObject = nullptr;
+	std::unique_ptr<Object3d> scissorsObject = nullptr;
 
 	UINT modelPlayer;
 	UINT modelScissor;

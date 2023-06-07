@@ -39,9 +39,9 @@ void GameManager::Update()
 
 void GameManager::Draw()
 {
-	//NY_Object3DManager::Get()->SetRestartObject3D();
 
 	headMan->Draw();
+	//NY_Object3DManager::Get()->SetRestartObject3D();
 
 	//床
 	//groundObject->DrawObject();
@@ -52,6 +52,7 @@ void GameManager::Draw()
 void GameManager::UIDraw()
 {
 	player->DrawUI();
+	headMan->DrawUI();
 }
 
 void GameManager::Finalize()
