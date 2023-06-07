@@ -5,13 +5,16 @@ ProtoPlayer::ProtoPlayer()
 
 	modelPlayer = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
-	player = std::make_shared<Object3d>();
-
-	player.reset(NY_Object3DManager::Get()->CreateModel_Box(5.f, 1.f, 1.f, modelPlayer));
-
 	UITexHand = TexManager::LoadTexture("Resources/hand.png");
 	UITexClip = TexManager::LoadTexture("Resources/pull.png");
 	UITexScis = TexManager::LoadTexture("Resources/cut.png");
+
+	handObject = std::make_unique<Object3d>();
+	handObject.reset(LoadModel_FBXFile("HAND"));
+	barikanObject = std::make_unique<Object3d>();
+	barikanObject.reset(LoadModel_FBXFile("barikan"));
+	scissorsObject = std::make_unique<Object3d>();
+	scissorsObject.reset(LoadModel_FBXFile("sicssors"));
 
 	handUI.Create(UITexHand);
 	clipUI.Create(UITexClip);
@@ -24,10 +27,18 @@ ProtoPlayer::~ProtoPlayer()
 
 void ProtoPlayer::Init()
 {
-	position = { 0,5,0 };
-	rotation = { 0,0,0 };
-	scale = { 3,3,3 };
-	player->SetAffineParam(scale, rotation, position);
+	HandPositionOffset = { 0,5,0 };
+	HandRotationOffset = { 0,0,0 };
+
+	CutPositionOffset = { 0,5,0 };
+	CutRotationOffset = { 0,0,0 };
+
+	ClipPositionOffset = { 0,5,0 };
+	ClipRotationOffset = { 0,0,0 };
+
+	handObject->SetAffineParam({ 0.2,0.2,0.2 }, HandRotationOffset, HandPositionOffset);
+	barikanObject->SetAffineParam({ 0.2,0.2,0.2 }, CutRotationOffset, CutPositionOffset);
+	scissorsObject->SetAffineParam({ 0.2,0.2,0.2 }, ClipRotationOffset, ClipPositionOffset);
 
 	uiOffsetHand = { 50,600 };
 	uiOffsetScis = { 170,600 };
@@ -45,7 +56,9 @@ void ProtoPlayer::Update()
 
 void ProtoPlayer::Draw()
 {
-	player->DrawObject();
+	handObject->DrawObject();
+	barikanObject->DrawObject();
+	scissorsObject->DrawObject();
 }
 
 void ProtoPlayer::DrawUI()
