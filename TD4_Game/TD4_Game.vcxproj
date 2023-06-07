@@ -161,6 +161,7 @@
     <ClCompile Include="AfroHead.cpp" />
     <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="EngineDebugScene.cpp" />
+    <ClCompile Include="FieldDrawer.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSoundMgr.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="AfroHead.h" />
     <ClInclude Include="BaseScene.h" />
     <ClInclude Include="EngineDebugScene.h" />
+    <ClInclude Include="FieldDrawer.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameSoundMgr.h" />

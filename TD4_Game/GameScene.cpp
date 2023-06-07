@@ -1,5 +1,7 @@
 #include "GameScene.h"
 
+#include "FieldDrawer.h"
+
 GameScene::GameScene(ISceneChanger *changer) : BaseScene(changer) {
 
 	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
@@ -10,6 +12,8 @@ GameScene::GameScene(ISceneChanger *changer) : BaseScene(changer) {
 	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 0, 0), RVector3(0, 0, 0));
 
 	testsp.Create(testTex);
+
+	FieldDrawer::get()->SetGameMode();
 }
 
 GameScene::~GameScene()

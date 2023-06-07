@@ -1,6 +1,8 @@
 #include "TitleScene.h"
 #include <iostream>
 
+#include "FieldDrawer.h"
+
 using namespace Rv3Ease;
 
 TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
@@ -29,6 +31,8 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 45, 0), titleObjPos);
 
 	testsp.Create(testTex);
+
+	FieldDrawer::get()->SetTitleMode();
 }
 
 TitleScene::~TitleScene()
