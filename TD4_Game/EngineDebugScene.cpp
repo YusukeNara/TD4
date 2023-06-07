@@ -23,8 +23,9 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testFBX_YesBone->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(75.f, 0, -50.f));
 
 	testFBX_NoBone = std::make_shared<Object3d>();
-	testFBX_NoBone.reset(LoadModel_FBXFile("saru"));
-	testFBX_NoBone->SetAffineParam(RVector3(20.5f, 20.5f, 20.5f), RVector3(90, 0, 0), RVector3(0, 0, -50.0f));
+	testFBX_NoBone.reset(LoadModel_FBXFile("hage_1"));
+	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(0, 0, -50.0f));
+	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP);
 
 	testobj = std::make_shared<Object3d>();
 	testobj.reset(LoadModel_FBXFile("SpherePBR"));
@@ -36,10 +37,19 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	RVector3 up(0.f, 1.f, 0.f);
 	NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
 
+	//音ロード
+	testSE = Audio::LoadSound_wav("Resources/don.wav");
+	testBGM = Audio::LoadSound_wav("Resources/kari.wav");
+
+	//無限ループ
+	Audio::SetPlayRoopmode(testBGM, 255);
+
 	q1 = quaternion(1, 2, 3, 4);
 	q2 = quaternion(2, 3, 4, 1);
 
 	q1 *= q2;
+
+	lightdir = RVector3(0, 0, 1);
 }
 
 EngineDebugScene::~EngineDebugScene()
@@ -61,6 +71,8 @@ void EngineDebugScene::Update()
 	else if (Input::isKeyTrigger(DIK_E)) { testEase.Reset(); }
 
 	testobject->SetAffineParamTranslate(testEase.Update());
+
+	if (Input::isKeyTrigger(DIK_O)) { Audio::PlayLoadedSound(testSE, true); }
 }
 
 void EngineDebugScene::Draw()
@@ -76,10 +88,8 @@ void EngineDebugScene::Draw()
 
 void EngineDebugScene::Draw2D()
 {
-	testsp1.DrawExtendSprite(0, 0, 100, 100, { 1,1,1,0.5 });
-	testsp1.DrawExtendSprite(100, 100, 200, 200, { 1,1,1,1 });
-
-	testsp1.Draw();
+	//testsp1.DrawExtendSprite(0, 0, 100, 100, { 1,1,1,0.5 });
+	//testsp2.DrawExtendSprite(100, 100, 100, 100, { 1,1,1,1 });
 }
 
 void EngineDebugScene::DrawImgui()
@@ -114,6 +124,24 @@ void EngineDebugScene::DrawImgui()
 	ImGui::SliderFloat("light z", &lightdir.z, -1.f, 1.0f);
 
 	DirectionalLight::SetLightDir(lightdir.x, lightdir.y, lightdir.z);
+
+	myImgui::EndDrawImGui();
+
+	myImgui::StartDrawImGui("Audio Control", 150, 300);
+
+	if (ImGui::Button("PLAY")) {
+		Audio::PlayLoadedSound(testBGM);
+	}
+	if (ImGui::Button("STOP")) {
+		Audio::StopLoadedSound(testBGM);
+	}
+	if (ImGui::Button("PAUSE")) {
+		Audio::PauseLoadedSound(testBGM);
+	}
+
+	static float masterVolume = 0.5f;
+	ImGui::SliderFloat("master volume", &masterVolume, 0.0f, 1.0f);
+	Audio::SetMasterVolume(masterVolume);
 
 	myImgui::EndDrawImGui();
 

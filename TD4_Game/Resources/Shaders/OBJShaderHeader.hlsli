@@ -16,7 +16,7 @@ cbuffer cbuff1 : register(b1)
 
 static const int MAX_BONES = 32;
 
-cbuffer skinnning : register(b4)
+cbuffer skinnning : register(b3)
 {
     matrix matSkinning[MAX_BONES];
 }

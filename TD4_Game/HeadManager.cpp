@@ -47,6 +47,9 @@ void HeadManager::Update()
 		heads.push_back(std::move(head));
 	}
 
+	//スコアマネージャー内のlifeにplayerの体力をいれる
+	scoreManager->SetLife(player->RetirementMoney);
+
 	//先頭の人の処理が終わったら先頭を消す
 	for (int headNum = 0; headNum < heads.size(); headNum++)
 	{

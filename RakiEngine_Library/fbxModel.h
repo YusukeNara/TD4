@@ -34,11 +34,12 @@ public:
 //頂点データ
 struct fbxVertex
 {
-	DirectX::XMFLOAT3 pos;   //xyz
-	DirectX::XMFLOAT3 normal;//法線
-	DirectX::XMFLOAT2 uv;    //uv
+	DirectX::XMFLOAT3 pos;		//xyz
+	DirectX::XMFLOAT3 normal;	//法線
+	DirectX::XMFLOAT2 uv;		//uv
 	UINT boneIndex[4];
 	float boneWeight[4];
+	int controlPointIndex;		//コントロールポイントのインデックス番号
 };
 
 struct Bone
@@ -123,6 +124,8 @@ private:
 
 	D3D12_VERTEX_BUFFER_VIEW vbview = {};
 	D3D12_INDEX_BUFFER_VIEW ibview = {};
+
+	int ctrlPointIndicesCount;
 
 	fbxMaterial material;
 
