@@ -18,24 +18,16 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	titleEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(400, -200, 0),
 		RVector3(400, 200, 0), 100);
 
-	testobject = std::make_shared<Object3d>();
-	testobject.reset(NY_Object3DManager::Get()->CreateModel_Box(50.f, 10.f, 10.f, testTex));
-
 	titleObjPos = { 0,0,0 };
 	titlePlayerPos = { 30,0,0 };
 	titleHagePos = { -30,0,0 };
 	titleSpritePos = { 400,-200 };
-
-	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 45, 0), titleObjPos);
 
 	testsp.Create(testTex);
 }
 
 TitleScene::~TitleScene()
 {
-	if (testobject) {
-		std::cout << "Object deleted" << endl;
-	}
 	if (titleHage) {
 		std::cout << "Hage deleted" << endl;
 	}

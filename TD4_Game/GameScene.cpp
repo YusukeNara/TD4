@@ -4,19 +4,19 @@ GameScene::GameScene(ISceneChanger *changer) : BaseScene(changer) {
 
 	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
 
-	testobject = std::make_shared<Object3d>();
+	/*testobject = std::make_shared<Object3d>();
 	testobject.reset(NY_Object3DManager::Get()->CreateModel_Box(50.f, 10.f, 10.f, testTex));
 
-	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 0, 0), RVector3(0, 0, 0));
+	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 0, 0), RVector3(0, 0, 0));*/
 
 	testsp.Create(testTex);
 }
 
 GameScene::~GameScene()
 {
-	if (testobject) {
+	/*if (testobject) {
 		std::cout << "Object deleted" << endl;
-	}
+	}*/
 }
 
 //‰Šú‰»

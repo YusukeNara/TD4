@@ -21,6 +21,7 @@ public:
 	void Initialize();
 	void Update();
 	void Draw();
+	void DrawUI();
 	//æ“ª‚Ìl‚ª‰½‚©‚ğ”»•Ê‚·‚é
 	CheraType GetFrontType();
 public:
