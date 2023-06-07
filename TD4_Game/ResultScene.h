@@ -27,6 +27,8 @@ public:
 
     Sprite spriteReview;
     Sprite spriteScore;
+    Sprite spriteReviewTex;
+    Sprite spriteScoreTex;
 
     std::shared_ptr<Object3d> resultPlayer;
 
@@ -43,9 +45,11 @@ public:
     int handleNum;
 
     XMFLOAT2 starPos;
+    XMFLOAT2 reviewSpritePos;
+    XMFLOAT2 scoreSpritePos;
 
     //éJÇ¢ÇΩêîÇÃà íu
-    const XMFLOAT2 HANDLE_POS = { 512,0 };
+    const XMFLOAT2 HANDLE_POS = { 512,450 };
     const XMFLOAT2 TOTALREVIEW_POS = { 512,64 };
     const float SCORE_POS_X = 765.0f;
     const float SCORE_POS_Y = 360.0f;
