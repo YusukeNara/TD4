@@ -23,13 +23,11 @@ void AfroHead::Init()
 	CutParticle.reset(ParticleManager::Create());
 	cutTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
-	afroheadTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
-
-	headObject = std::make_shared<Object3d>();
+	/*headObject = std::make_shared<Object3d>();
 	afroObject = std::make_shared<Object3d>();
 
-	headObject.reset(NY_Object3DManager::Get()->CreateModel_Box(5.f, 1.f, 1.f, afroheadTex));
-	afroObject.reset(NY_Object3DManager::Get()->CreateModel_Box(10.f, 1.f, 1.f, afroheadTex));
+	headObject.reset(LoadModel_FBXFile("hage_1"));
+	afroObject.reset(LoadModel_FBXFile("kamihusahusa"));*/
 
 	scale = RVector3(1, 1, 1);
 	rot = RVector3(0, 0, 0);

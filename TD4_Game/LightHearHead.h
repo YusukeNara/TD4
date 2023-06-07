@@ -38,8 +38,8 @@ private:
 	std::unique_ptr<ParticleManager> PullParticle;
 	UINT pullTex;
 
-	std::shared_ptr<Object3d> headObject;
-	std::shared_ptr<Object3d> hairObject;
+	//std::shared_ptr<Object3d> headObject;
+	//std::shared_ptr<Object3d> hairObject;
 
 	//位置のオフセット
 	RVector3 headOffset;

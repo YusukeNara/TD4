@@ -16,9 +16,8 @@ void HageHead::Init()
 	SlapParticle.reset(ParticleManager::Create());
 	slapTex = TexManager::LoadTexture("Resources/white1x1.png");
 
-	hageheadTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
-	headObject = std::make_shared<Object3d>();
-	headObject.reset(NY_Object3DManager::Get()->CreateModel_Box(5.f, 1.f, 1.f, hageheadTex));
+	/*headObject = std::make_shared<Object3d>();
+	headObject.reset(LoadModel_FBXFile("hage_1"));*/
 
 	scale = RVector3(1, 1, 1);
 	rot = RVector3(0, 0, 0);

@@ -20,7 +20,7 @@ public:
     void DrawImgui() override;
 
     Sprite testsp;
-    std::shared_ptr<Object3d> testobject;
+    //std::shared_ptr<Object3d> testobject;
 
     GameManager gmgr;
 };

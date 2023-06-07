@@ -30,7 +30,7 @@ public:
 
 private:
 
-	std::shared_ptr<Object3d> headObject;
+	//std::shared_ptr<Object3d> headObject;
 
 	//位置のオフセット
 	RVector3 headOffset;
