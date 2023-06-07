@@ -74,6 +74,10 @@ void HeadManager::Update()
 void HeadManager::Draw()
 {
 	for (const auto &h : heads) { h->Draw(); }
+}
+
+void HeadManager::DrawUI()
+{
 	scoreManager->Draw();
 }
 
