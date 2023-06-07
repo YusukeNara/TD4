@@ -12,11 +12,13 @@ ResultScene::ResultScene(ISceneChanger* changer) : BaseScene(changer)
 	resultPlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 0);
 	starPos = { 200.0f,100.0f };
 	spriteScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	spriteRank.CreateAndSetDivisionUVOffsets(5, 5, 1, 64, 64, TexManager::LoadTexture("Resources/rank.png"));
 	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
 	spriteReviewTex.Create(reviewTex);
 	spriteScoreTex.Create(rescoreTex);
 	reviewSpritePos = { 510,0 };
 	scoreSpritePos = { 460,230 };
+	rankPos = { 460,540 };
 	starIsDraw = false;
 	scoreTexIsDraw = false;
 	totalScore = ScoreManager::GetScore();
@@ -292,6 +294,8 @@ void ResultScene::Draw2D()
 		spriteScore.uvOffsetHandle = (int)handleNum % 10;
 		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
 	}
+	spriteRank.uvOffsetHandle = rank;
+	spriteRank.DrawExtendSprite(rankPos.x + 0.f, rankPos.y, rankPos.x + 128.f, rankPos.y + 128.f);
 	if (starIsDraw)
 	{
 		spriteReview.Draw();
@@ -300,15 +304,49 @@ void ResultScene::Draw2D()
 	{
 		spriteScore.Draw();
 	}
-	spriteReviewTex.DrawSprite(reviewSpritePos.x, reviewSpritePos.y);
-	spriteScoreTex.DrawSprite(scoreSpritePos.x, scoreSpritePos.y);
-	spriteReviewTex.Draw();
-	spriteScoreTex.Draw();
+	if (scoreTexSpriteIsDraw)
+	{
+		spriteScoreTex.DrawSprite(scoreSpritePos.x, scoreSpritePos.y);
+		spriteScoreTex.Draw();
+	}
+	if (starSpriteIsDraw)
+	{
+		spriteReviewTex.DrawSprite(reviewSpritePos.x, reviewSpritePos.y);
+		spriteReviewTex.Draw();
+	}
+	if (rankIsDraw)
+	{
+		spriteRank.Draw();
+	}
 }
 
 void ResultScene::DrawImgui()
 {
 
+}
+
+void ResultScene::SelectRank()
+{
+	if (totalScore > 15000)
+	{
+		rank = S;
+	}
+	else if (totalScore > 12500)
+	{
+		rank = A;
+	}
+	else if (totalScore > 10000)
+	{
+		rank = B;
+	}
+	else if (totalScore > 7500)
+	{
+		rank = C;
+	}
+	else
+	{
+		rank = D;
+	}
 }
 
 void ResultScene::Animation()
@@ -319,10 +357,16 @@ void ResultScene::Animation()
 	}
 	if (animationCount > animationCountMax / 4)
 	{
+		starSpriteIsDraw = true;
+	}
+	if (animationCount > animationCountMax / 3)
+	{
 		starIsDraw = true;
 	}
 	if (animationCount > animationCountMax / 2)
 	{
+		scoreTexSpriteIsDraw = true;
 		scoreTexIsDraw = true;
+		rankIsDraw = true;
 	}
 }
