@@ -30,6 +30,16 @@ void ProtoPlayer::Init()
 	HandPositionOffset = { 0,5,0 };
 	HandRotationOffset = { 0,0,0 };
 
+	CutPositionOffset = { 0,5,0 };
+	CutRotationOffset = { 0,0,0 };
+
+	ClipPositionOffset = { 0,5,0 };
+	ClipRotationOffset = { 0,0,0 };
+
+	handObject->SetAffineParam({ 0.2,0.2,0.2 }, HandRotationOffset, HandPositionOffset);
+	barikanObject->SetAffineParam({ 0.2,0.2,0.2 }, CutRotationOffset, CutPositionOffset);
+	scissorsObject->SetAffineParam({ 0.2,0.2,0.2 }, ClipRotationOffset, ClipPositionOffset);
+
 	uiOffsetHand = { 50,600 };
 	uiOffsetScis = { 170,600 };
 	uiOffsetClip = { 290,600 };
@@ -46,7 +56,9 @@ void ProtoPlayer::Update()
 
 void ProtoPlayer::Draw()
 {
-
+	handObject->DrawObject();
+	barikanObject->DrawObject();
+	scissorsObject->DrawObject();
 }
 
 void ProtoPlayer::DrawUI()
