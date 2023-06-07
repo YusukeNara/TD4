@@ -28,6 +28,7 @@ struct VSInput
     float2 uv           : TEXCOORD; //uv値
     uint4  boneIndices  : BONEINDICES;
     float4 boneWeights  : BONEWEIGHTS;
+    uint    indexNum    : INDEX;
 };
 
 //頂点シェーダーからジオメトリシェーダーへのやり取りに使用する構造体

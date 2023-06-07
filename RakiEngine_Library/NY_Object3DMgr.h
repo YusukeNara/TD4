@@ -260,6 +260,8 @@ Object3d *LoadModel_ObjFile(string modelname);
 
 Object3d* LoadModel_FBXFile(string modelname);
 
+Object3d* SetModel_FBX(std::shared_ptr<fbxModel> fbxModelData);
+
 /// <summary>
 /// Object3dƒf[ƒ^‚Ìíœ
 /// </summary>

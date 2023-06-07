@@ -338,34 +338,34 @@ void Object3d::UpdateBillBoard3D()
 
 void Object3d::DrawShadow()
 {
-	if (isThisModel == MODEL_DATA_FBX) {
-		NY_Object3DManager::Get()->SetCommonBeginDrawShadow_FBX();
-		//定数バッファ設定
-		RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(0, constBuffB0->GetGPUVirtualAddress());
-		//定数バッファ設定
-		RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(1, constBuffB1->GetGPUVirtualAddress());
-		RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(4, constBuffSkin->GetGPUVirtualAddress());
+	//if (isThisModel == MODEL_DATA_FBX) {
+	//	NY_Object3DManager::Get()->SetCommonBeginDrawShadow_FBX();
+	//	//定数バッファ設定
+	//	RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(0, constBuffB0->GetGPUVirtualAddress());
+	//	//定数バッファ設定
+	//	RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(1, constBuffB1->GetGPUVirtualAddress());
+	//	RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(4, constBuffSkin->GetGPUVirtualAddress());
 
-		fbxmodel->Draw();
+	//	fbxmodel->Draw();
 
-		NY_Object3DManager::Get()->ReturnShadowToDifferd();
-	}
-	else {
-		NY_Object3DManager::Get()->SetCommonBeginDrawShadow();
+	//	NY_Object3DManager::Get()->ReturnShadowToDifferd();
+	//}
+	//else {
+	//	NY_Object3DManager::Get()->SetCommonBeginDrawShadow();
 
-		//頂点バッファ設定
-		RAKI_DX12B_CMD->IASetVertexBuffers(0, 1, &model->vbView);
-		//インデックスバッファ設定
-		RAKI_DX12B_CMD->IASetIndexBuffer(&model->ibview);
-		//定数バッファ設定
-		RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(0, constBuffB0->GetGPUVirtualAddress());
-		//定数バッファ設定
-		RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(1, constBuffB1->GetGPUVirtualAddress());
-		//描画
-		RAKI_DX12B_CMD->DrawIndexedInstanced(UINT(model->indices.size()), 1, 0, 0, 0);
+	//	//頂点バッファ設定
+	//	RAKI_DX12B_CMD->IASetVertexBuffers(0, 1, &model->vbView);
+	//	//インデックスバッファ設定
+	//	RAKI_DX12B_CMD->IASetIndexBuffer(&model->ibview);
+	//	//定数バッファ設定
+	//	RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(0, constBuffB0->GetGPUVirtualAddress());
+	//	//定数バッファ設定
+	//	RAKI_DX12B_CMD->SetGraphicsRootConstantBufferView(1, constBuffB1->GetGPUVirtualAddress());
+	//	//描画
+	//	RAKI_DX12B_CMD->DrawIndexedInstanced(UINT(model->indices.size()), 1, 0, 0, 0);
 
-		NY_Object3DManager::Get()->ReturnShadowToDifferd();
-	}
+	//	NY_Object3DManager::Get()->ReturnShadowToDifferd();
+	//}
 
 }
 

@@ -14,6 +14,7 @@
 #include <NY_Camera.h>
 
 #include "GameManager.h"
+#include "GameSoundMgr.h"
 
 using namespace DirectX;
 using namespace Microsoft::WRL;
@@ -62,7 +63,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
 
 
-
+	//GameSoundMgr::get()->Init();
 
 #pragma endregion GameValue
 

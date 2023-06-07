@@ -562,6 +562,9 @@ Pipeline3D NY_Object3DManager::CreateFbxPipeline()
         {
             "BONEWEIGHTS",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0
         },
+        {
+            "INDEX",0,DXGI_FORMAT_R32_UINT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0
+        },
     };
 
 
@@ -1182,7 +1185,7 @@ void NY_Object3DManager::SetCommonBeginDrawShadow_FBX()
 
 void NY_Object3DManager::ReturnShadowToDifferd()
 {
-    RenderTargetManager::GetInstance()->CloseMultiRenderTargets(&m_shadomMap, 1);
+    //RenderTargetManager::GetInstance()->CloseMultiRenderTargets(&m_shadomMap, 1);
 
     RenderTargetManager::GetInstance()->SetMultiRenderTargets(&m_gBuffer, 3);
 }
@@ -1230,6 +1233,20 @@ Object3d* LoadModel_FBXFile(string modelname)
     object->LoadAndSetModelData_Fbx(modelname);
 
     //返却
+    return object;
+}
+
+Object3d* SetModel_FBX(std::shared_ptr<fbxModel> fbxModelData)
+{
+    //オブジェクトデータを新規作成
+    Object3d* object = new Object3d;
+
+    //オブジェクト初期化
+    object->InitObject3D(RAKI_DX12B_DEV);
+
+    //生成したオブジェクトのモデルデータをセット
+    object->SetLoadedModelData(fbxModelData);
+
     return object;
 }
 
