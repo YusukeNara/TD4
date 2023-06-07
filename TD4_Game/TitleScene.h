@@ -30,7 +30,6 @@ public:
     void Animation();
 
     Sprite testsp;
-    std::shared_ptr<Object3d> testobject;
 
     std::shared_ptr<Object3d> titleHage;
     std::shared_ptr<Object3d> titlePlayer;
