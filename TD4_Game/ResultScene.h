@@ -59,11 +59,11 @@ public:
     XMFLOAT2 reviewSpritePos;
     XMFLOAT2 scoreSpritePos;
     XMFLOAT2 rankPos;
+    XMFLOAT2 HANDLE_POS = { -638,450 };
+    XMFLOAT2 TOTALREVIEW_POS = { -638,64 };
 
     //éJÇ¢ÇΩêîÇÃà íu
-    const XMFLOAT2 HANDLE_POS = { 512,450 };
-    const XMFLOAT2 TOTALREVIEW_POS = { 512,64 };
-    const float SCORE_POS_X = 765.0f;
+    float SCORE_POS_X = -385.0f;
     const float SCORE_POS_Y = 360.0f;
 };
 
