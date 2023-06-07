@@ -3,7 +3,8 @@
 
 ResultScene::ResultScene(ISceneChanger* changer) : BaseScene(changer)
 {
-	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
+	UINT reviewTex = TexManager::LoadTexture("Resources/TotalReview.png");
+	UINT rescoreTex = TexManager::LoadTexture("Resources/ScoreTitle.png");
 
 	resultPlayer = std::make_shared<Object3d>();
 	resultPlayer.reset(LoadModel_FBXFile("hage_1"));
@@ -12,6 +13,10 @@ ResultScene::ResultScene(ISceneChanger* changer) : BaseScene(changer)
 	starPos = { 200.0f,100.0f };
 	spriteScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
+	spriteReviewTex.Create(reviewTex);
+	spriteScoreTex.Create(rescoreTex);
+	reviewSpritePos = { 510,0 };
+	scoreSpritePos = { 460,230 };
 	starIsDraw = false;
 	scoreTexIsDraw = false;
 	totalScore = ScoreManager::GetScore();
@@ -295,6 +300,10 @@ void ResultScene::Draw2D()
 	{
 		spriteScore.Draw();
 	}
+	spriteReviewTex.DrawSprite(reviewSpritePos.x, reviewSpritePos.y);
+	spriteScoreTex.DrawSprite(scoreSpritePos.x, scoreSpritePos.y);
+	spriteReviewTex.Draw();
+	spriteScoreTex.Draw();
 }
 
 void ResultScene::DrawImgui()
