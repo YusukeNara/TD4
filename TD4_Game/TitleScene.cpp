@@ -53,7 +53,7 @@ void TitleScene::Finalize()
 //XV
 void TitleScene::Update() {
 	Animation();
-	if (Input::Get()->isKeyTrigger(DIK_2)) {
+	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)) {
 		mSceneChanger->ChangeScene(eScene_Game);
 	}
 	if (Input::Get()->isKeyTrigger(DIK_3)) {

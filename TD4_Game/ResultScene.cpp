@@ -51,6 +51,10 @@ void ResultScene::Update()
 void ResultScene::Draw()
 {
 	resultPlayer->DrawObject();
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A)) {
+		mSceneChanger->ChangeScene(eScene_Title);
+	}
 }
 
 void ResultScene::Draw2D()

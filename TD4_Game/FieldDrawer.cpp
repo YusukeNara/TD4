@@ -53,9 +53,9 @@ void FieldDrawer::SetGameMode()
 {
 	isgame = true;
 
-	floorObject->SetAffineParam(RVector3(2, 1, 2),
+	floorObject->SetAffineParam(RVector3(10, 1, 10),
 		RVector3(0, 0, 0),
-		RVector3(0, -10, 0));
+		RVector3(0, -130, 0));
 }
 
 
