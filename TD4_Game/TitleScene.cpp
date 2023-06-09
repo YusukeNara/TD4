@@ -1,6 +1,8 @@
 #include "TitleScene.h"
 #include <iostream>
 
+#include "FieldDrawer.h"
+
 using namespace Rv3Ease;
 
 TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
@@ -24,6 +26,8 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	titleSpritePos = { -220,-400 };
 
 	testsp.Create(testTex);
+
+	FieldDrawer::get()->SetTitleMode();
 }
 
 TitleScene::~TitleScene()
