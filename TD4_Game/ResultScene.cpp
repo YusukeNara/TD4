@@ -298,7 +298,7 @@ void ResultScene::Draw2D()
 		spriteScore.uvOffsetHandle = (int)handleNum % 10;
 		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
 	}
-	spriteRank.uvOffsetHandle = rank;
+	spriteRank.uvOffsetHandle = SelectRank();
 	spriteRank.DrawExtendSprite(rankPos.x + 0.f, rankPos.y, rankPos.x + 256.f, rankPos.y + 256.f);
 	spriteReview.Draw();
 	spriteScore.Draw();
@@ -317,27 +317,27 @@ void ResultScene::DrawImgui()
 
 }
 
-void ResultScene::SelectRank()
+const int& ResultScene::SelectRank()
 {
 	if (totalScore > 15000)
 	{
-		rank = S;
+		return S;
 	}
 	else if (totalScore > 12500)
 	{
-		rank = A;
+		return A;
 	}
 	else if (totalScore > 10000)
 	{
-		rank = B;
+		return B;
 	}
 	else if (totalScore > 7500)
 	{
-		rank = C;
+		return C;
 	}
 	else
 	{
-		rank = D;
+		return D;
 	}
 }
 
