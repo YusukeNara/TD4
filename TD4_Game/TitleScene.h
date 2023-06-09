@@ -12,7 +12,7 @@
 //アニメーションのトータル時間
 const int animationCountMax = 1200;
 //タイトルスプライトの最終位置
-const float titleLastPos = 300.0f;
+const float titleLastPos = -50.0f;
 
 class TitleScene : public BaseScene {
 
@@ -30,7 +30,6 @@ public:
     void Animation();
 
     Sprite testsp;
-    std::shared_ptr<Object3d> testobject;
 
     std::shared_ptr<Object3d> titleHage;
     std::shared_ptr<Object3d> titlePlayer;

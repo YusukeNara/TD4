@@ -22,18 +22,31 @@ public:
     void Draw() override;          //描画処理をオーバーライド。
     void Draw2D() override;
     void DrawImgui() override;
+    void SelectRank();
 
     void Animation();
 
     Sprite spriteReview;
     Sprite spriteScore;
+    Sprite spriteReviewTex;
+    Sprite spriteScoreTex;
+    Sprite spriteRank;
 
     std::shared_ptr<Object3d> resultPlayer;
 
     const int animationCountMax = 600;
     int animationCount = 0;
     bool starIsDraw;
+    bool starSpriteIsDraw;
     bool scoreTexIsDraw;
+    bool scoreTexSpriteIsDraw;
+    bool rankIsDraw;
+
+    enum Rank{
+        D,C,B,A,S
+    };
+
+    int rank = 0;
 
     //総合的なスコア
     float totalScore;
@@ -43,11 +56,14 @@ public:
     int handleNum;
 
     XMFLOAT2 starPos;
+    XMFLOAT2 reviewSpritePos;
+    XMFLOAT2 scoreSpritePos;
+    XMFLOAT2 rankPos;
+    XMFLOAT2 HANDLE_POS = { -638,450 };
+    XMFLOAT2 TOTALREVIEW_POS = { -638,64 };
 
     //捌いた数の位置
-    const XMFLOAT2 HANDLE_POS = { 512,0 };
-    const XMFLOAT2 TOTALREVIEW_POS = { 512,64 };
-    const float SCORE_POS_X = 765.0f;
+    float SCORE_POS_X = -385.0f;
     const float SCORE_POS_Y = 360.0f;
 };
 

@@ -33,6 +33,8 @@ public:
 
 	static void setPlayerPtr(std::shared_ptr<ProtoPlayer> ptr);
 
+	static void loadHeadModel();
+
 	void SetPlayer(ProtoPlayer* ptr) {
 		this->playerPtr = ptr;
 	}
@@ -42,6 +44,10 @@ public:
 	}
 
 public:
+	static std::shared_ptr<Object3d> headObject;
+	static std::shared_ptr<Object3d> hairObject;
+	static std::shared_ptr<Object3d> afroObject;
+
 	//ビンタされた時のパーティクル
 	std::unique_ptr<ParticleManager> SlapParticle;
 	UINT slapTex;

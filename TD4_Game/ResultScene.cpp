@@ -3,7 +3,8 @@
 
 ResultScene::ResultScene(ISceneChanger* changer) : BaseScene(changer)
 {
-	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
+	UINT reviewTex = TexManager::LoadTexture("Resources/TotalReview.png");
+	UINT rescoreTex = TexManager::LoadTexture("Resources/ScoreTitle.png");
 
 	resultPlayer = std::make_shared<Object3d>();
 	resultPlayer.reset(LoadModel_FBXFile("hage_1"));
@@ -11,7 +12,13 @@ ResultScene::ResultScene(ISceneChanger* changer) : BaseScene(changer)
 	resultPlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 0);
 	starPos = { 200.0f,100.0f };
 	spriteScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	spriteRank.CreateAndSetDivisionUVOffsets(5, 5, 1, 64, 64, TexManager::LoadTexture("Resources/rank.png"));
 	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
+	spriteReviewTex.Create(reviewTex);
+	spriteScoreTex.Create(rescoreTex);
+	reviewSpritePos = { -630,0 };
+	scoreSpritePos = { -558,230 };
+	rankPos = { 460,240 };
 	starIsDraw = false;
 	scoreTexIsDraw = false;
 	totalScore = ScoreManager::GetScore();
@@ -44,6 +51,10 @@ void ResultScene::Update()
 void ResultScene::Draw()
 {
 	resultPlayer->DrawObject();
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A)) {
+		mSceneChanger->ChangeScene(eScene_Title);
+	}
 }
 
 void ResultScene::Draw2D()
@@ -287,13 +298,17 @@ void ResultScene::Draw2D()
 		spriteScore.uvOffsetHandle = (int)handleNum % 10;
 		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
 	}
-	if (starIsDraw)
+	spriteRank.uvOffsetHandle = rank;
+	spriteRank.DrawExtendSprite(rankPos.x + 0.f, rankPos.y, rankPos.x + 256.f, rankPos.y + 256.f);
+	spriteReview.Draw();
+	spriteScore.Draw();
+	spriteScoreTex.DrawSprite(scoreSpritePos.x, scoreSpritePos.y);
+	spriteScoreTex.Draw();
+	spriteReviewTex.DrawSprite(reviewSpritePos.x, reviewSpritePos.y);
+	spriteReviewTex.Draw();
+	if (rankIsDraw)
 	{
-		spriteReview.Draw();
-	}
-	if (scoreTexIsDraw)
-	{
-		spriteScore.Draw();
+		spriteRank.Draw();
 	}
 }
 
@@ -302,18 +317,54 @@ void ResultScene::DrawImgui()
 
 }
 
+void ResultScene::SelectRank()
+{
+	if (totalScore > 15000)
+	{
+		rank = S;
+	}
+	else if (totalScore > 12500)
+	{
+		rank = A;
+	}
+	else if (totalScore > 10000)
+	{
+		rank = B;
+	}
+	else if (totalScore > 7500)
+	{
+		rank = C;
+	}
+	else
+	{
+		rank = D;
+	}
+}
+
 void ResultScene::Animation()
 {
 	if (animationCount < animationCountMax)
 	{
 		animationCount++;
-	}
-	if (animationCount > animationCountMax / 4)
-	{
-		starIsDraw = true;
-	}
-	if (animationCount > animationCountMax / 2)
-	{
-		scoreTexIsDraw = true;
+		if (animationCount < animationCountMax / 8)
+		{
+			reviewSpritePos.x += 10;
+		}
+		else if (animationCount < animationCountMax / 4)
+		{
+			TOTALREVIEW_POS.x += 10;
+		}
+		else if (animationCount < animationCountMax / 8 * 3)
+		{
+			scoreSpritePos.x += 10;
+		}
+		else if (animationCount < animationCountMax / 2)
+		{
+			SCORE_POS_X += 10;
+		}
+		else if (animationCount > animationCountMax / 4 * 3)
+		{
+			rankIsDraw = true;
+		}
 	}
 }

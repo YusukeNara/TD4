@@ -14,6 +14,8 @@
 #include <NY_Camera.h>
 
 #include "GameManager.h"
+#include "GameSoundMgr.h"
+#include "FieldDrawer.h"
 
 using namespace DirectX;
 using namespace Microsoft::WRL;
@@ -57,11 +59,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	RVector3 up(0.f, 1.f, 0.f);
 	NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
 
-
+	FieldDrawer::get()->Init();
 
 	std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
 
 
+	//GameSoundMgr::get()->Init();
 
 
 #pragma endregion GameValue
@@ -83,6 +86,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
 
 		sceneMgr->Draw();
+
+		FieldDrawer::get()->Draw();
 
 		NY_Object3DManager::Get()->CloseDrawObject3D();
 
