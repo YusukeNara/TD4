@@ -5,7 +5,7 @@
 LightHairHead::LightHairHead()
 {
 	headOffset = RVector3(0, 10.f, 0);
-	hairOffset = RVector3(0, 20.0f, 0);
+	hairOffset = RVector3(0, 30.0f, 0);
 }
 
 LightHairHead::~LightHairHead()
@@ -22,19 +22,17 @@ void LightHairHead::Init()
 	PullParticle.reset(ParticleManager::Create());
 	pullTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
-	lighthairTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
+	headObjectSelf = std::make_unique<Object3d>();
+	hairObjectSelf = std::make_unique<Object3d>();
 
-	headObject = std::make_shared<Object3d>();
-	hairObject = std::make_shared<Object3d>();
+	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
+	hairObjectSelf.reset(LoadModel_FBXFile("ippon"));
 
-	headObject.reset(NY_Object3DManager::Get()->CreateModel_Box(5.f, 1.f, 1.f, lighthairTex));
-	hairObject.reset(NY_Object3DManager::Get()->CreateModel_Box(10.f, 1.f, 1.f, lighthairTex));
-
-	scale = RVector3(1, 1, 1);
-	rot = RVector3(0, 0, 0);
+	scale = RVector3(0.1, 0.1, 0.1);
+	rot = RVector3(0, 90, 0);
 	pos.zero();
-	headObject->SetAffineParam(scale, rot, pos);
-	hairObject->SetAffineParam({ 0.2,0.5,0.2 }, rot, pos);
+	headObjectSelf->SetAffineParam(scale, rot, pos);
+	hairObjectSelf->SetAffineParam({ 0.2,0.2,0.2 }, rot, pos);
 	SlapCount = 0;
 	isKramer = false;
 	isactive = false;
@@ -51,8 +49,8 @@ void LightHairHead::ResetFrontEase()
 void LightHairHead::Update()
 {
 	//オブジェクト描画位置を設定
-	headObject->SetAffineParamTranslate(pos + headOffset);
-	hairObject->SetAffineParamTranslate(pos + hairOffset);
+	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
+	hairObjectSelf->SetAffineParamTranslate(pos + hairOffset);
 
 	if (isMostFront && !isFrontEase)
 	{
@@ -105,15 +103,15 @@ void LightHairHead::Draw()
 	//オブジェクト描画
 	if (isKramer)
 	{
-		headObject->DrawObject();
-		hairObject->DrawObject();
+		headObjectSelf->DrawObject();
+		hairObjectSelf->DrawObject();
 	}
 	else
 	{
-		headObject->DrawObject();
+		headObjectSelf->DrawObject();
 		if (!isHairDestroy)
 		{
-			hairObject->DrawObject();
+			hairObjectSelf->DrawObject();
 		}
 	}
 	SlapParticle->Draw(slapTex);
@@ -172,17 +170,17 @@ void LightHairHead::SlappingMove()
 		}
 	}
 
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
+	}
+
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
 	{
-		if (playerPtr->GetItemType() != ItemType::Hand)
-		{
-			isFail = true;
-			ShakeBacePos = pos;
-			pos.x = pos.x + ShakeOffset;
-			FailCount = 0;
-			return;
-		}
-
 		isSlap = true;
 
 		//パーティクル生成
@@ -206,14 +204,6 @@ void LightHairHead::SlappingMove()
 
 			SlapParticle->Add(pgstate);
 		}
-	}
-	else
-	{
-		isFail = true;
-		ShakeBacePos = pos;
-		pos.x = pos.x + ShakeOffset;
-		FailCount = 0;
-		return;
 	}
 }
 
@@ -262,18 +252,18 @@ void LightHairHead::PullOutHair()
 		return;
 	}
 
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
+	}
+
 	//プレイヤーの入力を受け付けたら
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B))
 	{
-		/*if (playerPtr->GetItemType() != ItemType::Clippers)
-		{
-			isFail = true;
-			ShakeBacePos = pos;
-			pos.x = pos.x + ShakeOffset;
-			FailCount = 0;
-			return;
-		}*/
-
 		isHairDestroy = true;
 
 		//パーティクル生成
@@ -297,14 +287,14 @@ void LightHairHead::PullOutHair()
 			PullParticle->Add(pgstate);
 		}
 	}
-	else
+	/*else
 	{
 		isFail = true;
 		ShakeBacePos = pos;
 		pos.x = pos.x + ShakeOffset;
 		FailCount = 0;
 		return;
-	}
+	}*/
 }
 
 void LightHairHead::CounterMove()
