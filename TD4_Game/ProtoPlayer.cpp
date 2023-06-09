@@ -14,7 +14,7 @@ ProtoPlayer::ProtoPlayer()
 	barikanObject = std::make_unique<Object3d>();
 	barikanObject.reset(LoadModel_FBXFile("barikan"));
 	scissorsObject = std::make_unique<Object3d>();
-	scissorsObject.reset(LoadModel_FBXFile("sicssors"));
+	scissorsObject.reset(LoadModel_FBXFile("scissors"));
 
 	handUI.Create(UITexHand);
 	clipUI.Create(UITexClip);
@@ -27,13 +27,13 @@ ProtoPlayer::~ProtoPlayer()
 
 void ProtoPlayer::Init()
 {
-	HandPositionOffset = { 0,5,0 };
+	HandPositionOffset = { 0,0,10 };
 	HandRotationOffset = { 0,0,0 };
 
-	CutPositionOffset = { 0,5,0 };
+	CutPositionOffset = { 0,0,10 };
 	CutRotationOffset = { 0,0,0 };
 
-	ClipPositionOffset = { 0,5,0 };
+	ClipPositionOffset = { 0,0,10 };
 	ClipRotationOffset = { 0,0,0 };
 
 	handObject->SetAffineParam({ 0.2,0.2,0.2 }, HandRotationOffset, HandPositionOffset);
@@ -49,6 +49,10 @@ void ProtoPlayer::Init()
 
 void ProtoPlayer::Update()
 {
+	handObject->SetAffineParam({ 0.2,0.2,0.2 }, HandRotationOffset, HandPositionOffset);
+	barikanObject->SetAffineParam({ 0.2,0.2,0.2 }, CutRotationOffset, CutPositionOffset);
+	scissorsObject->SetAffineParam({ 0.2,0.2,0.2 }, ClipRotationOffset, ClipPositionOffset);
+
 	Attack();
 
 	ChangeItem();

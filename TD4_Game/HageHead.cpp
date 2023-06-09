@@ -19,7 +19,7 @@ void HageHead::Init()
 	headObjectSelf = std::make_unique<Object3d>();
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 
-	scale = RVector3(0.1, 0.1, 0.1);
+	scale = RVector3(0.05, 0.05, 0.05);
 	rot = RVector3(0, 90, 0);
 	pos.zero();
 	headObjectSelf->SetAffineParam(scale, rot, pos);
@@ -171,9 +171,9 @@ void HageHead::SlappingMove()
 			pgstate.acc = -(v / 10);
 			pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
 			pgstate.color_end = XMFLOAT4(1, 0, 0, 1);
-			pgstate.scale_start = 2.0f;
-			pgstate.scale_end = 2.5f;
-			pgstate.aliveTime = 20;
+			pgstate.scale_start = 3.0f;
+			pgstate.scale_end = 4.5f;
+			pgstate.aliveTime = 60;
 
 			SlapParticle->Add(pgstate);
 		}

@@ -23,5 +23,7 @@ public:
     //std::shared_ptr<Object3d> testobject;
 
     GameManager gmgr;
+
+    int GameFrame;
 };
 

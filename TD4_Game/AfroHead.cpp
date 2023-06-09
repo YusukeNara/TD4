@@ -204,9 +204,9 @@ void AfroHead::SlappingMove()
 			pgstate.acc = -(v / 10);
 			pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
 			pgstate.color_end = XMFLOAT4(1, 0, 0, 1);
-			pgstate.scale_start = 2.0f;
-			pgstate.scale_end = 2.5f;
-			pgstate.aliveTime = 20;
+			pgstate.scale_start = 3.0f;
+			pgstate.scale_end = 4.5f;
+			pgstate.aliveTime = 60;
 
 			SlapParticle->Add(pgstate);
 		}
@@ -273,7 +273,7 @@ void AfroHead::CuttingHair()
 		CutCount++;
 
 		//パーティクル生成
-		for (int i = 0; i < 30; i++)
+		for (int i = 0; i < 40; i++)
 		{
 			RVector3 v(NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30));
 			v = v.norm();
@@ -288,7 +288,7 @@ void AfroHead::CuttingHair()
 			pgstate.color_end = XMFLOAT4(0, 0, 0, 1);
 			pgstate.scale_start = 2.0f;
 			pgstate.scale_end = 2.5f;
-			pgstate.aliveTime = 20;
+			pgstate.aliveTime = 40;
 
 			CutParticle->Add(pgstate);
 		}
