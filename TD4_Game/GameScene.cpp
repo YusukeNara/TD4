@@ -14,6 +14,7 @@ GameScene::GameScene(ISceneChanger *changer) : BaseScene(changer) {
 	testsp.Create(testTex);
 
 	FieldDrawer::get()->SetGameMode();
+	GameFrame = 0;
 }
 
 GameScene::~GameScene()
@@ -34,11 +35,13 @@ void GameScene::Finalize()
 
 //XV
 void GameScene::Update() {
+	GameFrame++;
+
 	if (Input::Get()->isKeyTrigger(DIK_1)) {
 		mSceneChanger->ChangeScene(eScene_Title);
 	}
 
-	if (Input::Get()->isKeyTrigger(DIK_2)) {
+	if (60 - (GameFrame / 60) < 0) {
 		mSceneChanger->ChangeScene(eScene_Result);
 	}
 
@@ -62,4 +65,12 @@ void GameScene::Draw2D()
 
 void GameScene::DrawImgui()
 {
+	ImguiMgr::Get()->StartDrawImgui("time", 100, 100);
+
+	ImGui::Text("time : %d", 60 - (GameFrame / 60));
+
+	ImguiMgr::Get()->EndDrawImgui();
+
+
+
 }

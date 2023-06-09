@@ -14,7 +14,7 @@ ProtoPlayer::ProtoPlayer()
 	barikanObject = std::make_unique<Object3d>();
 	barikanObject.reset(LoadModel_FBXFile("barikan"));
 	scissorsObject = std::make_unique<Object3d>();
-	scissorsObject.reset(LoadModel_FBXFile("sicssors"));
+	scissorsObject.reset(LoadModel_FBXFile("scissors"));
 
 	handUI.Create(UITexHand);
 	clipUI.Create(UITexClip);
