@@ -6,7 +6,7 @@
 AfroHead::AfroHead()
 {
 	headOffset = RVector3(0, 10.f, 0);
-	hairOffset = RVector3(0, 20.0f, 0);
+	hairOffset = RVector3(0, 13.0f, 0);
 }
 
 AfroHead::~AfroHead()
@@ -23,21 +23,19 @@ void AfroHead::Init()
 	CutParticle.reset(ParticleManager::Create());
 	cutTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
-	afroheadTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
+	headObjectSelf = std::make_unique<Object3d>();
+	afroObjectSelf = std::make_unique<Object3d>();
 
-	headObject = std::make_shared<Object3d>();
-	afroObject = std::make_shared<Object3d>();
+	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
+	afroObjectSelf.reset(LoadModel_FBXFile("kamihusahusa"));
 
-	headObject.reset(NY_Object3DManager::Get()->CreateModel_Box(5.f, 1.f, 1.f, afroheadTex));
-	afroObject.reset(NY_Object3DManager::Get()->CreateModel_Box(10.f, 1.f, 1.f, afroheadTex));
-
-	scale = RVector3(1, 1, 1);
-	rot = RVector3(0, 0, 0);
+	scale = RVector3(0.1, 0.1, 0.1);
+	rot = RVector3(0, 90, 0);
 	pos.zero();
-	headObject->SetAffineParam(scale, rot, pos);
-	afroObject->SetAffineParam({ 1.1,1.2,1.1 }, rot, pos);
+	headObjectSelf->SetAffineParam(scale, rot, pos);
+	afroObjectSelf->SetAffineParam({ 0.101,0.101,0.101 }, rot, pos);
 	SlapCount = 0;
-	AfroSize = afroObject->scale / 4;
+	AfroSize = afroObjectSelf->scale / 8;
 	isKramer = false;
 	isactive = false;
 	ResetFrontEase();
@@ -53,8 +51,8 @@ void AfroHead::ResetFrontEase()
 void AfroHead::Update()
 {
 	//オブジェクト描画位置を設定
-	headObject->SetAffineParamTranslate(pos + headOffset);
-	afroObject->SetAffineParamTranslate(pos + hairOffset);
+	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
+	afroObjectSelf->SetAffineParamTranslate(pos + hairOffset);
 
 	if (isMostFront && !isFrontEase)
 	{
@@ -107,15 +105,15 @@ void AfroHead::Draw()
 	//オブジェクト描画
 	if (isKramer)
 	{
-		headObject->DrawObject();
-		afroObject->DrawObject();
+		headObjectSelf->DrawObject();
+		afroObjectSelf->DrawObject();
 	}
 	else
 	{
-		headObject->DrawObject();
+		headObjectSelf->DrawObject();
 		if (!isHairDestroy)
 		{
-			afroObject->DrawObject();
+			afroObjectSelf->DrawObject();
 		}
 	}
 	SlapParticle->Draw(slapTex);
@@ -178,17 +176,17 @@ void AfroHead::SlappingMove()
 		}
 	}
 
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
+	}
+
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
 	{
-		if (playerPtr->GetItemType() != ItemType::Hand)
-		{
-			isFail = true;
-			ShakeBacePos = pos;
-			pos.x = pos.x + ShakeOffset;
-			FailCount = 0;
-			return;
-		}
-
 		isSlap = true;
 
 		//パーティクル生成
@@ -206,20 +204,12 @@ void AfroHead::SlappingMove()
 			pgstate.acc = -(v / 10);
 			pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
 			pgstate.color_end = XMFLOAT4(1, 0, 0, 1);
-			pgstate.scale_start = 2.0f;
-			pgstate.scale_end = 2.5f;
-			pgstate.aliveTime = 20;
+			pgstate.scale_start = 3.0f;
+			pgstate.scale_end = 4.5f;
+			pgstate.aliveTime = 60;
 
 			SlapParticle->Add(pgstate);
 		}
-	}
-	else
-	{
-		isFail = true;
-		ShakeBacePos = pos;
-		pos.x = pos.x + ShakeOffset;
-		FailCount = 0;
-		return;
 	}
 }
 
@@ -268,22 +258,22 @@ void AfroHead::CuttingHair()
 		return;
 	}
 
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_B))
+	{
+		isFail = true;
+		ShakeBacePos = pos;
+		pos.x = pos.x + ShakeOffset;
+		FailCount = 0;
+		return;
+	}
+
 	//プレイヤーの入力を受け付けたら
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
 	{
-		/*if (playerPtr->GetItemType() != ItemType::Scissors)
-		{
-			isFail = true;
-			ShakeBacePos = pos;
-			pos.x = pos.x + ShakeOffset;
-			FailCount = 0;
-			return;
-		}*/
-
 		CutCount++;
 
 		//パーティクル生成
-		for (int i = 0; i < 30; i++)
+		for (int i = 0; i < 40; i++)
 		{
 			RVector3 v(NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30));
 			v = v.norm();
@@ -298,20 +288,12 @@ void AfroHead::CuttingHair()
 			pgstate.color_end = XMFLOAT4(0, 0, 0, 1);
 			pgstate.scale_start = 2.0f;
 			pgstate.scale_end = 2.5f;
-			pgstate.aliveTime = 20;
+			pgstate.aliveTime = 40;
 
 			CutParticle->Add(pgstate);
 		}
 
-		afroObject->scale -= AfroSize;
-	}
-	else
-	{
-		isFail = true;
-		ShakeBacePos = pos;
-		pos.x = pos.x + ShakeOffset;
-		FailCount = 0;
-		return;
+		afroObjectSelf->scale -= AfroSize;
 	}
 
 

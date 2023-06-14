@@ -22,7 +22,7 @@ public:
     void Draw() override;          //描画処理をオーバーライド。
     void Draw2D() override;
     void DrawImgui() override;
-    void SelectRank();
+    const int& SelectRank();
 
     void Animation();
 
@@ -45,8 +45,6 @@ public:
     enum Rank{
         D,C,B,A,S
     };
-
-    int rank = 0;
 
     //総合的なスコア
     float totalScore;

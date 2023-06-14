@@ -24,7 +24,7 @@ void ScoreManager::Initialize()
 	scorePrintFlag = false;
 	scorePos = { 1280,526 };
 	scoreA = 1;
-	reviewPos = { 32,256 };
+	reviewPos = { 32,TOTALREVIEW_POS.y + 128 };
 	reviewPrintFlag = false;
 	reviewA = 1;
 
@@ -63,7 +63,7 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 
 	if (reviewPrintFlag == false)
 	{
-		reviewPos = { 32,256 };
+		reviewPos = { 32,TOTALREVIEW_POS.y + 128 };
 		reviewA = 1;
 	}
 

@@ -16,7 +16,7 @@ void Audio::Init()
     mastervolume = 0.5f;
 }
 
-SoundData Audio::LoadSound_wav(const char *filename)
+SoundData Audio::LoadSound_wav(const char *filename, SoundData *ptr)
 {
     //ファイル入力ストリームのインスタンス
     std::ifstream file;
@@ -75,21 +75,23 @@ SoundData Audio::LoadSound_wav(const char *filename)
     file.close();
 
     //返却するデータ
-    SoundData soundData = {};
-    soundData.wfex       = format.fmt;
-    soundData.pBuffer    = reinterpret_cast<BYTE*>(pBuffer);
-    soundData.bufferSize = data.size;
+    SoundData *soundData = new SoundData();
+    soundData->wfex       = format.fmt;
+    soundData->pBuffer    = reinterpret_cast<BYTE*>(pBuffer);
+    soundData->bufferSize = data.size;
     HRESULT result;
     //波形フォーマットをもとにソースの作成
-    result = xAudio2->CreateSourceVoice(&soundData.source, &soundData.wfex);
+    result = xAudio2->CreateSourceVoice(&soundData->source, &soundData->wfex);
     assert(SUCCEEDED(result));
 
     //再生する波形データの設定
-    soundData.buf.pAudioData = soundData.pBuffer;
-    soundData.buf.AudioBytes = soundData.bufferSize;
-    soundData.buf.Flags = XAUDIO2_END_OF_STREAM;
+    soundData->buf.pAudioData = soundData->pBuffer;
+    soundData->buf.AudioBytes = soundData->bufferSize;
+    soundData->buf.Flags = XAUDIO2_END_OF_STREAM;
 
-    return soundData;
+    ptr = soundData;
+
+    return *soundData;
 }
 
 void Audio::UnloadSound(SoundData *data)

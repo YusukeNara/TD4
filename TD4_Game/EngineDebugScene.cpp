@@ -3,6 +3,8 @@
 #include <Raki_imguiMgr.h>
 #include <DirectionalLight.h>
 
+#include <FbxLoader.h>
+
 using namespace Rv3Ease;
 
 EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
@@ -23,14 +25,16 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testFBX_YesBone->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(75.f, 0, -50.f));
 
 	testFBX_NoBone = std::make_shared<Object3d>();
-	testFBX_NoBone.reset(LoadModel_FBXFile("hage_1"));
+	std::shared_ptr<fbxModel> testModel = std::make_shared<fbxModel>();
+	testModel.reset(FbxLoader::GetInstance()->LoadFBXFile("hage_1"));
+	testFBX_NoBone.reset(SetModel_FBX(testModel));
 	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(0, 0, -50.0f));
 	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP);
 
 	testobj = std::make_shared<Object3d>();
-	testobj.reset(LoadModel_FBXFile("SpherePBR"));
-	testobj->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(-75.f, 0, -50.f));
-
+	testobj.reset(SetModel_FBX(testModel));
+	testobj->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(-75.f, 0, -50.f));
+	testobj->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 1);
 
 	RVector3 eye(0.f, 0.f, -200.f);
 	RVector3 target(0.f, 0.f, 0.f);

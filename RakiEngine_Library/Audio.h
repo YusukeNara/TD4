@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <wrl.h>
 
+
 #pragma comment(lib,"xaudio2.lib")
 
 using namespace Microsoft::WRL;
@@ -32,11 +33,11 @@ struct SoundData {
 	//波形フォーマット
 	WAVEFORMATEX wfex;
 	//バッファ先頭アドレス
-	BYTE *pBuffer;
+	BYTE *pBuffer = nullptr;
 	//バッファサイズ
 	unsigned int bufferSize;
 	//オーディオポインタ
-	IXAudio2SourceVoice *source;
+	IXAudio2SourceVoice *source = nullptr;
 	//バッファ
 	XAUDIO2_BUFFER buf{};
 	//音量
@@ -69,7 +70,7 @@ public:
 	static void Init();
 
 	//サウンドデータの読み込み
-	static SoundData LoadSound_wav(const char *filename);
+	static SoundData LoadSound_wav(const char* filename, SoundData* ptr = nullptr);
 	//サウンドデータのアンロード
 	static void UnloadSound(SoundData *data);
 	
