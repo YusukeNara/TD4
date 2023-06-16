@@ -131,6 +131,14 @@ void LightHairHead::KramerMove()
 
 	AngreeTime++;
 
+	//怒ってるアニメーション
+	if (headObjectSelf->position.y < 4 || headObjectSelf->position.y > 10)
+	{
+		positionUpDown *= -1;
+	}
+
+	pos.y += positionUpDown * 1.5f;
+
 	if (AngreeTime >= MaxAngreeTime)
 	{
 		//反撃アニメーションをして、退職金を減らす
