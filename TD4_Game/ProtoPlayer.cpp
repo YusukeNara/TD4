@@ -113,39 +113,6 @@ void ProtoPlayer::Clip()
 void ProtoPlayer::ChangeItem()
 {
 	//アイテムの切り替え
-	/*if (handItemType == Hand)
-	{
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_RB))
-		{
-			handItemType = Scissors;
-		}
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_LB))
-		{
-			handItemType = Clippers;
-		}
-	}
-	else if (handItemType == Scissors)
-	{
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_RB))
-		{
-			handItemType = Clippers;
-		}
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_LB))
-		{
-			handItemType = Hand;
-		}
-	}
-	else if (handItemType == Clippers)
-	{
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_RB))
-		{
-			handItemType = Hand;
-		}
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_LB))
-		{
-			handItemType = Scissors;
-		}
-	}*/
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
