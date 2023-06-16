@@ -237,26 +237,26 @@ void ResultScene::Draw2D()
 	else if (totalScore >= 10000)
 	{
 		spriteScore.uvOffsetHandle = (int)totalScore / 10000 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 320.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 256.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 320.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 256.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 256.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 192.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 256.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 192.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore / 100 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 192.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 128.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 192.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 128.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 128.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 64.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 128.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 64.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 64.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 0.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 64.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 0.f, SCORE_POS_Y);
 	}
 	else if (totalScore >= 1000)
 	{
 		spriteScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 256.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 192.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X2 - 256.f, SCORE_POS_Y - 64.f, SCORE_POS_X2 - 192.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore / 100 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 192.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 128.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X2 - 192.f, SCORE_POS_Y - 64.f, SCORE_POS_X2 - 128.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 128.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 64.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X2 - 128.f, SCORE_POS_Y - 64.f, SCORE_POS_X2 - 64.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 64.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 0.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X2 - 64.f, SCORE_POS_Y - 64.f, SCORE_POS_X2 - 0.f, SCORE_POS_Y);
 	}
 	else
 	{
@@ -319,11 +319,11 @@ void ResultScene::DrawImgui()
 
 const int& ResultScene::SelectRank()
 {
-	if (totalScore > 15000)
+	if (totalScore > 18000)
 	{
 		return S;
 	}
-	else if (totalScore > 12500)
+	else if (totalScore > 15000)
 	{
 		return A;
 	}
@@ -331,7 +331,7 @@ const int& ResultScene::SelectRank()
 	{
 		return B;
 	}
-	else if (totalScore > 7500)
+	else if (totalScore > 5000)
 	{
 		return C;
 	}
@@ -361,6 +361,8 @@ void ResultScene::Animation()
 		else if (animationCount < animationCountMax / 2)
 		{
 			SCORE_POS_X += 10;
+			SCORE_POS_X2 += 10;
+			SCORE_POS_X3 += 10;
 		}
 		else if (animationCount > animationCountMax / 4 * 3)
 		{
