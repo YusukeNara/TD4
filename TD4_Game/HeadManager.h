@@ -24,11 +24,15 @@ public:
 	void DrawUI();
 	//先頭の人が何かを判別する
 	CheraType GetFrontType();
+
+	void TutorialInit();
+	void TutorialUpdate();
 public:
 	const ScoreManager *GetScoreManager() { return scoreManager; }
 private:
 	//初回スポーン
 	void FirstSpawn();
+	void TutorialFirstSpawn();
 	/// スポーン管理
 	Head *HeadSpawn(const int arrayNum);
 	//先頭の人を消す
@@ -44,5 +48,7 @@ private:
 	ProtoPlayer *player;
 
 	ScoreManager *scoreManager;
+
+	int tutorialNum;
 };
 
