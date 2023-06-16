@@ -15,6 +15,11 @@ void ScoreManager::FirstNumSet()
 	}
 }
 
+void ScoreManager::TutorialFirstNumSet()
+{
+	reviewNum.push_back(5);
+}
+
 void ScoreManager::Initialize()
 {
 	totalReview = 0;
@@ -34,6 +39,44 @@ void ScoreManager::Initialize()
 	beginTime = time(NULL);
 
 	FirstNumSet();
+
+	for (const auto &review : reviewNum)
+	{
+		oldReview += review;
+	}
+
+	totalReview = oldReview / reviewNum.size();
+
+	spriteScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	spriteTotalScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
+	spriteTotalReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
+	spriteGuest.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	spriteLife.Create(TexManager::LoadTexture("Resources/life.png"));
+	spriteScoreTitle.Create(TexManager::LoadTexture("Resources/ScoreTitle.png"));
+	spriteTotalReviewTitle.Create(TexManager::LoadTexture("Resources/TotalReview.png"));
+	spriteGuestTitle.Create(TexManager::LoadTexture("Resources/Guest.png"));
+}
+
+void ScoreManager::TutorialInit()
+{
+	totalReview = 0;
+	oldReview = 0;
+	totalScore = 0;
+	elpsedTime = 0;
+	scorePrintFlag = false;
+	scorePos = { 1280,526 };
+	scoreA = 1;
+	reviewPos = { 32,TOTALREVIEW_POS.y + 128 };
+	reviewPrintFlag = false;
+	reviewA = 1;
+
+	handleNum = 0;
+
+	//åªç›ÇÃéûä‘ÇÉZÉbÉg
+	beginTime = time(NULL);
+
+	TutorialFirstNumSet();
 
 	for (const auto &review : reviewNum)
 	{
