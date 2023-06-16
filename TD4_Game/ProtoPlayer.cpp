@@ -147,17 +147,17 @@ void ProtoPlayer::ChangeItem()
 		}
 	}*/
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		handItemType = Hand;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
 	{
 		handItemType = Scissors;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
 	{
 		handItemType = Clippers;
 	}
