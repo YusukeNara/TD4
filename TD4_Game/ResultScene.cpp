@@ -45,6 +45,10 @@ void ResultScene::Finalize()
 
 void ResultScene::Update()
 {
+	if (Input::Get()->isKeyTrigger(DIK_1)
+		|| Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)) {
+		mSceneChanger->ChangeScene(eScene_Title);
+	}
 	Animation();
 }
 
