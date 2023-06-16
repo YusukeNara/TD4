@@ -19,7 +19,7 @@ void HageHead::Init()
 	headObjectSelf = std::make_unique<Object3d>();
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 
-	scale = RVector3(0.05, 0.05, 0.05);
+	scale = RVector3(0.1, 0.1, 0.1);
 	rot = RVector3(0, 90, 0);
 	pos.zero();
 	headObjectSelf->SetAffineParam(scale, rot, pos);
