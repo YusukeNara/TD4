@@ -25,7 +25,7 @@ void HageHead::Init()
 	headObjectSelf->SetAffineParam(scale, rot, pos);
 	isHairDestroy = true;
 	SlapCount = 0;
-	isKramer = false;
+	//isKramer = false;
 	isactive = false;
 	ResetFrontEase();
 }
@@ -100,7 +100,14 @@ void HageHead::KramerMove()
 	}
 
 	AngreeTime++;
+
 	//怒ってるアニメーション
+	if (headObjectSelf->position.y < 4 || headObjectSelf->position.y > 10)
+	{
+		positionUpDown *= -1;
+	}
+
+	pos.y += positionUpDown * 1.5f;
 
 	if (AngreeTime >= MaxAngreeTime)
 	{
