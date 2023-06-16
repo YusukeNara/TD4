@@ -85,7 +85,8 @@ public:
 
 	//“{‚Á‚Ä‚¢‚éŽžŠÔ
 	int AngreeTime = 0;
-	const int MaxAngreeTime = 180;
+	const int MaxAngreeTime = 300;
+	int positionUpDown = -1;
 
 	//”½Œ‚‚·‚é‚©‚Ç‚¤‚©
 	bool isCounter = false;

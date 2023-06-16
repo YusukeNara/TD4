@@ -19,13 +19,13 @@ void HageHead::Init()
 	headObjectSelf = std::make_unique<Object3d>();
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 
-	scale = RVector3(0.05, 0.05, 0.05);
+	scale = RVector3(0.1, 0.1, 0.1);
 	rot = RVector3(0, 90, 0);
 	pos.zero();
 	headObjectSelf->SetAffineParam(scale, rot, pos);
 	isHairDestroy = true;
 	SlapCount = 0;
-	isKramer = false;
+	//isKramer = false;
 	isactive = false;
 	ResetFrontEase();
 }
@@ -100,7 +100,14 @@ void HageHead::KramerMove()
 	}
 
 	AngreeTime++;
+
 	//怒ってるアニメーション
+	if (headObjectSelf->position.y < 4 || headObjectSelf->position.y > 10)
+	{
+		positionUpDown *= -1;
+	}
+
+	pos.y += positionUpDown * 1.5f;
 
 	if (AngreeTime >= MaxAngreeTime)
 	{
@@ -143,7 +150,10 @@ void HageHead::SlappingMove()
 		}
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || 
+		Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || 
+		Input::isKeyTrigger(DIK_UP) ||
+		Input::isKeyTrigger(DIK_RIGHT))
 	{
 		isFail = true;
 		ShakeBacePos = pos;
@@ -152,7 +162,7 @@ void HageHead::SlappingMove()
 		return;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		isSlap = true;
 

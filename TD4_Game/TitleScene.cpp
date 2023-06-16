@@ -21,8 +21,8 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 		RVector3(0, 200, 0), 100);
 
 	titleObjPos = { 0,0,0 };
-	titlePlayerPos = { 30,0,0 };
-	titleHagePos = { -30,0,0 };
+	titlePlayerPos = { 50,0,0 };
+	titleHagePos = { -50,0,0 };
 	titleSpritePos = { -220,-400 };
 
 	testsp.Create(testTex);
@@ -53,8 +53,15 @@ void TitleScene::Finalize()
 //XV
 void TitleScene::Update() {
 	Animation();
-	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)) {
-		mSceneChanger->ChangeScene(eScene_Game);
+	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
+		|| Input::Get()->isKeyTrigger(DIK_2))
+	{
+		isScroll = true;
+	}
+
+	if (isScroll)
+	{
+		SceneScroll();
 	}
 	if (Input::Get()->isKeyTrigger(DIK_3)) {
 		mSceneChanger->ChangeScene(eScene_Result);
@@ -93,23 +100,36 @@ void TitleScene::Animation()
 	}
 	if (animationCount < animationCountMax / 4)
 	{
-		titlePlayerPos.x += 1.0f;
-		titleHagePos.x += 1.0f;
+		titlePlayerPos.x += 2.0f;
+		titleHagePos.x += 2.0f;
 		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titlePlayerPos);
 		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titleHagePos);
 	}
 	else if (animationCount < (animationCountMax / 4 * 3))
 	{
-		titlePlayerPos.x -= 1.0f;
-		titleHagePos.x -= 1.0f;
+		titlePlayerPos.x -= 2.0f;
+		titleHagePos.x -= 2.0f;
 		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), titlePlayerPos);
 		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), titleHagePos);
 	}
 	else if (animationCount < animationCountMax)
 	{
-		titlePlayerPos.x += 1.0f;
-		titleHagePos.x += 1.0f;
+		titlePlayerPos.x += 2.0f;
+		titleHagePos.x += 2.0f;
 		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titlePlayerPos);
 		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titleHagePos);
+	}
+}
+
+void TitleScene::SceneScroll()
+{
+	if (scrollCount < ScrollCountMax)
+	{
+		scrollCount++;
+		titleSpritePos.y -= 10;
+	}
+	else
+	{
+		mSceneChanger->ChangeScene(eScene_Game);
 	}
 }
