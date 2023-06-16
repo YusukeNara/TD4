@@ -10,7 +10,8 @@
 #include <Sprite.h>
 
 //アニメーションのトータル時間
-const int animationCountMax = 1200;
+const int animationCountMax = 600;
+const int ScrollCountMax = 60;
 //タイトルスプライトの最終位置
 const float titleLastPos = -50.0f;
 
@@ -29,6 +30,8 @@ public:
 
     void Animation();
 
+    void SceneScroll();
+
     Sprite testsp;
 
     std::shared_ptr<Object3d> titleHage;
@@ -37,6 +40,9 @@ public:
     Rv3Ease::Rv3Easing titleEase;
 
     int animationCount = 0;
+    int scrollCount = 0;
+
+    bool isScroll = false;
 
     XMFLOAT2 titleSpritePos;
 
