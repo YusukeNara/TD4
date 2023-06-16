@@ -50,5 +50,8 @@ public:
     //‰¹
     SoundData testSE;
     SoundData testBGM;
+
+    Sprite testNum;
+    int dval = 0;
 };
 
