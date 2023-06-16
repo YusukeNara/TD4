@@ -184,7 +184,10 @@ void AfroHead::SlappingMove()
 		}
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) ||
+		Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) ||
+		Input::isKeyTrigger(DIK_UP) ||
+		Input::isKeyTrigger(DIK_RIGHT))
 	{
 		isFail = true;
 		ShakeBacePos = pos;
@@ -193,7 +196,7 @@ void AfroHead::SlappingMove()
 		return;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		isSlap = true;
 
@@ -266,7 +269,10 @@ void AfroHead::CuttingHair()
 		return;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_B))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || 
+		Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || 
+		Input::isKeyTrigger(DIK_LEFT) || 
+		Input::isKeyTrigger(DIK_RIGHT))
 	{
 		isFail = true;
 		ShakeBacePos = pos;
@@ -276,7 +282,7 @@ void AfroHead::CuttingHair()
 	}
 
 	//プレイヤーの入力を受け付けたら
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
 	{
 		CutCount++;
 
