@@ -75,6 +75,13 @@ struct fbxMaterial
 	}
 };
 
+struct SkinAnimationPlayInfo
+{
+	float start;
+	float end;
+	std::string name;
+};
+
 class fbxModel
 {
 private:
@@ -130,6 +137,8 @@ private:
 	fbxMaterial material;
 
 	FbxScene *fbxScene = nullptr;
+
+	std::vector<SkinAnimationPlayInfo> animinfo;
 };
 
 #pragma warning (pop)

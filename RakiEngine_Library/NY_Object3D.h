@@ -56,6 +56,8 @@ enum class ANIMATION_PLAYMODE
 	ANIM_MODE_ROOP,
 };
 
+
+
 // 2022/03/16 クラスの依存関係を変更
 //mgr -> object3d -> model3d
 //このクラスは中間に位置させ、modelを所有する
@@ -194,6 +196,9 @@ private:
 
 	//どのモデルデータか？
 	isWhichModel isThisModel;
+
+	//現在再生中のアニメーション番号
+	int playAnimNum = 0;
 };
 
 
