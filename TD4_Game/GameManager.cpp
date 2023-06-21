@@ -41,7 +41,7 @@ void GameManager::Draw()
 {
 	headMan->Draw();
 
-	//player->Draw();
+	player->Draw();
 	//NY_Object3DManager::Get()->SetRestartObject3D();
 
 	//床
