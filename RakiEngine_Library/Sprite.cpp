@@ -5,6 +5,8 @@
 #include "RenderTargetManager.h"
 
 #include "Raki_DX12B.h"
+#include "RakiUtility.h"
+
 
 //スプライト加工カラー
 DirectX::XMFLOAT4 Sprite::sprite_color = { 1.0f,1.0f,1.0f,1.0f };
@@ -844,6 +846,63 @@ void Sprite::DrawRTexSprite(int handle, float x1, float y1, float x2, float y2, 
     spdata->insWorldMatrixes.push_back(ins);
 
     DrawRenderTexture(handle);
+}
+
+void Sprite::DrawNumSprite(float startX, float startY, float sizeX, float sizeY, int value, DirectX::XMFLOAT4 color)
+{
+    //数値スプライトを描画する
+
+    //数値の桁数を取得
+    int digit = int(std::to_string(value).length());
+
+    //桁数分ループ
+    for (int i = 0; i < digit; i++) {
+
+        int n = digit - i - 1;
+
+        uvOffsetHandle = rutility::GetDigits(float(value), n, n);
+
+        float offsetX = float(sizeX * float(digit));
+
+        float lx = startX + (offsetX - (sizeX * float(digit - i)));
+        float ly = startY;
+        float rx = startX + (offsetX - (sizeX * float(digit - i))) + sizeX;
+        float ry = startY + sizeY;
+
+        DrawExtendSprite(lx, ly, rx, ry, color);
+    }
+
+}
+
+void Sprite::DrawNumSpriteZeroFill(float startX, float startY, float sizeX, float sizeY, int value, int maxDigit, DirectX::XMFLOAT4 color)
+{
+    //数値の桁数を取得
+    int digit = int(std::to_string(value).length());
+
+
+    //桁数分ループ
+    for (int i = 0; i < maxDigit; i++) {
+
+        //現在の桁
+        int n = maxDigit - i - 1;
+        //数値の桁数
+        int d = digit - 1;
+        if (n > d) {
+            uvOffsetHandle = 0;
+        }
+        else {
+            uvOffsetHandle = rutility::GetDigits(float(value), n, n);
+        }
+
+        float offsetX = float(sizeX * float(maxDigit));
+
+        float lx = startX + (offsetX - (sizeX * float(maxDigit - i)));
+        float ly = startY;
+        float rx = startX + (offsetX - (sizeX * float(maxDigit - i))) + sizeX;
+        float ry = startY + sizeY;
+
+        DrawExtendSprite(lx, ly, rx, ry, color);
+    }
 }
 
 bool Sprite::IsCreated()

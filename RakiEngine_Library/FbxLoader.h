@@ -65,6 +65,8 @@ private:
 
 	void ParseSkin(fbxModel* model, FbxMesh* fbxMesh);
 
+	void SaveAnimationData(fbxModel* model, FbxMesh* fbxMesh);
+
 	
 	//テクスチャはテクスチャマネージャーのしごと
 

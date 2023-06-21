@@ -1,10 +1,6 @@
-﻿#include "GameManager.h"
+#include "TutorialScene.h"
 
-#include "AfroHead.h"
-
-#include <NY_Object3DMgr.h>
-
-GameManager::GameManager()
+TutorialScene::TutorialScene(ISceneChanger *changer) : BaseScene(changer)
 {
 	groundTex = TexManager::LoadTexture("Resources/asp3.png");
 
@@ -18,44 +14,44 @@ GameManager::GameManager()
 	headMan = std::make_unique<HeadManager>(player.get());
 }
 
-GameManager::~GameManager()
+TutorialScene::~TutorialScene()
 {
 }
 
-void GameManager::Init()
+void TutorialScene::Initialize()
 {
 	player->Init();
 
 	RVector3 easeOffset(0, 0, 100.f);
-	headMan->Initialize();
+	headMan->TutorialInit();
 }
 
-void GameManager::Update()
+void TutorialScene::Finalize()
 {
+}
+
+void TutorialScene::Update()
+{
+
 	player->Update();
 
-	headMan->Update();
+	headMan->TutorialUpdate();
+	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_OPTION_R)) {
+		mSceneChanger->ChangeScene(eScene_Game);
+	}
 }
 
-void GameManager::Draw()
+void TutorialScene::Draw()
 {
 	headMan->Draw();
-
-	player->Draw();
-	//NY_Object3DManager::Get()->SetRestartObject3D();
-
-	//床
-	//groundObject->DrawObject();
-
-	//NY_Object3DManager::Get()->CloseDrawObject3D();
 }
 
-void GameManager::UIDraw()
+void TutorialScene::Draw2D()
 {
 	player->DrawUI();
 	headMan->DrawUI();
 }
 
-void GameManager::Finalize()
+void TutorialScene::DrawImgui()
 {
 }

@@ -29,7 +29,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testModel.reset(FbxLoader::GetInstance()->LoadFBXFile("hage_1"));
 	testFBX_NoBone.reset(SetModel_FBX(testModel));
 	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(0, 0, -50.0f));
-	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP);
+	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP,0);
 
 	testobj = std::make_shared<Object3d>();
 	testobj.reset(SetModel_FBX(testModel));
@@ -44,6 +44,8 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	//音ロード
 	testSE = Audio::LoadSound_wav("Resources/don.wav");
 	testBGM = Audio::LoadSound_wav("Resources/kari.wav");
+
+	testNum.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 
 	//無限ループ
 	Audio::SetPlayRoopmode(testBGM, 255);
@@ -94,6 +96,13 @@ void EngineDebugScene::Draw2D()
 {
 	//testsp1.DrawExtendSprite(0, 0, 100, 100, { 1,1,1,0.5 });
 	//testsp2.DrawExtendSprite(100, 100, 100, 100, { 1,1,1,1 });
+
+	testNum.DrawSprite(0, 100);
+
+	testNum.DrawNumSpriteZeroFill(0, 0, 32, 32, dval, 10);
+	testNum.uvOffsetHandle = 1;
+
+	testNum.Draw();
 }
 
 void EngineDebugScene::DrawImgui()
@@ -116,6 +125,9 @@ void EngineDebugScene::DrawImgui()
 		DirectionalLight::GetLightDir().y, DirectionalLight::GetLightDir().z);
 
 	ImGui::SliderFloat("camrot", &camrot, 0.f, 2.0f);
+
+	ImGui::SliderInt("num", &testNum.uvOffsetHandle, 0, 9);
+	ImGui::SliderInt("dValue", &dval, -200000000, 200000000);
 
 	myImgui::EndDrawImGui();
 

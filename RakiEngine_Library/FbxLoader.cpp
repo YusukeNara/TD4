@@ -432,3 +432,30 @@ void FbxLoader::ParseSkin(fbxModel* model, FbxMesh* fbxMesh)
         }
     }
 }
+
+void FbxLoader::SaveAnimationData(fbxModel* model, FbxMesh* fbxMesh)
+{
+    ////アニメーション総数分ループ
+    //int animationDataCount = fbxImporter->GetAnimStackCount();
+
+    //for (int i = 0; i < animationDataCount; i++) {
+    //    //アニメーション情報を取得する
+    //    FbxTakeInfo* takeInfo = fbxImporter->GetTakeInfo(i);
+
+    //    //基準点からの差を取得
+    //    auto importOffset = takeInfo->mImportOffset;
+    //    auto startTime = takeInfo->mLocalTimeSpan.GetStart();
+    //    auto stopTime = takeInfo->mLocalTimeSpan.GetStop();	
+
+    //    float start = (importOffset.Get() + startTime.Get()) / FbxTime::GetOneFrameValue(FbxTime::eFrames60);	//60フレームでの開始時間を設定
+    //    float end = (importOffset.Get() + stopTime.Get()) / FbxTime::GetOneFrameValue(FbxTime::eFrames60);	//60フレームでの終了時間を設定
+
+    //    SkinAnimationPlayInfo info{};
+    //    info.start = start;
+    //    info.end = end;
+    //    info.name = takeInfo->mName;
+
+    //    model->animinfo.push_back(info);
+    //}
+
+}

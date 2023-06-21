@@ -25,7 +25,12 @@ void fbxModel::CreateBuffers()
 		D3D12_RESOURCE_STATE_GENERIC_READ,
 		nullptr,
 		IID_PPV_ARGS(&vertbuff)
-	);
+	); struct SkinAnimationPlayInfo
+	{
+		float start;
+		float end;
+		std::string name;
+	};
 	if (result != S_OK) {
 		std::cout << std::system_category().message(result) << std::endl;
 	}
