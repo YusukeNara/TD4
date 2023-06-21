@@ -67,6 +67,9 @@ public:
 
 	void DrawRTexSprite(int handle, float x1, float y1, float x2, float y2, float angle, DirectX::XMFLOAT4 freedata01 = { 1,1,1,1 });
 
+	void DrawNumSprite(float startX, float startY, float sizeX, float sizeY, int value, DirectX::XMFLOAT4 color = { 1.f,1.f,1.f,1.f });
+
+	void DrawNumSpriteZeroFill(float startX, float startY, float sizeX, float sizeY, int value, int maxDigit, DirectX::XMFLOAT4 color = { 1.f,1.f,1.f,1.f });
 	//テクスチャのもとのサイズ
 	XMFLOAT2 TEXTURE_DEFAULT_SIZE;
 
