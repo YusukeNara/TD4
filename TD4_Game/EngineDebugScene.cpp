@@ -29,7 +29,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testModel.reset(FbxLoader::GetInstance()->LoadFBXFile("hage_1"));
 	testFBX_NoBone.reset(SetModel_FBX(testModel));
 	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(0, 0, -50.0f));
-	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP,1);
+	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP,0);
 
 	testobj = std::make_shared<Object3d>();
 	testobj.reset(SetModel_FBX(testModel));

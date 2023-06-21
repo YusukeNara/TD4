@@ -224,6 +224,12 @@ void Object3d::UpdateObject3D()
 
 			auto& bones = fbxmodel->GetBones();
 
+			//現在割り当てられているアニメーション番号を設定
+			//更新関数が呼ばれた時点のアニメーションに変更して、定数バッファの転送に備える
+			FbxScene* fbxScene = fbxmodel->GetFbxScene();
+			FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(playAnimNum);
+			fbxScene->SetCurrentAnimationStack(animStack);
+
 			//メッシュノードのグローバルトランスフォーム
 			XMMATRIX grovalScale = XMMatrixScaling(1.f, 1.f, 1.f);
 			XMMATRIX grovalRot = XMMatrixIdentity();
