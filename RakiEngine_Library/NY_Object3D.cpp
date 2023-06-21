@@ -498,6 +498,8 @@ void Object3d::LoadAndSetModelData_Fbx(string filename)
 	fbxModel *fmodel = FbxLoader::GetInstance()->LoadFBXFile(filename);
 	fbxmodel.reset(fmodel);
 
+	//ロードしたモデルからアニメーション情報を取得、格納
+
 	isThisModel = MODEL_DATA_FBX;
 }
 
@@ -525,14 +527,18 @@ void Object3d::PlayAnimation(ANIMATION_PLAYMODE playmode, int animNum)
 
 	FbxScene* fbxScene = fbxmodel->GetFbxScene();
 
+	FbxAnimStack* animStack = nullptr;
+
 	if (fbxScene->GetSrcObject<FbxAnimStack>(animNum) != nullptr) {
-		FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(animNum);
+		animStack = fbxScene->GetSrcObject<FbxAnimStack>(animNum);
+		playAnimNum = animNum;
 	}
 	else {
-		FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(0);
+		animStack = fbxScene->GetSrcObject<FbxAnimStack>(0);
+		playAnimNum = 0;
 	}
 
-	FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(animNum);
+	fbxScene->SetCurrentAnimationStack(animStack);
 
 	const char* animStackName = animStack->GetName();
 
