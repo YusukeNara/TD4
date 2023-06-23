@@ -36,6 +36,7 @@ void LightHairHead::Init()
 	SlapCount = 0;
 	isKramer = false;
 	isactive = false;
+	HeadType = CheraType::Thinning;
 	ResetFrontEase();
 }
 
@@ -279,6 +280,7 @@ void LightHairHead::PullOutHair()
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
 	{
 		isHairDestroy = true;
+		HeadType = CheraType::SkinHead;
 
 		//パーティクル生成
 		for (int i = 0; i < 30; i++)
@@ -301,14 +303,6 @@ void LightHairHead::PullOutHair()
 			PullParticle->Add(pgstate);
 		}
 	}
-	/*else
-	{
-		isFail = true;
-		ShakeBacePos = pos;
-		pos.x = pos.x + ShakeOffset;
-		FailCount = 0;
-		return;
-	}*/
 }
 
 void LightHairHead::CounterMove()

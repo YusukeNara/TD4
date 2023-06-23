@@ -38,6 +38,7 @@ void AfroHead::Init()
 	AfroSize = afroObjectSelf->scale / 8;
 	isKramer = false;
 	isactive = false;
+	HeadType = CheraType::Afro;
 	ResetFrontEase();
 }
 
@@ -314,5 +315,6 @@ void AfroHead::CuttingHair()
 	if (CutCount >= MaxCutCount)
 	{
 		isHairDestroy = true;
+		HeadType = CheraType::SkinHead;
 	}
 }
