@@ -114,6 +114,31 @@ public:
 	//描画、終了は必要ない（実際の描画はエミッターでやるので）
 };
 
+class ParticleDrawManager 
+{
+public:
+
+	ParticleDrawManager() = default;
+	~ParticleDrawManager() = default;
+
+	void Init();
+
+	void SetCommonBeginDrawParticle3D();
+
+	void SetCommonBeginDrawParticle2D();
+
+private:
+	// Microsoft::WRL::を省略
+	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+
+	// ルートシグネチャ
+	ComPtr<ID3D12RootSignature> rootsig;
+	// グラフィックスパイプライン
+	ComPtr<ID3D12PipelineState> pipeline2D;
+	ComPtr<ID3D12PipelineState> pipeline3D;
+
+};
+
 class ParticleManager
 {
 private:

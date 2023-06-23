@@ -99,8 +99,13 @@ void EngineDebugScene::Draw2D()
 
 	testNum.DrawSprite(0, 100);
 
-	testNum.DrawNumSpriteZeroFill(0, 0, 32, 32, dval, 10);
+	testNum.DrawNumSprite(0, 0, 32, 32, dval);
 	testNum.uvOffsetHandle = 1;
+
+	if(dval <20000000){
+		dval += 1;
+	}
+
 
 	testNum.Draw();
 }

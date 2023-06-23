@@ -7,6 +7,7 @@
 #include <RenderTargetManager.h>
 #include <DifferrdRenderingMgr.h>
 #include "SceneManager.h"
+#include <GraphicManager.h>
 
 #include "NY_Object3DMgr.h"
 #include "SpriteManager.h"
@@ -37,22 +38,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	rakiWinApp->CreateGameWindow();
 
 	//エンジン側のエラー、警告を無視しない設定にするときは、この関数の第二引数にtrueを渡すと良い
-	Raki_DX12B::Get()->Initialize(rakiWinApp, true);
+	Raki_DX12B::Get()->Initialize(rakiWinApp, false);
 
-	myImgui::InitializeImGui(Raki_DX12B::Get()->GetDevice(), Raki_WinAPI::GetHWND());
-
-	
-	NY_Object3DManager::Get()->CreateObject3DManager();
-	SpriteManager::Get()->CreateSpriteManager(Raki_DX12B::Get()->GetDevice(), Raki_DX12B::Get()->GetGCommandList(),
-		rakiWinApp->window_width, rakiWinApp->window_height);
-	TexManager::InitTexManager();
-
+	GraphicManager graphicmgr;
+	graphicmgr.Init();
 	
 	Audio::Init();
-
-	DiferredRenderingMgr diffMgr;
-	diffMgr.Init(RAKI_DX12B_DEV, RAKI_DX12B_CMD);
-
 
 	RVector3 eye(0.f, 100.f, -100.f);
 	RVector3 target(0.f, 0.f, 0.f);
@@ -75,34 +66,32 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		if (rakiWinApp->ProcessMessage()) { break; }
 
-
 		Input::StartGetInputState();
 
         sceneMgr->Update();
 
-
-		RenderTargetManager::GetInstance()->CrearAndStartDraw();
-
-		NY_Object3DManager::Get()->SetCommonBeginDrawObject3D();
+		graphicmgr.StartDraw();
+		//3D通常描画ここから
+		graphicmgr.StartDeferredDraw();
 
 		sceneMgr->Draw();
 
 		FieldDrawer::get()->Draw();
+		//3D通常描画ここまで
+		graphicmgr.EndDefferdDraw();
+		//パーティクル3Dここから
+		graphicmgr.StartParticleDraw3D();
 
-		NY_Object3DManager::Get()->CloseDrawObject3D();
-
-		diffMgr.Rendering(&NY_Object3DManager::Get()->m_gBuffer, &NY_Object3DManager::Get()->m_shadomMap);
-
-		SpriteManager::Get()->SetCommonBeginDraw();
+		//スプライトここから
+		graphicmgr.StartSpriteDraw();
 
 		sceneMgr->Draw2D();
-
 
 		sceneMgr->DrawImgui();
 
 		//描画ここまで
 
-		RenderTargetManager::GetInstance()->SwapChainBufferFlip();
+		graphicmgr.FinishDraw();
 
 		FPS::Get()->run();
 	}
@@ -112,6 +101,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	
 	myImgui::FinalizeImGui();
 
+	Raki_DX12B::Get()->Finalize();
 	
 	rakiWinApp->DeleteGameWindow();
 
