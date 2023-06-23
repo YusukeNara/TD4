@@ -58,6 +58,14 @@ public:
 	//アフィン変換
 	RVector3 pos, rot, scale;
 
+	//吹っ飛びながら回転
+	RVector3 blustVec;
+	RVector3 blustRot;
+
+	//吹っ飛ぶ時間
+	int blustTime = 0;
+	int maxBustTime = 15;
+
 	//客のタイプ
 	CheraType HeadType = CheraType::None;
 

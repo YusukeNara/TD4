@@ -59,20 +59,7 @@ void ProtoPlayer::Update()
 	barikanObject->SetAffineParam(CutScaleOffset, CutRotationOffset, CutPositionOffset);
 	scissorsObject->SetAffineParam(ClipScaleOffset, ClipRotationOffset, ClipPositionOffset);
 
-	if (Input::isKey(DIK_X))
-	{
-		ClipRotationOffset.x++;
-	}
-
-	if (Input::isKey(DIK_Y))
-	{
-		ClipRotationOffset.y++;
-	}
-
-	if (Input::isKey(DIK_Z))
-	{
-		ClipRotationOffset.z++;
-	}
+	
 
 	Attack();
 
