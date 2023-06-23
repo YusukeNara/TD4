@@ -53,10 +53,13 @@ void TitleScene::Finalize()
 //XV
 void TitleScene::Update() {
 	Animation();
-	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
-		|| Input::Get()->isKeyTrigger(DIK_2))
+	if (animationCount == animationCountMax)
 	{
-		isScroll = true;
+		if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
+			|| Input::Get()->isKeyTrigger(DIK_2))
+		{
+			isScroll = true;
+		}
 	}
 
 	if (isScroll)
@@ -87,6 +90,16 @@ void TitleScene::DrawImgui()
 
 void TitleScene::Animation()
 {
+	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X)
+		|| Input::Get()->isKeyTrigger(DIK_1))
+	{
+		titleSpritePos.y = titleLastPos;
+		titlePlayerPos = { 50,0,0 };
+		titleHagePos = { -50,0,0 };
+		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titlePlayerPos);
+		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titleHagePos);
+		animationCount = animationCountMax;
+	}
 	if (animationCount < animationCountMax)
 	{
 		animationCount++;
