@@ -27,15 +27,18 @@ ProtoPlayer::~ProtoPlayer()
 
 void ProtoPlayer::Init()
 {
-	HandPositionOffset = { -35,0,-5 };
+	//手のアフィン変換
+	HandPositionOffset = { -35,0,-50 };
 	HandRotationOffset = { 90,0,0 };
-	HandScaleOffset = { 0.12,0.12,0.12 };
+	HandScaleOffset = { 0.08,0.08,0.08 };
 
-	CutPositionOffset = { 0,0,10 };
-	CutRotationOffset = { 0,0,0 };
-	CutScaleOffset = { 0.02,0.02,0.02 };
+	//バリカンのアフィン変換
+	CutPositionOffset = { 0,0,-50 };
+	CutRotationOffset = { 0,-90,-60 };
+	CutScaleOffset = { 0.08,0.08,0.08 };
 
-	ClipPositionOffset = { 0,0,10 };
+	//ハサミのアフィン変換
+	ClipPositionOffset = { 35,0,-50 };
 	ClipRotationOffset = { 0,0,0 };
 	ClipScaleOffset = { 0.02,0.02,0.02 };
 
@@ -63,7 +66,7 @@ void ProtoPlayer::Update()
 
 void ProtoPlayer::Draw()
 {
-	handObject->DrawObject();
+	//handObject->DrawObject();
 	//barikanObject->DrawObject();
 	//scissorsObject->DrawObject();
 }
