@@ -39,8 +39,8 @@ void ProtoPlayer::Init()
 
 	//ハサミのアフィン変換
 	ClipPositionOffset = { 35,0,-50 };
-	ClipRotationOffset = { 0,0,0 };
-	ClipScaleOffset = { 0.02,0.02,0.02 };
+	ClipRotationOffset = { 0,63,80 };
+	ClipScaleOffset = { 0.01,0.01,0.01 };
 
 	handObject->SetAffineParam(HandScaleOffset, HandRotationOffset, HandPositionOffset);
 	barikanObject->SetAffineParam(CutScaleOffset, CutRotationOffset, CutPositionOffset);
@@ -66,9 +66,9 @@ void ProtoPlayer::Update()
 
 void ProtoPlayer::Draw()
 {
-	//handObject->DrawObject();
-	//barikanObject->DrawObject();
-	//scissorsObject->DrawObject();
+	handObject->DrawObject();
+	barikanObject->DrawObject();
+	scissorsObject->DrawObject();
 }
 
 void ProtoPlayer::DrawUI()
