@@ -27,6 +27,7 @@ void HageHead::Init()
 	SlapCount = 0;
 	//isKramer = false;
 	isactive = false;
+	HeadType = CheraType::SkinHead;
 	ResetFrontEase();
 }
 
