@@ -22,8 +22,8 @@ void LightHairHead::Init()
 	PullParticle.reset(ParticleManager::Create());
 	pullTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
-	headObjectSelf = std::make_unique<Object3d>();
-	hairObjectSelf = std::make_unique<Object3d>();
+	headObjectSelf = std::make_shared<Object3d>();
+	hairObjectSelf = std::make_shared<Object3d>();
 
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 	hairObjectSelf.reset(LoadModel_FBXFile("ippon"));

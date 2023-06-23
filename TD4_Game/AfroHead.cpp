@@ -23,8 +23,8 @@ void AfroHead::Init()
 	CutParticle.reset(ParticleManager::Create());
 	cutTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
-	headObjectSelf = std::make_unique<Object3d>();
-	afroObjectSelf = std::make_unique<Object3d>();
+	headObjectSelf = std::make_shared<Object3d>();
+	afroObjectSelf = std::make_shared<Object3d>();
 
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 	afroObjectSelf.reset(LoadModel_FBXFile("kamihusahusa"));

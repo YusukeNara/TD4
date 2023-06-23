@@ -16,7 +16,7 @@ void HageHead::Init()
 	SlapParticle.reset(ParticleManager::Create());
 	slapTex = TexManager::LoadTexture("Resources/white1x1.png");
 
-	headObjectSelf = std::make_unique<Object3d>();
+	headObjectSelf = std::make_shared<Object3d>();
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 
 	scale = RVector3(0.1, 0.1, 0.1);
