@@ -64,10 +64,16 @@ private:
 
 	RVector3 HandPositionOffset;
 	RVector3 HandRotationOffset;
+	RVector3 HandScaleOffset;
+
 	RVector3 CutPositionOffset;
 	RVector3 CutRotationOffset;
+	RVector3 CutScaleOffset;
+
 	RVector3 ClipPositionOffset;
 	RVector3 ClipRotationOffset;
+	RVector3 ClipScaleOffset;
+
 	int enemyType = SkinHead;
 	ItemType handItemType = Hand;
 
