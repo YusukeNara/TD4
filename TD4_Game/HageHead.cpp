@@ -16,7 +16,7 @@ void HageHead::Init()
 	SlapParticle.reset(ParticleManager::Create());
 	slapTex = TexManager::LoadTexture("Resources/white1x1.png");
 
-	headObjectSelf = std::make_unique<Object3d>();
+	headObjectSelf = std::make_shared<Object3d>();
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 
 	scale = RVector3(0.1, 0.1, 0.1);
@@ -41,6 +41,7 @@ void HageHead::ResetFrontEase()
 void HageHead::Update()
 {
 	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
+	headObjectSelf->SetAffineParamRotate(rot);
 
 	if (isMostFront && !isFrontEase)
 	{
@@ -143,16 +144,18 @@ void HageHead::SlappingMove()
 		}
 		else
 		{
-			pos.x -= 0.2f;
-			if (pos.x < -3)
+			blustTime++;
+			pos += blustVec;
+			rot += blustRot;
+			if (blustTime > maxBustTime)
 			{
 				isAllMoveFinish = true;
 			}
 		}
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || 
-		Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || 
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) ||
+		Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) ||
 		Input::isKeyTrigger(DIK_UP) ||
 		Input::isKeyTrigger(DIK_RIGHT))
 	{
@@ -166,6 +169,13 @@ void HageHead::SlappingMove()
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		isSlap = true;
+
+		//飛ぶ方向を決定
+		blustVec = RVector3(NY_random::floatrand_sl(30, 0), NY_random::floatrand_sl(30, 0), 0);
+		blustVec = blustVec.norm() * 7;
+
+		blustRot = RVector3(NY_random::floatrand_sl(10, 0), NY_random::floatrand_sl(10, 0), NY_random::floatrand_sl(10, 0));
+		blustRot *= 5;
 
 		//パーティクル生成
 		for (int i = 0; i < 30; i++)

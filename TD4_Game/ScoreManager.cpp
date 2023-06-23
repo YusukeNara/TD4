@@ -96,7 +96,7 @@ void ScoreManager::TutorialInit()
 	spriteGuestTitle.Create(TexManager::LoadTexture("Resources/Guest.png"));
 }
 
-void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
+void ScoreManager::Update(Head *heads, CheraType charaType, ItemType itemType)
 {
 	if (scorePrintFlag == false)
 	{
@@ -146,9 +146,9 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 		//J‚¢‚½”‚ğŒv‘ª‚·‚é
 		handleNum++;
 
-		if (cheraType == CheraType::SkinHead)
+		if (charaType == CheraType::SkinHead)
 		{
-			//Åˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‹q‚É‘Î‚µ‚ÄÅˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í³‰ğ)
 			if (itemType == ItemType::Hand)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -166,7 +166,7 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				reviewNum.push_back(skinheadReview);
 				oneReview = skinheadReview;
 			}
-			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í¸”s)
 			if (itemType == ItemType::Clippers || itemType == ItemType::Scissors)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -191,9 +191,9 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				oldReview += review;
 			}
 		}
-		if (cheraType == CheraType::Thinning)
+		if (charaType == CheraType::Thinning)
 		{
-			//Åˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‹q‚É‘Î‚µ‚ÄÅˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í³‰ğ)
 			if (itemType == ItemType::Scissors)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -211,7 +211,7 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				reviewNum.push_back(thinningReview);
 				oneReview = thinningReview;
 			}
-			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í¸”s)
 			if (itemType == ItemType::Hand || itemType == ItemType::Clippers)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -235,9 +235,9 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				oldReview += review;
 			}
 		}
-		if (cheraType == CheraType::Afro)
+		if (charaType == CheraType::Afro)
 		{
-			//Åˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‹q‚É‘Î‚µ‚ÄÅˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í³‰ğ)
 			if (itemType == ItemType::Clippers)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -255,7 +255,7 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				reviewNum.push_back(afroheadReview);
 				oneReview = afroheadReview;
 			}
-			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í¸”s)
 			if (itemType == ItemType::Hand || itemType == ItemType::Scissors)
 			{
 				//Šî‘bƒŒƒrƒ…[

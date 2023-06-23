@@ -36,8 +36,8 @@ private:
 	std::unique_ptr<ParticleManager> CutParticle;
 	UINT cutTex;
 
-	std::unique_ptr<Object3d> headObjectSelf;
-	std::unique_ptr<Object3d> afroObjectSelf;
+	std::shared_ptr<Object3d> headObjectSelf;
+	std::shared_ptr<Object3d> afroObjectSelf;
 
 	//位置のオフセット
 	RVector3 headOffset;

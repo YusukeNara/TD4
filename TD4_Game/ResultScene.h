@@ -62,6 +62,7 @@ public:
 
     //éJÇ¢ÇΩêîÇÃà íu
     float SCORE_POS_X = -385.0f;
+    float SCORE_POS_X2 = -353.0f;
+    float SCORE_POS_X3 = -321.0f;
     const float SCORE_POS_Y = 360.0f;
 };
-

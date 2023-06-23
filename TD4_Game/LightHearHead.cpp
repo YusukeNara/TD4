@@ -22,8 +22,8 @@ void LightHairHead::Init()
 	PullParticle.reset(ParticleManager::Create());
 	pullTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
-	headObjectSelf = std::make_unique<Object3d>();
-	hairObjectSelf = std::make_unique<Object3d>();
+	headObjectSelf = std::make_shared<Object3d>();
+	hairObjectSelf = std::make_shared<Object3d>();
 
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 	hairObjectSelf.reset(LoadModel_FBXFile("ippon"));
@@ -51,6 +51,7 @@ void LightHairHead::Update()
 {
 	//オブジェクト描画位置を設定
 	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
+	headObjectSelf->SetAffineParamRotate(rot);
 	hairObjectSelf->SetAffineParamTranslate(pos + hairOffset);
 
 	if (isMostFront && !isFrontEase)
@@ -171,8 +172,10 @@ void LightHairHead::SlappingMove()
 		}
 		else
 		{
-			pos.x -= 0.5f;
-			if (pos.x < -3)
+			blustTime++;
+			pos += blustVec;
+			rot += blustRot;
+			if (blustTime > maxBustTime)
 			{
 				isAllMoveFinish = true;
 			}
@@ -194,6 +197,13 @@ void LightHairHead::SlappingMove()
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		isSlap = true;
+
+		//飛ぶ方向を決定
+		blustVec = RVector3(NY_random::floatrand_sl(30, 0), NY_random::floatrand_sl(30, 0), 0);
+		blustVec = blustVec.norm() * 7;
+
+		blustRot = RVector3(NY_random::floatrand_sl(10, 0), NY_random::floatrand_sl(10, 0), NY_random::floatrand_sl(10, 0));
+		blustRot *= 5;
 
 		//パーティクル生成
 		for (int i = 0; i < 30; i++)
