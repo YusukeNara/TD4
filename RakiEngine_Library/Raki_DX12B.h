@@ -133,6 +133,11 @@ public:
 		fence.ReleaseAndGetAddressOf();
 	}
 
+	void Destroy();
+
+	//手動解放、リーク検知
+	void Finalize();
+
 private:
 	//DirectX12要素のメンバ変数
 
