@@ -3,6 +3,8 @@
 #include "ParticleManager.h"
 #include "Raki_DX12B.h"
 #include "TexManager.h"
+#include "NY_random.h"
+#include "RakiUtility.h"
 
 #include <iostream>
 
@@ -124,6 +126,7 @@ void ParticleManager::Update() {
 
 void ParticleManager::Draw(UINT drawTexNum)
 {
+
 	UINT drawNum = (UINT)std::distance(grains.begin(), grains.end());
 	if (drawNum > MAX_VERTEX) {
 		drawNum = MAX_VERTEX;
@@ -134,10 +137,10 @@ void ParticleManager::Draw(UINT drawTexNum)
 		return;
 	}
 
-	// パイプラインステートの設定
-	cmd->SetPipelineState(pipeline.Get());
-	// ルートシグネチャの設定
-	cmd->SetGraphicsRootSignature(rootsig.Get());
+	//// パイプラインステートの設定
+	//cmd->SetPipelineState(pipeline.Get());
+	//// ルートシグネチャの設定
+	//cmd->SetGraphicsRootSignature(rootsig.Get());
 	// プリミティブ形状を設定
 	cmd->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 
@@ -165,7 +168,15 @@ void ParticleManager::Add(ParticleGrainState pgState)
 	grains.emplace_front();
 	//追加した要素の参照
 	Particle &p = grains.front();
-	p.pos = pgState.position;			//初期位置
+
+	if (pgState.isRandomSpawn) {
+		p.pos = rutility::randomRV3(
+			pgState.position + pgState.position_spawnRange1,
+			pgState.position + pgState.position_spawnRange2);
+	}
+	else {
+		p.pos = pgState.position;			//初期位置
+	}
 	p.vel = pgState.vel;			//速度
 	p.acc = pgState.acc;			//加速度
 	p.s_scale = pgState.scale_start; //開始時のスケールサイズ
@@ -812,9 +823,9 @@ void ParticleDrawManager::Init()
 
 void ParticleDrawManager::SetCommonBeginDrawParticle3D()
 {
-	
-
 	RAKI_DX12B_CMD->SetPipelineState(pipeline3D.Get());
+
+	RAKI_DX12B_CMD->SetGraphicsRootSignature(rootsig.Get());
 }
 
 void ParticleDrawManager::SetCommonBeginDrawParticle2D()

@@ -4,7 +4,7 @@
 #include <NY_Object3DMgr.h>
 #include <Sprite.h>
 #include <Raki_Input.h>
-
+#include <ParticleManager.h>
 #include <CameraCalc.h>
 #include <Audio.h>
 
@@ -21,6 +21,7 @@ public:
     void Draw() override;            //描画処理をオーバーライド。
     void Draw2D() override;
     void DrawImgui() override;
+    void DrawParticle() override;
 
     Sprite testsp1;
     Sprite testsp2;
@@ -53,5 +54,10 @@ public:
 
     Sprite testNum;
     int dval = 0;
+
+    //パーティクル
+    std::unique_ptr<ParticleManager> testp;
+    UINT particleTex;
+    ParticleGrainState pgstate;
 };
 

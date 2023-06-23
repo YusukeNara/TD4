@@ -77,10 +77,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		sceneMgr->Draw();
 
 		FieldDrawer::get()->Draw();
+
 		//3D通常描画ここまで
 		graphicmgr.EndDefferdDraw();
+
 		//パーティクル3Dここから
 		graphicmgr.StartParticleDraw3D();
+
+		sceneMgr->DrawParticle();
 
 		//スプライトここから
 		graphicmgr.StartSpriteDraw();
@@ -95,9 +99,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		FPS::Get()->run();
 	}
-
-
-
 	
 	myImgui::FinalizeImGui();
 

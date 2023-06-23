@@ -716,8 +716,6 @@ void Raki_DX12B::Destroy()
 	ID3D12CommandQueue* cmdqueue = *commandQueue.ReleaseAndGetAddressOf();
 	ID3D12Fence* f = *fence.ReleaseAndGetAddressOf();
 
-	dev->Release();
-
 	delete dev;
 	delete cmdalloc;
 	delete cmdlist;
