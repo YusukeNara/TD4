@@ -57,7 +57,7 @@ void TitleScene::Update() {
 		mSceneChanger->ChangeScene(eScene_Game);
 	}
 	if (Input::Get()->isKeyTrigger(DIK_3)) {
-		mSceneChanger->ChangeScene(eScene_Result);
+		mSceneChanger->ChangeScene(eScene_Tutorial);
 	}
 }
 
