@@ -59,5 +59,13 @@ public:
     std::unique_ptr<ParticleManager> testp;
     UINT particleTex;
     ParticleGrainState pgstate;
+
+    //ƒXƒvƒ‰ƒCƒ“
+    Rv3Ease::Rv3Spline testspline;
+    std::array<RVector3, 6> controlPoint;
+
+    Rv3Ease::Rv3Bezier3 testbezier;
+
+
 };
 
