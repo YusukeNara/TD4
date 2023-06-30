@@ -243,7 +243,7 @@ void Rv3Ease::Rv3Easing::Reset()
 	resultPos = startPos;
 }
 
-void Rv3Ease::Rv3Spline::SetSplinePoints(RVector3* array, int pCount, int playFrame)
+void Rv3Ease::Rv3Spline::Init(RVector3* array, int pCount, int playFrame)
 {
 	//§Œä“_‚ª‘«‚è‚È‚¢ê‡
 	if (pCount < 4) { return; }

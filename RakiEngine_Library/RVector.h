@@ -179,7 +179,7 @@ namespace Rv3Ease {
 		Rv3Spline() = default;
 		~Rv3Spline() = default;
 
-		void SetSplinePoints(RVector3* array, int pCount, int playFrame);
+		void Init(RVector3* array, int pCount, int playFrame);
 
 		void Play();
 

@@ -79,7 +79,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	controlPoint[0] = controlPoint[4];
 	controlPoint[5] = controlPoint[1];
 
-	testspline.SetSplinePoints(controlPoint.data(), 6, 240);
+	testspline.Init(controlPoint.data(), 6, 240);
 
 	testbezier.Init(RVector3(-100, 0, 0), RVector3(0, 100, 100), RVector3(0, 0, 0),
 		60, RV3_EASE_TYPE::EASE_CUBIC_OUT);
@@ -101,10 +101,10 @@ void EngineDebugScene::Finalize()
 
 void EngineDebugScene::Update()
 {
-	if (Input::isKeyTrigger(DIK_Q)) { testbezier.Play(); }
-	else if (Input::isKeyTrigger(DIK_E)) { testbezier.Reset(); }
+	if (Input::isKeyTrigger(DIK_Q)) { testspline.Play(); }
+	else if (Input::isKeyTrigger(DIK_E)) { testspline.Reset(); }
 
-	testobject->SetAffineParamTranslate(testbezier.Update());
+	testobject->SetAffineParamTranslate(testspline.Update());
 
 	if (Input::isKeyTrigger(DIK_O)) { Audio::PlayLoadedSound(testSE, true); }
 
