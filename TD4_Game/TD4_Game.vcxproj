@@ -178,6 +178,7 @@
     <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TutorialScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DirectXTex\DirectXTex_Desktop_2019_Win10.vcxproj">
@@ -298,6 +299,7 @@
     <ClInclude Include="Task.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TutorialScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

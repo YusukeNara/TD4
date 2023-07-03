@@ -22,8 +22,8 @@ void LightHairHead::Init()
 	PullParticle.reset(ParticleManager::Create());
 	pullTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
-	headObjectSelf = std::make_unique<Object3d>();
-	hairObjectSelf = std::make_unique<Object3d>();
+	headObjectSelf = std::make_shared<Object3d>();
+	hairObjectSelf = std::make_shared<Object3d>();
 
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 	hairObjectSelf.reset(LoadModel_FBXFile("ippon"));
@@ -36,6 +36,7 @@ void LightHairHead::Init()
 	SlapCount = 0;
 	isKramer = false;
 	isactive = false;
+	HeadType = CheraType::Thinning;
 	ResetFrontEase();
 }
 
@@ -50,6 +51,7 @@ void LightHairHead::Update()
 {
 	//オブジェクト描画位置を設定
 	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
+	headObjectSelf->SetAffineParamRotate(rot);
 	hairObjectSelf->SetAffineParamTranslate(pos + hairOffset);
 
 	if (isMostFront && !isFrontEase)
@@ -131,6 +133,14 @@ void LightHairHead::KramerMove()
 
 	AngreeTime++;
 
+	//怒ってるアニメーション
+	if (headObjectSelf->position.y < 4 || headObjectSelf->position.y > 10)
+	{
+		positionUpDown *= -1;
+	}
+
+	pos.y += positionUpDown * 1.5f;
+
 	if (AngreeTime >= MaxAngreeTime)
 	{
 		//反撃アニメーションをして、退職金を減らす
@@ -162,15 +172,20 @@ void LightHairHead::SlappingMove()
 		}
 		else
 		{
-			pos.x -= 0.5f;
-			if (pos.x < -3)
+			blustTime++;
+			pos += blustVec;
+			rot += blustRot;
+			if (blustTime > maxBustTime)
 			{
 				isAllMoveFinish = true;
 			}
 		}
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) ||
+		Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) ||
+		Input::isKeyTrigger(DIK_UP) ||
+		Input::isKeyTrigger(DIK_RIGHT))
 	{
 		isFail = true;
 		ShakeBacePos = pos;
@@ -179,9 +194,16 @@ void LightHairHead::SlappingMove()
 		return;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		isSlap = true;
+
+		//飛ぶ方向を決定
+		blustVec = RVector3(NY_random::floatrand_sl(30, 0), NY_random::floatrand_sl(30, 0), 0);
+		blustVec = blustVec.norm() * 7;
+
+		blustRot = RVector3(NY_random::floatrand_sl(10, 0), NY_random::floatrand_sl(10, 0), NY_random::floatrand_sl(10, 0));
+		blustRot *= 5;
 
 		//パーティクル生成
 		for (int i = 0; i < 30; i++)
@@ -198,9 +220,9 @@ void LightHairHead::SlappingMove()
 			pgstate.acc = -(v / 10);
 			pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
 			pgstate.color_end = XMFLOAT4(1, 0, 0, 1);
-			pgstate.scale_start = 2.0f;
-			pgstate.scale_end = 2.5f;
-			pgstate.aliveTime = 20;
+			pgstate.scale_start = 3.0f;
+			pgstate.scale_end = 4.5f;
+			pgstate.aliveTime = 60;
 
 			SlapParticle->Add(pgstate);
 		}
@@ -252,7 +274,10 @@ void LightHairHead::PullOutHair()
 		return;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || 
+		Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || 
+		Input::isKeyTrigger(DIK_LEFT) ||
+		Input::isKeyTrigger(DIK_UP))
 	{
 		isFail = true;
 		ShakeBacePos = pos;
@@ -262,9 +287,10 @@ void LightHairHead::PullOutHair()
 	}
 
 	//プレイヤーの入力を受け付けたら
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
 	{
 		isHairDestroy = true;
+		HeadType = CheraType::SkinHead;
 
 		//パーティクル生成
 		for (int i = 0; i < 30; i++)
@@ -287,14 +313,6 @@ void LightHairHead::PullOutHair()
 			PullParticle->Add(pgstate);
 		}
 	}
-	/*else
-	{
-		isFail = true;
-		ShakeBacePos = pos;
-		pos.x = pos.x + ShakeOffset;
-		FailCount = 0;
-		return;
-	}*/
 }
 
 void LightHairHead::CounterMove()
