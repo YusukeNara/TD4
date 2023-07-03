@@ -22,6 +22,7 @@ public:
 	void Update();
 	void Draw();
 	void DrawUI();
+	void DrawParticle();
 	//æ“ª‚Ìl‚ª‰½‚©‚ğ”»•Ê‚·‚é
 	CheraType GetFrontType();
 

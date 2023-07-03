@@ -82,6 +82,11 @@ void HeadManager::DrawUI()
 	scoreManager->Draw();
 }
 
+void HeadManager::DrawParticle()
+{
+	for (const auto& h : heads) { h->DrawParticle(); }
+}
+
 void HeadManager::PopFront()
 {
 	heads.erase(heads.begin());
