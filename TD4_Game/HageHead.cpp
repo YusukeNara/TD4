@@ -87,6 +87,10 @@ void HageHead::Update()
 void HageHead::Draw()
 {
 	headObjectSelf->DrawObject();
+}
+
+void HageHead::DrawParticle()
+{
 	SlapParticle->Draw(slapTex);
 }
 
@@ -166,7 +170,7 @@ void HageHead::SlappingMove()
 		return;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT) && !isSlap)
 	{
 		isSlap = true;
 

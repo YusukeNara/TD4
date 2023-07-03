@@ -116,6 +116,10 @@ void LightHairHead::Draw()
 			hairObjectSelf->DrawObject();
 		}
 	}
+}
+
+void LightHairHead::DrawParticle()
+{
 	SlapParticle->Draw(slapTex);
 	PullParticle->Draw(pullTex);
 }
@@ -194,9 +198,10 @@ void LightHairHead::SlappingMove()
 		return;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT) && !isSlap)
 	{
 		isSlap = true;
+		SlapCount++;
 
 		//飛ぶ方向を決定
 		blustVec = RVector3(NY_random::floatrand_sl(30, 0), NY_random::floatrand_sl(30, 0), 0);
@@ -304,11 +309,11 @@ void LightHairHead::PullOutHair()
 			pgstate.position = RVector3(pos.x, pos.y + 5, pos.z);
 			pgstate.vel = v * 4.0f;
 			pgstate.acc = -(v / 10);
-			pgstate.color_start = XMFLOAT4(0, 0, 0, 1);
+			pgstate.color_start = XMFLOAT4(1, 1, 1, 1);
 			pgstate.color_end = XMFLOAT4(0, 0, 0, 1);
-			pgstate.scale_start = 2.0f;
-			pgstate.scale_end = 2.5f;
-			pgstate.aliveTime = 20;
+			pgstate.scale_start = 3.0f;
+			pgstate.scale_end = 4.5f;
+			pgstate.aliveTime = 40;
 
 			PullParticle->Add(pgstate);
 		}
