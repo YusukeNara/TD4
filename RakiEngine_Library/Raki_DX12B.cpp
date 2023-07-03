@@ -515,12 +515,7 @@ bool Raki_DX12B::CreateFence()
 Raki_DX12B::~Raki_DX12B()
 {
 #ifdef _DEBUG
-	ID3D12DebugDevice* debugDevice;
-	if (SUCCEEDED(device.Get()->QueryInterface(&debugDevice)))
-	{
-		debugDevice->ReportLiveDeviceObjects(D3D12_RLDO_DETAIL | D3D12_RLDO_IGNORE_INTERNAL);
-		debugDevice->Release();
-	}
+
 
 #endif
 }
@@ -570,6 +565,7 @@ void Raki_DX12B::Initialize(Raki_WinAPI *win, bool isStopifFatalErrorDetected)
 			infoqueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
 			infoqueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
 		}
+		infoqueue->Release();
 	}
 
 #endif // _DEBUG
@@ -710,6 +706,39 @@ void Raki_DX12B::ClearDepthBuffer()
 	CD3DX12_CPU_DESCRIPTOR_HANDLE dsvH = CD3DX12_CPU_DESCRIPTOR_HANDLE(dsvHeap->GetCPUDescriptorHandleForHeapStart());
 	// 深度バッファのクリア
 	commandList->ClearDepthStencilView(dsvH, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+}
+
+void Raki_DX12B::Destroy()
+{
+	ID3D12Device* dev = *device.ReleaseAndGetAddressOf();
+	ID3D12CommandAllocator* cmdalloc = *commandAllocator.ReleaseAndGetAddressOf();
+	ID3D12GraphicsCommandList* cmdlist = *commandList.ReleaseAndGetAddressOf();
+	ID3D12CommandQueue* cmdqueue = *commandQueue.ReleaseAndGetAddressOf();
+	ID3D12Fence* f = *fence.ReleaseAndGetAddressOf();
+
+	delete dev;
+	delete cmdalloc;
+	delete cmdlist;
+	delete cmdqueue;
+	delete f;
+	dev = nullptr;
+	cmdalloc = nullptr;
+	cmdlist = nullptr;
+	cmdqueue = nullptr;
+	f = nullptr;
+}
+
+void Raki_DX12B::Finalize()
+{
+#ifdef _DEBUG
+	ID3D12DebugDevice* debugDevice;
+	device.Get()->QueryInterface(&debugDevice);
+#endif
+	Destroy();
+#ifdef _DEBUG
+	debugDevice->ReportLiveDeviceObjects(D3D12_RLDO_DETAIL | D3D12_RLDO_IGNORE_INTERNAL);
+	debugDevice->Release();
+#endif
 }
 
 bool Raki_DX12B::InitInput(Raki_WinAPI *win)

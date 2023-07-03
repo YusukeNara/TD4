@@ -74,10 +74,7 @@ typedef struct SpriteData
 	{
 
 	}
-	~SpriteData(){
-		insWorldMatrixes.clear();
-		insWorldMatrixes.shrink_to_fit();
-	}
+	~SpriteData();
 
 }SPData;
 

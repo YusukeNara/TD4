@@ -207,6 +207,21 @@ UINT TexManager::LoadDivTextureTest(uvAnimData *data,const char *filename, const
     return useNo;
 }
 
+void TexManager::DeleteTexture(UINT texhandle)
+{
+    //範囲外参照防止
+    if (texhandle < 0 || texhandle > 2047) {
+        return;
+    }
+
+    if (textureData[texhandle].texBuff.Get()) {
+        ID3D12Resource* res = *textureData[texhandle].texBuff.ReleaseAndGetAddressOf();
+
+        delete res;
+        res = nullptr;
+    }
+}
+
 void uvAnimData::AddOffsets(UVOFFSETS offset)
 {
     //オフセット格納

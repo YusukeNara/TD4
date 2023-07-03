@@ -96,6 +96,6 @@ public:
 	/// <returns>格納したテクスチャの場所を配列で</returns>
 	static UINT LoadDivTextureTest(uvAnimData *data, const char *filename, const int numDivTex, int sizeX);
 
-
+	static void DeleteTexture(UINT texhandle);
 };
 
