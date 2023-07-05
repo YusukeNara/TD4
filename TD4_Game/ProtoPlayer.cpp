@@ -51,6 +51,17 @@ void ProtoPlayer::Init()
 	uiOffsetClip = { 290,600 };
 
 	RetirementMoney = MaxRetirementMoney;
+
+	//制御点の座標
+	std::array<RVector3, 6> controlPoint;
+	controlPoint[1] = HandPositionOffset;
+	controlPoint[2] = RVector3(-40, 0, -40);
+	controlPoint[3] = RVector3(-30, 0, -35);
+	controlPoint[4] = RVector3(-35, 0, -50);
+	controlPoint[0] = controlPoint[4];
+	controlPoint[5] = controlPoint[1];
+
+	testSpline.SetSplinePoints(controlPoint.data(), 6, 20);
 }
 
 void ProtoPlayer::Update()
@@ -100,17 +111,6 @@ void ProtoPlayer::HandAttack()
 {
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
-		//制御点の座標
-		std::array<RVector3, 6> controlPoint;
-		controlPoint[1] = HandPositionOffset;
-		controlPoint[2] = RVector3(-40, 0, -40);
-		controlPoint[3] = RVector3(-30, 0, -35);
-		controlPoint[4] = RVector3(-35, 0, -50);
-		controlPoint[0] = controlPoint[1];
-		controlPoint[5] = controlPoint[4];
-
-		testSpline.SetSplinePoints(controlPoint.data(), 6, 60);
-
 		testSpline.Play();
 		isspline = true;
 	}
