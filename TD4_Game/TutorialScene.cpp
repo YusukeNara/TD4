@@ -45,6 +45,12 @@ TutorialScene::TutorialScene(ISceneChanger *changer) : BaseScene(changer)
 
 	hirightSprite1.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString22.png"));
 
+	tutorialSprite21.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString23.png"));
+	tutorialSprite22.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString24.png"));
+
+	tutorialSprite23.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString25.png"));
+	tutorialSprite24.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString26.png"));
+	tutorialSprite25.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString27.png"));
 }
 
 TutorialScene::~TutorialScene()
@@ -70,6 +76,7 @@ void TutorialScene::Update()
 	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_OPTION_R)) {
 		mSceneChanger->ChangeScene(eScene_Game);
 	}
+
 	if (tutorialNum >= 6)
 	{
 		player->Update();
@@ -96,7 +103,7 @@ void TutorialScene::Draw2D()
 	switch (tutorialNum)
 	{
 	case 0:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -105,7 +112,7 @@ void TutorialScene::Draw2D()
 		tutorialTitle.Draw();
 		break;
 	case 1:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -118,7 +125,7 @@ void TutorialScene::Draw2D()
 
 		break;
 	case 2:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -134,7 +141,7 @@ void TutorialScene::Draw2D()
 
 		break;
 	case 3:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -149,7 +156,7 @@ void TutorialScene::Draw2D()
 		tutorialSprite5.Draw();
 		break;
 	case 4:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -168,7 +175,7 @@ void TutorialScene::Draw2D()
 
 		break;
 	case 5:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -183,7 +190,7 @@ void TutorialScene::Draw2D()
 		tutorialSprite10.Draw();
 		break;
 	case 6:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -198,7 +205,7 @@ void TutorialScene::Draw2D()
 		tutorialSprite12.Draw();
 		break;
 	case 7:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -211,7 +218,7 @@ void TutorialScene::Draw2D()
 
 		break;
 	case 8:
-		if (Input::Get()->isKeyTrigger(DIK_W) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) == 0))
 		{
 			tutorialNum++;
 		}
@@ -219,9 +226,12 @@ void TutorialScene::Draw2D()
 
 		hirightSprite1.DrawSprite(145, 570, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
+
+		tutorialSprite23.DrawSprite(94,500);
+		tutorialSprite23.Draw();
 		break;
 	case 9:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -238,7 +248,7 @@ void TutorialScene::Draw2D()
 		tutorialSprite14.Draw();
 		break;
 	case 10:
-		if (Input::Get()->isKeyTrigger(DIK_W) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) == 0))
 		{
 			tutorialNum++;
 		}
@@ -247,10 +257,12 @@ void TutorialScene::Draw2D()
 		hirightSprite1.DrawSprite(145, 545, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
+		tutorialSprite23.DrawSprite(94, 500);
+		tutorialSprite23.Draw();
 		break;
 
 	case 11:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -270,7 +282,7 @@ void TutorialScene::Draw2D()
 		tutorialSprite15.Draw();
 		break;
 	case 12:
-		if (Input::Get()->isKeyTrigger(DIK_W) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) == 0))
 		{
 			tutorialNum++;
 		}
@@ -279,9 +291,11 @@ void TutorialScene::Draw2D()
 		hirightSprite1.DrawSprite(145, 545, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
+		tutorialSprite23.DrawSprite(94, 500);
+		tutorialSprite23.Draw();
 		break;
 	case 13:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -306,7 +320,7 @@ void TutorialScene::Draw2D()
 		break;
 
 	case 14:
-		if (Input::Get()->isKeyTrigger(DIK_A) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) == 0))
 		{
 			tutorialNum++;
 		}
@@ -316,9 +330,11 @@ void TutorialScene::Draw2D()
 		hirightSprite1.DrawSprite(25, 570, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
+		tutorialSprite25.DrawSprite(10, 500);
+		tutorialSprite25.Draw();
 		break;
 	case 15:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -346,7 +362,7 @@ void TutorialScene::Draw2D()
 
 
 	case 16:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -361,7 +377,7 @@ void TutorialScene::Draw2D()
 		break;
 
 	case 17:
-		if (Input::Get()->isKeyTrigger(DIK_D) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B) == 0))
 		{
 			tutorialNum++;
 		}
@@ -371,9 +387,11 @@ void TutorialScene::Draw2D()
 		hirightSprite1.DrawSprite(265, 570, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
+		tutorialSprite24.DrawSprite(200, 500);
+		tutorialSprite24.Draw();
 		break;
 	case 18:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -392,7 +410,7 @@ void TutorialScene::Draw2D()
 		break;
 
 	case 19:
-		if (Input::Get()->isKeyTrigger(DIK_A) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) == 0))
 		{
 			tutorialNum++;
 		}
@@ -402,9 +420,11 @@ void TutorialScene::Draw2D()
 		hirightSprite1.DrawSprite(25, 570, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
+		tutorialSprite25.DrawSprite(10, 500);
+		tutorialSprite25.Draw();
 		break;
 	case 20:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -424,7 +444,7 @@ void TutorialScene::Draw2D()
 		tutorialSprite17.Draw();
 		break;
 	case 21:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -438,7 +458,7 @@ void TutorialScene::Draw2D()
 		tutorialSprite13.Draw();
 		break;
 	case 22:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -455,7 +475,7 @@ void TutorialScene::Draw2D()
 		tutorialSprite19.Draw();
 		break;
 	case 23:
-		if (Input::Get()->isKeyTrigger(DIK_A) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) == 0))
 		{
 			tutorialNum++;
 		}
@@ -465,9 +485,11 @@ void TutorialScene::Draw2D()
 		hirightSprite1.DrawSprite(25, 545, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
+		tutorialSprite25.DrawSprite(10, 500);
+		tutorialSprite25.Draw();
 		break;
 	case 24:
-		if (Input::Get()->isKeyTrigger(DIK_SPACE) || Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A))
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
 		}
@@ -486,7 +508,36 @@ void TutorialScene::Draw2D()
 		tutorialSprite20.DrawSprite(32, 584);
 		tutorialSprite20.Draw();
 		break;
+	case 25:
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
+		{
+			tutorialNum++;
+		}
 
+		hagesiSprite.DrawSprite(0, 450);
+		hagesiSprite.Draw();
+
+		tutorialSprite21.DrawSprite(32, 520);
+		tutorialSprite21.Draw();
+
+		break;
+	case 26:
+		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
+		{
+			tutorialNum++;
+		}
+
+		hagesiSprite.DrawSprite(0, 450);
+		hagesiSprite.Draw();
+
+		tutorialSprite22.DrawSprite(32, 520);
+		tutorialSprite22.Draw();
+
+		break;
+	case 27:
+		mSceneChanger->ChangeScene(eScene_Game);
+
+		break;
 	default:
 		break;
 	}
