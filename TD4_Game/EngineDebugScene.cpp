@@ -23,8 +23,8 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testsp2.Create(testTex);
 
 	testFBX_YesBone = std::make_shared<Object3d>();
-	testFBX_YesBone.reset(LoadModel_FBXFile("SpiralPBR"));
-	testFBX_YesBone->SetAffineParam(RVector3(20.f, 20.f, 20.f), RVector3(90, 0, 0), RVector3(75.f, 0, -50.f));
+	testFBX_YesBone.reset(LoadModel_FBXFile("HAND"));
+	testFBX_YesBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(75.f, 0, -50.f));
 
 	testFBX_NoBone = std::make_shared<Object3d>();
 	std::shared_ptr<fbxModel> testModel = std::make_shared<fbxModel>();
@@ -63,7 +63,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testp.reset(ParticleManager::Create());
 	particleTex = TexManager::LoadTexture("Resources/effect1.png");
 	pgstate.scale_end = 0.0f;
-	pgstate.scale_start = 2.0f;
+	pgstate.scale_start = 10.0f;
 	pgstate.position = RVector3(0, 50, 0);
 	pgstate.isRandomSpawn = true;
 	pgstate.position_spawnRange1 = RVector3(50.f, 50.f, 50.f);
@@ -110,6 +110,8 @@ void EngineDebugScene::Update()
 
 	if (Input::isKey(DIK_G)) { 
 		pgstate.vel = rutility::randomRV3(RVector3(1, 1, 1), RVector3(-1, -1, -1));
+		pgstate.color_start = { 1,0,0,1 };
+		pgstate.color_end = { 1,1,1,1 };
 		testp->Add(pgstate);
 	}
 }
@@ -119,8 +121,8 @@ void EngineDebugScene::Draw()
 	testobject->DrawObject();
 	//testobj->DrawObject();
 
-	//testFBX_NoBone->DrawObject();
-	//testFBX_YesBone->DrawObject();
+	testFBX_NoBone->DrawObject();
+	testFBX_YesBone->DrawObject();
 
 	
 }
@@ -156,17 +158,12 @@ void EngineDebugScene::DrawImgui()
 	ImGui::Text("test cam eye %.2f,%.2f,%.2f", testcam._eyepos.x, testcam._eyepos.y, testcam._eyepos.z);
 	ImGui::Text("test cam target %.2f,%.2f,%.2f", testcam._targetVec.x, testcam._targetVec.y, testcam._targetVec.z);
 	ImGui::Text("test cam up %.2f,%.2f,%.2f", testcam._upVec.x, testcam._upVec.y, testcam._upVec.z);
-
 	ImGui::Text("test cam up %.2f,%.2f,%.2f,%.2f", q1.x, q1.y, q1.z, q1.w);
-
 	ImGui::Text("lightdir %.2f,%.2f,%.2f", DirectionalLight::GetLightDir().x,
 		DirectionalLight::GetLightDir().y, DirectionalLight::GetLightDir().z);
-
 	ImGui::SliderFloat("camrot", &camrot, 0.f, 2.0f);
-
 	ImGui::SliderInt("num", &testNum.uvOffsetHandle, 0, 9);
 	ImGui::SliderInt("dValue", &dval, -200000000, 200000000);
-
 	myImgui::EndDrawImGui();
 
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0), camrot);

@@ -41,7 +41,7 @@ struct ConstBufferDataB1
 
 struct ConstBufferDataSkin
 {
-	XMMATRIX bones[32];
+	XMMATRIX bones[64];
 };
 
 //ビルボードパーティクル頂点データ
@@ -142,6 +142,9 @@ public:
 
 	void StopAnimation();
 
+	//デバッグ表示
+	void DisplayObjectStatus(bool isDisplay);
+
 	//アフィン変換情報
 	RVector3 scale = { 1,1,1 };
 	RVector3 rotation = { 0,0,0 };
@@ -197,6 +200,10 @@ private:
 
 	//現在再生中のアニメーション番号
 	int playAnimNum = 0;
+
+	bool isDisplayAffineParam = true;
+	bool isDisplayMaterial = true;
+	bool isDisplayBone = true;
 };
 
 
