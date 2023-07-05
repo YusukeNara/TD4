@@ -45,6 +45,10 @@ void ResultScene::Finalize()
 
 void ResultScene::Update()
 {
+	if (Input::Get()->isKeyTrigger(DIK_1)
+		|| Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)) {
+		mSceneChanger->ChangeScene(eScene_Title);
+	}
 	Animation();
 }
 
@@ -237,26 +241,26 @@ void ResultScene::Draw2D()
 	else if (totalScore >= 10000)
 	{
 		spriteScore.uvOffsetHandle = (int)totalScore / 10000 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 320.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 256.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 320.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 256.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 256.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 192.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 256.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 192.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore / 100 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 192.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 128.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 192.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 128.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 128.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 64.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 128.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 64.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 64.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 0.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X3 - 64.f, SCORE_POS_Y - 64.f, SCORE_POS_X3 - 0.f, SCORE_POS_Y);
 	}
 	else if (totalScore >= 1000)
 	{
 		spriteScore.uvOffsetHandle = (int)totalScore / 1000 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 256.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 192.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X2 - 256.f, SCORE_POS_Y - 64.f, SCORE_POS_X2 - 192.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore / 100 % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 192.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 128.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X2 - 192.f, SCORE_POS_Y - 64.f, SCORE_POS_X2 - 128.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = ((int)totalScore / 10) % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 128.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 64.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X2 - 128.f, SCORE_POS_Y - 64.f, SCORE_POS_X2 - 64.f, SCORE_POS_Y);
 		spriteScore.uvOffsetHandle = (int)totalScore % 10;
-		spriteScore.DrawExtendSprite(SCORE_POS_X - 64.f, SCORE_POS_Y - 64.f, SCORE_POS_X - 0.f, SCORE_POS_Y);
+		spriteScore.DrawExtendSprite(SCORE_POS_X2 - 64.f, SCORE_POS_Y - 64.f, SCORE_POS_X2 - 0.f, SCORE_POS_Y);
 	}
 	else
 	{
@@ -298,7 +302,7 @@ void ResultScene::Draw2D()
 		spriteScore.uvOffsetHandle = (int)handleNum % 10;
 		spriteScore.DrawExtendSprite(HANDLE_POS.x + 128.f, HANDLE_POS.y, HANDLE_POS.x + 192.f, HANDLE_POS.y + 64.f);
 	}
-	spriteRank.uvOffsetHandle = rank;
+	spriteRank.uvOffsetHandle = SelectRank();
 	spriteRank.DrawExtendSprite(rankPos.x + 0.f, rankPos.y, rankPos.x + 256.f, rankPos.y + 256.f);
 	spriteReview.Draw();
 	spriteScore.Draw();
@@ -317,27 +321,27 @@ void ResultScene::DrawImgui()
 
 }
 
-void ResultScene::SelectRank()
+const int& ResultScene::SelectRank()
 {
-	if (totalScore > 15000)
+	if (totalScore > 18000)
 	{
-		rank = S;
+		return S;
 	}
-	else if (totalScore > 12500)
+	else if (totalScore > 15000)
 	{
-		rank = A;
+		return A;
 	}
 	else if (totalScore > 10000)
 	{
-		rank = B;
+		return B;
 	}
-	else if (totalScore > 7500)
+	else if (totalScore > 5000)
 	{
-		rank = C;
+		return C;
 	}
 	else
 	{
-		rank = D;
+		return D;
 	}
 }
 
@@ -361,6 +365,8 @@ void ResultScene::Animation()
 		else if (animationCount < animationCountMax / 2)
 		{
 			SCORE_POS_X += 10;
+			SCORE_POS_X2 += 10;
+			SCORE_POS_X3 += 10;
 		}
 		else if (animationCount > animationCountMax / 4 * 3)
 		{

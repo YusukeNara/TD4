@@ -92,9 +92,11 @@ private:
 private:
 	//最初のNumセット
 	void FirstNumSet();
+	void TutorialFirstNumSet();
 public:
 	//初期化処理
 	void Initialize();
+	void TutorialInit();
 	//更新処理
 	void Update(Head *heads, const CheraType cheraType, const ItemType itemType);
 	//描画

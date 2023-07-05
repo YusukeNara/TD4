@@ -74,9 +74,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		//3D通常描画ここから
 		graphicmgr.StartDeferredDraw();
 
-		sceneMgr->Draw();
-
 		FieldDrawer::get()->Draw();
+
+		sceneMgr->Draw();
 
 		//3D通常描画ここまで
 		graphicmgr.EndDefferdDraw();

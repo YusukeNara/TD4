@@ -22,7 +22,7 @@ public:
     void Draw() override;          //描画処理をオーバーライド。
     void Draw2D() override;
     void DrawImgui() override;
-    void SelectRank();
+    const int& SelectRank();
 
     void Animation();
 
@@ -46,8 +46,6 @@ public:
         D,C,B,A,S
     };
 
-    int rank = 0;
-
     //総合的なスコア
     float totalScore;
     //総合的なレビュー
@@ -64,6 +62,7 @@ public:
 
     //捌いた数の位置
     float SCORE_POS_X = -385.0f;
+    float SCORE_POS_X2 = -353.0f;
+    float SCORE_POS_X3 = -321.0f;
     const float SCORE_POS_Y = 360.0f;
 };
-

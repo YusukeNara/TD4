@@ -41,7 +41,8 @@ void GameScene::Update() {
 		mSceneChanger->ChangeScene(eScene_Title);
 	}
 
-	if (60 - (GameFrame / 60) < 0) {
+	if (60 - (GameFrame / 60) < 0
+		|| Input::Get()->isKeyTrigger(DIK_0)) {
 		mSceneChanger->ChangeScene(eScene_Result);
 	}
 
@@ -73,4 +74,9 @@ void GameScene::DrawImgui()
 
 
 
+}
+
+void GameScene::DrawParticle()
+{
+	gmgr.DrawParticle();
 }

@@ -82,6 +82,11 @@ void HeadManager::DrawUI()
 	scoreManager->Draw();
 }
 
+void HeadManager::DrawParticle()
+{
+	for (const auto& h : heads) { h->DrawParticle(); }
+}
+
 void HeadManager::PopFront()
 {
 	heads.erase(heads.begin());
@@ -95,6 +100,52 @@ void HeadManager::PopFront()
 CheraType HeadManager::GetFrontType()
 {
 	return charaType[0];
+}
+
+void HeadManager::TutorialInit()
+{
+	RVector3 easeOffset(0, 0, 100.0f);
+	int i = 0;
+	for (auto &ep : easepos) {
+		ep = easeOffset * float(i);
+		ep.z += 100.0f;
+		i++;
+	}
+
+	TutorialFirstSpawn();
+
+	scoreManager = new ScoreManager();
+	scoreManager->TutorialInit();
+}
+
+void HeadManager::TutorialUpdate()
+{
+	if (tutorialNum < 3)
+	{
+		//heads.begin()->get()->isMostFront = true;
+		heads.begin()->get()->waitTime = 0;
+	}
+
+	//先頭の人の処理が終わったら先頭を消す
+	for (int headNum = 0; headNum < 4; headNum++)
+	{
+		scoreManager->Update(heads[0].get(), charaType[0], player->GetItemType());
+		if (heads[0]->isAllMoveFinish)
+		{
+			PopFront();
+
+			for (auto &h : heads)
+			{
+				h->ResetFrontEase();
+			}
+			tutorialNum++;
+		}
+	}
+
+	//更新処理
+	for (auto &h : heads) {
+		h->Update();
+	}
 }
 
 void HeadManager::FirstSpawn()
@@ -113,6 +164,53 @@ void HeadManager::FirstSpawn()
 		head->ResetFrontEase();
 		heads.push_back(std::move(head));
 	}
+}
+
+void HeadManager::TutorialFirstSpawn()
+{
+	std::unique_ptr<Head> head = std::make_unique<Head>();
+
+	head.reset(new AfroHead());
+	head->SetPlayer(player);
+
+	head->Init();
+	head->pos = easepos[0];
+	charaType[0] = CheraType::SkinHead;
+	head->ResetFrontEase();
+	heads.push_back(std::move(head));
+
+	std::unique_ptr<Head> head2 = std::make_unique<Head>();
+
+	head2.reset(new LightHairHead());
+	head2->SetPlayer(player);
+
+	head2->Init();
+	head2->pos = easepos[1];
+	charaType[1] = CheraType::Afro;
+	head2->ResetFrontEase();
+	heads.push_back(std::move(head2));
+
+	std::unique_ptr<Head> head3 = std::make_unique<Head>();
+
+	head3.reset(new HageHead());
+	head3->SetPlayer(player);
+
+	head3->Init();
+	head3->pos = easepos[2];
+	charaType[2] = CheraType::SkinHead;
+	head3->ResetFrontEase();
+	heads.push_back(std::move(head3));
+
+	std::unique_ptr<Head> head4 = std::make_unique<Head>();
+
+	head4.reset(new HageHead());
+	head4->SetPlayer(player);
+
+	head4->Init();
+	head4->pos = easepos[3];
+	charaType[3] = CheraType::SkinHead;
+	head4->ResetFrontEase();
+	heads.push_back(std::move(head4));
 }
 
 Head *HeadManager::HeadSpawn(const int arrayNum)

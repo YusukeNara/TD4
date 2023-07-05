@@ -3,6 +3,7 @@
 #include "TitleScene.h"
 #include "EngineDebugScene.h"
 #include "ResultScene.h"
+#include"TutorialScene.h"
 
 //Raki_DX12B         *SceneManager::dx12b  = nullptr;
 //NY_Object3DManager *SceneManager::objmgr = nullptr;
@@ -46,6 +47,9 @@ void SceneManager::Update()
         case eScene_Title:        //Ÿ‚Ì‰æ–Ê‚ªƒƒjƒ…[‚È‚ç
             nowScene = (BaseScene*) new TitleScene(this);
             break;//ˆÈ‰º—ª
+        case eScene_Tutorial:
+            nowScene = (BaseScene *) new TutorialScene(this);
+            break;
         case eScene_Game:
             nowScene = (BaseScene*) new GameScene(this);
             break;

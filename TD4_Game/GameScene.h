@@ -18,6 +18,7 @@ public:
     void Draw() override;            //描画処理をオーバーライド。
     void Draw2D() override;
     void DrawImgui() override;
+    void DrawParticle() override;
 
     Sprite testsp;
     //std::shared_ptr<Object3d> testobject;

@@ -15,6 +15,11 @@ void ScoreManager::FirstNumSet()
 	}
 }
 
+void ScoreManager::TutorialFirstNumSet()
+{
+	reviewNum.push_back(5);
+}
+
 void ScoreManager::Initialize()
 {
 	totalReview = 0;
@@ -53,7 +58,45 @@ void ScoreManager::Initialize()
 	spriteGuestTitle.Create(TexManager::LoadTexture("Resources/Guest.png"));
 }
 
-void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
+void ScoreManager::TutorialInit()
+{
+	totalReview = 0;
+	oldReview = 0;
+	totalScore = 0;
+	elpsedTime = 0;
+	scorePrintFlag = false;
+	scorePos = { 1280,526 };
+	scoreA = 1;
+	reviewPos = { 32,TOTALREVIEW_POS.y + 128 };
+	reviewPrintFlag = false;
+	reviewA = 1;
+
+	handleNum = 0;
+
+	//Œ»İ‚ÌŠÔ‚ğƒZƒbƒg
+	beginTime = time(NULL);
+
+	TutorialFirstNumSet();
+
+	for (const auto &review : reviewNum)
+	{
+		oldReview += review;
+	}
+
+	totalReview = oldReview / reviewNum.size();
+
+	spriteScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	spriteTotalScore.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
+	spriteTotalReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
+	spriteGuest.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	spriteLife.Create(TexManager::LoadTexture("Resources/life.png"));
+	spriteScoreTitle.Create(TexManager::LoadTexture("Resources/ScoreTitle.png"));
+	spriteTotalReviewTitle.Create(TexManager::LoadTexture("Resources/TotalReview.png"));
+	spriteGuestTitle.Create(TexManager::LoadTexture("Resources/Guest.png"));
+}
+
+void ScoreManager::Update(Head *heads, CheraType charaType, ItemType itemType)
 {
 	if (scorePrintFlag == false)
 	{
@@ -103,9 +146,9 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 		//J‚¢‚½”‚ğŒv‘ª‚·‚é
 		handleNum++;
 
-		if (cheraType == CheraType::SkinHead)
+		if (charaType == CheraType::SkinHead)
 		{
-			//Åˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‹q‚É‘Î‚µ‚ÄÅˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í³‰ğ)
 			if (itemType == ItemType::Hand)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -123,7 +166,7 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				reviewNum.push_back(skinheadReview);
 				oneReview = skinheadReview;
 			}
-			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í¸”s)
 			if (itemType == ItemType::Clippers || itemType == ItemType::Scissors)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -148,9 +191,9 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				oldReview += review;
 			}
 		}
-		if (cheraType == CheraType::Thinning)
+		if (charaType == CheraType::Thinning)
 		{
-			//Åˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‹q‚É‘Î‚µ‚ÄÅˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í³‰ğ)
 			if (itemType == ItemType::Scissors)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -168,7 +211,7 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				reviewNum.push_back(thinningReview);
 				oneReview = thinningReview;
 			}
-			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í¸”s)
 			if (itemType == ItemType::Hand || itemType == ItemType::Clippers)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -192,9 +235,9 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				oldReview += review;
 			}
 		}
-		if (cheraType == CheraType::Afro)
+		if (charaType == CheraType::Afro)
 		{
-			//Åˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‹q‚É‘Î‚µ‚ÄÅˆ«‚È‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í³‰ğ)
 			if (itemType == ItemType::Clippers)
 			{
 				//Šî‘bƒŒƒrƒ…[
@@ -212,7 +255,7 @@ void ScoreManager::Update(Head *heads, CheraType cheraType, ItemType itemType)
 				reviewNum.push_back(afroheadReview);
 				oneReview = afroheadReview;
 			}
-			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«
+			//‚ ‚Á‚Ä‚¢‚é‚±‚Æ‚ğ‚µ‚½‚Æ‚«(ƒQ[ƒ€“I‚É‚Í¸”s)
 			if (itemType == ItemType::Hand || itemType == ItemType::Scissors)
 			{
 				//Šî‘bƒŒƒrƒ…[
