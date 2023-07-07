@@ -71,5 +71,11 @@ private:
     Sprite hirightSprite2;
     Sprite hirightSprite3;
 
+    Sprite tutorialSprite21;
+    Sprite tutorialSprite22;
+
+    Sprite tutorialSprite23;
+    Sprite tutorialSprite24;
+    Sprite tutorialSprite25;
 };
 
