@@ -17,6 +17,15 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(30, 0, 0));
 	titlePlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 0);
 
+	titleAfro = std::make_shared<Object3d>();
+	titleAfro.reset(LoadModel_FBXFile("kamihusahusa"));
+	titleAfro->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(30, 5, 0));
+
+	titleIppon = std::make_shared<Object3d>();
+	titleIppon.reset(LoadModel_FBXFile("ippon"));
+	titleIppon->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(330, 32, 0));
+
+
 	titleEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(0, -200, 0),
 		RVector3(0, 200, 0), 100);
 
@@ -76,6 +85,11 @@ void TitleScene::Draw() {
 	//testobject->DrawObject();
 	titleHage->DrawObject();
 	titlePlayer->DrawObject();
+	if ((animationCount != animationCountMax))
+	{
+		titleAfro->DrawObject();
+		titleIppon->DrawObject();
+	}
 }
 
 void TitleScene::Draw2D()
@@ -117,6 +131,7 @@ void TitleScene::Animation()
 		titleHagePos.x += 2.0f;
 		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titlePlayerPos);
 		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titleHagePos);
+		titleAfro->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(titlePlayerPos.x, 5, 0));
 	}
 	else if (animationCount < (animationCountMax / 4 * 3))
 	{
@@ -124,6 +139,7 @@ void TitleScene::Animation()
 		titleHagePos.x -= 2.0f;
 		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), titlePlayerPos);
 		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), titleHagePos);
+		titleIppon->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(titleHagePos.x, 32, 0));
 	}
 	else if (animationCount < animationCountMax)
 	{
