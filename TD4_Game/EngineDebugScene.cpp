@@ -5,6 +5,8 @@
 
 #include <FbxLoader.h>
 
+#include <RakiUtility.h>
+
 using namespace Rv3Ease;
 
 EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
@@ -13,7 +15,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 
 	testobject = std::make_shared<Object3d>();
 	testobject.reset(NY_Object3DManager::Get()->CreateModel_Box(10.f, 1.f, 1.f, testTex));
-	testobject->SetAffineParam(RVector3(5, 5, 5), RVector3(0, 0, 0), RVector3(0, 0, 0));
+	testobject->SetAffineParam(RVector3(1, 1, 1), RVector3(0, 0, 0), RVector3(0, 0, 0));
 	testEase.Init(RV3_EASE_TYPE::EASE_CUBIC_INOUT, RVector3(0, 0, 0),
 		RVector3(0, 50, 0), 30);
 
@@ -56,6 +58,32 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	q1 *= q2;
 
 	lightdir = RVector3(0, 0, 1);
+
+	testp = std::make_unique<ParticleManager>();
+	testp.reset(ParticleManager::Create());
+	particleTex = TexManager::LoadTexture("Resources/effect1.png");
+	pgstate.scale_end = 0.0f;
+	pgstate.scale_start = 2.0f;
+	pgstate.position = RVector3(0, 50, 0);
+	pgstate.isRandomSpawn = true;
+	pgstate.position_spawnRange1 = RVector3(50.f, 50.f, 50.f);
+	pgstate.position_spawnRange1 = RVector3(-50.f, -50.f, -50.f);
+	pgstate.aliveTime = 60;
+	pgstate.color_start = { 1.f,1.f,1.f,1.f };
+	pgstate.color_end = { 1.f,1.f,1.f,0.f };
+
+	controlPoint[1] = RVector3(50, 50, 0);
+	controlPoint[2] = RVector3(0, 0, 0);
+	controlPoint[3] = RVector3(-50, 50, 0);
+	controlPoint[4] = RVector3(0, 100, 0);
+	controlPoint[0] = controlPoint[4];
+	controlPoint[5] = controlPoint[1];
+
+	testspline.SetSplinePoints(controlPoint.data(), 6, 240);
+
+	testbezier.Init(RVector3(-100, 0, 0), RVector3(0, 100, 100), RVector3(0, 0, 0),
+		60, RV3_EASE_TYPE::EASE_CUBIC_OUT);
+
 }
 
 EngineDebugScene::~EngineDebugScene()
@@ -73,21 +101,26 @@ void EngineDebugScene::Finalize()
 
 void EngineDebugScene::Update()
 {
-	if (Input::isKeyTrigger(DIK_Q)) { testEase.Play(); }
-	else if (Input::isKeyTrigger(DIK_E)) { testEase.Reset(); }
+	if (Input::isKeyTrigger(DIK_Q)) { testbezier.Play(); }
+	else if (Input::isKeyTrigger(DIK_E)) { testbezier.Reset(); }
 
-	testobject->SetAffineParamTranslate(testEase.Update());
+	testobject->SetAffineParamTranslate(testbezier.Update());
 
 	if (Input::isKeyTrigger(DIK_O)) { Audio::PlayLoadedSound(testSE, true); }
+
+	if (Input::isKey(DIK_G)) { 
+		pgstate.vel = rutility::randomRV3(RVector3(1, 1, 1), RVector3(-1, -1, -1));
+		testp->Add(pgstate);
+	}
 }
 
 void EngineDebugScene::Draw()
 {
-	//testobject->DrawObject();
-	testobj->DrawObject();
+	testobject->DrawObject();
+	//testobj->DrawObject();
 
-	testFBX_NoBone->DrawObject();
-	testFBX_YesBone->DrawObject();
+	//testFBX_NoBone->DrawObject();
+	//testFBX_YesBone->DrawObject();
 
 	
 }
@@ -99,8 +132,13 @@ void EngineDebugScene::Draw2D()
 
 	testNum.DrawSprite(0, 100);
 
-	testNum.DrawNumSpriteZeroFill(0, 0, 32, 32, dval, 10);
+	testNum.DrawNumSprite(0, 0, 32, 32, dval);
 	testNum.uvOffsetHandle = 1;
+
+	if(dval <20000000){
+		dval += 1;
+	}
+
 
 	testNum.Draw();
 }
@@ -166,4 +204,10 @@ void EngineDebugScene::DrawImgui()
 	testobj->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testobject->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 
+}
+
+void EngineDebugScene::DrawParticle()
+{
+	testp->Update();
+	testp->Draw(particleTex);
 }

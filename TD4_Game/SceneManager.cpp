@@ -84,6 +84,11 @@ void SceneManager::DrawImgui()
     nowScene->DrawImgui();
 }
 
+void SceneManager::DrawParticle()
+{
+    nowScene->DrawParticle();
+}
+
 void SceneManager::ChangeScene(eScene NextScene)
 {
     //次のシーン番号をセット

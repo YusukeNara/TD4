@@ -75,3 +75,8 @@ void GameScene::DrawImgui()
 
 
 }
+
+void GameScene::DrawParticle()
+{
+	gmgr.DrawParticle();
+}

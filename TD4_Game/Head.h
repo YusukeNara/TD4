@@ -23,6 +23,8 @@ public:
 
 	virtual void Draw() {};
 
+	virtual void DrawParticle() {};
+
 	virtual void Finalize() {};
 
 	virtual void KramerMove() {};

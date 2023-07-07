@@ -18,6 +18,8 @@ public:
 
 	void Draw() override;
 
+	void DrawParticle() override;
+
 	void Finalize() override;
 
 	void KramerMove() override;

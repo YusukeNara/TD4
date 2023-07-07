@@ -8,6 +8,7 @@
 #include <NY_Object3dMgr.h>
 #include "Raki_Input.h"
 
+using namespace Rv3Ease;
 
 enum CheraType
 {
@@ -94,5 +95,11 @@ private:
 	XMFLOAT2 uiOffsetHand;
 	XMFLOAT2 uiOffsetClip;
 	XMFLOAT2 uiOffsetScis;
+
+	//曲線補間
+	Rv3Spline testSpline;
+	bool isspline = false;
+	RVector3 slapRot = { 90,0,0 };
+	std::array<RVector3, 6> controlPoint;
 };
 

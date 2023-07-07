@@ -298,9 +298,6 @@ void FbxLoader::ParseMaterial(fbxModel* model, FbxNode* node)
             }
         }
 
-        if (!textureLoaded) {
-            model->material.texNumber = TexManager::LoadTexture(baseDir + defaultTexName);
-        }
     }
 
     if (!textureLoaded) { model->material.texNumber = TexManager::LoadTexture(baseDir + defaultTexName); }
