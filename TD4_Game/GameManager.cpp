@@ -50,6 +50,11 @@ void GameManager::Draw()
 	//NY_Object3DManager::Get()->CloseDrawObject3D();
 }
 
+void GameManager::DrawParticle()
+{
+	headMan->DrawParticle();
+}
+
 void GameManager::UIDraw()
 {
 	player->DrawUI();

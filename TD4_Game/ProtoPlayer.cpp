@@ -40,7 +40,7 @@ void ProtoPlayer::Init()
 	//ハサミのアフィン変換
 	ClipPositionOffset = { 35,0,-50 };
 	ClipRotationOffset = { 0,0,0 };
-	ClipScaleOffset = { 0.02,0.02,0.02 };
+	ClipScaleOffset = { 0.01,0.01,0.01 };
 
 	handObject->SetAffineParam(HandScaleOffset, HandRotationOffset, HandPositionOffset);
 	barikanObject->SetAffineParam(CutScaleOffset, CutRotationOffset, CutPositionOffset);
@@ -51,6 +51,16 @@ void ProtoPlayer::Init()
 	uiOffsetClip = { 290,600 };
 
 	RetirementMoney = MaxRetirementMoney;
+
+	//制御点の座標
+	controlPoint[1] = HandPositionOffset;
+	controlPoint[2] = RVector3(-50, 0, -10);
+	controlPoint[3] = RVector3(-15, 0, -15);
+	controlPoint[4] = HandPositionOffset;
+	controlPoint[0] = controlPoint[4];
+	controlPoint[5] = controlPoint[1];
+
+	testSpline.SetSplinePoints(controlPoint.data(), 6, 18);
 }
 
 void ProtoPlayer::Update()
@@ -59,6 +69,8 @@ void ProtoPlayer::Update()
 	barikanObject->SetAffineParam(CutScaleOffset, CutRotationOffset, CutPositionOffset);
 	scissorsObject->SetAffineParam(ClipScaleOffset, ClipRotationOffset, ClipPositionOffset);
 
+
+
 	Attack();
 
 	ChangeItem();
@@ -66,9 +78,9 @@ void ProtoPlayer::Update()
 
 void ProtoPlayer::Draw()
 {
-	//handObject->DrawObject();
-	//barikanObject->DrawObject();
-	//scissorsObject->DrawObject();
+	handObject->DrawObject();
+	barikanObject->DrawObject();
+	scissorsObject->DrawObject();
 }
 
 void ProtoPlayer::DrawUI()
@@ -83,21 +95,11 @@ void ProtoPlayer::DrawUI()
 
 void ProtoPlayer::Attack()
 {
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
-	{
-		if (handItemType == Hand)
-		{
-			HandAttack();
-		}
-		else if (handItemType == Scissors)
-		{
-			CutHair();
-		}
-		else if (handItemType == Clippers)
-		{
-			Clip();
-		}
-	}
+	HandAttack();
+
+	CutHair();
+
+	Clip();
 }
 
 void ProtoPlayer::Finalize()
@@ -106,6 +108,41 @@ void ProtoPlayer::Finalize()
 
 void ProtoPlayer::HandAttack()
 {
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
+	{
+		testSpline.Play();
+		slapRot.y = -20;
+		isspline = true;
+	}
+
+	if (!isspline)
+	{
+		handObject->SetAffineParamRotate(HandRotationOffset);
+		handObject->SetAffineParamTranslate(HandPositionOffset);
+		return;
+	}
+
+	if (isspline)
+	{
+		//slapRot.y += 3;
+		handObject->SetAffineParamRotate(slapRot);
+		handObject->SetAffineParamTranslate(testSpline.Update());
+
+		if (handObject->position == controlPoint[2])
+		{
+			slapRot.y = -10;
+		}
+		else if (handObject->position == controlPoint[3])
+		{
+			slapRot.y = 40;
+		}
+
+		if (handObject->position == HandPositionOffset)
+		{
+			testSpline.Reset();
+			isspline = false;
+		}
+	}
 }
 
 void ProtoPlayer::CutHair()

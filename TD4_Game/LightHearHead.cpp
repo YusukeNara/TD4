@@ -22,8 +22,8 @@ void LightHairHead::Init()
 	PullParticle.reset(ParticleManager::Create());
 	pullTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
-	headObjectSelf = std::make_unique<Object3d>();
-	hairObjectSelf = std::make_unique<Object3d>();
+	headObjectSelf = std::make_shared<Object3d>();
+	hairObjectSelf = std::make_shared<Object3d>();
 
 	headObjectSelf.reset(LoadModel_FBXFile("hage_1"));
 	hairObjectSelf.reset(LoadModel_FBXFile("ippon"));
@@ -51,6 +51,7 @@ void LightHairHead::Update()
 {
 	//オブジェクト描画位置を設定
 	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
+	headObjectSelf->SetAffineParamRotate(rot);
 	hairObjectSelf->SetAffineParamTranslate(pos + hairOffset);
 
 	if (isMostFront && !isFrontEase)
@@ -115,6 +116,10 @@ void LightHairHead::Draw()
 			hairObjectSelf->DrawObject();
 		}
 	}
+}
+
+void LightHairHead::DrawParticle()
+{
 	SlapParticle->Draw(slapTex);
 	PullParticle->Draw(pullTex);
 }
@@ -171,8 +176,10 @@ void LightHairHead::SlappingMove()
 		}
 		else
 		{
-			pos.x -= 0.5f;
-			if (pos.x < -3)
+			blustTime++;
+			pos += blustVec;
+			rot += blustRot;
+			if (blustTime > maxBustTime)
 			{
 				isAllMoveFinish = true;
 			}
@@ -191,9 +198,17 @@ void LightHairHead::SlappingMove()
 		return;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT) && !isSlap)
 	{
 		isSlap = true;
+		SlapCount++;
+
+		//飛ぶ方向を決定
+		blustVec = RVector3(NY_random::floatrand_sl(30, 0), NY_random::floatrand_sl(30, 0), 0);
+		blustVec = blustVec.norm() * 7;
+
+		blustRot = RVector3(NY_random::floatrand_sl(10, 0), NY_random::floatrand_sl(10, 0), NY_random::floatrand_sl(10, 0));
+		blustRot *= 5;
 
 		//パーティクル生成
 		for (int i = 0; i < 30; i++)
@@ -294,11 +309,11 @@ void LightHairHead::PullOutHair()
 			pgstate.position = RVector3(pos.x, pos.y + 5, pos.z);
 			pgstate.vel = v * 4.0f;
 			pgstate.acc = -(v / 10);
-			pgstate.color_start = XMFLOAT4(0, 0, 0, 1);
+			pgstate.color_start = XMFLOAT4(1, 1, 1, 1);
 			pgstate.color_end = XMFLOAT4(0, 0, 0, 1);
-			pgstate.scale_start = 2.0f;
-			pgstate.scale_end = 2.5f;
-			pgstate.aliveTime = 20;
+			pgstate.scale_start = 3.0f;
+			pgstate.scale_end = 4.5f;
+			pgstate.aliveTime = 40;
 
 			PullParticle->Add(pgstate);
 		}

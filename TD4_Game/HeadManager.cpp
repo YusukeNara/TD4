@@ -82,6 +82,11 @@ void HeadManager::DrawUI()
 	scoreManager->Draw();
 }
 
+void HeadManager::DrawParticle()
+{
+	for (const auto& h : heads) { h->DrawParticle(); }
+}
+
 void HeadManager::PopFront()
 {
 	heads.erase(heads.begin());
@@ -117,8 +122,8 @@ void HeadManager::TutorialUpdate()
 {
 	if (tutorialNum < 3)
 	{
+		//heads.begin()->get()->isMostFront = true;
 		heads.begin()->get()->waitTime = 0;
-		heads.begin()->get()->isMostFront = true;
 	}
 
 	//先頭の人の処理が終わったら先頭を消す

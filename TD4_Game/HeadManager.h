@@ -22,6 +22,7 @@ public:
 	void Update();
 	void Draw();
 	void DrawUI();
+	void DrawParticle();
 	//先頭の人が何かを判別する
 	CheraType GetFrontType();
 
@@ -29,6 +30,8 @@ public:
 	void TutorialUpdate();
 public:
 	const ScoreManager *GetScoreManager() { return scoreManager; }
+	//頭コンテナ
+	std::vector<std::unique_ptr<Head>> heads;
 private:
 	//初回スポーン
 	void FirstSpawn();
@@ -38,8 +41,6 @@ private:
 	//先頭の人を消す
 	void PopFront();
 private:
-	//頭コンテナ
-	std::vector<std::unique_ptr<Head>> heads;
 	//イージング用座標
 	std::array<RVector3, HEAD_DISPLAY_MAX> easepos;
 	//属性

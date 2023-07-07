@@ -29,6 +29,8 @@ public:
     void Draw2D() override;
     void DrawImgui() override;
 
+    void DrawParticle();
+
     // ˆø” nextScene ‚ÉƒV[ƒ“‚ğ•ÏX‚·‚é
     void ChangeScene(eScene NextScene) override;
 

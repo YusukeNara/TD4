@@ -23,6 +23,8 @@ public:
 
 	void Draw();
 
+	void DrawParticle();
+
 	void UIDraw();
 
 	void Finalize();
