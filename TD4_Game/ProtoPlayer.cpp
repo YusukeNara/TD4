@@ -55,9 +55,9 @@ void ProtoPlayer::Init()
 	//制御点の座標
 	std::array<RVector3, 6> controlPoint;
 	controlPoint[1] = HandPositionOffset;
-	controlPoint[2] = RVector3(-40, 0, -40);
-	controlPoint[3] = RVector3(-30, 0, -35);
-	controlPoint[4] = RVector3(-35, 0, -50);
+	controlPoint[2] = RVector3(-40, 0, -25);
+	controlPoint[3] = RVector3(-45, 0, -20);
+	controlPoint[4] = RVector3(-10, 0, -20);
 	controlPoint[0] = controlPoint[4];
 	controlPoint[5] = controlPoint[1];
 
@@ -112,17 +112,21 @@ void ProtoPlayer::HandAttack()
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		testSpline.Play();
+		slapRot = -20;
 		isspline = true;
 	}
 
 	if (!isspline)
 	{
+		//handObject->SetAffineParamRotate(HandRotationOffset);
 		handObject->SetAffineParamTranslate(HandPositionOffset);
 		return;
 	}
 
 	if (isspline)
 	{
+		slapRot += 3;
+		//handObject->SetAffineParamRotate({ 90,slapRot,0 });
 		handObject->SetAffineParamTranslate(testSpline.Update());
 
 		if (handObject->position == HandPositionOffset)

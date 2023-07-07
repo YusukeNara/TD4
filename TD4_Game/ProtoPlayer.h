@@ -99,5 +99,6 @@ private:
 	//曲線補間
 	Rv3Spline testSpline;
 	bool isspline = false;
+	float slapRot = 0;
 };
 
