@@ -36,6 +36,8 @@ public:
 
     std::shared_ptr<Object3d> titleHage;
     std::shared_ptr<Object3d> titlePlayer;
+    std::shared_ptr<Object3d> titleAfro;
+    std::shared_ptr<Object3d> titleIppon;
 
     Rv3Ease::Rv3Easing titleEase;
 
