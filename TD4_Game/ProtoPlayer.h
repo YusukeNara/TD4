@@ -99,6 +99,7 @@ private:
 	//曲線補間
 	Rv3Spline testSpline;
 	bool isspline = false;
-	float slapRot = 0;
+	RVector3 slapRot = { 90,0,0 };
+	std::array<RVector3, 6> controlPoint;
 };
 

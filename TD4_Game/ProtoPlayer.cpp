@@ -53,15 +53,14 @@ void ProtoPlayer::Init()
 	RetirementMoney = MaxRetirementMoney;
 
 	//制御点の座標
-	std::array<RVector3, 6> controlPoint;
 	controlPoint[1] = HandPositionOffset;
-	controlPoint[2] = RVector3(-40, 0, -25);
-	controlPoint[3] = RVector3(-45, 0, -20);
-	controlPoint[4] = RVector3(-10, 0, -20);
+	controlPoint[2] = RVector3(-50, 0, -10);
+	controlPoint[3] = RVector3(-15, 0, -15);
+	controlPoint[4] = HandPositionOffset;
 	controlPoint[0] = controlPoint[4];
 	controlPoint[5] = controlPoint[1];
 
-	testSpline.SetSplinePoints(controlPoint.data(), 6, 20);
+	testSpline.SetSplinePoints(controlPoint.data(), 6, 18);
 }
 
 void ProtoPlayer::Update()
@@ -112,22 +111,31 @@ void ProtoPlayer::HandAttack()
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		testSpline.Play();
-		slapRot = -20;
+		slapRot.y = -20;
 		isspline = true;
 	}
 
 	if (!isspline)
 	{
-		//handObject->SetAffineParamRotate(HandRotationOffset);
+		handObject->SetAffineParamRotate(HandRotationOffset);
 		handObject->SetAffineParamTranslate(HandPositionOffset);
 		return;
 	}
 
 	if (isspline)
 	{
-		slapRot += 3;
-		//handObject->SetAffineParamRotate({ 90,slapRot,0 });
+		//slapRot.y += 3;
+		handObject->SetAffineParamRotate(slapRot);
 		handObject->SetAffineParamTranslate(testSpline.Update());
+
+		if (handObject->position == controlPoint[2])
+		{
+			slapRot.y = -10;
+		}
+		else if (handObject->position == controlPoint[3])
+		{
+			slapRot.y = 40;
+		}
 
 		if (handObject->position == HandPositionOffset)
 		{
