@@ -54,7 +54,7 @@ void GraphicManager::StartParticleDraw3D()
 
 void GraphicManager::StartParticleDraw2D()
 {
-	m_particleDrawMgr.SetCommonBeginDrawParticle2D();
+	//m_particleDrawMgr.SetCommonBeginDrawParticle2D();
 }
 
 void GraphicManager::StartSpriteDraw()
