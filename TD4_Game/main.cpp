@@ -50,7 +50,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	RVector3 up(0.f, 1.f, 0.f);
 	NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
 
-	FieldDrawer::get()->Init();
+	//FieldDrawer::get()->Init();
 
 	std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
 
@@ -74,7 +74,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		//3D通常描画ここから
 		graphicmgr.StartDeferredDraw();
 
-		FieldDrawer::get()->Draw();
+		//FieldDrawer::get()->Draw();
 
 		sceneMgr->Draw();
 
