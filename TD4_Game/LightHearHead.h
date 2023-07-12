@@ -38,7 +38,6 @@ private:
 private:
 	//毛を抜いた時のパーティクル
 	std::unique_ptr<ParticleManager> PullParticle;
-	UINT pullTex;
 
 	std::shared_ptr<Object3d> headObjectSelf;
 	std::shared_ptr<Object3d> hairObjectSelf;

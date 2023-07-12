@@ -60,7 +60,7 @@ void ProtoPlayer::Init()
 	controlPoint[0] = controlPoint[4];
 	controlPoint[5] = controlPoint[1];
 
-	testSpline.SetSplinePoints(controlPoint.data(), 6, 18);
+	testSpline.Init(controlPoint.data(), 6, 18);
 }
 
 void ProtoPlayer::Update()

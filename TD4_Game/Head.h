@@ -39,6 +39,8 @@ public:
 
 	static void loadHeadModel();
 
+	static void setStaticData();
+
 	void SetPlayer(ProtoPlayer* ptr) {
 		this->playerPtr = ptr;
 	}
@@ -55,7 +57,9 @@ public:
 
 	//ビンタされた時のパーティクル
 	std::unique_ptr<ParticleManager> SlapParticle;
-	UINT slapTex;
+
+	static UINT slapTex;
+	static UINT pullTex;
 
 	//アフィン変換
 	RVector3 pos, rot, scale;

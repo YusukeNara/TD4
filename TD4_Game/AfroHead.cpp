@@ -17,11 +17,9 @@ void AfroHead::Init()
 {
 	SlapParticle = std::make_unique<ParticleManager>();
 	SlapParticle.reset(ParticleManager::Create());
-	slapTex = TexManager::LoadTexture("Resources/white1x1.png");
 
 	CutParticle = std::make_unique<ParticleManager>();
 	CutParticle.reset(ParticleManager::Create());
-	cutTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
 	headObjectSelf = std::make_shared<Object3d>();
 	afroObjectSelf = std::make_shared<Object3d>();
@@ -123,7 +121,7 @@ void AfroHead::Draw()
 void AfroHead::DrawParticle()
 {
 	SlapParticle->Draw(slapTex);
-	CutParticle->Draw(cutTex);
+	CutParticle->Draw(pullTex);
 }
 
 void AfroHead::Finalize()
