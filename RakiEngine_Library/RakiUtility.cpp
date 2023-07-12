@@ -56,3 +56,17 @@ RVector3 rutility::randomRV3(RVector3 pos1, RVector3 pos2)
 
     return result;
 }
+
+std::wstring rutility::charTowstring(const char* orig)
+{
+    // 確保するワイド文字用バッファのサイズは、バイト数ではなく文字数を指定する。
+    size_t newsize = strlen(orig) + 1;
+    wchar_t* wc = new wchar_t[newsize];
+
+    // 変換.
+    size_t convertedChars = 0;
+    mbstowcs_s(&convertedChars, wc, newsize, orig, _TRUNCATE);
+
+    std::wstring ret(wc);
+    return ret;
+}
