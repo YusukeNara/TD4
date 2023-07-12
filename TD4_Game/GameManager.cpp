@@ -16,6 +16,8 @@ GameManager::GameManager()
 
 	player = std::make_unique<ProtoPlayer>();
 	headMan = std::make_unique<HeadManager>(player.get());
+
+	Head::setStaticData();
 }
 
 GameManager::~GameManager()

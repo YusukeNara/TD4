@@ -14,7 +14,7 @@ cbuffer cbuff1 : register(b1)
 	float m_alpha     : packoffset(c2.w); //ƒAƒ‹ƒtƒ@
 }
 
-static const int MAX_BONES = 32;
+static const int MAX_BONES = 64;
 
 cbuffer skinnning : register(b3)
 {
