@@ -602,6 +602,8 @@ void Sprite::UpdateSprite()
 
 void Sprite::InstanceUpdate()
 {
+    HRESULT result;
+
     //�`�搔�ɍ��킹�ĉς�����
     spdata->vibView.SizeInBytes = UINT(spdata->insWorldMatrixes.size() * sizeof(SpriteInstance));
     
@@ -613,23 +615,33 @@ void Sprite::InstanceUpdate()
 
     //�o�b�t�@�f�[�^�]��
     SpriteInstance *insmap = nullptr;
-    auto result = spdata->vertInsBuff->Map(0, nullptr, (void **)&insmap);
-    for (int i = 0; i < spdata->insWorldMatrixes.size(); i++) {
-        insmap[i].worldmat = spdata->insWorldMatrixes[i].worldmat * camera->GetMatrixProjection2D();
-        insmap[i].uvOffset = spdata->insWorldMatrixes[i].uvOffset;
-        insmap[i].drawsize = spdata->insWorldMatrixes[i].drawsize;
-        insmap[i].color = spdata->insWorldMatrixes[i].color;
-        insmap[i].freeData01 = spdata->insWorldMatrixes[i].freeData01;
+    result = spdata->vertInsBuff->Map(0, nullptr, (void **)&insmap);
+    if (SUCCEEDED(result)) {
+        for (int i = 0; i < spdata->insWorldMatrixes.size(); i++) {
+            insmap[i].worldmat = spdata->insWorldMatrixes[i].worldmat * camera->GetMatrixProjection2D();
+            insmap[i].uvOffset = spdata->insWorldMatrixes[i].uvOffset;
+            insmap[i].drawsize = spdata->insWorldMatrixes[i].drawsize;
+            insmap[i].color = spdata->insWorldMatrixes[i].color;
+            insmap[i].freeData01 = spdata->insWorldMatrixes[i].freeData01;
+        }
+        spdata->vertInsBuff->Unmap(0, nullptr);
     }
-    spdata->vertInsBuff->Unmap(0, nullptr);
+    else {
+        ExportHRESULTmessage(result);
+        assert(SUCCEEDED(result));
+    }
+
 
     SpConstBufferData* constMap = nullptr;
     result = spdata->constBuff->Map(0, nullptr, (void**)&constMap);
-    constMap->mat = spdata->matWorld * camera->GetMatrixProjection();
-    constMap->color = spdata->color;
-    spdata->constBuff->Unmap(0, nullptr);
-
-
+    if (SUCCEEDED(result)) {
+        constMap->mat = spdata->matWorld * camera->GetMatrixProjection();
+        constMap->color = spdata->color;
+        spdata->constBuff->Unmap(0, nullptr);
+    }
+    else {
+        ExportHRESULTmessage(result);
+    }
 
     //�`�搔�ɍ��킹�ĉς�����
     lineSpdata->vibView.SizeInBytes = UINT(lineSpdata->insWorldMatrixes.size() * sizeof(SpriteInstance));
@@ -643,20 +655,32 @@ void Sprite::InstanceUpdate()
     //�o�b�t�@�f�[�^�]��
     SpriteInstance* linsmap = nullptr;
     result = lineSpdata->vertInsBuff->Map(0, nullptr, (void**)&linsmap);
-    for (int i = 0; i < lineSpdata->insWorldMatrixes.size(); i++) {
-        linsmap[i].worldmat = lineSpdata->insWorldMatrixes[i].worldmat * camera->GetMatrixProjection2D();
-        linsmap[i].uvOffset = lineSpdata->insWorldMatrixes[i].uvOffset;
-        linsmap[i].drawsize = lineSpdata->insWorldMatrixes[i].drawsize;
-        linsmap[i].color = lineSpdata->insWorldMatrixes[i].color;
-        linsmap[i].freeData01 = lineSpdata->insWorldMatrixes[i].freeData01;
+    if (SUCCEEDED(result)) {
+        for (int i = 0; i < lineSpdata->insWorldMatrixes.size(); i++) {
+            linsmap[i].worldmat = lineSpdata->insWorldMatrixes[i].worldmat * camera->GetMatrixProjection2D();
+            linsmap[i].uvOffset = lineSpdata->insWorldMatrixes[i].uvOffset;
+            linsmap[i].drawsize = lineSpdata->insWorldMatrixes[i].drawsize;
+            linsmap[i].color = lineSpdata->insWorldMatrixes[i].color;
+            linsmap[i].freeData01 = lineSpdata->insWorldMatrixes[i].freeData01;
+        }
+        lineSpdata->vertInsBuff->Unmap(0, nullptr);
     }
-    lineSpdata->vertInsBuff->Unmap(0, nullptr);
+    else {
+        ExportHRESULTmessage(result);
+    }
+
 
     SpConstBufferData* lconstMap = nullptr;
     result = lineSpdata->constBuff->Map(0, nullptr, (void**)&lconstMap);
-    lconstMap->mat = lineSpdata->matWorld * camera->GetMatrixProjection();
-    lconstMap->color = lineSpdata->color;
-    lineSpdata->constBuff->Unmap(0, nullptr);
+    if (SUCCEEDED(result)) {
+        lconstMap->mat = lineSpdata->matWorld * camera->GetMatrixProjection();
+        lconstMap->color = lineSpdata->color;
+        lineSpdata->constBuff->Unmap(0, nullptr);
+    }
+    else {
+        ExportHRESULTmessage(result);
+    }
+
 }
 
 void Sprite::Draw()
