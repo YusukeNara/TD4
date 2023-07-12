@@ -5,6 +5,8 @@
 
 #include "RVector.h"
 
+#include <string>
+
 //Šù‘¶‚ÌŠÖ”‚Æ‚©‚Ô‚ç‚È‚¢‚æ‚¤‚É
 //í—Ş‚ª‘‚¦‚½‚ç‚±‚Ì’†‚©‚ç‚³‚ç‚É–¼‘O‹óŠÔ•ª‚¯‚·‚é
 namespace rutility
@@ -19,6 +21,8 @@ namespace rutility
 
 	RVector3 randomRV3(RVector3 pos1, RVector3 pos2);
 
+
+	std::wstring charTowstring(const char* orig);
 }
 
 

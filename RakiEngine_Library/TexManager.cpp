@@ -3,8 +3,11 @@
 
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+#include "RakiUtility.h"
 
-TexManager::texture								TexManager::textureData[2048];
+
+std::array<texture,2048>						TexManager::textureData;
 Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>	TexManager::texDsvHeap;
 const int										TexManager::MAX_TEXNUM = 2048;
 
@@ -54,8 +57,10 @@ UINT TexManager::LoadTexture(const char *filename)
     // 使用するテクスチャの番号を設定
     UINT useTexIndexNum = 0;
     for (int i = 0; i < MAX_TEXNUM; i++) {
-        //空のテクスチャを発見
-        if (textureData[i].texBuff == nullptr) {
+        //bool isNot = std::ranges::any_of(textureData, [i](texture* t) { return t->texNumber == i; });
+        //空のテクスチャを発見、番号重複がない
+        if (textureData[i].texBuff == nullptr)
+        {
             //番号設定
             useTexIndexNum = (UINT)i;
             textureData[i].texNumber = i;
@@ -164,6 +169,19 @@ UINT TexManager::LoadTexture(const char *filename)
     std::wstring nametemp = std::wstring(dataName.begin(), dataName.end());
     textureData[useTexIndexNum].texBuff.Get()->SetName(nametemp.c_str());
 
+
+
+    std::wstring log = L"Loaded Texture TexName : ";
+    std::wstring fn = rutility::charTowstring(filename);
+    std::wstring space = L" : ";
+    std::wstring indexNum = L"texture Array Index:";
+    std::wstring inum = std::to_wstring(useTexIndexNum);
+
+    std::wstring outputText = log + fn + space + indexNum + inum;
+
+
+    ExportEngineLogText(L"TexManager", L"LoadTexture()", outputText.c_str(), 175);
+
     return useTexIndexNum;
 }
 
@@ -173,7 +191,7 @@ UINT TexManager::LoadTexture(std::string filename)
     return texNumber;
 }
 
-TexManager::texture TexManager::GetTextureState(UINT bufferRocate)
+texture TexManager::GetTextureState(UINT bufferRocate)
 {
 
     return texture();
