@@ -57,7 +57,7 @@ UINT TexManager::LoadTexture(const char *filename)
     // 使用するテクスチャの番号を設定
     UINT useTexIndexNum = 0;
     for (int i = 0; i < MAX_TEXNUM; i++) {
-        //bool isNot = std::ranges::any_of(textureData, [i](texture* t) { return t->texNumber == i; });
+        //bool isNot = std::ranges::any_of(textureData.begin(),textureData.end(), [i](texture *t) { return t->texNumber == i; });
         //空のテクスチャを発見、番号重複がない
         if (textureData[i].texBuff == nullptr)
         {
