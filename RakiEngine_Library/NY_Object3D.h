@@ -41,7 +41,7 @@ struct ConstBufferDataB1
 
 struct ConstBufferDataSkin
 {
-	XMMATRIX bones[32];
+	XMMATRIX bones[64];
 };
 
 //ビルボードパーティクル頂点データ
@@ -55,6 +55,8 @@ enum class ANIMATION_PLAYMODE
 	ANIM_MODE_FIRST,
 	ANIM_MODE_ROOP,
 };
+
+
 
 // 2022/03/16 クラスの依存関係を変更
 //mgr -> object3d -> model3d
@@ -88,9 +90,7 @@ public:
 		fbxmodel = make_shared<fbxModel>();
 	};
 	~Object3d() {
-		if (model) {
-
-		}
+		
 	}
 
 	//オブジェクトの初期化
@@ -141,6 +141,9 @@ public:
 	void PlayAnimation(ANIMATION_PLAYMODE playmode, int animNum = 0);
 
 	void StopAnimation();
+
+	//デバッグ表示
+	void DisplayObjectStatus(bool isDisplay);
 
 	//アフィン変換情報
 	RVector3 scale = { 1,1,1 };
@@ -194,6 +197,13 @@ private:
 
 	//どのモデルデータか？
 	isWhichModel isThisModel;
+
+	//現在再生中のアニメーション番号
+	int playAnimNum = 0;
+
+	bool isDisplayAffineParam = true;
+	bool isDisplayMaterial = true;
+	bool isDisplayBone = true;
 };
 
 

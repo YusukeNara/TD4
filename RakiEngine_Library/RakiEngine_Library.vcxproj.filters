@@ -252,6 +252,12 @@
     <ClCompile Include="DebugCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="RakiUtility.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicManager.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raki_imguiMgr.h">
@@ -430,6 +436,12 @@
     </ClInclude>
     <ClInclude Include="DebugCamera.h">
       <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="RakiUtility.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicManager.h">
+      <Filter>Graphic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

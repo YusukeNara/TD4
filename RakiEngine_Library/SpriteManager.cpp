@@ -354,3 +354,11 @@ void SpriteManager::SetCommonBeginDrawRTex(int handle)
     ID3D12DescriptorHeap* ppHeaps[] = { RenderTargetManager::GetInstance()->renderTextures[handle]->GetDescriptorHeapSRV() };
     cmd->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
 }
+
+SpriteData::~SpriteData()
+{
+    insWorldMatrixes.clear();
+    insWorldMatrixes.shrink_to_fit();
+
+    //TexManager::DeleteTexture(texNumber);
+}

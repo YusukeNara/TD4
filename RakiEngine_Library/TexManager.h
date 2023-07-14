@@ -3,6 +3,7 @@
 #include <d3dx12.h>
 #include <DirectXTex.h>
 #include <wrl.h>
+#include <array>
 
 #pragma comment(lib, "d3d12.lib")
 
@@ -39,6 +40,17 @@ public:
 
 };
 
+//テクスチャ一枚のデータ
+struct texture {
+	UINT									texNumber = 0;
+	Microsoft::WRL::ComPtr<ID3D12Resource>	texBuff = nullptr;	//テクスチャバッファ
+	const DirectX::Image* img = nullptr;
+	DirectX::TexMetadata					metaData;
+	DirectX::ScratchImage					scratchImg;
+	//アニメーション用uv管理
+	std::vector<DirectX::XMFLOAT2>			uv_offsets;	//uv値オフセット配列
+};
+
 //マルチパスレンダリングをするときにあると今後が楽だと思って作った
 //けど
 class TexManager
@@ -52,18 +64,9 @@ private:
 	static ID3D12Device *dev;
 
 public:
-	//テクスチャ一枚のデータ
-	struct texture {
-		UINT									texNumber;
-		Microsoft::WRL::ComPtr<ID3D12Resource>	texBuff;	//テクスチャバッファ
-		const DirectX::Image					*img;		
-		DirectX::TexMetadata					metaData;
-		DirectX::ScratchImage					scratchImg;
-		//アニメーション用uv管理
-		std::vector<DirectX::XMFLOAT2>			uv_offsets;	//uv値オフセット配列
-	};
+
 	//テクスチャデータ配列
-	static texture textureData[2048];
+	static std::array<texture,2048> textureData;
 	//デスクリプタヒープ
 	static ComPtr<ID3D12DescriptorHeap> texDsvHeap;
 	//テクスチャ最大数
@@ -96,6 +99,6 @@ public:
 	/// <returns>格納したテクスチャの場所を配列で</returns>
 	static UINT LoadDivTextureTest(uvAnimData *data, const char *filename, const int numDivTex, int sizeX);
 
-
+	static void DeleteTexture(UINT texhandle);
 };
 

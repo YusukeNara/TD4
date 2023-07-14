@@ -242,3 +242,106 @@ void Rv3Ease::Rv3Easing::Reset()
 	isplay = false;
 	resultPos = startPos;
 }
+
+void Rv3Ease::Rv3Spline::Init(RVector3* array, int pCount, int playFrame)
+{
+	//制御点が足りない場合
+	if (pCount < 4) { return; }
+
+	for (int i = 0; i < pCount; i++) {
+		splinePoints.push_back(array[i]);
+	}
+
+	this->playFrame = playFrame;
+}
+
+void Rv3Ease::Rv3Spline::Play()
+{
+	isPlay = true;
+}
+
+RVector3 Rv3Ease::Rv3Spline::Update()
+{
+	if (!isPlay) { return resultPos; }
+	if (frame >= playFrame) { return resultPos; }
+
+	frame++;
+
+	//制御点の総数に応じて、再生フレームを分割
+	int pFramePerCurve = playFrame / int(splinePoints.size() - 3);
+	if ((frame - (pFramePerCurve * nowPlayIndex)) > pFramePerCurve) {
+		nowPlayIndex++;
+	}
+
+	float rate = float(frame - (pFramePerCurve * nowPlayIndex)) / float(pFramePerCurve);
+
+	RVector3 &p0 = splinePoints[nowPlayIndex];
+	RVector3 &p1 = splinePoints[nowPlayIndex + 1];
+	RVector3 &p2 = splinePoints[nowPlayIndex + 2];
+	RVector3 &p3 = splinePoints[nowPlayIndex + 3];
+
+	resultPos = SplineCurve4(p0, p1, p2, p3, rate);
+
+	return resultPos;
+}
+
+void Rv3Ease::Rv3Spline::Reset()
+{
+	resultPos = splinePoints[1];
+	frame = 0;
+	nowPlayIndex = 0;
+	isPlay = false;
+}
+
+RVector3 Rv3Ease::Rv3Spline::SplineCurve4(const RVector3& p0, const RVector3& p1, const RVector3& p2, RVector3& p3, float t)
+{
+	RVector3 result = 0.5 * (((2 * p1) + (-p0 + p2) * t) +
+		(((2 * p0) - (5 * p1) + (4 * p2) - (p3)) * float(pow(t, 2))) +
+		(((-p0) + (3 * p1) - (3 * p2) + (p3)) * float(pow(t, 3))));
+
+
+	return result;
+}
+
+void Rv3Ease::Rv3Bezier3::Init(RVector3 start, RVector3 end, RVector3 ctrlPoint, int playFrame, RV3_EASE_TYPE type)
+{
+	ease1.Init(type, start, ctrlPoint, playFrame);
+	ease2.Init(type, ctrlPoint, end, playFrame);
+	bezier.Init(type, ease1.Update(), ease2.Update(), playFrame);
+
+	resultPos = start;
+	frame = 0;
+	this->playFrame = playFrame;
+	isPlay = false;
+}
+
+void Rv3Ease::Rv3Bezier3::Play()
+{
+	isPlay = true;
+	ease1.Play();
+	ease2.Play();
+	bezier.Play();
+}
+
+RVector3 Rv3Ease::Rv3Bezier3::Update()
+{
+	if (!isPlay) { return resultPos; }
+	if (frame >= playFrame) { return resultPos; }
+
+	bezier.SetStartPos(ease1.Update());
+	bezier.SetEndPos(ease2.Update());
+
+	resultPos = bezier.Update();
+
+	return 	resultPos;
+}
+
+void Rv3Ease::Rv3Bezier3::Reset()
+{
+	frame = 0;
+	isPlay = false;
+	ease1.Reset();
+	ease2.Reset();
+	bezier.Reset();
+	resultPos = ease1.GetStart();
+}

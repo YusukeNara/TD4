@@ -67,6 +67,7 @@ public:
 
 	Model3D() {};
 	~Model3D() {
+		//TexManager::DeleteTexture(material.texNumber);
 	}
 
 	//----------ファイルを読み込んでモデルデータを作る関数群----------//

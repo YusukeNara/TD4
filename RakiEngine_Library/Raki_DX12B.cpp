@@ -6,6 +6,8 @@
 #include <vector>
 #include <cassert>
 #include <d3dcompiler.h>
+#include <fstream>
+#include <sstream>
 
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -515,12 +517,7 @@ bool Raki_DX12B::CreateFence()
 Raki_DX12B::~Raki_DX12B()
 {
 #ifdef _DEBUG
-	ID3D12DebugDevice* debugDevice;
-	if (SUCCEEDED(device.Get()->QueryInterface(&debugDevice)))
-	{
-		debugDevice->ReportLiveDeviceObjects(D3D12_RLDO_DETAIL | D3D12_RLDO_IGNORE_INTERNAL);
-		debugDevice->Release();
-	}
+
 
 #endif
 }
@@ -570,6 +567,7 @@ void Raki_DX12B::Initialize(Raki_WinAPI *win, bool isStopifFatalErrorDetected)
 			infoqueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
 			infoqueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
 		}
+		infoqueue->Release();
 	}
 
 #endif // _DEBUG
@@ -712,6 +710,39 @@ void Raki_DX12B::ClearDepthBuffer()
 	commandList->ClearDepthStencilView(dsvH, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 }
 
+void Raki_DX12B::Destroy()
+{
+	ID3D12Device* dev = *device.ReleaseAndGetAddressOf();
+	ID3D12CommandAllocator* cmdalloc = *commandAllocator.ReleaseAndGetAddressOf();
+	ID3D12GraphicsCommandList* cmdlist = *commandList.ReleaseAndGetAddressOf();
+	ID3D12CommandQueue* cmdqueue = *commandQueue.ReleaseAndGetAddressOf();
+	ID3D12Fence* f = *fence.ReleaseAndGetAddressOf();
+
+	delete dev;
+	delete cmdalloc;
+	delete cmdlist;
+	delete cmdqueue;
+	delete f;
+	dev = nullptr;
+	cmdalloc = nullptr;
+	cmdlist = nullptr;
+	cmdqueue = nullptr;
+	f = nullptr;
+}
+
+void Raki_DX12B::Finalize()
+{
+#ifdef _DEBUG
+	ID3D12DebugDevice* debugDevice;
+	device.Get()->QueryInterface(&debugDevice);
+#endif
+	Destroy();
+#ifdef _DEBUG
+	debugDevice->ReportLiveDeviceObjects(D3D12_RLDO_DETAIL | D3D12_RLDO_IGNORE_INTERNAL);
+	debugDevice->Release();
+#endif
+}
+
 bool Raki_DX12B::InitInput(Raki_WinAPI *win)
 {
 	//ƒL[“ü—Í‰Šú‰»
@@ -722,4 +753,20 @@ bool Raki_DX12B::CreateDsvHeapForIngui()
 {
 	//‰Šú‰»‚ÍimguiŠÇ—•”‚ªÀs
 	return true;
+}
+
+void ExportEngineLogText(const wchar_t* fileName, const  wchar_t* functionName, const  wchar_t* logText, int lineNumber)
+{
+	printf("%ls : %ls : %d : %ls \n", fileName, functionName, lineNumber, logText);
+
+	std::wstring log = fileName;
+	log += L" : ";
+	log += functionName;
+	log += L" : ";
+	log += std::to_wstring(lineNumber);
+	log += L" : ";
+	log += logText;
+	log += L"\n";
+
+	OutputDebugString(log.c_str());
 }

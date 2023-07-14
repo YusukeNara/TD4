@@ -65,6 +65,8 @@ private:
 
 	void ParseSkin(fbxModel* model, FbxMesh* fbxMesh);
 
+	void SaveAnimationData(fbxModel* model, FbxMesh* fbxMesh);
+
 	
 	//テクスチャはテクスチャマネージャーのしごと
 
@@ -73,6 +75,6 @@ private:
 	FbxImporter* fbxImporter = nullptr;
 };
 
-static const int MAX_BONES = 32;
+static const int MAX_BONES = 64;
 
 #pragma warning (pop)

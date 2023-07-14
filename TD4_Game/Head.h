@@ -3,6 +3,8 @@
 #include<ParticleManager.h>
 
 #include "ProtoPlayer.h"
+#include<NY_Object3DMgr.h>
+#include<FbxLoader.h>
 
 using namespace Rv3Ease;
 
@@ -21,6 +23,8 @@ public:
 
 	virtual void Draw() {};
 
+	virtual void DrawParticle() {};
+
 	virtual void Finalize() {};
 
 	virtual void KramerMove() {};
@@ -35,6 +39,8 @@ public:
 
 	static void loadHeadModel();
 
+	static void setStaticData();
+
 	void SetPlayer(ProtoPlayer* ptr) {
 		this->playerPtr = ptr;
 	}
@@ -44,16 +50,27 @@ public:
 	}
 
 public:
-	static std::shared_ptr<Object3d> headObject;
-	static std::shared_ptr<Object3d> hairObject;
-	static std::shared_ptr<Object3d> afroObject;
+	//モデルデータ
+	static std::shared_ptr<fbxModel> headModelStatic;
+	static std::shared_ptr<fbxModel> hairModelStatic;
+	static std::shared_ptr<fbxModel> afroModelStatic;
 
 	//ビンタされた時のパーティクル
 	std::unique_ptr<ParticleManager> SlapParticle;
-	UINT slapTex;
+
+	static UINT slapTex;
+	static UINT pullTex;
 
 	//アフィン変換
 	RVector3 pos, rot, scale;
+
+	//吹っ飛びながら回転
+	RVector3 blustVec;
+	RVector3 blustRot;
+
+	//吹っ飛ぶ時間
+	int blustTime = 0;
+	int maxBustTime = 15;
 
 	//客のタイプ
 	CheraType HeadType = CheraType::None;
@@ -85,7 +102,8 @@ public:
 
 	//怒っている時間
 	int AngreeTime = 0;
-	const int MaxAngreeTime = 180;
+	const int MaxAngreeTime = 300;
+	int positionUpDown = -1;
 
 	//反撃するかどうか
 	bool isCounter = false;

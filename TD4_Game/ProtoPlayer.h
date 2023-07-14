@@ -8,6 +8,7 @@
 #include <NY_Object3dMgr.h>
 #include "Raki_Input.h"
 
+using namespace Rv3Ease;
 
 enum CheraType
 {
@@ -64,10 +65,16 @@ private:
 
 	RVector3 HandPositionOffset;
 	RVector3 HandRotationOffset;
+	RVector3 HandScaleOffset;
+
 	RVector3 CutPositionOffset;
 	RVector3 CutRotationOffset;
+	RVector3 CutScaleOffset;
+
 	RVector3 ClipPositionOffset;
 	RVector3 ClipRotationOffset;
+	RVector3 ClipScaleOffset;
+
 	int enemyType = SkinHead;
 	ItemType handItemType = Hand;
 
@@ -88,5 +95,25 @@ private:
 	XMFLOAT2 uiOffsetHand;
 	XMFLOAT2 uiOffsetClip;
 	XMFLOAT2 uiOffsetScis;
+
+	//-------------------曲線補間---------------------
+	//ビンタ
+	Rv3Spline SlapSpline;
+	bool isSlapSpline = false;
+	RVector3 SlapRot = { 90,0,0 };
+	std::array<RVector3, 6> SlapControlPoint;
+
+	//ハサミ
+	Rv3Spline ClipSpline;
+	bool isClipSpline = false;
+	RVector3 ClipRot = { 90,0,0 };
+	std::array<RVector3, 6> ClipControlPoint;
+
+	//バリカン
+	Rv3Spline CutSpline;
+	bool isCutSpline = false;
+	RVector3 CutRot = { 90,0,0 };
+	std::array<RVector3, 6> CutControlPoint;
+
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <DirectXMath.h>
 #include <cmath>
+#include <vector>
 
 using namespace DirectX;
 
@@ -151,6 +152,11 @@ namespace Rv3Ease {
 		//イージングをリセット
 		void Reset();
 
+		const RVector3 GetStart() { return startPos; }
+		const RVector3 GetEnd() { return endPos; }
+		
+		void SetStartPos(const RVector3& pos) { startPos = pos; }
+		void SetEndPos(const RVector3& pos) { endPos = pos; }
 
 	private:
 		//各種イージング関数
@@ -165,6 +171,59 @@ namespace Rv3Ease {
 		bool			isplay = false;
 		RVector3		resultPos;
 
+	};
+
+	class Rv3Spline
+	{
+	public:
+		Rv3Spline() = default;
+		~Rv3Spline() = default;
+
+		void Init(RVector3* array, int pCount, int playFrame);
+
+		void Play();
+
+		RVector3 Update();
+
+		void Reset();
+
+	private:
+		std::vector<RVector3> splinePoints;
+		int frame = 0;
+		int playFrame = 0;
+		bool isPlay = false;
+		RVector3 resultPos;
+		int nowPlayIndex = 0;
+
+		RVector3 SplineCurve4(const RVector3& p0, const RVector3& p1, const RVector3& p2, RVector3& p3, float t);
+	};
+
+	class Rv3Bezier3
+	{
+	public:
+
+		Rv3Bezier3() = default;
+		~Rv3Bezier3() = default;
+
+		void Init(RVector3 start, RVector3 end, RVector3 ctrlPoint, int playFrame, RV3_EASE_TYPE type);
+		
+		void Play();
+
+		RVector3 Update();
+
+		void Reset();
+
+	private:
+		
+		Rv3Ease::Rv3Easing ease1;
+		Rv3Ease::Rv3Easing ease2;
+		Rv3Ease::Rv3Easing bezier;
+
+		RVector3 resultPos;
+
+		int frame = 0;
+		int playFrame = 0;
+		bool isPlay = false;
 	};
 
 
@@ -189,6 +248,7 @@ namespace Rv3Ease {
 	const RVector3 OutCubic(const RVector3& s, const RVector3& e, const float t);
 
 	const RVector3 InOutCubic(const RVector3& s, const RVector3& e, const float t);
+
 
 }
 

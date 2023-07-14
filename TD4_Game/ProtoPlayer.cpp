@@ -27,28 +27,68 @@ ProtoPlayer::~ProtoPlayer()
 
 void ProtoPlayer::Init()
 {
-	HandPositionOffset = { 0,5,0 };
-	HandRotationOffset = { 0,0,0 };
+	//手のアフィン変換
+	HandPositionOffset = { -35,0,-50 };
+	HandRotationOffset = { 90,0,0 };
+	HandScaleOffset = { 0.08,0.08,0.08 };
 
-	CutPositionOffset = { 0,5,0 };
-	CutRotationOffset = { 0,0,0 };
+	//バリカンのアフィン変換
+	CutPositionOffset = { 0,0,-50 };
+	CutRotationOffset = { 0,-90,-60 };
+	CutScaleOffset = { 0.08,0.08,0.08 };
 
-	ClipPositionOffset = { 0,5,0 };
-	ClipRotationOffset = { 0,0,0 };
+	//ハサミのアフィン変換
+	ClipPositionOffset = { 35,0,-50 };
+	ClipRotationOffset = { 45,0,0 };
+	ClipScaleOffset = { 0.01,0.01,0.01 };
 
-	handObject->SetAffineParam({ 0.2,0.2,0.2 }, HandRotationOffset, HandPositionOffset);
-	barikanObject->SetAffineParam({ 0.2,0.2,0.2 }, CutRotationOffset, CutPositionOffset);
-	scissorsObject->SetAffineParam({ 0.2,0.2,0.2 }, ClipRotationOffset, ClipPositionOffset);
+	handObject->SetAffineParam(HandScaleOffset, HandRotationOffset, HandPositionOffset);
+	barikanObject->SetAffineParam(CutScaleOffset, CutRotationOffset, CutPositionOffset);
+	scissorsObject->SetAffineParam(ClipScaleOffset, ClipRotationOffset, ClipPositionOffset);
 
 	uiOffsetHand = { 50,600 };
 	uiOffsetScis = { 170,600 };
 	uiOffsetClip = { 290,600 };
 
 	RetirementMoney = MaxRetirementMoney;
+
+	//----------------制御点の座標---------------
+	//ビンタ
+	SlapControlPoint[1] = HandPositionOffset;
+	SlapControlPoint[2] = RVector3(-50, 0, -10);
+	SlapControlPoint[3] = RVector3(-15, 0, -15);
+	SlapControlPoint[4] = HandPositionOffset;
+	SlapControlPoint[0] = SlapControlPoint[4];
+	SlapControlPoint[5] = SlapControlPoint[1];
+	SlapSpline.Init(SlapControlPoint.data(), 6, 15);
+
+	//バリカン
+	CutControlPoint[1] = CutPositionOffset;
+	CutControlPoint[2] = RVector3(  0, 0, -10);
+	CutControlPoint[3] = RVector3(  0,40, -30);
+	CutControlPoint[4] = CutPositionOffset;
+	CutControlPoint[0] = CutControlPoint[4];
+	CutControlPoint[5] = CutControlPoint[1];
+	CutSpline.Init(CutControlPoint.data(), 6, 15);
+
+	//ハサミ
+	ClipControlPoint[1] = ClipPositionOffset;
+	ClipControlPoint[2] = RVector3( 50, 0, -10);
+	ClipControlPoint[3] = RVector3( 15, 0, -15);
+	ClipControlPoint[4] = ClipPositionOffset;
+	ClipControlPoint[0] = ClipControlPoint[4];
+	ClipControlPoint[5] = ClipControlPoint[1];
+	ClipSpline.Init(ClipControlPoint.data(), 6, 15);
 }
 
 void ProtoPlayer::Update()
 {
+	handObject->SetAffineParam(HandScaleOffset, HandRotationOffset, HandPositionOffset);
+	barikanObject->SetAffineParam(CutScaleOffset, CutRotationOffset, CutPositionOffset);
+	scissorsObject->SetAffineParam(ClipScaleOffset, ClipRotationOffset, ClipPositionOffset);
+
+
+
 	Attack();
 
 	ChangeItem();
@@ -73,21 +113,11 @@ void ProtoPlayer::DrawUI()
 
 void ProtoPlayer::Attack()
 {
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
-	{
-		if (handItemType == Hand)
-		{
-			HandAttack();
-		}
-		else if (handItemType == Scissors)
-		{
-			CutHair();
-		}
-		else if (handItemType == Clippers)
-		{
-			Clip();
-		}
-	}
+	HandAttack();
+
+	CutHair();
+
+	Clip();
 }
 
 void ProtoPlayer::Finalize()
@@ -96,64 +126,151 @@ void ProtoPlayer::Finalize()
 
 void ProtoPlayer::HandAttack()
 {
+	if (isCutSpline || isClipSpline)
+	{
+		return;
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
+	{
+		SlapSpline.Play();
+		SlapRot.y = -20;
+		isSlapSpline = true;
+	}
+
+	if (!isSlapSpline)
+	{
+		handObject->SetAffineParamRotate(HandRotationOffset);
+		handObject->SetAffineParamTranslate(HandPositionOffset);
+		return;
+	}
+
+	if (isSlapSpline)
+	{
+		//SlapRot.y += 3;
+		handObject->SetAffineParamRotate(SlapRot);
+		handObject->SetAffineParamTranslate(SlapSpline.Update());
+
+		if (handObject->position == SlapControlPoint[2])
+		{
+			SlapRot.y = -10;
+		}
+		else if (handObject->position == SlapControlPoint[3])
+		{
+			SlapRot.y = 40;
+		}
+
+		if (handObject->position == HandPositionOffset)
+		{
+			SlapSpline.Reset();
+			isSlapSpline = false;
+		}
+	}
 }
 
 void ProtoPlayer::CutHair()
 {
+	if (isSlapSpline || isClipSpline)
+	{
+		return;
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
+	{
+		CutSpline.Play();
+		CutRot.z = -20;
+		isCutSpline = true;
+	}
+
+	if (!isCutSpline)
+	{
+		barikanObject->SetAffineParamRotate(CutRotationOffset);
+		barikanObject->SetAffineParamTranslate(CutPositionOffset);
+		return;
+	}
+
+	if (isCutSpline)
+	{
+		//SlapRot.y += 3;
+		//barikanObject->SetAffineParamRotate(CutRot);
+		barikanObject->SetAffineParamTranslate(CutSpline.Update());
+
+		if (barikanObject->position == CutControlPoint[2])
+		{
+			CutRot.y = -10;
+		}
+		else if (barikanObject->position == CutControlPoint[3])
+		{
+			CutRot.y = 40;
+		}
+
+		if (barikanObject->position == CutPositionOffset)
+		{
+			CutSpline.Reset();
+			isCutSpline = false;
+		}
+	}
 }
 
 void ProtoPlayer::Clip()
 {
+	if (isSlapSpline || isCutSpline)
+	{
+		return;
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
+	{
+		ClipSpline.Play();
+		ClipRot.y = -20;
+		isClipSpline = true;
+	}
+
+	if (!isClipSpline)
+	{
+		scissorsObject->SetAffineParamRotate(ClipRotationOffset);
+		scissorsObject->SetAffineParamTranslate(ClipPositionOffset);
+		return;
+	}
+
+	if (isClipSpline)
+	{
+		//SlapRot.y += 3;
+		//scissorsObject->SetAffineParamRotate(ClipRot);
+		scissorsObject->SetAffineParamTranslate(ClipSpline.Update());
+
+		if (scissorsObject->position == ClipControlPoint[2])
+		{
+			ClipRot.y = -10;
+		}
+		else if (scissorsObject->position == ClipControlPoint[3])
+		{
+			ClipRot.y = 40;
+		}
+
+		if (scissorsObject->position == ClipPositionOffset)
+		{
+			ClipSpline.Reset();
+			isClipSpline = false;
+		}
+	}
 }
 
 void ProtoPlayer::ChangeItem()
 {
 	//アイテムの切り替え
-	/*if (handItemType == Hand)
-	{
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_RB))
-		{
-			handItemType = Scissors;
-		}
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_LB))
-		{
-			handItemType = Clippers;
-		}
-	}
-	else if (handItemType == Scissors)
-	{
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_RB))
-		{
-			handItemType = Clippers;
-		}
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_LB))
-		{
-			handItemType = Hand;
-		}
-	}
-	else if (handItemType == Clippers)
-	{
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_RB))
-		{
-			handItemType = Hand;
-		}
-		if (Input::isXpadButtonPushTrigger(XPAD_TRIGGER_LB))
-		{
-			handItemType = Scissors;
-		}
-	}*/
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		handItemType = Hand;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
 	{
 		handItemType = Scissors;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B))
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
 	{
 		handItemType = Clippers;
 	}

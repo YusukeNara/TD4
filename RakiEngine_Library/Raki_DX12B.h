@@ -24,6 +24,9 @@ inline void ExportHRESULTmessage(HRESULT resultCode){
 	if(FAILED(resultCode)){ std::cout << std::system_category().message(resultCode) << std::endl; }
 }
 
+//ログ出力
+void ExportEngineLogText(const wchar_t* fileName, const wchar_t* functionName, const wchar_t* logText, int lineNumber);
+
 
 class Raki_DX12B
 {
@@ -132,6 +135,11 @@ public:
 		dsvHeap.ReleaseAndGetAddressOf();
 		fence.ReleaseAndGetAddressOf();
 	}
+
+	void Destroy();
+
+	//手動解放、リーク検知
+	void Finalize();
 
 private:
 	//DirectX12要素のメンバ変数

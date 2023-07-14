@@ -18,6 +18,8 @@ public:
 
 	void Draw() override;
 
+	void DrawParticle() override;
+
 	void Finalize() override;
 
 	void KramerMove() override;
@@ -36,10 +38,9 @@ private:
 private:
 	//毛を抜いた時のパーティクル
 	std::unique_ptr<ParticleManager> PullParticle;
-	UINT pullTex;
 
-	std::unique_ptr<Object3d> headObjectSelf;
-	std::unique_ptr<Object3d> hairObjectSelf;
+	std::shared_ptr<Object3d> headObjectSelf;
+	std::shared_ptr<Object3d> hairObjectSelf;
 
 	//位置のオフセット
 	RVector3 headOffset;

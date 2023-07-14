@@ -10,6 +10,8 @@ SkinOutput CompureSkin(VSInput input)
     uint iBone;
     float weight;
     matrix m;
+    
+    //xyzwを擬似的な配列として使用している
 	
     iBone = input.boneIndices.x;
     weight = input.boneWeights.x;
