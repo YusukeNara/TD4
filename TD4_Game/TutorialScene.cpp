@@ -15,42 +15,46 @@ TutorialScene::TutorialScene(ISceneChanger *changer) : BaseScene(changer)
 
 	tutorialTitle.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString1.png"));
 	storeManSprite.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString2.png"));
-	tutorialSprite1.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString3.png"));
+	tutorialSprite1.CreateAndSetDivisionUVOffsets(10,10,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString3.png"));
 	hagesiSprite.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString4.png"));
-	tutorialSprite2.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString5.png"));
-	tutorialSprite3.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString6.png"));
-	tutorialSprite4.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString7.png"));
-	tutorialSprite5.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString8.png"));
+	tutorialSprite2.CreateAndSetDivisionUVOffsets(7,7,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString5.png"));
+	tutorialSprite3.CreateAndSetDivisionUVOffsets(17,17,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString6.png"));
+	tutorialSprite4.CreateAndSetDivisionUVOffsets(13,13,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString7.png"));
+	tutorialSprite5.CreateAndSetDivisionUVOffsets(12,12,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString8.png"));
 
-	tutorialSprite6.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString9.png"));
-	tutorialSprite7.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString10.png"));
-	tutorialSprite8.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString11.png"));
+	tutorialSprite6.CreateAndSetDivisionUVOffsets(8,8,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString9.png"));
+	tutorialSprite7.CreateAndSetDivisionUVOffsets(18,18,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString10.png"));
+	tutorialSprite8.CreateAndSetDivisionUVOffsets(13,13,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString11.png"));
 
-	tutorialSprite9.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString12.png"));
-	tutorialSprite10.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString13.png"));
+	tutorialSprite9.CreateAndSetDivisionUVOffsets(8,8,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString12.png"));
+	tutorialSprite10.CreateAndSetDivisionUVOffsets(16,16,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString13.png"));
 
-	tutorialSprite11.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString14.png"));
-	tutorialSprite12.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString15.png"));
+	tutorialSprite11.CreateAndSetDivisionUVOffsets(11,11,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString14.png"));
+	tutorialSprite12.CreateAndSetDivisionUVOffsets(18,18,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString15.png"));
 
-	tutorialSprite13.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString16.png"));
-	tutorialSprite14.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString17.png"));
-	tutorialSprite15.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString17.png"));
-	tutorialSprite16.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString17.png"));
-	tutorialSprite17.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString18.png"));
+	tutorialSprite13.CreateAndSetDivisionUVOffsets(3,3,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString16.png"));
+	tutorialSprite14.CreateAndSetDivisionUVOffsets(3,3,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString17.png"));
+	tutorialSprite15.CreateAndSetDivisionUVOffsets(3, 3, 1, 64, 64, TexManager::LoadTexture("Resources/tutorialScene/titleString17.png"));
+	tutorialSprite16.CreateAndSetDivisionUVOffsets(3, 3, 1, 64, 64, TexManager::LoadTexture("Resources/tutorialScene/titleString17.png"));
+	tutorialSprite17.CreateAndSetDivisionUVOffsets(14,14,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString18.png"));
 
-	tutorialSprite18.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString19.png"));
+	tutorialSprite18.CreateAndSetDivisionUVOffsets(16,16,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString19.png"));
 
-	tutorialSprite19.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString20.png"));
-	tutorialSprite20.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString21.png"));
+	tutorialSprite19.CreateAndSetDivisionUVOffsets(8,8,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString20.png"));
+	tutorialSprite20.CreateAndSetDivisionUVOffsets(6,6,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString21.png"));
 
 	hirightSprite1.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString22.png"));
 
-	tutorialSprite21.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString23.png"));
-	tutorialSprite22.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString24.png"));
+	tutorialSprite21.CreateAndSetDivisionUVOffsets(14,14,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString23.png"));
+	tutorialSprite22.CreateAndSetDivisionUVOffsets(17,17,1,64,64,TexManager::LoadTexture("Resources/tutorialScene/titleString24.png"));
 
 	tutorialSprite23.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString25.png"));
 	tutorialSprite24.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString26.png"));
 	tutorialSprite25.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString27.png"));
+
+	tutorialSprite26.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString28.png"));
+
+	tutorialSprite27.Create(TexManager::LoadTexture("Resources/tutorialScene/titleString29.png"));
 }
 
 TutorialScene::~TutorialScene()
@@ -65,6 +69,10 @@ void TutorialScene::Initialize()
 	headMan->TutorialInit();
 
 	tutorialNum = 0;
+	aTimer = 0;
+
+	textSpeed = 0;
+	textNum = 0;
 }
 
 void TutorialScene::Finalize()
@@ -77,12 +85,18 @@ void TutorialScene::Update()
 		mSceneChanger->ChangeScene(eScene_Game);
 	}
 
+	aTimer++;
+	if (aTimer > 80)
+	{
+		aTimer = 0;
+	}
 	if (tutorialNum >= 6)
 	{
 		player->Update();
 
 		headMan->TutorialUpdate();
 	}
+
 }
 
 void TutorialScene::Draw()
@@ -95,6 +109,9 @@ void TutorialScene::Draw()
 
 void TutorialScene::Draw2D()
 {
+	tutorialSprite26.DrawExtendSprite(900, 0, 1280, 100);
+	tutorialSprite26.Draw();
+
 	if (tutorialNum > 6)
 	{
 		player->DrawUI();
@@ -110,111 +127,286 @@ void TutorialScene::Draw2D()
 
 		tutorialTitle.DrawSprite(1280 / 2 - 448 / 2,720 / 2 - 64 / 2);
 		tutorialTitle.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 1:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		storeManSprite.DrawSprite(0, 450);
 		storeManSprite.Draw();
 
-		tutorialSprite1.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 10; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite1.uvOffsetHandle = i;
+				tutorialSprite1.DrawSprite(32 + 64 * i, 520);
+			}
+		}
 		tutorialSprite1.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
 
 		break;
 	case 2:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite2.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 24; i++)
+		{
+			if (textNum >= i && i < 7)
+			{
+				tutorialSprite2.uvOffsetHandle = i;
+				tutorialSprite2.DrawSprite(32 + 64 * i, 520);
+			}
+			else if (textNum >= i && i >= 7)
+			{
+				tutorialSprite3.uvOffsetHandle = (i - 7);
+				tutorialSprite3.DrawSprite(32 + 64 * (i - 7), 584);
+			}
+		}
 		tutorialSprite2.Draw();
-		
-		tutorialSprite3.DrawSprite(32, 584);
 		tutorialSprite3.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
 
 		break;
 	case 3:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		storeManSprite.DrawSprite(0, 450);
 		storeManSprite.Draw();
 
-		tutorialSprite4.DrawSprite(32, 520);
-		tutorialSprite4.Draw();
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
 
-		tutorialSprite5.DrawSprite(32, 584);
+		for (int i = 0; i < 25; i++)
+		{
+			if (textNum >= i && i < 13)
+			{
+				tutorialSprite4.uvOffsetHandle = i;
+				tutorialSprite4.DrawSprite(32 + 64 * i, 520);
+			}
+			else if (textNum >= i && i >= 13)
+			{
+				tutorialSprite5.uvOffsetHandle = (i - 13);
+				tutorialSprite5.DrawSprite(32 + 64 * (i - 13), 584);
+			}
+		}
+		tutorialSprite4.Draw();
 		tutorialSprite5.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 4:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite6.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 39; i++)
+		{
+			if (textNum >= i && i < 8)
+			{
+				tutorialSprite6.uvOffsetHandle = i;
+				tutorialSprite6.DrawSprite(32 + 64 * i, 520);
+			}
+			else if (textNum >= i && i < 26)
+			{
+				tutorialSprite7.uvOffsetHandle = (i - 8);
+				tutorialSprite7.DrawSprite(32 + 64 * (i - 8), 584);
+			}
+			else if (textNum >= i && i >= 26)
+			{
+				tutorialSprite8.uvOffsetHandle = (i - 26);
+				tutorialSprite8.DrawSprite(32 + 64 * (i - 26), 648);
+			}
+		}
 		tutorialSprite6.Draw();
-
-		tutorialSprite7.DrawSprite(32, 584);
 		tutorialSprite7.Draw();
-
-		tutorialSprite8.DrawSprite(32, 648);
 		tutorialSprite8.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
 
 		break;
 	case 5:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite9.DrawSprite(32, 520);
-		tutorialSprite9.Draw();
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
 
-		tutorialSprite10.DrawSprite(32, 584);
+		for (int i = 0; i < 24; i++)
+		{
+			if (textNum >= i && i < 8)
+			{
+				tutorialSprite9.uvOffsetHandle = i;
+				tutorialSprite9.DrawSprite(32 + 64 * i, 520);
+			}
+			else if (textNum >= i && i >= 8)
+			{
+				tutorialSprite10.uvOffsetHandle = (i - 8);
+				tutorialSprite10.DrawSprite(32 + 64 * (i - 8), 584);
+			}
+		}
+		tutorialSprite9.Draw();
 		tutorialSprite10.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 6:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite11.DrawSprite(32, 520);
-		tutorialSprite11.Draw();
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
 
-		tutorialSprite12.DrawSprite(32, 584);
+		for (int i = 0; i < 29; i++)
+		{
+			if (textNum >= i && i < 11)
+			{
+				tutorialSprite11.uvOffsetHandle = i;
+				tutorialSprite11.DrawSprite(32 + 64 * i, 520);
+			}
+			else if (textNum >= i && i >= 11)
+			{
+				tutorialSprite12.uvOffsetHandle = (i - 11);
+				tutorialSprite12.DrawSprite(32 + 64 * (i - 11), 584);
+			}
+		}
+		tutorialSprite11.Draw();
 		tutorialSprite12.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 7:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite13.uvOffsetHandle = i;
+				tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+			}
+		}
 		tutorialSprite13.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
 
 		break;
 	case 8:
@@ -234,6 +426,7 @@ void TutorialScene::Draw2D()
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = false;
@@ -241,11 +434,35 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
-		tutorialSprite13.Draw();
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
 
-		tutorialSprite14.DrawSprite(224, 520);
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite13.uvOffsetHandle = i;
+			tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite14.uvOffsetHandle = i;
+				tutorialSprite14.DrawSprite(224 + 64 * i, 520);
+			}
+		}
+		tutorialSprite13.Draw();
 		tutorialSprite14.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 10:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) == 0))
@@ -265,6 +482,7 @@ void TutorialScene::Draw2D()
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = false;
@@ -272,14 +490,42 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite13.uvOffsetHandle = i;
+			tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite14.uvOffsetHandle = i;
+			tutorialSprite14.DrawSprite(224 + 64 * i, 520);
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite15.uvOffsetHandle = i;
+				tutorialSprite15.DrawSprite(416 + 64 * i, 520);
+			}
+		}
 		tutorialSprite13.Draw();
-
-		tutorialSprite14.DrawSprite(224, 520);
 		tutorialSprite14.Draw();
-
-		tutorialSprite15.DrawSprite(416, 520);
 		tutorialSprite15.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 12:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) == 0))
@@ -298,6 +544,7 @@ void TutorialScene::Draw2D()
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = false;
@@ -305,17 +552,47 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite13.uvOffsetHandle = i;
+			tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite14.uvOffsetHandle = i;
+			tutorialSprite14.DrawSprite(224 + 64 * i, 520);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite15.uvOffsetHandle = i;
+			tutorialSprite15.DrawSprite(416 + 64 * i, 520);
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite16.uvOffsetHandle = i;
+				tutorialSprite16.DrawSprite(608 + 64 * i, 520);
+			}
+		}
 		tutorialSprite13.Draw();
-
-		tutorialSprite14.DrawSprite(224, 520);
 		tutorialSprite14.Draw();
-
-		tutorialSprite15.DrawSprite(416, 520);
 		tutorialSprite15.Draw();
-
-		tutorialSprite16.DrawSprite(608, 520);
 		tutorialSprite16.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
 
 		break;
 
@@ -337,6 +614,7 @@ void TutorialScene::Draw2D()
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		//headMan->heads.begin()->get()->isMostFront = false;
@@ -344,20 +622,54 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite13.uvOffsetHandle = i;
+			tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite14.uvOffsetHandle = i;
+			tutorialSprite14.DrawSprite(224 + 64 * i, 520);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite15.uvOffsetHandle = i;
+			tutorialSprite15.DrawSprite(416 + 64 * i, 520);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite16.uvOffsetHandle = i;
+			tutorialSprite16.DrawSprite(608 + 64 * i, 520);
+		}
+
+		for (int i = 0; i < 14; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite17.uvOffsetHandle = i;
+				tutorialSprite17.DrawSprite(32 + 64 * i, 584);
+			}
+		}
 		tutorialSprite13.Draw();
-
-		tutorialSprite14.DrawSprite(224, 520);
 		tutorialSprite14.Draw();
-
-		tutorialSprite15.DrawSprite(416, 520);
 		tutorialSprite15.Draw();
-
-		tutorialSprite16.DrawSprite(608, 520);
 		tutorialSprite16.Draw();
-
-		tutorialSprite17.DrawSprite(32, 584);
 		tutorialSprite17.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 
 
@@ -365,6 +677,7 @@ void TutorialScene::Draw2D()
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = false;
@@ -372,8 +685,29 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite13.uvOffsetHandle = i;
+				tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+			}
+		}
 		tutorialSprite13.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 
 	case 17:
@@ -394,6 +728,7 @@ void TutorialScene::Draw2D()
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = false;
@@ -401,11 +736,35 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite13.uvOffsetHandle = i;
+			tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+		}
 		tutorialSprite13.Draw();
 
-		tutorialSprite18.DrawSprite(224, 520);
+		for (int i = 0; i < 16; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite18.uvOffsetHandle = i;
+				tutorialSprite18.DrawSprite(224 + 64 * i, 520);
+			}
+		}
 		tutorialSprite18.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
 
 		break;
 
@@ -427,6 +786,7 @@ void TutorialScene::Draw2D()
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		//headMan->heads.begin()->get()->isMostFront = false;
@@ -434,19 +794,49 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite13.uvOffsetHandle = i;
+			tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+		}
 		tutorialSprite13.Draw();
 
-		tutorialSprite18.DrawSprite(224, 520);
+		for (int i = 0; i < 16; i++)
+		{
+			tutorialSprite18.uvOffsetHandle = i;
+			tutorialSprite18.DrawSprite(224 + 64 * i, 520);
+		}
 		tutorialSprite18.Draw();
 
-		tutorialSprite17.DrawSprite(32, 584);
+		for (int i = 0; i < 14; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite17.uvOffsetHandle = i;
+				tutorialSprite17.DrawSprite(32 + 64 * i, 584);
+			}
+		}
 		tutorialSprite17.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 21:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = false;
@@ -454,13 +844,35 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite13.uvOffsetHandle = i;
+				tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+			}
+		}
 		tutorialSprite13.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 22:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = false;
@@ -468,11 +880,36 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite13.uvOffsetHandle = i;
+			tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+		}
 		tutorialSprite13.Draw();
 
-		tutorialSprite19.DrawSprite(224, 520);
+		for (int i = 0; i < 8; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite19.uvOffsetHandle = i;
+				tutorialSprite19.DrawSprite(224 + 64 * i, 520);
+			}
+		}
 		tutorialSprite19.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 23:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) == 0))
@@ -492,6 +929,7 @@ void TutorialScene::Draw2D()
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		//headMan->heads.begin()->get()->isMostFront = false;
@@ -499,39 +937,110 @@ void TutorialScene::Draw2D()
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite13.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			tutorialSprite13.uvOffsetHandle = i;
+			tutorialSprite13.DrawSprite(32 + 64 * i, 520);
+		}
 		tutorialSprite13.Draw();
 
-		tutorialSprite19.DrawSprite(224, 520);
+		for (int i = 0; i < 8; i++)
+		{
+			tutorialSprite19.uvOffsetHandle = i;
+			tutorialSprite19.DrawSprite(224 + 64 * i, 520);
+		}
 		tutorialSprite19.Draw();
 
-		tutorialSprite20.DrawSprite(32, 584);
+		for (int i = 0; i < 6; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite20.uvOffsetHandle = i;
+				tutorialSprite20.DrawSprite(32 + 64 * i, 584);
+			}
+		}
 		tutorialSprite20.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
+
 		break;
 	case 25:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite21.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 14; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite21.uvOffsetHandle = i;
+				tutorialSprite21.DrawSprite(32 + 64 * i, 520);
+			}
+		}
 		tutorialSprite21.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
 
 		break;
 	case 26:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
+			textNum = 0;
 		}
 
 		hagesiSprite.DrawSprite(0, 450);
 		hagesiSprite.Draw();
 
-		tutorialSprite22.DrawSprite(32, 520);
+		textSpeed++;
+		if (textSpeed > MAX_TEXT_SPEED)
+		{
+			textNum++;
+			textSpeed = 0;
+		}
+
+		for (int i = 0; i < 17; i++)
+		{
+			if (textNum >= i)
+			{
+				tutorialSprite22.uvOffsetHandle = i;
+				tutorialSprite22.DrawSprite(32 + 64 * i, 520);
+			}
+		}
 		tutorialSprite22.Draw();
+
+		if (aTimer < 60)
+		{
+			tutorialSprite27.DrawSprite(1280 - 64, 720 - 64);
+			tutorialSprite27.Draw();
+		}
 
 		break;
 	case 27:
