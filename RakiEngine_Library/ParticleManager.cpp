@@ -712,17 +712,17 @@ void ParticleDrawManager::Init()
 	blenddesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;	// RBGA全てのチャンネルを描画
 	blenddesc.BlendEnable = true;
 	// アルファブレンディング
-	//blenddesc.BlendOp = D3D12_BLEND_OP_ADD;//加算
-	//blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;//ソースの値を100%使用
-	//blenddesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;//デストの値を100%使用
-	//// 減算ブレンディング
-	blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
-	blenddesc.SrcBlend = D3D12_BLEND_ONE;
-	blenddesc.DestBlend = D3D12_BLEND_ONE;
+	//blenddesc.BlendOp		= D3D12_BLEND_OP_ADD;//加算
+	//blenddesc.SrcBlend	= D3D12_BLEND_SRC_ALPHA;//ソースの値を100%使用
+	//blenddesc.DestBlend	= D3D12_BLEND_INV_SRC_ALPHA;//デストの値を100%使用
+	//// 加算ブレンディング
+	blenddesc.BlendOp	= D3D12_BLEND_OP_ADD;//加算
+	blenddesc.SrcBlend	= D3D12_BLEND_ONE;//ソースの値を100%使用
+	blenddesc.DestBlend = D3D12_BLEND_ONE;//デストの値を100%使用
 
 	blenddesc.BlendOpAlpha = D3D12_BLEND_OP_ADD;
-	blenddesc.SrcBlendAlpha = D3D12_BLEND_ONE;
-	blenddesc.DestBlendAlpha = D3D12_BLEND_ZERO;
+	blenddesc.SrcBlendAlpha = D3D12_BLEND_SRC_ALPHA;
+	blenddesc.DestBlendAlpha = D3D12_BLEND_INV_SRC_ALPHA;
 
 	// ブレンドステートの設定
 	gpipeline.BlendState.RenderTarget[0] = blenddesc;
