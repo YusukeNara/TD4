@@ -133,6 +133,10 @@ void ProtoPlayer::HandAttack()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
+		if (isSlapSpline)
+		{
+			SlapSpline.Reset();
+		}
 		SlapSpline.Play();
 		SlapRot.y = -20;
 		isSlapSpline = true;
@@ -177,6 +181,10 @@ void ProtoPlayer::CutHair()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
 	{
+		if (isCutSpline)
+		{
+			CutSpline.Reset();
+		}
 		CutSpline.Play();
 		CutRot.z = -20;
 		isCutSpline = true;
@@ -221,6 +229,10 @@ void ProtoPlayer::Clip()
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
 	{
+		if (isClipSpline)
+		{
+			ClipSpline.Reset();
+		}
 		ClipSpline.Play();
 		ClipRot.y = -20;
 		isClipSpline = true;
