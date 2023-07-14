@@ -6,6 +6,8 @@
 #include <vector>
 #include <cassert>
 #include <d3dcompiler.h>
+#include <fstream>
+#include <sstream>
 
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -751,4 +753,20 @@ bool Raki_DX12B::CreateDsvHeapForIngui()
 {
 	//‰Šú‰»‚ÍimguiŠÇ—•”‚ªÀs
 	return true;
+}
+
+void ExportEngineLogText(const wchar_t* fileName, const  wchar_t* functionName, const  wchar_t* logText, int lineNumber)
+{
+	printf("%ls : %ls : %d : %ls \n", fileName, functionName, lineNumber, logText);
+
+	std::wstring log = fileName;
+	log += L" : ";
+	log += functionName;
+	log += L" : ";
+	log += std::to_wstring(lineNumber);
+	log += L" : ";
+	log += logText;
+	log += L"\n";
+
+	OutputDebugString(log.c_str());
 }

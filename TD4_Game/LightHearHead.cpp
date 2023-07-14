@@ -16,11 +16,9 @@ void LightHairHead::Init()
 {
 	SlapParticle = std::make_unique<ParticleManager>();
 	SlapParticle.reset(ParticleManager::Create());
-	slapTex = TexManager::LoadTexture("Resources/white1x1.png");
 
 	PullParticle = std::make_unique<ParticleManager>();
 	PullParticle.reset(ParticleManager::Create());
-	pullTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
 	headObjectSelf = std::make_shared<Object3d>();
 	hairObjectSelf = std::make_shared<Object3d>();

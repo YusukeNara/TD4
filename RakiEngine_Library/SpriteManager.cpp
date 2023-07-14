@@ -360,5 +360,5 @@ SpriteData::~SpriteData()
     insWorldMatrixes.clear();
     insWorldMatrixes.shrink_to_fit();
 
-    TexManager::DeleteTexture(texNumber);
+    //TexManager::DeleteTexture(texNumber);
 }

@@ -30,7 +30,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	std::shared_ptr<fbxModel> testModel = std::make_shared<fbxModel>();
 	testModel.reset(FbxLoader::GetInstance()->LoadFBXFile("hage_1"));
 	testFBX_NoBone.reset(SetModel_FBX(testModel));
-	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(0, 0, -50.0f));
+	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(-75.0f, 0, -50.0f));
 	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP,0);
 
 	testobj = std::make_shared<Object3d>();
@@ -112,7 +112,7 @@ void EngineDebugScene::Update()
 		pgstate.vel = rutility::randomRV3(RVector3(1, 1, 1), RVector3(-1, -1, -1));
 		pgstate.color_start = { 1,0,0,1 };
 		pgstate.color_end = { 1,1,1,1 };
-		testp->Add(pgstate);
+		//testp->Add(pgstate);
 	}
 }
 
@@ -205,6 +205,6 @@ void EngineDebugScene::DrawImgui()
 
 void EngineDebugScene::DrawParticle()
 {
-	testp->Update();
-	testp->Draw(particleTex);
+	//testp->Update();
+	//testp->Draw(particleTex);
 }

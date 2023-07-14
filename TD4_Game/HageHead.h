@@ -36,7 +36,5 @@ private:
 
 	//位置のオフセット
 	RVector3 headOffset;
-
-	UINT hageheadTex;
 };
 
