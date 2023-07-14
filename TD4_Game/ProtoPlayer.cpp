@@ -39,7 +39,7 @@ void ProtoPlayer::Init()
 
 	//ハサミのアフィン変換
 	ClipPositionOffset = { 35,0,-50 };
-	ClipRotationOffset = { 0,0,0 };
+	ClipRotationOffset = { 45,0,0 };
 	ClipScaleOffset = { 0.01,0.01,0.01 };
 
 	handObject->SetAffineParam(HandScaleOffset, HandRotationOffset, HandPositionOffset);
@@ -60,7 +60,7 @@ void ProtoPlayer::Init()
 	SlapControlPoint[4] = HandPositionOffset;
 	SlapControlPoint[0] = SlapControlPoint[4];
 	SlapControlPoint[5] = SlapControlPoint[1];
-	SlapSpline.Init(SlapControlPoint.data(), 6, 18);
+	SlapSpline.Init(SlapControlPoint.data(), 6, 15);
 
 	//バリカン
 	CutControlPoint[1] = CutPositionOffset;
@@ -69,16 +69,16 @@ void ProtoPlayer::Init()
 	CutControlPoint[4] = CutPositionOffset;
 	CutControlPoint[0] = CutControlPoint[4];
 	CutControlPoint[5] = CutControlPoint[1];
-	CutSpline.Init(CutControlPoint.data(), 6, 18);
+	CutSpline.Init(CutControlPoint.data(), 6, 15);
 
 	//ハサミ
 	ClipControlPoint[1] = ClipPositionOffset;
-	ClipControlPoint[2] = RVector3(  0, 0, -50);
-	ClipControlPoint[3] = RVector3(-15, 0, -15);
+	ClipControlPoint[2] = RVector3( 50, 0, -10);
+	ClipControlPoint[3] = RVector3( 15, 0, -15);
 	ClipControlPoint[4] = ClipPositionOffset;
 	ClipControlPoint[0] = ClipControlPoint[4];
 	ClipControlPoint[5] = ClipControlPoint[1];
-	ClipSpline.Init(ClipControlPoint.data(), 6, 18);
+	ClipSpline.Init(ClipControlPoint.data(), 6, 15);
 }
 
 void ProtoPlayer::Update()
@@ -126,6 +126,11 @@ void ProtoPlayer::Finalize()
 
 void ProtoPlayer::HandAttack()
 {
+	if (isCutSpline || isClipSpline)
+	{
+		return;
+	}
+
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		SlapSpline.Play();
@@ -165,16 +170,21 @@ void ProtoPlayer::HandAttack()
 
 void ProtoPlayer::CutHair()
 {
+	if (isSlapSpline || isClipSpline)
+	{
+		return;
+	}
+
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
 	{
 		CutSpline.Play();
-		CutRot.y = -20;
+		CutRot.z = -20;
 		isCutSpline = true;
 	}
 
 	if (!isCutSpline)
 	{
-		barikanObject->SetAffineParamRotate(CutPositionOffset);
+		barikanObject->SetAffineParamRotate(CutRotationOffset);
 		barikanObject->SetAffineParamTranslate(CutPositionOffset);
 		return;
 	}
@@ -182,7 +192,7 @@ void ProtoPlayer::CutHair()
 	if (isCutSpline)
 	{
 		//SlapRot.y += 3;
-		barikanObject->SetAffineParamRotate(CutRot);
+		//barikanObject->SetAffineParamRotate(CutRot);
 		barikanObject->SetAffineParamTranslate(CutSpline.Update());
 
 		if (barikanObject->position == CutControlPoint[2])
@@ -204,6 +214,11 @@ void ProtoPlayer::CutHair()
 
 void ProtoPlayer::Clip()
 {
+	if (isSlapSpline || isCutSpline)
+	{
+		return;
+	}
+
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
 	{
 		ClipSpline.Play();
@@ -221,7 +236,7 @@ void ProtoPlayer::Clip()
 	if (isClipSpline)
 	{
 		//SlapRot.y += 3;
-		scissorsObject->SetAffineParamRotate(ClipRot);
+		//scissorsObject->SetAffineParamRotate(ClipRot);
 		scissorsObject->SetAffineParamTranslate(ClipSpline.Update());
 
 		if (scissorsObject->position == ClipControlPoint[2])
