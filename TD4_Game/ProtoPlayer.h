@@ -96,10 +96,24 @@ private:
 	XMFLOAT2 uiOffsetClip;
 	XMFLOAT2 uiOffsetScis;
 
-	//曲線補間
-	Rv3Spline testSpline;
-	bool isspline = false;
-	RVector3 slapRot = { 90,0,0 };
-	std::array<RVector3, 6> controlPoint;
+	//-------------------曲線補間---------------------
+	//ビンタ
+	Rv3Spline SlapSpline;
+	bool isSlapSpline = false;
+	RVector3 SlapRot = { 90,0,0 };
+	std::array<RVector3, 6> SlapControlPoint;
+
+	//ハサミ
+	Rv3Spline ClipSpline;
+	bool isClipSpline = false;
+	RVector3 ClipRot = { 90,0,0 };
+	std::array<RVector3, 6> ClipControlPoint;
+
+	//バリカン
+	Rv3Spline CutSpline;
+	bool isCutSpline = false;
+	RVector3 CutRot = { 90,0,0 };
+	std::array<RVector3, 6> CutControlPoint;
+
 };
 

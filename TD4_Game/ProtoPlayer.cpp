@@ -39,7 +39,7 @@ void ProtoPlayer::Init()
 
 	//ハサミのアフィン変換
 	ClipPositionOffset = { 35,0,-50 };
-	ClipRotationOffset = { 0,0,0 };
+	ClipRotationOffset = { 45,0,0 };
 	ClipScaleOffset = { 0.01,0.01,0.01 };
 
 	handObject->SetAffineParam(HandScaleOffset, HandRotationOffset, HandPositionOffset);
@@ -52,15 +52,33 @@ void ProtoPlayer::Init()
 
 	RetirementMoney = MaxRetirementMoney;
 
-	//制御点の座標
-	controlPoint[1] = HandPositionOffset;
-	controlPoint[2] = RVector3(-50, 0, -10);
-	controlPoint[3] = RVector3(-15, 0, -15);
-	controlPoint[4] = HandPositionOffset;
-	controlPoint[0] = controlPoint[4];
-	controlPoint[5] = controlPoint[1];
+	//----------------制御点の座標---------------
+	//ビンタ
+	SlapControlPoint[1] = HandPositionOffset;
+	SlapControlPoint[2] = RVector3(-50, 0, -10);
+	SlapControlPoint[3] = RVector3(-15, 0, -15);
+	SlapControlPoint[4] = HandPositionOffset;
+	SlapControlPoint[0] = SlapControlPoint[4];
+	SlapControlPoint[5] = SlapControlPoint[1];
+	SlapSpline.Init(SlapControlPoint.data(), 6, 15);
 
-	testSpline.Init(controlPoint.data(), 6, 18);
+	//バリカン
+	CutControlPoint[1] = CutPositionOffset;
+	CutControlPoint[2] = RVector3(  0, 0, -10);
+	CutControlPoint[3] = RVector3(  0,40, -30);
+	CutControlPoint[4] = CutPositionOffset;
+	CutControlPoint[0] = CutControlPoint[4];
+	CutControlPoint[5] = CutControlPoint[1];
+	CutSpline.Init(CutControlPoint.data(), 6, 15);
+
+	//ハサミ
+	ClipControlPoint[1] = ClipPositionOffset;
+	ClipControlPoint[2] = RVector3( 50, 0, -10);
+	ClipControlPoint[3] = RVector3( 15, 0, -15);
+	ClipControlPoint[4] = ClipPositionOffset;
+	ClipControlPoint[0] = ClipControlPoint[4];
+	ClipControlPoint[5] = ClipControlPoint[1];
+	ClipSpline.Init(ClipControlPoint.data(), 6, 15);
 }
 
 void ProtoPlayer::Update()
@@ -108,49 +126,146 @@ void ProtoPlayer::Finalize()
 
 void ProtoPlayer::HandAttack()
 {
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
+	if (isCutSpline || isClipSpline)
 	{
-		testSpline.Play();
-		slapRot.y = -20;
-		isspline = true;
+		return;
 	}
 
-	if (!isspline)
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
+	{
+		if (isSlapSpline)
+		{
+			SlapSpline.Reset();
+		}
+		SlapSpline.Play();
+		SlapRot.y = -20;
+		isSlapSpline = true;
+	}
+
+	if (!isSlapSpline)
 	{
 		handObject->SetAffineParamRotate(HandRotationOffset);
 		handObject->SetAffineParamTranslate(HandPositionOffset);
 		return;
 	}
 
-	if (isspline)
+	if (isSlapSpline)
 	{
-		//slapRot.y += 3;
-		handObject->SetAffineParamRotate(slapRot);
-		handObject->SetAffineParamTranslate(testSpline.Update());
+		//SlapRot.y += 3;
+		handObject->SetAffineParamRotate(SlapRot);
+		handObject->SetAffineParamTranslate(SlapSpline.Update());
 
-		if (handObject->position == controlPoint[2])
+		if (handObject->position == SlapControlPoint[2])
 		{
-			slapRot.y = -10;
+			SlapRot.y = -10;
 		}
-		else if (handObject->position == controlPoint[3])
+		else if (handObject->position == SlapControlPoint[3])
 		{
-			slapRot.y = 40;
+			SlapRot.y = 40;
 		}
 
 		if (handObject->position == HandPositionOffset)
 		{
-			testSpline.Reset();
-			isspline = false;
+			SlapSpline.Reset();
+			isSlapSpline = false;
 		}
 	}
 }
 
 void ProtoPlayer::CutHair()
 {
+	if (isSlapSpline || isClipSpline)
+	{
+		return;
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
+	{
+		if (isCutSpline)
+		{
+			CutSpline.Reset();
+		}
+		CutSpline.Play();
+		CutRot.z = -20;
+		isCutSpline = true;
+	}
+
+	if (!isCutSpline)
+	{
+		barikanObject->SetAffineParamRotate(CutRotationOffset);
+		barikanObject->SetAffineParamTranslate(CutPositionOffset);
+		return;
+	}
+
+	if (isCutSpline)
+	{
+		//SlapRot.y += 3;
+		//barikanObject->SetAffineParamRotate(CutRot);
+		barikanObject->SetAffineParamTranslate(CutSpline.Update());
+
+		if (barikanObject->position == CutControlPoint[2])
+		{
+			CutRot.y = -10;
+		}
+		else if (barikanObject->position == CutControlPoint[3])
+		{
+			CutRot.y = 40;
+		}
+
+		if (barikanObject->position == CutPositionOffset)
+		{
+			CutSpline.Reset();
+			isCutSpline = false;
+		}
+	}
 }
 
 void ProtoPlayer::Clip()
 {
+	if (isSlapSpline || isCutSpline)
+	{
+		return;
+	}
+
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
+	{
+		if (isClipSpline)
+		{
+			ClipSpline.Reset();
+		}
+		ClipSpline.Play();
+		ClipRot.y = -20;
+		isClipSpline = true;
+	}
+
+	if (!isClipSpline)
+	{
+		scissorsObject->SetAffineParamRotate(ClipRotationOffset);
+		scissorsObject->SetAffineParamTranslate(ClipPositionOffset);
+		return;
+	}
+
+	if (isClipSpline)
+	{
+		//SlapRot.y += 3;
+		//scissorsObject->SetAffineParamRotate(ClipRot);
+		scissorsObject->SetAffineParamTranslate(ClipSpline.Update());
+
+		if (scissorsObject->position == ClipControlPoint[2])
+		{
+			ClipRot.y = -10;
+		}
+		else if (scissorsObject->position == ClipControlPoint[3])
+		{
+			ClipRot.y = 40;
+		}
+
+		if (scissorsObject->position == ClipPositionOffset)
+		{
+			ClipSpline.Reset();
+			isClipSpline = false;
+		}
+	}
 }
 
 void ProtoPlayer::ChangeItem()

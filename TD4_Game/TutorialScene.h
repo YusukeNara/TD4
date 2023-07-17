@@ -37,6 +37,14 @@ private:
 
     int tutorialNum;
 
+    int aTimer;
+
+    int textSpeed;
+
+    int textNum;
+
+    const int MAX_TEXT_SPEED = 3;
+
     Sprite tutorialTitle;
     Sprite storeManSprite;
     Sprite hagesiSprite;
@@ -77,5 +85,9 @@ private:
     Sprite tutorialSprite23;
     Sprite tutorialSprite24;
     Sprite tutorialSprite25;
+
+    Sprite tutorialSprite26;
+
+    Sprite tutorialSprite27;
 };
 
