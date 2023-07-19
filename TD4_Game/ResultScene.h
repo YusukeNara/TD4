@@ -10,6 +10,8 @@
 #include <NY_Object3DMgr.h>
 #include <Sprite.h>
 
+const int scrollCountMax = 180;
+
 class ResultScene : public BaseScene
 {
 public:
@@ -24,6 +26,7 @@ public:
     void DrawImgui() override;
     const int& SelectRank();
 
+    void SceneScroll();
     void Animation();
 
     Sprite spriteReview;
@@ -52,6 +55,10 @@ public:
     float totalReview;
     //Ç≥ÇŒÇ¢ÇΩêî
     int handleNum;
+
+    int scrollCount = 0;
+
+    bool isScroll = false;
 
     XMFLOAT2 starPos;
     XMFLOAT2 reviewSpritePos;

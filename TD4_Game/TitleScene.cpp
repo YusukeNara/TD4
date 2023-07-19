@@ -61,7 +61,6 @@ void TitleScene::Finalize()
 
 //XV
 void TitleScene::Update() {
-	Animation();
 	if (animationCount == animationCountMax)
 	{
 		if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
@@ -74,6 +73,10 @@ void TitleScene::Update() {
 	if (isScroll)
 	{
 		SceneScroll();
+	}
+	else
+	{
+		Animation();
 	}
 	if (Input::Get()->isKeyTrigger(DIK_3)) {
 		mSceneChanger->ChangeScene(eScene_Tutorial);
@@ -104,8 +107,8 @@ void TitleScene::DrawImgui()
 
 void TitleScene::Animation()
 {
-	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X)
-		|| Input::Get()->isKeyTrigger(DIK_1))
+	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
+		|| Input::Get()->isKeyTrigger(DIK_2))
 	{
 		titleSpritePos.y = titleLastPos;
 		titlePlayerPos = { 50,0,0 };
