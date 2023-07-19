@@ -126,16 +126,19 @@ void ProtoPlayer::Finalize()
 
 void ProtoPlayer::HandAttack()
 {
-	if (isCutSpline || isClipSpline)
-	{
-		return;
-	}
-
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
 		if (isSlapSpline)
 		{
 			SlapSpline.Reset();
+		}
+		if (isCutSpline)
+		{
+			CutSpline.Reset();
+		}
+		if (isClipSpline)
+		{
+			ClipSpline.Reset();
 		}
 		SlapSpline.Play();
 		SlapRot.y = -20;
@@ -174,16 +177,19 @@ void ProtoPlayer::HandAttack()
 
 void ProtoPlayer::CutHair()
 {
-	if (isSlapSpline || isClipSpline)
-	{
-		return;
-	}
-
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
 	{
+		if (isSlapSpline)
+		{
+			SlapSpline.Reset();
+		}
 		if (isCutSpline)
 		{
 			CutSpline.Reset();
+		}
+		if (isClipSpline)
+		{
+			ClipSpline.Reset();
 		}
 		CutSpline.Play();
 		CutRot.z = -20;
@@ -222,13 +228,16 @@ void ProtoPlayer::CutHair()
 
 void ProtoPlayer::Clip()
 {
-	if (isSlapSpline || isCutSpline)
-	{
-		return;
-	}
-
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
 	{
+		if (isSlapSpline)
+		{
+			SlapSpline.Reset();
+		}
+		if (isCutSpline)
+		{
+			CutSpline.Reset();
+		}
 		if (isClipSpline)
 		{
 			ClipSpline.Reset();
