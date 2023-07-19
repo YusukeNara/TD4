@@ -24,6 +24,9 @@ inline void ExportHRESULTmessage(HRESULT resultCode){
 	if(FAILED(resultCode)){ std::cout << std::system_category().message(resultCode) << std::endl; }
 }
 
+//ƒƒOo—Í
+void ExportEngineLogText(const wchar_t* fileName, const wchar_t* functionName, const wchar_t* logText, int lineNumber);
+
 
 class Raki_DX12B
 {

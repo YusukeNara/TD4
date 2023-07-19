@@ -36,7 +36,6 @@ private:
 private:
 	//毛を刈った時のパーティクル
 	std::unique_ptr<ParticleManager> CutParticle;
-	UINT cutTex;
 
 	std::shared_ptr<Object3d> headObjectSelf;
 	std::shared_ptr<Object3d> afroObjectSelf;
