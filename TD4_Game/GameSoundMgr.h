@@ -7,15 +7,15 @@ class GameSoundMgr
 {
 private:
 	//各音データ
-	SoundData titleBgm;
-	SoundData gameBgm;
-	SoundData resultBgm;
+	std::unique_ptr<SoundData> titleBgm;
+	std::unique_ptr<SoundData> gameBgm;
+	std::unique_ptr<SoundData> resultBgm;
 
-	std::array<SoundData, 3> slapSe = {};
-	std::array<SoundData, 2> cutSe = {};
-	SoundData pullSe = {};
-	SoundData buttonSe = {};
-	SoundData cancelSe = {};
+	std::array<std::unique_ptr<SoundData>, 3> slapSe = {};
+	std::array<std::unique_ptr<SoundData>, 2> cutSe = {};
+	std::unique_ptr<SoundData> pullSe;
+	std::unique_ptr<SoundData> buttonSe;
+	std::unique_ptr<SoundData> cancelSe;
 
 
 	GameSoundMgr() = default;

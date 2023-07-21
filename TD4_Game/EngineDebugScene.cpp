@@ -45,13 +45,14 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
 
 	//音ロード
-	testSE = Audio::LoadSound_wav("Resources/don.wav");
-	testBGM = Audio::LoadSound_wav("Resources/sounds/bgm/titlebgm.wav");
+	testSE.reset(Audio::LoadSound_wav("Resources/don.wav"));
+	testBGM = std::make_unique<SoundData>();
+	testBGM.reset(Audio::LoadSound_wav("Resources/sounds/bgm/titlebgm.wav"));
 
 	testNum.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 
 	//無限ループ
-	Audio::SetPlayRoopmode(testBGM, 255);
+	Audio::SetPlayRoopmode(testBGM.get(), 255);
 
 	q1 = quaternion(1, 2, 3, 4);
 	q2 = quaternion(2, 3, 4, 1);
@@ -107,7 +108,7 @@ void EngineDebugScene::Update()
 
 	testobject->SetAffineParamTranslate(testspline.Update());
 
-	if (Input::isKeyTrigger(DIK_O)) { Audio::PlayLoadedSound(testSE, true); }
+	if (Input::isKeyTrigger(DIK_O)) { Audio::PlayLoadedSound(testSE.get(), true); }
 
 	if (Input::isKey(DIK_G)) { 
 		//設定構造体のインスタンス
@@ -199,13 +200,13 @@ void EngineDebugScene::DrawImgui()
 	myImgui::StartDrawImGui("Audio Control", 150, 300);
 
 	if (ImGui::Button("PLAY")) {
-		Audio::PlayLoadedSound(testBGM);
+		Audio::PlayLoadedSound(testBGM.get());
 	}
 	if (ImGui::Button("STOP")) {
-		Audio::StopLoadedSound(testBGM);
+		Audio::StopLoadedSound(testBGM.get());
 	}
 	if (ImGui::Button("PAUSE")) {
-		Audio::PauseLoadedSound(testBGM);
+		Audio::PauseLoadedSound(testBGM.get());
 	}
 
 	static float masterVolume = 0.5f;

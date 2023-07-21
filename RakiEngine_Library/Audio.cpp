@@ -22,7 +22,7 @@ void Audio::Init()
     result = MFStartup(MF_VERSION, MFSTARTUP_NOSOCKET);
 }
 
-SoundData Audio::LoadSound_wav(const char *filename)
+SoundData* Audio::LoadSound_wav(const char *filename)
 {
     //ファイル入力ストリームのインスタンス
     std::ifstream file;
@@ -153,7 +153,7 @@ SoundData Audio::LoadSound_wav(const char *filename)
     soundData->buf.AudioBytes = soundData->bufferSize;
     soundData->buf.Flags = XAUDIO2_END_OF_STREAM;
 
-    return *soundData;
+    return soundData;
 }
 
 SoundData Audio::LoadSound_mp3(const char* filename)
@@ -225,70 +225,71 @@ void Audio::UnloadSound(SoundData *data)
 {
     //メモリ解放
     delete[] data->pBuffer;
+    data->source->FlushSourceBuffers();
 
     data->pBuffer = 0;
     data->bufferSize = 0;
     data->wfex = {};
 }
 
-void Audio::SetPlayRoopmode(SoundData &soundData,int roopCount)
+void Audio::SetPlayRoopmode(SoundData* soundData,int roopCount)
 {
     if (roopCount < 0 || roopCount>256) { return; }
 
-    soundData.buf.LoopCount = roopCount;
+    soundData->buf.LoopCount = roopCount;
     if (roopCount == 0) {//ループ回数が0の時
-        soundData.buf.LoopBegin = 0;
-        soundData.buf.LoopLength = 0;
+        soundData->buf.LoopBegin = 0;
+        soundData->buf.LoopLength = 0;
     }
 }
 
-void Audio::PlayLoadedSound(SoundData &soundData, bool isSerialPlay)
+void Audio::PlayLoadedSound(SoundData* soundData, bool isSerialPlay)
 {
     HRESULT result;
     XAUDIO2_VOICE_STATE state;
 
-    if (soundData.isPause) {
-        result = soundData.source->Start();
-        soundData.isPause = false;
+    if (soundData->isPause) {
+        result = soundData->source->Start();
+        soundData->isPause = false;
     }
     else {
-        soundData.source->GetState(&state);
+        soundData->source->GetState(&state);
         if (state.BuffersQueued != 0 && !isSerialPlay) { return; }
 
         //再生中だが連続再生するときは、止めてから再生する
         if (state.BuffersQueued != 0 && isSerialPlay) {
-            StopLoadedSound(const_cast<SoundData&>(soundData));
+            StopLoadedSound(const_cast<SoundData*>(soundData));
         }
 
-        float playVolume = float(std::clamp(double(mastervolume * soundData.volume), 0.0, 1.0));
+        float playVolume = float(std::clamp(double(mastervolume * soundData->volume), 0.0, 1.0));
 
-        result = soundData.source->SetVolume(playVolume);
+        result = soundData->source->SetVolume(playVolume);
         //波形データ再生
-        result = soundData.source->SubmitSourceBuffer(&soundData.buf);
-        result = soundData.source->Start();
+        result = soundData->source->SubmitSourceBuffer(&soundData->buf);
+        result = soundData->source->Start();
     }
 }
 
-void Audio::PauseLoadedSound(SoundData &soundData)
+void Audio::PauseLoadedSound(SoundData *soundData)
 {
     //一時停止フラグ
-    soundData.isPause = true;
+    soundData->isPause = true;
 
     HRESULT result;
 
     //波形データ停止
-    result = soundData.source->Stop();
+    result = soundData->source->Stop();
 }
 
-void Audio::StopLoadedSound(SoundData &soundData)
+void Audio::StopLoadedSound(SoundData *soundData)
 {
-    soundData.isPause = false;
+    soundData->isPause = false;
 
     HRESULT result;
 
     //波形データ停止
-    result = soundData.source->Stop();
-    result = soundData.source->FlushSourceBuffers();
+    result = soundData->source->Stop();
+    result = soundData->source->FlushSourceBuffers();
 }
 
 void Audio::SetMasterVolume(float volume)
@@ -299,4 +300,9 @@ void Audio::SetMasterVolume(float volume)
 void Audio::SetSoundDataVolume(SoundData& data, float volume)
 {
     data.volume = std::clamp(volume, 0.f, 1.0f);
+}
+
+SoundData::~SoundData()
+{
+    delete[] pBuffer;
 }
