@@ -19,6 +19,13 @@ ProtoPlayer::ProtoPlayer()
 	handUI.Create(UITexHand);
 	clipUI.Create(UITexClip);
 	scisUI.Create(UITexScis);
+
+	slapSE = std::make_unique<SoundData>();
+	slapSE.reset(Audio::LoadSound_wav("Resources/slap1.wav"));
+	cutSE = std::make_unique<SoundData>();
+	cutSE.reset(Audio::LoadSound_wav("Resources/cut1.wav"));
+	clipSE = std::make_unique<SoundData>();
+	clipSE.reset(Audio::LoadSound_wav("Resources/pull.wav"));
 }
 
 ProtoPlayer::~ProtoPlayer()
