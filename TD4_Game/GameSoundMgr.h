@@ -7,9 +7,9 @@ class GameSoundMgr
 {
 private:
 	//各音データ
-	SoundData titleBgm = {};
-	SoundData gameBgm = {};
-	SoundData resultBgm = {};
+	SoundData titleBgm;
+	SoundData gameBgm;
+	SoundData resultBgm;
 
 	std::array<SoundData, 3> slapSe = {};
 	std::array<SoundData, 2> cutSe = {};
@@ -24,8 +24,8 @@ private:
 public:
 	static GameSoundMgr *get()
 	{
-		static GameSoundMgr* ins;
-		return ins;
+		static GameSoundMgr ins;
+		return &ins;
 	}
 
 	void Init();
