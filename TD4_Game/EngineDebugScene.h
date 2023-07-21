@@ -51,6 +51,9 @@ public:
     //音
     SoundData testSE;
     SoundData testBGM;
+    //音テスト用
+
+
 
     Sprite testNum;
     int dval = 0;

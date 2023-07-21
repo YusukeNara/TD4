@@ -1,5 +1,7 @@
 #include "EngineDebugScene.h"
 
+#include "GameSoundMgr.h"
+
 #include <Raki_imguiMgr.h>
 #include <DirectionalLight.h>
 
@@ -124,6 +126,12 @@ void EngineDebugScene::Update()
 		pgstate.aliveTime = 60;
 		testp->Add(pgstate);
 	}
+
+
+
+	//‰¹ƒeƒXƒg
+	
+
 }
 
 void EngineDebugScene::Draw()
@@ -210,6 +218,36 @@ void EngineDebugScene::DrawImgui()
 	testFBX_YesBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testobj->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testobject->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
+
+
+	myImgui::StartDrawImGui("SOUND TEST", 100, 300);
+
+	if (ImGui::Button("PLAY TITLE BGM")) {
+		GameSoundMgr::get()->PlayTitleBGM();
+	}
+	if (ImGui::Button("PLAY GAME BGM")) {
+		GameSoundMgr::get()->PlayGameBGM();
+	}
+	if (ImGui::Button("PLAY RESULT BGM")) {
+		GameSoundMgr::get()->PlayResultBGM();
+	}
+	if (ImGui::Button("STOP TITLE BGM")) {
+		GameSoundMgr::get()->StopTitleBGM();
+	}
+	if (ImGui::Button("STOP GAME BGM")) {
+		GameSoundMgr::get()->StopGameBGM();
+	}
+	if (ImGui::Button("STOP RESULT BGM")) {
+		GameSoundMgr::get()->StopResultBGM();
+	}
+	if (ImGui::Button("CUT")) { GameSoundMgr::get()->PlayCutSE(); }
+	if (ImGui::Button("SLAP")) { GameSoundMgr::get()->PlaySlapSE(); }
+	if (ImGui::Button("BUTTON")) { GameSoundMgr::get()->PlayButtonSE(); }
+	if (ImGui::Button("CANCEL")) { GameSoundMgr::get()->PlayCancelSE(); }
+	if (ImGui::Button("PULL")) { GameSoundMgr::get()->PlayPullSE(); }
+
+
+	myImgui::EndDrawImGui();
 
 }
 
