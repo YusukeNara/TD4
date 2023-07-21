@@ -20,7 +20,7 @@ void GameSoundMgr::Init()
 		std::string num = std::to_string(i + 1);
 
 		std::string cutfilepass = pass + sefolder + cutfilename + num + ext;
-		std::string slapfilepass = pass + sefolder + cutfilename + num + ext;
+		std::string slapfilepass = pass + sefolder + slapfilename + num + ext;
 
 		if (i < 2) {
 			cutSe[i] = Audio::LoadSound_wav(cutfilepass.c_str());
@@ -28,12 +28,12 @@ void GameSoundMgr::Init()
 		slapSe[i] = Audio::LoadSound_wav(slapfilepass.c_str());
 	}
 	pullSe = Audio::LoadSound_wav("Resources/sounds/se/pull.wav");
-	Audio::LoadSound_wav("Resources/sounds/se/ok.wav", &buttonSe);
+	buttonSe = Audio::LoadSound_wav("Resources/sounds/se/ok.wav");
 	cancelSe = Audio::LoadSound_wav("Resources/sounds/se/cancel.wav");
 
 	titleBgm = Audio::LoadSound_wav("Resources/sounds/bgm/titlebgm.wav");
 	gameBgm = Audio::LoadSound_wav("Resources/sounds/bgm/gamebgm.wav");
-	resultBgm = Audio::LoadSound_wav("Resources/sounds/bgm/gamebgm.wav");
+	resultBgm = Audio::LoadSound_wav("Resources/sounds/bgm/resultbgm.wav");
 
 	Audio::SetPlayRoopmode(titleBgm, 255);
 	Audio::SetPlayRoopmode(gameBgm, 255);
