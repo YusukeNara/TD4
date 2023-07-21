@@ -133,6 +133,7 @@ SoundData Audio::LoadSound_wav(const char *filename)
     case FMT_BYTE_40:
         //WAVEFORMATEXに合わせる
         soundData->wfex = format.wften.Format;
+        soundData->wfex.wFormatTag = WORD(1);
         //波形フォーマットをもとにソースの作成
         result = xAudio2->CreateSourceVoice(&soundData->source, &soundData->wfex);
         break;
