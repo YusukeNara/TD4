@@ -49,8 +49,8 @@ public:
     RVector3 lightdir;
 
     //音
-    SoundData testSE;
-    SoundData testBGM;
+    std::unique_ptr<SoundData> testSE;
+    std::unique_ptr<SoundData> testBGM;
     //音テスト用
 
 
