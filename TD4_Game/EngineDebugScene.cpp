@@ -44,7 +44,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 
 	//âπÉçÅ[Éh
 	testSE = Audio::LoadSound_wav("Resources/don.wav");
-	testBGM = Audio::LoadSound_wav("Resources/kari.wav");
+	testBGM = Audio::LoadSound_wav("Resources/sounds/bgm/titlebgm.wav");
 
 	testNum.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 

@@ -21,11 +21,13 @@ float4 main(VSOutput input) : SV_TARGET
     //アルベド情報を取得
     float4 albedo = albedoTex.Sample(smp, input.uv);
     //法線情報取得
-    float3 normal = normalTex.Sample(smp, input.uv).xyz;
+    float3 normal = normalTex.Sample(smp, input.uv).rgb;
     //ワールド座標取得
     float3 worldPos = worldTex.Sample(smp, input.uv).xyz;
     //深度情報取得
     float4 depth = LdepthTex.Sample(smp, input.uv);
+    //スペキュラ強度取得
+    float specPower = normalTex.Sample(smp, input.uv).a;
     
     //法線情報を復元
     normal = (normal * 2.0f) - 1.0f;
