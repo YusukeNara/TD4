@@ -12,7 +12,7 @@
 
 using namespace Rv3Ease;
 
-EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
+EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection* scDirect) : BaseScene(changer, scDirect)
 {
 	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
 
@@ -86,6 +86,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testbezier.Init(RVector3(-100, 0, 0), RVector3(0, 100, 100), RVector3(0, 0, 0),
 		60, RV3_EASE_TYPE::EASE_CUBIC_OUT);
 
+	mSceneChangeDirection->PlayInDirection();
 }
 
 EngineDebugScene::~EngineDebugScene()
@@ -131,7 +132,6 @@ void EngineDebugScene::Update()
 
 
 	//‰¹ƒeƒXƒg
-	
 
 }
 

@@ -15,7 +15,7 @@ const int scrollCountMax = 180;
 class ResultScene : public BaseScene
 {
 public:
-	ResultScene(ISceneChanger* changer);
+	ResultScene(ISceneChanger* changer, SceneChangeDirection* scd);
 	~ResultScene() override;
 
     void Initialize() override;    //初期化処理をオーバーライド。

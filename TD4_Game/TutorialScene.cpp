@@ -1,6 +1,6 @@
 #include "TutorialScene.h"
 
-TutorialScene::TutorialScene(ISceneChanger *changer) : BaseScene(changer)
+TutorialScene::TutorialScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer,scd)
 {
 	groundTex = TexManager::LoadTexture("Resources/asp3.png");
 

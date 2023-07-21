@@ -13,7 +13,7 @@
 class EngineDebugScene : public BaseScene
 {
 public:
-    EngineDebugScene(ISceneChanger* changer);
+    EngineDebugScene(ISceneChanger* changer, SceneChangeDirection* scDirect);
     ~EngineDebugScene() override;
     void Initialize() override;    //初期化処理をオーバーライド。
     void Finalize() override;        //終了処理をオーバーライド。

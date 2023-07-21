@@ -2,7 +2,7 @@
 
 #include "FieldDrawer.h"
 
-GameScene::GameScene(ISceneChanger *changer) : BaseScene(changer) {
+GameScene::GameScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer, scd) {
 
 	
 
