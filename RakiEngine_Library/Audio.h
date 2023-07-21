@@ -4,8 +4,17 @@
 #include <fstream>
 #include <assert.h>
 #include <wrl.h>
+#include <mfapi.h>
+#include <mfidl.h>
+#include <mfreadwrite.h>
 
+// mediafoundation
+#pragma comment(lib, "Mf.lib")
+#pragma comment(lib, "mfplat.lib")
+#pragma comment(lib, "Mfreadwrite.lib")
+#pragma comment(lib, "mfuuid.lib")
 
+// xaudio
 #pragma comment(lib,"xaudio2.lib")
 
 using namespace Microsoft::WRL;
@@ -24,14 +33,29 @@ struct RiffHeader {
 
 //FMTチャンク
 struct FormatChunk {
-	ChunkHeader  chunk; //"fmt "
-	WAVEFORMATEX fmt;   //波形フォーマット
+	ChunkHeader				chunk; //"fmt "
+	WAVEFORMAT				wf;
+	PCMWAVEFORMAT			pcmwf;
+	WAVEFORMATEX			fmt;   //波形フォーマット
+	WAVEFORMATEXTENSIBLE	wften;
+};
+
+enum FMT_BYTE {
+	FMT_BYTE_16,
+	FMT_BYTE_18,
+	FMT_BYTE_40,
 };
 
 //音声データ
 struct SoundData {
-	//波形フォーマット
-	WAVEFORMATEX wfex;
+	//波形フォーマット（大きさに応じてデータ型が異なる、なんでだよ）
+	WAVEFORMAT				wf;
+	PCMWAVEFORMAT			pcmwf;
+	WAVEFORMATEX			wfex;
+	WAVEFORMATEXTENSIBLE	wften;
+
+	FMT_BYTE byteMode;
+
 	//バッファ先頭アドレス
 	BYTE *pBuffer = nullptr;
 	//バッファサイズ
@@ -50,10 +74,12 @@ struct SoundData {
 class Audio
 {
 private:
-
+	// XAudio
 	static ComPtr<IXAudio2>        xAudio2;
 	static IXAudio2MasteringVoice *masterVoice;
 	static float mastervolume;
+
+	static SoundData LoadSound_mp3(const char* filename);
 
 public:
 
@@ -70,7 +96,9 @@ public:
 	static void Init();
 
 	//サウンドデータの読み込み
-	static SoundData LoadSound_wav(const char* filename, SoundData* ptr = nullptr);
+	static SoundData LoadSound_wav(const char* filename);
+
+
 	//サウンドデータのアンロード
 	static void UnloadSound(SoundData *data);
 	
