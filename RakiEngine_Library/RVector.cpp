@@ -200,7 +200,10 @@ RVector3 Rv3Ease::Rv3Easing::Update()
 {
 	if (!isplay) { return startPos; }
 
-	if (frame >= playFrame) { return endPos; }
+	if (frame >= playFrame) { 
+		isEnded = true;
+		return endPos; 
+	}
 
 	frame++;
 
@@ -241,6 +244,7 @@ void Rv3Ease::Rv3Easing::Reset()
 	frame = 0;
 	isplay = false;
 	resultPos = startPos;
+	isEnded = false;
 }
 
 void Rv3Ease::Rv3Spline::Init(RVector3* array, int pCount, int playFrame)

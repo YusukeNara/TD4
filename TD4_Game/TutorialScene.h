@@ -16,7 +16,7 @@
 class TutorialScene : public BaseScene
 {
 public:
-	TutorialScene(ISceneChanger *changer);
+    TutorialScene(ISceneChanger* changer, SceneChangeDirection* scd);
 	~TutorialScene() override;
     void Initialize() override;    //初期化処理をオーバーライド。
     void Finalize() override;   //終了処理をオーバーライド。

@@ -10,7 +10,7 @@
 
 class GameScene : public BaseScene {
 public:
-    GameScene(ISceneChanger *changer);
+    GameScene(ISceneChanger *changer, SceneChangeDirection* scd);
     ~GameScene() override;
     void Initialize() override;    //初期化処理をオーバーライド。
     void Finalize() override;        //終了処理をオーバーライド。

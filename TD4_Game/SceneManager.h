@@ -18,6 +18,8 @@ private:
     BaseScene *nowScene;
 	eScene mNextScene;    //次のシーン管理変数
 
+    std::shared_ptr<SceneChangeDirection> mSceneChangeDirection;
+
 public:
     //コンスタラクタ
     SceneManager();
