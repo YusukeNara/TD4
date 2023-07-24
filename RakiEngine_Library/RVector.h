@@ -158,6 +158,10 @@ namespace Rv3Ease {
 		void SetStartPos(const RVector3& pos) { startPos = pos; }
 		void SetEndPos(const RVector3& pos) { endPos = pos; }
 
+		RVector3 GetNowpos() { return resultPos; }
+
+		bool IsEnd() { return isEnded; }
+
 	private:
 		//各種イージング関数
 
@@ -170,6 +174,7 @@ namespace Rv3Ease {
 		int				frame = 0;
 		bool			isplay = false;
 		RVector3		resultPos;
+		bool isEnded	= false;
 
 	};
 

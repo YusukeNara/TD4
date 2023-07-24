@@ -18,7 +18,7 @@ const float titleLastPos = -50.0f;
 class TitleScene : public BaseScene {
 
 public:
-    TitleScene(ISceneChanger *changer);
+    TitleScene(ISceneChanger *changer, SceneChangeDirection* scd);
     ~TitleScene() override;
 
     void Initialize() override;    //初期化処理をオーバーライド。

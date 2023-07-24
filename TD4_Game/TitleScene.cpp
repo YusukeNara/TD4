@@ -5,7 +5,7 @@
 
 using namespace Rv3Ease;
 
-TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
+TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer,scd) {
 	UINT testTex = TexManager::LoadTexture("Resources/titlemojitunage.png");
 
 	titleHage = std::make_shared<Object3d>();
@@ -79,6 +79,9 @@ void TitleScene::Update() {
 		Animation();
 	}
 	if (Input::Get()->isKeyTrigger(DIK_3)) {
+		mSceneChangeDirection->PlayOutDirection();
+	}
+	if (mSceneChangeDirection->GetDirectionStatus() == DIRECTION_ENDED) {
 		mSceneChanger->ChangeScene(eScene_Tutorial);
 	}
 }

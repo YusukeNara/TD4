@@ -31,11 +31,23 @@
     <Filter Include="リソース ファイル\shaders\Particle">
       <UniqueIdentifier>{39333f35-c67d-4358-9a89-746d921d0cee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Scene">
+    <Filter Include="game">
+      <UniqueIdentifier>{4628f090-fb3e-4d6f-bedc-a13b2e1894d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\head">
+      <UniqueIdentifier>{a4ce717a-b9da-44f7-b7fc-1779892cd14b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\head\heads">
+      <UniqueIdentifier>{15711186-0b8b-4039-b189-d51caceb01be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\Scene">
       <UniqueIdentifier>{fa7e9ba2-c457-45b0-b812-3cf88a766eee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Scene\SceneManager">
+    <Filter Include="game\Scene\SceneManager">
       <UniqueIdentifier>{c3ec2f4f-7de2-43d3-acad-caa1a9075866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\Scene\enginedebug">
+      <UniqueIdentifier>{d370754a-c22a-4d2c-92d0-dcbe89ef0a45}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,52 +57,28 @@
     <ClCompile Include="ProtoPlayer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="HeadManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="AfroHead.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="LightHearHead.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="HageHead.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Result.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Title.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル\Scene\SceneManager</Filter>
+      <Filter>game\Scene\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="ISceneChanger.cpp">
-      <Filter>ソース ファイル\Scene\SceneManager</Filter>
+      <Filter>game\Scene\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="EngineDebugScene.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="BaseScene.cpp">
-      <Filter>ソース ファイル\Scene\SceneManager</Filter>
+      <Filter>game\Scene\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="ScoreManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Head.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ResultScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="GameSoundMgr.cpp">
@@ -99,11 +87,35 @@
     <ClCompile Include="FieldDrawer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="TutorialScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SceneChangeDirection.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Head.cpp">
+      <Filter>game\head</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadManager.cpp">
+      <Filter>game\head</Filter>
+    </ClCompile>
+    <ClCompile Include="AfroHead.cpp">
+      <Filter>game\head\heads</Filter>
+    </ClCompile>
+    <ClCompile Include="LightHearHead.cpp">
+      <Filter>game\head\heads</Filter>
+    </ClCompile>
+    <ClCompile Include="HageHead.cpp">
+      <Filter>game\head\heads</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDebugScene.cpp">
+      <Filter>game\Scene\enginedebug</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialScene.cpp">
+      <Filter>game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,55 +204,28 @@
     <ClInclude Include="ProtoPlayer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Head.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="HeadManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AfroHead.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="LightHearHead.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="HageHead.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Title.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Result.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>ソース ファイル\Scene\SceneManager</Filter>
+      <Filter>game\Scene\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="ISceneChanger.h">
-      <Filter>ソース ファイル\Scene\SceneManager</Filter>
+      <Filter>game\Scene\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineDebugScene.h">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="BaseScene.h">
-      <Filter>ソース ファイル\Scene\SceneManager</Filter>
+      <Filter>game\Scene\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="Task.h">
-      <Filter>ソース ファイル\Scene\SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>game\Scene\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="ScoreManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="GameSoundMgr.h">
@@ -249,11 +234,38 @@
     <ClInclude Include="FieldDrawer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="TutorialScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="SceneChangeDirection.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Head.h">
+      <Filter>game\head</Filter>
+    </ClInclude>
+    <ClInclude Include="HageHead.h">
+      <Filter>game\head\heads</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadManager.h">
+      <Filter>game\head</Filter>
+    </ClInclude>
+    <ClInclude Include="AfroHead.h">
+      <Filter>game\head\heads</Filter>
+    </ClInclude>
+    <ClInclude Include="LightHearHead.h">
+      <Filter>game\head\heads</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebugScene.h">
+      <Filter>game\Scene\enginedebug</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

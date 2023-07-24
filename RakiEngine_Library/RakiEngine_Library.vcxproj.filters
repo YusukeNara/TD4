@@ -252,11 +252,11 @@
     <ClCompile Include="DebugCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="RakiUtility.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="GraphicManager.cpp">
       <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="RakiUtility.cpp">
+      <Filter>utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

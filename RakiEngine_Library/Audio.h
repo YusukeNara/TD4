@@ -4,8 +4,17 @@
 #include <fstream>
 #include <assert.h>
 #include <wrl.h>
+#include <mfapi.h>
+#include <mfidl.h>
+#include <mfreadwrite.h>
 
+// mediafoundation
+#pragma comment(lib, "Mf.lib")
+#pragma comment(lib, "mfplat.lib")
+#pragma comment(lib, "Mfreadwrite.lib")
+#pragma comment(lib, "mfuuid.lib")
 
+// xaudio
 #pragma comment(lib,"xaudio2.lib")
 
 using namespace Microsoft::WRL;
@@ -24,14 +33,29 @@ struct RiffHeader {
 
 //FMTチャンク
 struct FormatChunk {
-	ChunkHeader  chunk; //"fmt "
-	WAVEFORMATEX fmt;   //波形フォーマット
+	ChunkHeader				chunk; //"fmt "
+	WAVEFORMAT				wf;
+	PCMWAVEFORMAT			pcmwf;
+	WAVEFORMATEX			fmt;   //波形フォーマット
+	WAVEFORMATEXTENSIBLE	wften;
+};
+
+enum FMT_BYTE {
+	FMT_BYTE_16,
+	FMT_BYTE_18,
+	FMT_BYTE_40,
 };
 
 //音声データ
 struct SoundData {
-	//波形フォーマット
-	WAVEFORMATEX wfex;
+	//波形フォーマット（大きさに応じてデータ型が異なる、なんでだよ）
+	WAVEFORMAT				wf;
+	PCMWAVEFORMAT			pcmwf;
+	WAVEFORMATEX			wfex;
+	WAVEFORMATEXTENSIBLE	wften;
+
+	FMT_BYTE byteMode;
+
 	//バッファ先頭アドレス
 	BYTE *pBuffer = nullptr;
 	//バッファサイズ
@@ -44,16 +68,21 @@ struct SoundData {
 	float volume = 1.0f;
 	//一時停止フラグ
 	bool isPause = false;
+
+	SoundData(){}
+	~SoundData();
 };
 
 
 class Audio
 {
 private:
-
+	// XAudio
 	static ComPtr<IXAudio2>        xAudio2;
 	static IXAudio2MasteringVoice *masterVoice;
 	static float mastervolume;
+
+	static SoundData LoadSound_mp3(const char* filename);
 
 public:
 
@@ -70,19 +99,21 @@ public:
 	static void Init();
 
 	//サウンドデータの読み込み
-	static SoundData LoadSound_wav(const char* filename, SoundData* ptr = nullptr);
+	static SoundData *LoadSound_wav(const char* filename);
+
+
 	//サウンドデータのアンロード
 	static void UnloadSound(SoundData *data);
 	
 
 	//ループの設定(0~254でループ回数を指定。255の場合無限ループ。それ以外は無効)
-	static void SetPlayRoopmode(SoundData &soundData,int roopCount);
+	static void SetPlayRoopmode(SoundData *soundData,int roopCount);
 	//再生
-	static void PlayLoadedSound(SoundData &soundData,bool isSerialPlay = false);
+	static void PlayLoadedSound(SoundData *soundData,bool isSerialPlay = false);
 	//一時停止
-	static void PauseLoadedSound(SoundData &soundData);
+	static void PauseLoadedSound(SoundData *soundData);
 	//停止
-	static void StopLoadedSound(SoundData &soundData);
+	static void StopLoadedSound(SoundData *soundData);
 
 	//マスター音量変更
 	static void SetMasterVolume(float volume);

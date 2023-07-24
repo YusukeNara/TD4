@@ -1,7 +1,7 @@
 #include "ResultScene.h"
 #include "ScoreManager.h"
 
-ResultScene::ResultScene(ISceneChanger* changer) : BaseScene(changer)
+ResultScene::ResultScene(ISceneChanger* changer, SceneChangeDirection* scd) : BaseScene(changer,scd)
 {
 	UINT reviewTex = TexManager::LoadTexture("Resources/TotalReview.png");
 	UINT rescoreTex = TexManager::LoadTexture("Resources/ScoreTitle.png");
