@@ -51,7 +51,7 @@ TitleScene::~TitleScene()
 	}
 }
 
-//初期化
+//ﾂ鞘ｰﾅﾃｺ窶ｰﾂｻ
 void TitleScene::Initialize() {
 
 }
@@ -61,7 +61,7 @@ void TitleScene::Finalize()
 
 }
 
-//更新
+//ﾂ更ﾂ新
 void TitleScene::Update() {
 	if (animationCount == animationCountMax)
 	{
@@ -76,6 +76,8 @@ void TitleScene::Update() {
 	{
 		SceneScroll();
 	}
+
+	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A)) {
 	else
 	{
 		Animation();
@@ -88,7 +90,7 @@ void TitleScene::Update() {
 	}
 }
 
-//描画
+//窶｢`窶ｰﾃｦ
 void TitleScene::Draw() {
 	//testobject->DrawObject();
 	titleHage->DrawObject();
