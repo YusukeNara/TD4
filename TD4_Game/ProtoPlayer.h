@@ -7,6 +7,7 @@
 #include <NY_Object3D.h>
 #include <NY_Object3dMgr.h>
 #include "Raki_Input.h"
+#include <Audio.h>
 
 using namespace Rv3Ease;
 
@@ -96,7 +97,12 @@ private:
 	XMFLOAT2 uiOffsetClip;
 	XMFLOAT2 uiOffsetScis;
 
-	//-------------------曲線補間---------------------
+	//-------------------音-------------------
+	std::unique_ptr<SoundData> slapSE;
+	std::unique_ptr<SoundData> cutSE;
+	std::unique_ptr<SoundData> clipSE;
+
+	//-------------------曲線補間-------------------
 	//ビンタ
 	Rv3Spline SlapSpline;
 	bool isSlapSpline = false;

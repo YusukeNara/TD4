@@ -33,6 +33,7 @@ public:
     void SceneScroll();
 
     Sprite testsp;
+    Sprite buttonsp;
 
     std::shared_ptr<Object3d> titleHage;
     std::shared_ptr<Object3d> titlePlayer;

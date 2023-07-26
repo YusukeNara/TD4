@@ -19,10 +19,20 @@ ProtoPlayer::ProtoPlayer()
 	handUI.Create(UITexHand);
 	clipUI.Create(UITexClip);
 	scisUI.Create(UITexScis);
+
+	slapSE = std::make_unique<SoundData>();
+	slapSE.reset(Audio::LoadSound_wav("Resources/sounds/se/slap1.wav"));
+	cutSE = std::make_unique<SoundData>();
+	cutSE.reset(Audio::LoadSound_wav("Resources/sounds/se/cut1.wav"));
+	clipSE = std::make_unique<SoundData>();
+	clipSE.reset(Audio::LoadSound_wav("Resources/sounds/se/pull.wav"));
 }
 
 ProtoPlayer::~ProtoPlayer()
 {
+	Audio::StopLoadedSound(slapSE.get());
+	Audio::StopLoadedSound(cutSE.get());
+	Audio::StopLoadedSound(clipSE.get());
 }
 
 void ProtoPlayer::Init()
@@ -128,6 +138,7 @@ void ProtoPlayer::HandAttack()
 {
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
+		Audio::PlayLoadedSound(slapSE.get(), true);
 		if (isSlapSpline)
 		{
 			SlapSpline.Reset();
@@ -179,6 +190,7 @@ void ProtoPlayer::CutHair()
 {
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
 	{
+		Audio::PlayLoadedSound(cutSE.get(), true);
 		if (isSlapSpline)
 		{
 			SlapSpline.Reset();
@@ -230,6 +242,7 @@ void ProtoPlayer::Clip()
 {
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
 	{
+		Audio::PlayLoadedSound(clipSE.get(), true);
 		if (isSlapSpline)
 		{
 			SlapSpline.Reset();

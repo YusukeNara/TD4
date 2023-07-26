@@ -7,6 +7,7 @@ using namespace Rv3Ease;
 
 TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer,scd) {
 	UINT testTex = TexManager::LoadTexture("Resources/titlemojitunage.png");
+	UINT buttonTex = TexManager::LoadTexture("Resources/titleBunki.png");
 
 	titleHage = std::make_shared<Object3d>();
 	titleHage.reset(LoadModel_FBXFile("hage_1"));
@@ -35,6 +36,7 @@ TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection* scd) : Base
 	titleSpritePos = { -220,-400 };
 
 	testsp.Create(testTex);
+	buttonsp.Create(buttonTex);
 
 	FieldDrawer::get()->SetTitleMode();
 }
@@ -102,6 +104,11 @@ void TitleScene::Draw2D()
 {
 	testsp.DrawSprite(titleSpritePos.x, titleSpritePos.y);
 	testsp.Draw();
+	if (titleSpritePos.y == titleLastPos)
+	{
+		buttonsp.DrawSprite(titleSpritePos.x + 760, titleSpritePos.y + 500.0f);
+		buttonsp.Draw();
+	}
 }
 
 void TitleScene::DrawImgui()
