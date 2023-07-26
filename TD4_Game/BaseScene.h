@@ -5,7 +5,11 @@
 #include "Raki_WinAPI.h"
 #include <wrl.h>
 
+#include "SceneChangeDirection.h"
+
 using namespace Microsoft::WRL;
+
+class SceneChangeDirection;
 
 class BaseScene : public Task {
 
@@ -14,9 +18,10 @@ class BaseScene : public Task {
 protected:
     
     ISceneChanger *mSceneChanger = nullptr;    //クラス所有元にシーン切り替えを伝えるインターフェイス
+    SceneChangeDirection* mSceneChangeDirection = nullptr;
 
 public:
-    BaseScene(ISceneChanger *changer);
+    BaseScene(ISceneChanger* changer, SceneChangeDirection* scDirect);
     BaseScene() {};
     virtual ~BaseScene() {
 

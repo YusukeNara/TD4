@@ -10,9 +10,13 @@
 //SpriteManager      *SceneManager::spmgr  = nullptr;
 
 SceneManager::SceneManager() :mNextScene(eScene_None) {
+    if (!mSceneChangeDirection) { 
+        mSceneChangeDirection.reset(new SceneChangeDirection());
+        mSceneChangeDirection->Init();
+    }
 
     //各シーンのインスタンス生成
-    nowScene = (BaseScene *) new TitleScene(this);
+    nowScene = (BaseScene *) new TitleScene(this,mSceneChangeDirection.get());
     Initialize();
 }
 
@@ -45,27 +49,33 @@ void SceneManager::Update()
         
         switch (mNextScene) {       //シーンによって処理を分岐
         case eScene_Title:        //次の画面がメニューなら
-            nowScene = (BaseScene*) new TitleScene(this);
+            nowScene = (BaseScene*) new TitleScene(this, mSceneChangeDirection.get());
             break;//以下略
         case eScene_Tutorial:
-            nowScene = (BaseScene *) new TutorialScene(this);
+            nowScene = (BaseScene*) new TutorialScene(this, mSceneChangeDirection.get());
             break;
         case eScene_Game:
-            nowScene = (BaseScene*) new GameScene(this);
+            nowScene = (BaseScene*) new GameScene(this, mSceneChangeDirection.get());
             break;
         case eScene_Result:
-            nowScene = (BaseScene *) new ResultScene(this);
+            nowScene = (BaseScene*) new ResultScene(this, mSceneChangeDirection.get());
             break;
         case eScene_Debug:
-            nowScene = (BaseScene*) new EngineDebugScene(this);
+            nowScene = (BaseScene*) new EngineDebugScene(this, mSceneChangeDirection.get());
             break;
         }
+        if (mNextScene != eScene_Debug) {
+            mSceneChangeDirection->PlayInDirection();
+        }
+
         mNextScene = eScene_None;    //次のシーン情報をクリア
 
         nowScene->Initialize();
     }
 
     nowScene->Update(); //シーンの更新
+
+    mSceneChangeDirection->Update();
 }
 
 void SceneManager::Draw()
@@ -77,6 +87,8 @@ void SceneManager::Draw()
 void SceneManager::Draw2D()
 {
     nowScene->Draw2D();
+
+    mSceneChangeDirection->Draw();
 }
 
 void SceneManager::DrawImgui()

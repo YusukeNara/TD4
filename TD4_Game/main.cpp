@@ -55,7 +55,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
 
 
-	//GameSoundMgr::get()->Init();
+	GameSoundMgr::get()->Init();
 
 
 #pragma endregion GameValue

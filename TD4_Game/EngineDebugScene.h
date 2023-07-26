@@ -13,7 +13,7 @@
 class EngineDebugScene : public BaseScene
 {
 public:
-    EngineDebugScene(ISceneChanger* changer);
+    EngineDebugScene(ISceneChanger* changer, SceneChangeDirection* scDirect);
     ~EngineDebugScene() override;
     void Initialize() override;    //初期化処理をオーバーライド。
     void Finalize() override;        //終了処理をオーバーライド。
@@ -49,8 +49,11 @@ public:
     RVector3 lightdir;
 
     //音
-    SoundData testSE;
-    SoundData testBGM;
+    std::unique_ptr<SoundData> testSE;
+    std::unique_ptr<SoundData> testBGM;
+    //音テスト用
+
+
 
     Sprite testNum;
     int dval = 0;

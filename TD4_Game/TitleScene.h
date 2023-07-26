@@ -18,7 +18,7 @@ const float titleLastPos = -50.0f;
 class TitleScene : public BaseScene {
 
 public:
-    TitleScene(ISceneChanger *changer);
+    TitleScene(ISceneChanger *changer, SceneChangeDirection* scd);
     ~TitleScene() override;
 
     void Initialize() override;    //初期化処理をオーバーライド。
@@ -33,6 +33,7 @@ public:
     void SceneScroll();
 
     Sprite testsp;
+    Sprite buttonsp;
 
     std::shared_ptr<Object3d> titleHage;
     std::shared_ptr<Object3d> titlePlayer;
