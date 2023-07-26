@@ -30,6 +30,9 @@ ProtoPlayer::ProtoPlayer()
 
 ProtoPlayer::~ProtoPlayer()
 {
+	Audio::StopLoadedSound(slapSE.get());
+	Audio::StopLoadedSound(cutSE.get());
+	Audio::StopLoadedSound(clipSE.get());
 }
 
 void ProtoPlayer::Init()
