@@ -73,6 +73,12 @@ void TutorialScene::Initialize()
 
 	textSpeed = 0;
 	textNum = 0;
+	skipButtonMoveFlag = false;
+	skipButtonMoveTimer = 0;
+	skipButtonSize = { 288,64 };
+	UISize = { 0,0 };
+	UISizeNum = { 0,0 };
+	UIMoveScaleFlag = false;
 }
 
 void TutorialScene::Finalize()
@@ -85,6 +91,28 @@ void TutorialScene::Update()
 		mSceneChanger->ChangeScene(eScene_Game);
 	}
 
+	if (skipButtonMoveFlag == false)
+	{
+		skipButtonMoveSpeed = -skipButtonMoveSpeed;
+		skipButtonMoveTimer = 0;
+		skipButtonMoveFlag = true;
+	}
+	if (skipButtonMoveFlag == true)
+	{
+		skipButtonSize.x += skipButtonMoveSpeed;
+		skipButtonSize.y += skipButtonMoveSpeed;
+		skipButtonMoveTimer++;
+		if (skipButtonMoveTimer > 40)
+		{
+			skipButtonMoveFlag = false;
+		}
+	}
+
+	if (UIMoveScaleFlag == false)
+	{
+		UISize = { 0,0 };
+		UISizeNum = { 0,0 };
+	}
 	aTimer++;
 	if (aTimer > 80)
 	{
@@ -96,7 +124,6 @@ void TutorialScene::Update()
 
 		headMan->TutorialUpdate();
 	}
-
 }
 
 void TutorialScene::Draw()
@@ -109,7 +136,8 @@ void TutorialScene::Draw()
 
 void TutorialScene::Draw2D()
 {
-	tutorialSprite26.DrawExtendSprite(900, 0, 1280, 100);
+	
+	tutorialSprite26.DrawExtendSprite(950 - skipButtonSize.x, 75 - skipButtonSize.y, 950 + skipButtonSize.x, 75 + skipButtonSize.y);
 	tutorialSprite26.Draw();
 
 	if (tutorialNum > 6)
@@ -412,14 +440,26 @@ void TutorialScene::Draw2D()
 	case 8:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) == 0))
 		{
+			UIMoveScaleFlag = true;
+		}
+		if (UIMoveScaleFlag == true)
+		{
+			UISizeNum.x += 0.1f;
+			UISizeNum.y += 0.1f;
+			UISize.x += UISizeNum.x;
+			UISize.y += UISizeNum.y;
+		}
+		if (UISize.x >= UI_MAXSIZE)
+		{
+			UIMoveScaleFlag = false;
 			tutorialNum++;
 		}
 		headMan->heads.begin()->get()->isMostFront = true;
 
-		hirightSprite1.DrawSprite(145, 570, { 0,0,0,0.8f });
+		hirightSprite1.DrawExtendSprite(145, 570, 145 + 150, 570 + 150 ,{ 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
-		tutorialSprite23.DrawSprite(94,500);
+		tutorialSprite23.DrawExtendSprite(94 +128 - 128 - UISize.x, 500 - UISize.y - UISize.y, 94 + 128+ 128 + UISize.x, 500 + 64 + UISize.y - UISize.y);
 		tutorialSprite23.Draw();
 		break;
 	case 9:
@@ -467,14 +507,27 @@ void TutorialScene::Draw2D()
 	case 10:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) == 0))
 		{
-			tutorialNum++;
+			UIMoveScaleFlag = true;
 		}
 		headMan->heads.begin()->get()->isMostFront = true;
+
+		if (UIMoveScaleFlag == true)
+		{
+			UISizeNum.x += 0.1f;
+			UISizeNum.y += 0.1f;
+			UISize.x += UISizeNum.x;
+			UISize.y += UISizeNum.y;
+		}
+		if (UISize.x >= UI_MAXSIZE)
+		{
+			UIMoveScaleFlag = false;
+			tutorialNum++;
+		}
 
 		hirightSprite1.DrawSprite(145, 545, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
-		tutorialSprite23.DrawSprite(94, 500);
+		tutorialSprite23.DrawExtendSprite(94 + 128 - 128 - UISize.x, 500 - UISize.y - UISize.y, 94 + 128 + 128 + UISize.x, 500 + 64 + UISize.y - UISize.y);
 		tutorialSprite23.Draw();
 		break;
 
@@ -530,14 +583,27 @@ void TutorialScene::Draw2D()
 	case 12:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_Y) == 0))
 		{
-			tutorialNum++;
+			UIMoveScaleFlag = true;
 		}
 		headMan->heads.begin()->get()->isMostFront = true;
+
+		if (UIMoveScaleFlag == true)
+		{
+			UISizeNum.x += 0.1f;
+			UISizeNum.y += 0.1f;
+			UISize.x += UISizeNum.x;
+			UISize.y += UISizeNum.y;
+		}
+		if (UISize.x >= UI_MAXSIZE)
+		{
+			UIMoveScaleFlag = false;
+			tutorialNum++;
+		}
 
 		hirightSprite1.DrawSprite(145, 545, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
-		tutorialSprite23.DrawSprite(94, 500);
+		tutorialSprite23.DrawExtendSprite(94 + 128 - 128 - UISize.x, 500 - UISize.y - UISize.y, 94 + 128 + 128 + UISize.x, 500 + 64 + UISize.y - UISize.y);
 		tutorialSprite23.Draw();
 		break;
 	case 13:
@@ -599,16 +665,30 @@ void TutorialScene::Draw2D()
 	case 14:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) == 0))
 		{
-			tutorialNum++;
+			UIMoveScaleFlag = true;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = true;
 
+		if (UIMoveScaleFlag == true)
+		{
+			UISizeNum.x += 0.1f;
+			UISizeNum.y += 0.1f;
+			UISize.x += UISizeNum.x;
+			UISize.y += UISizeNum.y;
+		}
+		if (UISize.x >= UI_MAXSIZE)
+		{
+			UIMoveScaleFlag = false;
+			tutorialNum++;
+		}
+
 		hirightSprite1.DrawSprite(25, 570, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
-		tutorialSprite25.DrawSprite(10, 500);
+		tutorialSprite25.DrawExtendSprite(10 + 128 - 128 - UISize.x, 500 - UISize.y - UISize.y, 10 + 128 + 128 + UISize.x, 500 + 64 + UISize.y - UISize.y);
 		tutorialSprite25.Draw();
+
 		break;
 	case 15:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
@@ -713,16 +793,30 @@ void TutorialScene::Draw2D()
 	case 17:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B) == 0))
 		{
-			tutorialNum++;
+			UIMoveScaleFlag = true;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = true;
 
+		if (UIMoveScaleFlag == true)
+		{
+			UISizeNum.x += 0.1f;
+			UISizeNum.y += 0.1f;
+			UISize.x += UISizeNum.x;
+			UISize.y += UISizeNum.y;
+		}
+		if (UISize.x >= UI_MAXSIZE)
+		{
+			UIMoveScaleFlag = false;
+			tutorialNum++;
+		}
+
 		hirightSprite1.DrawSprite(265, 570, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
-		tutorialSprite24.DrawSprite(200, 500);
+		tutorialSprite24.DrawExtendSprite(200 + 128 - 128 - UISize.x, 500 - UISize.y - UISize.y, 200 + 128 + 128 + UISize.x, 500 + 64 + UISize.y - UISize.y);
 		tutorialSprite24.Draw();
+
 		break;
 	case 18:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
@@ -771,15 +865,28 @@ void TutorialScene::Draw2D()
 	case 19:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) == 0))
 		{
-			tutorialNum++;
+			UIMoveScaleFlag = true;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = true;
 
+		if (UIMoveScaleFlag == true)
+		{
+			UISizeNum.x += 0.1f;
+			UISizeNum.y += 0.1f;
+			UISize.x += UISizeNum.x;
+			UISize.y += UISizeNum.y;
+		}
+		if (UISize.x >= UI_MAXSIZE)
+		{
+			UIMoveScaleFlag = false;
+			tutorialNum++;
+		}
+
 		hirightSprite1.DrawSprite(25, 570, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
-		tutorialSprite25.DrawSprite(10, 500);
+		tutorialSprite25.DrawExtendSprite(10 + 128 - 128 - UISize.x, 500 - UISize.y - UISize.y, 10 + 128 + 128 + UISize.x, 500 + 64 + UISize.y - UISize.y);
 		tutorialSprite25.Draw();
 		break;
 	case 20:
@@ -914,15 +1021,28 @@ void TutorialScene::Draw2D()
 	case 23:
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X) == 0))
 		{
-			tutorialNum++;
+			UIMoveScaleFlag = true;
 		}
 
 		headMan->heads.begin()->get()->isMostFront = true;
 
+		if (UIMoveScaleFlag == true)
+		{
+			UISizeNum.x += 0.1f;
+			UISizeNum.y += 0.1f;
+			UISize.x += UISizeNum.x;
+			UISize.y += UISizeNum.y;
+		}
+		if (UISize.x >= UI_MAXSIZE)
+		{
+			UIMoveScaleFlag = false;
+			tutorialNum++;
+		}
+
 		hirightSprite1.DrawSprite(25, 545, { 0,0,0,0.8f });
 		hirightSprite1.Draw();
 
-		tutorialSprite25.DrawSprite(10, 500);
+		tutorialSprite25.DrawExtendSprite(10 + 128 - 128 - UISize.x, 500 - UISize.y - UISize.y, 10 + 128 + 128 + UISize.x, 500 + 64 + UISize.y - UISize.y);
 		tutorialSprite25.Draw();
 		break;
 	case 24:

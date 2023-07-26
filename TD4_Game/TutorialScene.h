@@ -45,6 +45,18 @@ private:
 
     const int MAX_TEXT_SPEED = 3;
 
+    //スキップボタンの動き
+    bool skipButtonMoveFlag;
+    float skipButtonMoveSpeed = -0.2f;
+    int skipButtonMoveTimer;
+    XMFLOAT2 skipButtonSize;
+
+    //UIの動き
+    XMFLOAT2 UISize;
+    XMFLOAT2 UISizeNum;
+    bool UIMoveScaleFlag;
+    const int UI_MAXSIZE = 10;
+
     Sprite tutorialTitle;
     Sprite storeManSprite;
     Sprite hagesiSprite;

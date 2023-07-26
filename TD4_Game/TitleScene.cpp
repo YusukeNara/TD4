@@ -75,7 +75,7 @@ void TitleScene::Update() {
 	{
 		SceneScroll();
 	}
-	if (Input::Get()->isKeyTrigger(DIK_3)) {
+	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A)) {
 		mSceneChanger->ChangeScene(eScene_Tutorial);
 	}
 }
