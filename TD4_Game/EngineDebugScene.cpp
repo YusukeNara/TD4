@@ -35,6 +35,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 	testFBX_NoBone.reset(SetModel_FBX(testModel));
 	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(-75.0f, 0, -50.0f));
 
+
 	testobj = std::make_shared<Object3d>();
 	testobj.reset(LoadModel_FBXFile("SpherePBR"));
 	testobj->SetAffineParam(RVector3(10.1f, 10.1f, 10.1f), RVector3(90, 0, 0), RVector3(0.f, 0, -50.f));
@@ -174,18 +175,29 @@ void EngineDebugScene::DrawImgui()
 	ImGui::SliderFloat("rotY", &rotY, 0.f, 360.f);
 	ImGui::SliderFloat("rotZ", &rotZ, 0.f, 360.f);
 
-	ImGui::Text("test cam eye %.2f,%.2f,%.2f", testcam._eyepos.x, testcam._eyepos.y, testcam._eyepos.z);
-	ImGui::Text("test cam target %.2f,%.2f,%.2f", testcam._targetVec.x, testcam._targetVec.y, testcam._targetVec.z);
-	ImGui::Text("test cam up %.2f,%.2f,%.2f", testcam._upVec.x, testcam._upVec.y, testcam._upVec.z);
-	ImGui::Text("test cam up %.2f,%.2f,%.2f,%.2f", q1.x, q1.y, q1.z, q1.w);
-	ImGui::Text("lightdir %.2f,%.2f,%.2f", DirectionalLight::GetLightDir().x,
-		DirectionalLight::GetLightDir().y, DirectionalLight::GetLightDir().z);
-	ImGui::SliderFloat("camrot", &camrot, 0.f, 2.0f);
-	ImGui::SliderInt("num", &testNum.uvOffsetHandle, 0, 9);
-	ImGui::SliderInt("dValue", &dval, -200000000, 200000000);
+	ImGui::SliderInt("Animation num", &activeAnimation, 0, 8);
+	ImGui::Checkbox("isRoop", &isRoop);
+
+	if (ImGui::Button("Play animation")) {
+		if(isRoop){ testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation); }
+		else{ testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, activeAnimation); }
+		
+	}
+
+	//ImGui::Text("test cam eye %.2f,%.2f,%.2f", testcam._eyepos.x, testcam._eyepos.y, testcam._eyepos.z);
+	//ImGui::Text("test cam target %.2f,%.2f,%.2f", testcam._targetVec.x, testcam._targetVec.y, testcam._targetVec.z);
+	//ImGui::Text("test cam up %.2f,%.2f,%.2f", testcam._upVec.x, testcam._upVec.y, testcam._upVec.z);
+	//ImGui::Text("test cam up %.2f,%.2f,%.2f,%.2f", q1.x, q1.y, q1.z, q1.w);
+	//ImGui::Text("lightdir %.2f,%.2f,%.2f", DirectionalLight::GetLightDir().x,
+	//	DirectionalLight::GetLightDir().y, DirectionalLight::GetLightDir().z);
+	//ImGui::SliderFloat("camrot", &camrot, 0.f, 2.0f);
+	//ImGui::SliderInt("num", &testNum.uvOffsetHandle, 0, 9);
+	//ImGui::SliderInt("dValue", &dval, -200000000, 200000000);
 	myImgui::EndDrawImGui();
 
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0), camrot);
+
+
 
 	myImgui::StartDrawImGui("light ctrl", 150, 300);
 
@@ -196,6 +208,8 @@ void EngineDebugScene::DrawImgui()
 	DirectionalLight::SetLightDir(lightdir.x, lightdir.y, lightdir.z);
 
 	myImgui::EndDrawImGui();
+
+
 
 	myImgui::StartDrawImGui("Audio Control", 150, 300);
 
