@@ -5,8 +5,9 @@
 
 using namespace Rv3Ease;
 
-TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
+TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer,scd) {
 	UINT testTex = TexManager::LoadTexture("Resources/titlemojitunage.png");
+	UINT buttonTex = TexManager::LoadTexture("Resources/titleBunki.png");
 
 	titleHage = std::make_shared<Object3d>();
 	titleHage.reset(LoadModel_FBXFile("hage_1"));
@@ -35,6 +36,7 @@ TitleScene::TitleScene(ISceneChanger *changer) : BaseScene(changer) {
 	titleSpritePos = { -220,-400 };
 
 	testsp.Create(testTex);
+	buttonsp.Create(buttonTex);
 
 	FieldDrawer::get()->SetTitleMode();
 }
@@ -49,7 +51,7 @@ TitleScene::~TitleScene()
 	}
 }
 
-//初期化
+//ﾂ鞘ｰﾅﾃｺ窶ｰﾂｻ
 void TitleScene::Initialize() {
 
 }
@@ -59,9 +61,8 @@ void TitleScene::Finalize()
 
 }
 
-//更新
+//ﾂ更ﾂ新
 void TitleScene::Update() {
-	Animation();
 	if (animationCount == animationCountMax)
 	{
 		if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
@@ -75,12 +76,21 @@ void TitleScene::Update() {
 	{
 		SceneScroll();
 	}
+
 	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A)) {
+	else
+	{
+		Animation();
+	}
+	if (Input::Get()->isKeyTrigger(DIK_3)) {
+		mSceneChangeDirection->PlayOutDirection();
+	}
+	if (mSceneChangeDirection->GetDirectionStatus() == DIRECTION_ENDED) {
 		mSceneChanger->ChangeScene(eScene_Tutorial);
 	}
 }
 
-//描画
+//窶｢`窶ｰﾃｦ
 void TitleScene::Draw() {
 	//testobject->DrawObject();
 	titleHage->DrawObject();
@@ -96,6 +106,11 @@ void TitleScene::Draw2D()
 {
 	testsp.DrawSprite(titleSpritePos.x, titleSpritePos.y);
 	testsp.Draw();
+	if (titleSpritePos.y == titleLastPos)
+	{
+		buttonsp.DrawSprite(titleSpritePos.x + 760, titleSpritePos.y + 500.0f);
+		buttonsp.Draw();
+	}
 }
 
 void TitleScene::DrawImgui()
@@ -104,8 +119,8 @@ void TitleScene::DrawImgui()
 
 void TitleScene::Animation()
 {
-	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_X)
-		|| Input::Get()->isKeyTrigger(DIK_1))
+	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
+		|| Input::Get()->isKeyTrigger(DIK_2))
 	{
 		titleSpritePos.y = titleLastPos;
 		titlePlayerPos = { 50,0,0 };

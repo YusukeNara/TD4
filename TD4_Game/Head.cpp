@@ -15,8 +15,8 @@ void Head::setPlayerPtr(std::shared_ptr<ProtoPlayer> ptr)
 void Head::loadHeadModel()
 {
 	headModelStatic.reset(FbxLoader::GetInstance()->LoadFBXFile("hage_1"));
-	headModelStatic.reset(FbxLoader::GetInstance()->LoadFBXFile("ippon"));
-	headModelStatic.reset(FbxLoader::GetInstance()->LoadFBXFile("kamihusahusa"));
+	hairModelStatic.reset(FbxLoader::GetInstance()->LoadFBXFile("ippon"));
+	afroModelStatic.reset(FbxLoader::GetInstance()->LoadFBXFile("kamihusahusa"));
 }
 
 void Head::setStaticData()

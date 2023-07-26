@@ -1,7 +1,7 @@
 #include "ResultScene.h"
 #include "ScoreManager.h"
 
-ResultScene::ResultScene(ISceneChanger* changer) : BaseScene(changer)
+ResultScene::ResultScene(ISceneChanger* changer, SceneChangeDirection* scd) : BaseScene(changer,scd)
 {
 	UINT reviewTex = TexManager::LoadTexture("Resources/TotalReview.png");
 	UINT rescoreTex = TexManager::LoadTexture("Resources/ScoreTitle.png");
@@ -45,10 +45,7 @@ void ResultScene::Finalize()
 
 void ResultScene::Update()
 {
-	if (Input::Get()->isKeyTrigger(DIK_1)
-		|| Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)) {
-		mSceneChanger->ChangeScene(eScene_Title);
-	}
+	SceneScroll();
 	Animation();
 }
 
@@ -342,6 +339,29 @@ const int& ResultScene::SelectRank()
 	else
 	{
 		return D;
+	}
+}
+
+void ResultScene::SceneScroll()
+{
+	if (animationCount == animationCountMax)
+	{
+		if (Input::Get()->isKeyTrigger(DIK_1)
+			|| Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B))
+		{
+			isScroll = true;
+		}
+		if (isScroll == true)
+		{
+			if (scrollCount < scrollCountMax)
+			{
+				scrollCount++;
+			}
+			if (scrollCount == scrollCountMax)
+			{
+				mSceneChanger->ChangeScene(eScene_Title);
+			}
+		}
 	}
 }
 

@@ -1,15 +1,18 @@
 #include "EngineDebugScene.h"
 
+#include "GameSoundMgr.h"
+
 #include <Raki_imguiMgr.h>
 #include <DirectionalLight.h>
 
 #include <FbxLoader.h>
 
 #include <RakiUtility.h>
+#include <NY_random.h>
 
 using namespace Rv3Ease;
 
-EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
+EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection* scDirect) : BaseScene(changer, scDirect)
 {
 	UINT testTex = TexManager::LoadTexture("Resources/asp3.png");
 
@@ -23,7 +26,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testsp2.Create(testTex);
 
 	testFBX_YesBone = std::make_shared<Object3d>();
-	testFBX_YesBone.reset(LoadModel_FBXFile("HAND"));
+	testFBX_YesBone.reset(LoadModel_FBXFile("hage_2"));
 	testFBX_YesBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(75.f, 0, -50.f));
 
 	testFBX_NoBone = std::make_shared<Object3d>();
@@ -31,12 +34,10 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testModel.reset(FbxLoader::GetInstance()->LoadFBXFile("hage_1"));
 	testFBX_NoBone.reset(SetModel_FBX(testModel));
 	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(-75.0f, 0, -50.0f));
-	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP,0);
 
 	testobj = std::make_shared<Object3d>();
-	testobj.reset(SetModel_FBX(testModel));
-	testobj->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(-75.f, 0, -50.f));
-	testobj->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 1);
+	testobj.reset(LoadModel_FBXFile("SpherePBR"));
+	testobj->SetAffineParam(RVector3(10.1f, 10.1f, 10.1f), RVector3(90, 0, 0), RVector3(0.f, 0, -50.f));
 
 	RVector3 eye(0.f, 0.f, -200.f);
 	RVector3 target(0.f, 0.f, 0.f);
@@ -44,13 +45,14 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
 
 	//音ロード
-	testSE = Audio::LoadSound_wav("Resources/don.wav");
-	testBGM = Audio::LoadSound_wav("Resources/kari.wav");
+	testSE.reset(Audio::LoadSound_wav("Resources/don.wav"));
+	testBGM = std::make_unique<SoundData>();
+	testBGM.reset(Audio::LoadSound_wav("Resources/sounds/bgm/titlebgm.wav"));
 
 	testNum.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 
 	//無限ループ
-	Audio::SetPlayRoopmode(testBGM, 255);
+	Audio::SetPlayRoopmode(testBGM.get(), 255);
 
 	q1 = quaternion(1, 2, 3, 4);
 	q2 = quaternion(2, 3, 4, 1);
@@ -61,7 +63,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 
 	testp = std::make_unique<ParticleManager>();
 	testp.reset(ParticleManager::Create());
-	particleTex = TexManager::LoadTexture("Resources/effect1.png");
+	particleTex = TexManager::LoadTexture("Resources/white1x1.png");
 	pgstate.scale_end = 0.0f;
 	pgstate.scale_start = 10.0f;
 	pgstate.position = RVector3(0, 50, 0);
@@ -84,6 +86,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer)
 	testbezier.Init(RVector3(-100, 0, 0), RVector3(0, 100, 100), RVector3(0, 0, 0),
 		60, RV3_EASE_TYPE::EASE_CUBIC_OUT);
 
+	mSceneChangeDirection->PlayInDirection();
 }
 
 EngineDebugScene::~EngineDebugScene()
@@ -106,20 +109,36 @@ void EngineDebugScene::Update()
 
 	testobject->SetAffineParamTranslate(testspline.Update());
 
-	if (Input::isKeyTrigger(DIK_O)) { Audio::PlayLoadedSound(testSE, true); }
+	if (Input::isKeyTrigger(DIK_O)) { Audio::PlayLoadedSound(testSE.get(), true); }
 
 	if (Input::isKey(DIK_G)) { 
-		pgstate.vel = rutility::randomRV3(RVector3(1, 1, 1), RVector3(-1, -1, -1));
-		pgstate.color_start = { 1,0,0,1 };
-		pgstate.color_end = { 1,1,1,1 };
-		//testp->Add(pgstate);
+		//設定構造体のインスタンス
+		ParticleGrainState pgstate{};
+		RVector3 v(NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30));
+		v = v.norm();
+		//パラメータ設定
+		pgstate.position = RVector3(5, 0, 0);
+		pgstate.position = RVector3(5, 0, 0);
+		pgstate.vel = v * 4.0f;
+		pgstate.acc = -(v / 10);
+		pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
+		pgstate.color_end = XMFLOAT4(1, 0, 0, 1);
+		pgstate.scale_start = 10.0f;
+		pgstate.scale_end = 10.5f;
+		pgstate.aliveTime = 60;
+		testp->Add(pgstate);
 	}
+
+
+
+	//音テスト
+
 }
 
 void EngineDebugScene::Draw()
 {
-	testobject->DrawObject();
-	//testobj->DrawObject();
+	//testobject->DrawObject();
+	testobj->DrawObject();
 
 	testFBX_NoBone->DrawObject();
 	testFBX_YesBone->DrawObject();
@@ -181,13 +200,13 @@ void EngineDebugScene::DrawImgui()
 	myImgui::StartDrawImGui("Audio Control", 150, 300);
 
 	if (ImGui::Button("PLAY")) {
-		Audio::PlayLoadedSound(testBGM);
+		Audio::PlayLoadedSound(testBGM.get());
 	}
 	if (ImGui::Button("STOP")) {
-		Audio::StopLoadedSound(testBGM);
+		Audio::StopLoadedSound(testBGM.get());
 	}
 	if (ImGui::Button("PAUSE")) {
-		Audio::PauseLoadedSound(testBGM);
+		Audio::PauseLoadedSound(testBGM.get());
 	}
 
 	static float masterVolume = 0.5f;
@@ -201,10 +220,40 @@ void EngineDebugScene::DrawImgui()
 	testobj->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testobject->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 
+
+	myImgui::StartDrawImGui("SOUND TEST", 100, 300);
+
+	if (ImGui::Button("PLAY TITLE BGM")) {
+		GameSoundMgr::get()->PlayTitleBGM();
+	}
+	if (ImGui::Button("PLAY GAME BGM")) {
+		GameSoundMgr::get()->PlayGameBGM();
+	}
+	if (ImGui::Button("PLAY RESULT BGM")) {
+		GameSoundMgr::get()->PlayResultBGM();
+	}
+	if (ImGui::Button("STOP TITLE BGM")) {
+		GameSoundMgr::get()->StopTitleBGM();
+	}
+	if (ImGui::Button("STOP GAME BGM")) {
+		GameSoundMgr::get()->StopGameBGM();
+	}
+	if (ImGui::Button("STOP RESULT BGM")) {
+		GameSoundMgr::get()->StopResultBGM();
+	}
+	if (ImGui::Button("CUT")) { GameSoundMgr::get()->PlayCutSE(); }
+	if (ImGui::Button("SLAP")) { GameSoundMgr::get()->PlaySlapSE(); }
+	if (ImGui::Button("BUTTON")) { GameSoundMgr::get()->PlayButtonSE(); }
+	if (ImGui::Button("CANCEL")) { GameSoundMgr::get()->PlayCancelSE(); }
+	if (ImGui::Button("PULL")) { GameSoundMgr::get()->PlayPullSE(); }
+
+
+	myImgui::EndDrawImGui();
+
 }
 
 void EngineDebugScene::DrawParticle()
 {
-	//testp->Update();
-	//testp->Draw(particleTex);
+	testp->Update();
+	testp->Draw(particleTex);
 }

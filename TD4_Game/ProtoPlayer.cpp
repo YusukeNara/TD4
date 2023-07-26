@@ -19,10 +19,20 @@ ProtoPlayer::ProtoPlayer()
 	handUI.Create(UITexHand);
 	clipUI.Create(UITexClip);
 	scisUI.Create(UITexScis);
+
+	slapSE = std::make_unique<SoundData>();
+	slapSE.reset(Audio::LoadSound_wav("Resources/sounds/se/slap1.wav"));
+	cutSE = std::make_unique<SoundData>();
+	cutSE.reset(Audio::LoadSound_wav("Resources/sounds/se/cut1.wav"));
+	clipSE = std::make_unique<SoundData>();
+	clipSE.reset(Audio::LoadSound_wav("Resources/sounds/se/pull.wav"));
 }
 
 ProtoPlayer::~ProtoPlayer()
 {
+	Audio::StopLoadedSound(slapSE.get());
+	Audio::StopLoadedSound(cutSE.get());
+	Audio::StopLoadedSound(clipSE.get());
 }
 
 void ProtoPlayer::Init()
@@ -126,13 +136,21 @@ void ProtoPlayer::Finalize()
 
 void ProtoPlayer::HandAttack()
 {
-	if (isCutSpline || isClipSpline)
-	{
-		return;
-	}
-
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT))
 	{
+		Audio::PlayLoadedSound(slapSE.get(), true);
+		if (isSlapSpline)
+		{
+			SlapSpline.Reset();
+		}
+		if (isCutSpline)
+		{
+			CutSpline.Reset();
+		}
+		if (isClipSpline)
+		{
+			ClipSpline.Reset();
+		}
 		SlapSpline.Play();
 		SlapRot.y = -20;
 		isSlapSpline = true;
@@ -170,13 +188,21 @@ void ProtoPlayer::HandAttack()
 
 void ProtoPlayer::CutHair()
 {
-	if (isSlapSpline || isClipSpline)
-	{
-		return;
-	}
-
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || Input::isKeyTrigger(DIK_UP))
 	{
+		Audio::PlayLoadedSound(cutSE.get(), true);
+		if (isSlapSpline)
+		{
+			SlapSpline.Reset();
+		}
+		if (isCutSpline)
+		{
+			CutSpline.Reset();
+		}
+		if (isClipSpline)
+		{
+			ClipSpline.Reset();
+		}
 		CutSpline.Play();
 		CutRot.z = -20;
 		isCutSpline = true;
@@ -214,13 +240,21 @@ void ProtoPlayer::CutHair()
 
 void ProtoPlayer::Clip()
 {
-	if (isSlapSpline || isCutSpline)
-	{
-		return;
-	}
-
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_B) || Input::isKeyTrigger(DIK_RIGHT))
 	{
+		Audio::PlayLoadedSound(clipSE.get(), true);
+		if (isSlapSpline)
+		{
+			SlapSpline.Reset();
+		}
+		if (isCutSpline)
+		{
+			CutSpline.Reset();
+		}
+		if (isClipSpline)
+		{
+			ClipSpline.Reset();
+		}
 		ClipSpline.Play();
 		ClipRot.y = -20;
 		isClipSpline = true;
