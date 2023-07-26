@@ -175,17 +175,13 @@ void EngineDebugScene::DrawImgui()
 	ImGui::SliderFloat("rotY", &rotY, 0.f, 360.f);
 	ImGui::SliderFloat("rotZ", &rotZ, 0.f, 360.f);
 
-	if (ImGui::Button("animation change")) {
-		if (activeAnimation > 8) {
-			activeAnimation = 0;
-		}
-		else {
-			activeAnimation++;
-		}
-	}
+	ImGui::SliderInt("Animation num", &activeAnimation, 0, 8);
+	ImGui::Checkbox("isRoop", &isRoop);
 
 	if (ImGui::Button("Play animation")) {
-		testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation);
+		if(isRoop){ testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation); }
+		else{ testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, activeAnimation); }
+		
 	}
 
 	//ImGui::Text("test cam eye %.2f,%.2f,%.2f", testcam._eyepos.x, testcam._eyepos.y, testcam._eyepos.z);

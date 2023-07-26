@@ -70,5 +70,6 @@ public:
     Rv3Ease::Rv3Bezier3 testbezier;
 
     int activeAnimation = 0;
-};
+    bool isRoop = false;
 
+};
