@@ -25,9 +25,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 	testsp1.Create(testTex);
 	testsp2.Create(testTex);
 
-	testFBX_YesBone = std::make_shared<Object3d>();
-	testFBX_YesBone.reset(LoadModel_FBXFile("hage_2"));
-	testFBX_YesBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(75.f, 0, -50.f));
+	
 
 	testFBX_NoBone = std::make_shared<Object3d>();
 	std::shared_ptr<fbxModel> testModel = std::make_shared<fbxModel>();
@@ -35,6 +33,9 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 	testFBX_NoBone.reset(SetModel_FBX(testModel));
 	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(-75.0f, 0, -50.0f));
 
+	testFBX_YesBone = std::make_shared<Object3d>();
+	testFBX_YesBone.reset(SetModel_FBX(testModel));
+	testFBX_YesBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(75.f, 0, -50.f));
 
 	testobj = std::make_shared<Object3d>();
 	testobj.reset(LoadModel_FBXFile("SpherePBR"));
@@ -176,11 +177,18 @@ void EngineDebugScene::DrawImgui()
 	ImGui::SliderFloat("rotZ", &rotZ, 0.f, 360.f);
 
 	ImGui::SliderInt("Animation num", &activeAnimation, 0, 8);
+	ImGui::SliderInt("diff anim num", &differentAnimation, 0, 8);
 	ImGui::Checkbox("isRoop", &isRoop);
 
 	if (ImGui::Button("Play animation")) {
-		if(isRoop){ testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation); }
-		else{ testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, activeAnimation); }
+		if(isRoop){ 
+			testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation); 
+			testFBX_YesBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, differentAnimation);
+		}
+		else{ 
+			testFBX_YesBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, differentAnimation); 
+			testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation);
+		}
 		
 	}
 
