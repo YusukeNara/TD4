@@ -7,7 +7,10 @@ using namespace Rv3Ease;
 
 TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer,scd) {
 	UINT testTex = TexManager::LoadTexture("Resources/titlemojitunage.png");
-	UINT buttonTex = TexManager::LoadTexture("Resources/titleBunki.png");
+	UINT startTex = TexManager::LoadTexture("Resources/Start.png");
+	UINT tutorialTex = TexManager::LoadTexture("Resources/TutorialStart.png");
+	UINT buttonATex = TexManager::LoadTexture("Resources/buttonA.png");
+	UINT buttonBTex = TexManager::LoadTexture("Resources/buttonB.png");
 
 	titleHage = std::make_shared<Object3d>();
 	titleHage.reset(LoadModel_FBXFile("hage_1"));
@@ -36,7 +39,10 @@ TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection* scd) : Base
 	titleSpritePos = { -220,-400 };
 
 	testsp.Create(testTex);
-	buttonsp.Create(buttonTex);
+	startsp.Create(startTex);
+	tutorialsp.Create(tutorialTex);
+	buttonAsp.Create(buttonATex);
+	buttonBsp.Create(buttonBTex);
 
 	FieldDrawer::get()->SetTitleMode();
 }
@@ -63,7 +69,7 @@ void TitleScene::Finalize()
 
 //XV
 void TitleScene::Update() {
-	if (animationCount == animationCountMax)
+	if (isTitleScroll == true)
 	{
 		if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
 			|| Input::Get()->isKeyTrigger(DIK_2))
@@ -94,7 +100,7 @@ void TitleScene::Draw() {
 	//testobject->DrawObject();
 	titleHage->DrawObject();
 	titlePlayer->DrawObject();
-	if ((animationCount != animationCountMax))
+	if ((animationCount != animationCountMax) && isTitleScroll == false)
 	{
 		titleAfro->DrawObject();
 		titleIppon->DrawObject();
@@ -107,8 +113,14 @@ void TitleScene::Draw2D()
 	testsp.Draw();
 	if (titleSpritePos.y == titleLastPos)
 	{
-		buttonsp.DrawSprite(titleSpritePos.x + 760, titleSpritePos.y + 500.0f);
-		buttonsp.Draw();
+		startsp.DrawSprite(titleSpritePos.x + 800, titleSpritePos.y + 500.0f);
+		buttonBsp.DrawSprite(titleSpritePos.x + 700, titleSpritePos.y + 500.0f);
+		tutorialsp.DrawSprite(titleSpritePos.x + 500, titleSpritePos.y + 580.0f);
+		buttonAsp.DrawSprite(titleSpritePos.x + 400, titleSpritePos.y + 580.0f);
+		startsp.Draw();
+		tutorialsp.Draw();
+		buttonAsp.Draw();
+		buttonBsp.Draw();
 	}
 }
 
