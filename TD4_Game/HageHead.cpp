@@ -35,6 +35,7 @@ void HageHead::ResetFrontEase()
 	FrontStart = pos;
 	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - 100.0f };
 	isFrontEase = true;
+	headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 3);
 }
 
 void HageHead::Update()
@@ -53,6 +54,8 @@ void HageHead::Update()
 		{
 			pos.z = FrontEnd.z;
 			isFrontEase = false;
+			headObjectSelf->StopAnimation();
+
 		}
 		else
 		{
@@ -166,12 +169,14 @@ void HageHead::SlappingMove()
 		ShakeBacePos = pos;
 		pos.x = pos.x + ShakeOffset;
 		FailCount = 0;
+		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, 5);
 		return;
 	}
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT) && !isSlap)
 	{
 		isSlap = true;
+		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 7);
 
 		//飛ぶ方向を決定
 		blustVec = RVector3(NY_random::floatrand_sl(30, 0), NY_random::floatrand_sl(30, 0), 0);
@@ -225,6 +230,7 @@ void HageHead::FailMove()
 		pos = ShakeBacePos;
 		playerPtr->RetirementMoney -= 20;
 		isFail = false;
+		headObjectSelf->StopAnimation();
 	}
 }
 

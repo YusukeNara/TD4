@@ -5,7 +5,7 @@
 
 using namespace Rv3Ease;
 
-TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer,scd) {
+TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection *scd) : BaseScene(changer, scd) {
 	UINT testTex = TexManager::LoadTexture("Resources/titlemojitunage.png");
 	UINT buttonTex = TexManager::LoadTexture("Resources/titleBunki.png");
 
@@ -51,7 +51,7 @@ TitleScene::~TitleScene()
 	}
 }
 
-//初期化
+//ﾂ鞘ｰﾅﾃｺ窶ｰﾂｻ
 void TitleScene::Initialize() {
 
 }
@@ -61,7 +61,7 @@ void TitleScene::Finalize()
 
 }
 
-//更新
+//ﾂ更ﾂ新
 void TitleScene::Update() {
 	if (animationCount == animationCountMax)
 	{
@@ -88,7 +88,7 @@ void TitleScene::Update() {
 	}
 }
 
-//描画
+//窶｢`窶ｰﾃｦ
 void TitleScene::Draw() {
 	//testobject->DrawObject();
 	titleHage->DrawObject();
