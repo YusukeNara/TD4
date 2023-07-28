@@ -18,11 +18,11 @@ const float titleLastPos = -50.0f;
 class TitleScene : public BaseScene {
 
 public:
-    TitleScene(ISceneChanger *changer, SceneChangeDirection* scd);
+    TitleScene(ISceneChanger *changer, SceneChangeDirection *scd);
     ~TitleScene() override;
 
     void Initialize() override;    //初期化処理をオーバーライド。
-    void Finalize() override ;   //終了処理をオーバーライド。
+    void Finalize() override;   //終了処理をオーバーライド。
     void Update() override;        //更新処理をオーバーライド。
     void Draw() override;          //描画処理をオーバーライド。
     void Draw2D() override;
@@ -46,7 +46,6 @@ public:
     int scrollCount = 0;
 
     bool isScroll = false;
-    bool isTitleScroll = false;
 
     XMFLOAT2 titleSpritePos;
 
@@ -54,4 +53,3 @@ public:
     RVector3 titlePlayerPos;
     RVector3 titleHagePos;
 };
-
