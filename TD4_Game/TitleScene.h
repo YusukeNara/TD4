@@ -46,6 +46,7 @@ public:
     int scrollCount = 0;
 
     bool isScroll = false;
+    bool isTitleScroll = false;
 
     XMFLOAT2 titleSpritePos;
 
