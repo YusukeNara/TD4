@@ -195,12 +195,14 @@ void LightHairHead::SlappingMove()
 		ShakeBacePos = pos;
 		pos.x = pos.x + ShakeOffset;
 		FailCount = 0;
+		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, 5);
 		return;
 	}
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT) && !isSlap)
 	{
 		isSlap = true;
+		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 7);
 		SlapCount++;
 
 		//飛ぶ方向を決定
@@ -254,6 +256,7 @@ void LightHairHead::FailMove()
 		pos = ShakeBacePos;
 		playerPtr->RetirementMoney -= 20;
 		isFail = false;
+		headObjectSelf->StopAnimation();
 	}
 }
 
@@ -288,6 +291,7 @@ void LightHairHead::PullOutHair()
 		ShakeBacePos = pos;
 		pos.x = pos.x + ShakeOffset;
 		FailCount = 0;
+		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, 5);
 		return;
 	}
 
