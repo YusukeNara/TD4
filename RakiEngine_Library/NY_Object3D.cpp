@@ -560,6 +560,17 @@ void Object3d::PlayAnimation(ANIMATION_PLAYMODE playmode, int animNum)
 
 }
 
+void Object3d::ResetAnimation()
+{
+	isPlay = false;
+	currentTime = startTime;
+}
+
+void Object3d::PauseAnimation()
+{
+	isPlay = false;
+}
+
 void Object3d::StopAnimation()
 {
 	isPlay = false;
