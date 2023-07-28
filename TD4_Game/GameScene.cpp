@@ -25,6 +25,12 @@ GameScene::~GameScene()
 //èâä˙âª
 void GameScene::Initialize() {
 	gmgr.Init();
+	timer = (float)MAX_TIMER;
+	timerSize = { 64,64 };
+	timerPos = { 1280 - 128,0 };
+	timerFlag = false;
+	timerColor = { 1,1,1,1 };
+	spriteTimer.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 }
 
 void GameScene::Finalize()
@@ -35,12 +41,31 @@ void GameScene::Finalize()
 void GameScene::Update() {
 	GameFrame++;
 
+	//éûä‘åoâﬂ
+	timer -= 0.016f;
+
+	if ((int)timer <= 5)
+	{
+		timerFlag = true;
+	}
+
+	if (timerFlag == false)
+	{
+		timerSize = { 64,64 };
+		timerPos = { 1280 - 128,0 };
+	}
+	if (timerFlag == true)
+	{
+		timerPos = { 640 - 128,360 - 128 };
+		timerSize = { 256,256 };
+		timerColor = { 1,1,1,0.7 };
+	}
+
 	if (Input::Get()->isKeyTrigger(DIK_1)) {
 		mSceneChanger->ChangeScene(eScene_Title);
 	}
 
-	if (60 - (GameFrame / 60) < 0
-		|| Input::Get()->isKeyTrigger(DIK_0)) {
+	if ((int)timer <= 0) {
 		mSceneChanger->ChangeScene(eScene_Result);
 	}
 
@@ -59,13 +84,16 @@ void GameScene::Draw2D()
 	//testsp.Draw();
 
 	gmgr.UIDraw();
+	//êßå¿éûä‘ÇÃï\é¶
+	spriteTimer.DrawNumSprite(timerPos.x, timerPos.y, timerSize.x, timerSize.y, (int)timer, timerColor);
+	spriteTimer.Draw();
 }
 
 void GameScene::DrawImgui()
 {
 	ImguiMgr::Get()->StartDrawImgui("time", 100, 100);
 
-	ImGui::Text("time : %d", 60 - (GameFrame / 60));
+	//ImGui::Text("time : %d", 60 - (GameFrame / 60));
 
 	ImguiMgr::Get()->EndDrawImgui();
 

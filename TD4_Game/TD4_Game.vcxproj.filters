@@ -9,6 +9,24 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="game">
+      <UniqueIdentifier>{4628f090-fb3e-4d6f-bedc-a13b2e1894d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\head">
+      <UniqueIdentifier>{a4ce717a-b9da-44f7-b7fc-1779892cd14b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\head\heads">
+      <UniqueIdentifier>{15711186-0b8b-4039-b189-d51caceb01be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\Scene">
+      <UniqueIdentifier>{fa7e9ba2-c457-45b0-b812-3cf88a766eee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\Scene\SceneManager">
+      <UniqueIdentifier>{c3ec2f4f-7de2-43d3-acad-caa1a9075866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\Scene\enginedebug">
+      <UniqueIdentifier>{d370754a-c22a-4d2c-92d0-dcbe89ef0a45}</UniqueIdentifier>
+    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -30,24 +48,6 @@
     </Filter>
     <Filter Include="リソース ファイル\shaders\Particle">
       <UniqueIdentifier>{39333f35-c67d-4358-9a89-746d921d0cee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game">
-      <UniqueIdentifier>{4628f090-fb3e-4d6f-bedc-a13b2e1894d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\head">
-      <UniqueIdentifier>{a4ce717a-b9da-44f7-b7fc-1779892cd14b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\head\heads">
-      <UniqueIdentifier>{15711186-0b8b-4039-b189-d51caceb01be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\Scene">
-      <UniqueIdentifier>{fa7e9ba2-c457-45b0-b812-3cf88a766eee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\Scene\SceneManager">
-      <UniqueIdentifier>{c3ec2f4f-7de2-43d3-acad-caa1a9075866}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\Scene\enginedebug">
-      <UniqueIdentifier>{d370754a-c22a-4d2c-92d0-dcbe89ef0a45}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,13 +108,13 @@
     <ClCompile Include="EngineDebugScene.cpp">
       <Filter>game\Scene\enginedebug</Filter>
     </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>game\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="TutorialScene.cpp">
       <Filter>game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="ResultScene.cpp">
+      <Filter>game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
       <Filter>game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
