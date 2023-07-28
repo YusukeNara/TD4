@@ -43,6 +43,7 @@ void LightHairHead::ResetFrontEase()
 	FrontStart = pos;
 	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - 100.0f };
 	isFrontEase = true;
+	headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 3);
 }
 
 void LightHairHead::Update()
@@ -63,6 +64,7 @@ void LightHairHead::Update()
 		{
 			pos.z = FrontEnd.z;
 			isFrontEase = false;
+			headObjectSelf->StopAnimation();
 		}
 		else
 		{
