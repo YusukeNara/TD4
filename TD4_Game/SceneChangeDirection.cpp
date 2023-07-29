@@ -35,15 +35,8 @@ void SceneChangeDirection::PlayInDirection()
 	spritePos = { 0,0 };
 	spriteSize = { 500,500 };
 	drawingStatus = status;
-	//if (isAnimation == false)
-	//{
-	//	animationCount = 0;
-	//	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_A))
-	//	{
-	//		isAnimation = true;
-	//	}
-	//}
 
+	inDirect.Reset();
 	inDirect.Play();
 }
 
@@ -55,14 +48,7 @@ void SceneChangeDirection::PlayOutDirection()
 	spritePos = { 0,0 };
 	spriteSize = { 100,100 };
 
-	//if (isAnimation == true)
-	//{
-	//	if (animationCount < animationCountMax)
-	//	animationCount++;
-	//	spriteSize.x += 2;
-	//	spriteSize.y += 2;
-	//}
-
+	outDirect.Reset();
 	outDirect.Play();
 }
 

@@ -64,8 +64,8 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 	lightdir = RVector3(0, 0, 1);
 
 	testp = std::make_unique<ParticleManager>();
-	testp.reset(ParticleManager::Create());
-	particleTex = TexManager::LoadTexture("Resources/white1x1.png");
+	testp.reset(ParticleManager::Create(false,ParticleBlendState::PBLEND_MODE_MIN));
+	particleTex = TexManager::LoadTexture("Resources/SingleHair.png");
 	pgstate.scale_end = 0.0f;
 	pgstate.scale_start = 10.0f;
 	pgstate.position = RVector3(0, 50, 0);
@@ -74,7 +74,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 	pgstate.position_spawnRange1 = RVector3(-50.f, -50.f, -50.f);
 	pgstate.aliveTime = 60;
 	pgstate.color_start = { 1.f,1.f,1.f,1.f };
-	pgstate.color_end = { 1.f,1.f,1.f,0.f };
+	pgstate.color_end = { 1.f,1.f,1.f,1.f };
 
 	controlPoint[1] = RVector3(50, 50, 0);
 	controlPoint[2] = RVector3(0, 0, 0);
@@ -116,18 +116,20 @@ void EngineDebugScene::Update()
 	if (Input::isKey(DIK_G)) { 
 		//設定構造体のインスタンス
 		ParticleGrainState pgstate{};
-		RVector3 v(NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30));
+		RVector3 v(NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -10), NY_random::floatrand_sl(30, -30));
 		v = v.norm();
 		//パラメータ設定
 		pgstate.position = RVector3(5, 0, 0);
 		pgstate.position = RVector3(5, 0, 0);
-		pgstate.vel = v * 4.0f;
-		pgstate.acc = -(v / 10);
-		pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
-		pgstate.color_end = XMFLOAT4(1, 0, 0, 1);
+		pgstate.vel = v * 5.0f;
+		pgstate.acc = RVector3(0, -0.2f, 0);
+		pgstate.color_start = XMFLOAT4(1, 1, 1, 1);
+		pgstate.color_end = XMFLOAT4(1, 1, 1, 1);
 		pgstate.scale_start = 10.0f;
 		pgstate.scale_end = 10.5f;
 		pgstate.aliveTime = 60;
+		pgstate.rot_start = NY_random::floatrand_sl(360.f, 0.0f);
+		pgstate.rot_end = NY_random::floatrand_sl(360.f, 0.0f);
 		testp->Add(pgstate);
 	}
 
