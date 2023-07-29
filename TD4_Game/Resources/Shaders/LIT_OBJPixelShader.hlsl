@@ -16,6 +16,28 @@ SamplerState smp : register(s0);
 
 //ピクセルのz値をライト空間の座標に変換する
 
+//並行光源の計算
+float3 DirectionalShadeing(float4 lStatus, float3 normal, float3 worldPos, float3 color, uint useSpecular)
+{
+    float3 result;
+
+    float t = max(0.0f, dot(normal, lStatus.xyz) * -1.0f);
+    result = color * t;
+    
+    //スペキュラ
+    if (useSpecular)
+    {
+        float3 toEye = normalize(eyePos - worldPos);
+        float3 r = reflect(lStatus.xyz, normal);
+        t = max(0.0f, dot(toEye, r));
+        t = pow(t, 5.0f);
+        result += color * t;
+    }
+    
+    return result * lStatus.w;
+}
+
+
 float4 main(VSOutput input) : SV_TARGET
 {
     //アルベド情報を取得
@@ -34,21 +56,37 @@ float4 main(VSOutput input) : SV_TARGET
 
     float3 color = float3(1.0f, 1.0f, 1.0);
     
+    float4 resultColor = float4(0, 0, 0, albedo.w);
+    
+    float3 lig = float3(0, 0, 0);
+    
+    //並行光源の計算結果
+    for (int i = 0; i < 4; i++)
+    {
+        if (lightStatus[i].isActive)
+        {
+            float3 l = float3(0, 0, 0);
+            float3 d = float3(0, 0, 0);
+            d = DirectionalShadeing(lightStatus[i].lightDir, normal, worldPos, color, lightStatus[i].isUseSpecular);
+            l = (albedo.xyz * d);
+            resultColor.xyz += l;
+        }
+    }
     
     //拡散反射を計算
-    float3 lig = 0.0f;
-    float t = max(0.0f, dot(normal, dirLight) * -1.0f);
-    lig = color * t;
+    //float3 lig = 0.0f;
+    //float t = max(0.0f, dot(normal, lightStatus[0].xyz) * -1.0f);
+    //lig = color * t;
     
-    //スペキュラ
-    float3 toEye = normalize(eyePos - worldPos);
-    float3 r = reflect(dirLight, normal);
-    t = max(0.0f, dot(toEye, r));
-    t = pow(t, 5.0f);
-    lig += color * t;
+    ////スペキュラ
+    //float3 toEye = normalize(eyePos - worldPos);
+    //float3 r = reflect(lightStatus[0].xyz, normal);
+    //t = max(0.0f, dot(toEye, r));
+    //t = pow(t, 5.0f);
+    //lig += color * t;
     
-    float4 resultColor = albedo;
-    resultColor.xyz *= lig;
+    //resultColor = albedo;
+    //resultColor.xyz *= lig;
 
     return resultColor;
 }

@@ -7,11 +7,16 @@ cbuffer cbuff0 : register(b0)
     float3 eyePos : packoffset(c0);
 }
 
+struct DirectionalLight
+{
+    float4 lightDir;
+    uint isActive;
+    uint isUseSpecular;
+};
+
 cbuffer cbuff1 : register(b1)
 {
-    float3 dirLight;
-    //ライトビュープロジェクション
-    //float4x4 LVPMat;
+    DirectionalLight lightStatus[4];
 }
 
 
