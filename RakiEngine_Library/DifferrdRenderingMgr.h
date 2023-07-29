@@ -4,7 +4,9 @@
 #include <d3dx12.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include <array>
 
+#include "DirectionalLight.h"
 #include "RTex.h"
 
 //ライブラリコンパイル
@@ -17,10 +19,15 @@ struct cbuffer_b0
 	float pad;
 };
 
+struct cbuff_bool
+{
+	bool myBool;
+	bool padding[3];
+};
+
 struct cbuffer_b1
 {
-	DirectX::XMFLOAT3 lightDir;
-	float pad;
+	DirectionalLight::ConstBuffData lightData[4];
 };
 
 class DiferredRenderingMgr
@@ -38,6 +45,10 @@ public:
 
 	//描画
 	void Rendering(RTex* gBuffer, RTex* shadowMap);
+
+	//デバッグ描画
+	void ShowImGui();
+
 
 
 private:
@@ -67,6 +78,9 @@ private:
 	//定数バッファ（カメラ視点座標）
 	ComPtr<ID3D12Resource>		m_constBuffEyePos;
 	ComPtr<ID3D12Resource>		m_constBuffDirLight;
+
+	//ライト配列
+	std::array<DirectionalLight, 4> directionalLights;
 
 };
 
