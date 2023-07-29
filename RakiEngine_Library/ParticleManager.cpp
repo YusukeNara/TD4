@@ -137,10 +137,10 @@ void ParticleManager::Draw(UINT drawTexNum)
 		return;
 	}
 
-	//// パイプラインステートの設定
-	//cmd->SetPipelineState(pipeline.Get());
-	//// ルートシグネチャの設定
-	//cmd->SetGraphicsRootSignature(rootsig.Get());
+	// パイプラインステートの設定
+	cmd->SetPipelineState(pipeline.Get());
+	// ルートシグネチャの設定
+	cmd->SetGraphicsRootSignature(rootsig.Get());
 	// プリミティブ形状を設定
 	cmd->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 

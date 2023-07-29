@@ -29,13 +29,13 @@ void DiferredRenderingMgr::Init(ID3D12Device* dev, ID3D12GraphicsCommandList* cm
     directionalLights[0].SetLightDirection(0, -1, 1, 1.0f);
     directionalLights[0].SetLightUseFlag(true);
     directionalLights[0].SetLightUseSpecular(true);
-    directionalLights[1].SetLightDirection(1, 0, 0, 1.0f);
+    directionalLights[1].SetLightDirection(0, 0, 1, 0.5f);
     directionalLights[1].SetLightUseFlag(true);
     directionalLights[1].SetLightUseSpecular(false);
-    directionalLights[2].SetLightDirection(-1, 0, 0, 1.0f);
+    directionalLights[2].SetLightDirection(-1, 0, 0, 0.5f);
     directionalLights[2].SetLightUseFlag(true);
     directionalLights[2].SetLightUseSpecular(false);
-    directionalLights[3].SetLightDirection(0, 1, 0, 1.0f);
+    directionalLights[3].SetLightDirection(1, 0, 0, 0.5f);
     directionalLights[3].SetLightUseFlag(true);
     directionalLights[3].SetLightUseSpecular(false);
 
