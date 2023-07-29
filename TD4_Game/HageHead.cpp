@@ -230,7 +230,7 @@ void HageHead::FailMove()
 		pos = ShakeBacePos;
 		playerPtr->RetirementMoney -= 20;
 		isFail = false;
-		headObjectSelf->StopAnimation();
+		headObjectSelf->ResetAnimation();
 	}
 }
 
