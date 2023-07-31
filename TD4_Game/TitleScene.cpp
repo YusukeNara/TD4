@@ -130,6 +130,7 @@ void TitleScene::DrawImgui()
 
 void TitleScene::Animation()
 {
+	//タイトルのアニメーションをスキップする処理
 	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
 		|| Input::Get()->isKeyTrigger(DIK_2))
 	{
