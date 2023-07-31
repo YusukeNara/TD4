@@ -22,17 +22,20 @@ public:
 
     Sprite testsp;
     Sprite spriteTimer;
+    Sprite gameSet;
     //std::shared_ptr<Object3d> testobject;
 
     GameManager gmgr;
     //éûä‘êßå¿
     float timer;
-    const int MAX_TIMER = 61;
+    const int MAX_TIMER = 11;
     XMFLOAT2 timerSize;
     XMFLOAT2 timerPos;
     XMFLOAT4 timerColor;
     bool timerFlag;
     int timerTime;
+    bool gameSetFlag;
+    XMFLOAT2 gameSetSize;
 
 
     int GameFrame;
