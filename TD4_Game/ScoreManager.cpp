@@ -52,7 +52,7 @@ void ScoreManager::Initialize()
 	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
 	spriteTotalReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
 	spriteGuest.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
-	spriteLife.Create(TexManager::LoadTexture("Resources/life.png"));
+	//spriteLife.Create(TexManager::LoadTexture("Resources/life.png"));
 	spriteScoreTitle.Create(TexManager::LoadTexture("Resources/ScoreTitle.png"));
 	spriteTotalReviewTitle.Create(TexManager::LoadTexture("Resources/TotalReview.png"));
 	spriteGuestTitle.Create(TexManager::LoadTexture("Resources/Guest.png"));
@@ -90,7 +90,7 @@ void ScoreManager::TutorialInit()
 	spriteReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
 	spriteTotalReview.CreateAndSetDivisionUVOffsets(3, 3, 1, 128, 128, TexManager::LoadTexture("Resources/star.png"));
 	spriteGuest.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
-	spriteLife.Create(TexManager::LoadTexture("Resources/life.png"));
+	//spriteLife.Create(TexManager::LoadTexture("Resources/life.png"));
 	spriteScoreTitle.Create(TexManager::LoadTexture("Resources/ScoreTitle.png"));
 	spriteTotalReviewTitle.Create(TexManager::LoadTexture("Resources/TotalReview.png"));
 	spriteGuestTitle.Create(TexManager::LoadTexture("Resources/Guest.png"));
@@ -737,14 +737,14 @@ void ScoreManager::Draw()
 	}
 
 	//‘Ì—Í‚Ì•\Ž¦
-	spriteLife.DrawExtendSprite(LIFE_POS.x, LIFE_POS.y, LIFE_POS.x + life, LIFE_POS.y + LIFE_SIZE_Y);
+	//spriteLife.DrawExtendSprite(LIFE_POS.x, LIFE_POS.y, LIFE_POS.x + life, LIFE_POS.y + LIFE_SIZE_Y);
 
 	spriteScore.Draw();
 	spriteTotalScore.Draw();
 	spriteReview.Draw();
 	spriteTotalReview.Draw();
 	spriteGuest.Draw();
-	spriteLife.Draw();
+	//spriteLife.Draw();
 	spriteScoreTitle.Draw();
 	spriteTotalReviewTitle.Draw();
 	spriteGuestTitle.Draw();
