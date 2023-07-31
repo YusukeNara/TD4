@@ -86,7 +86,7 @@ void TitleScene::Update() {
 	{
 		Animation();
 	}
-	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_B)
+	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A)
 		|| Input::Get()->isKeyTrigger(DIK_3)) {
 		mSceneChangeDirection->PlayOutDirection();
 	}
