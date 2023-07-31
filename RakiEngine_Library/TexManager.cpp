@@ -7,11 +7,20 @@
 #include "RakiUtility.h"
 
 
-std::array<texture,2048>						TexManager::textureData;
+std::array<texture*,2048>						TexManager::textureData;
 Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>	TexManager::texDsvHeap;
 const int										TexManager::MAX_TEXNUM = 2048;
 
 ID3D12Device *TexManager::dev;
+
+TexManager::~TexManager()
+{
+    for (int i = 0; i < MAX_TEXNUM; i++) {
+        if (textureData[i]) {
+            DeleteTexture(i);
+        }
+    }
+}
 
 void TexManager::InitTexManager()
 {
@@ -59,11 +68,12 @@ UINT TexManager::LoadTexture(const char *filename)
     for (int i = 0; i < MAX_TEXNUM; i++) {
         //bool isNot = std::ranges::any_of(textureData.begin(),textureData.end(), [i](texture *t) { return t->texNumber == i; });
         //空のテクスチャを発見、番号重複がない
-        if (textureData[i].texBuff == nullptr)
+        if (textureData[i] == nullptr)
         {
             //番号設定
             useTexIndexNum = (UINT)i;
-            textureData[i].texNumber = i;
+            textureData[i] = new texture;
+            textureData[i]->texNumber = i;
             break;
         }
     }
@@ -82,17 +92,17 @@ UINT TexManager::LoadTexture(const char *filename)
         // WICテクスチャのロード
         result = LoadFromDDSFile(FileName,
             DDS_FLAGS_NONE,
-            &textureData[useTexIndexNum].metaData,
-            textureData[useTexIndexNum].scratchImg);
-        textureData[useTexIndexNum].img = textureData[useTexIndexNum].scratchImg.GetImage(0, 0, 0);
+            &textureData[useTexIndexNum]->metaData,
+            textureData[useTexIndexNum]->scratchImg);
+        textureData[useTexIndexNum]->img = textureData[useTexIndexNum]->scratchImg.GetImage(0, 0, 0);
     }
     else {
         // WICテクスチャのロード
         result = LoadFromWICFile(FileName,
             WIC_FLAGS_IGNORE_SRGB,
-            &textureData[useTexIndexNum].metaData,
-            textureData[useTexIndexNum].scratchImg);
-        textureData[useTexIndexNum].img = textureData[useTexIndexNum].scratchImg.GetImage(0, 0, 0);
+            &textureData[useTexIndexNum]->metaData,
+            textureData[useTexIndexNum]->scratchImg);
+        textureData[useTexIndexNum]->img = textureData[useTexIndexNum]->scratchImg.GetImage(0, 0, 0);
     }
 
 
@@ -110,12 +120,12 @@ UINT TexManager::LoadTexture(const char *filename)
     texHeapProp.MemoryPoolPreference    = D3D12_MEMORY_POOL_L0;
 
     D3D12_RESOURCE_DESC texresDesc{};//リソース設定
-    texresDesc.Dimension        = static_cast<D3D12_RESOURCE_DIMENSION>(textureData[useTexIndexNum].metaData.dimension);//2Dテクスチャ用
-    texresDesc.Format           = textureData[useTexIndexNum].metaData.format;//RGBAフォーマット
-    texresDesc.Width            = textureData[useTexIndexNum].metaData.width;//横
-    texresDesc.Height           = (UINT)textureData[useTexIndexNum].metaData.height;//縦
-    texresDesc.DepthOrArraySize = (UINT16)textureData[useTexIndexNum].metaData.arraySize;
-    texresDesc.MipLevels        = (UINT16)textureData[useTexIndexNum].metaData.mipLevels;
+    texresDesc.Dimension        = static_cast<D3D12_RESOURCE_DIMENSION>(textureData[useTexIndexNum]->metaData.dimension);//2Dテクスチャ用
+    texresDesc.Format           = textureData[useTexIndexNum]->metaData.format;//RGBAフォーマット
+    texresDesc.Width            = textureData[useTexIndexNum]->metaData.width;//横
+    texresDesc.Height           = (UINT)textureData[useTexIndexNum]->metaData.height;//縦
+    texresDesc.DepthOrArraySize = (UINT16)textureData[useTexIndexNum]->metaData.arraySize;
+    texresDesc.MipLevels        = (UINT16)textureData[useTexIndexNum]->metaData.mipLevels;
     texresDesc.SampleDesc.Count = 1;
 
     result = RAKI_DX12B_DEV->CreateCommittedResource(//GPUリソース生成
@@ -124,7 +134,7 @@ UINT TexManager::LoadTexture(const char *filename)
         &texresDesc,
         D3D12_RESOURCE_STATE_GENERIC_READ,
         nullptr,
-        IID_PPV_ARGS(&textureData[useTexIndexNum].texBuff)
+        IID_PPV_ARGS(&textureData[useTexIndexNum]->texBuff)
     );
 
     if (FAILED(result)) {
@@ -135,12 +145,12 @@ UINT TexManager::LoadTexture(const char *filename)
     }
 
     //テクスチャバッファへのデータ転送
-    result = textureData[useTexIndexNum].texBuff->WriteToSubresource(
+    result = textureData[useTexIndexNum]->texBuff->WriteToSubresource(
         0,
         nullptr,
-        textureData[useTexIndexNum].img->pixels,
-        (UINT)textureData[useTexIndexNum].img->rowPitch,
-        (UINT)textureData[useTexIndexNum].img->slicePitch
+        textureData[useTexIndexNum]->img->pixels,
+        (UINT)textureData[useTexIndexNum]->img->rowPitch,
+        (UINT)textureData[useTexIndexNum]->img->slicePitch
     );
 
     if (FAILED(result)) {
@@ -152,7 +162,7 @@ UINT TexManager::LoadTexture(const char *filename)
 
     //シェーダーリソースビュー設定
     D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
-    srvDesc.Format = textureData[useTexIndexNum].metaData.format;
+    srvDesc.Format = textureData[useTexIndexNum]->metaData.format;
     srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
     srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
     srvDesc.Texture2D.MipLevels = 1;
@@ -160,14 +170,14 @@ UINT TexManager::LoadTexture(const char *filename)
     //ヒープにシェーダーリソースビュー作成
     D3D12_CPU_DESCRIPTOR_HANDLE cpuDescHandleSRV = texDsvHeap.Get()->GetCPUDescriptorHandleForHeapStart();
     D3D12_GPU_DESCRIPTOR_HANDLE gpuDescHandleSRV = texDsvHeap.Get()->GetGPUDescriptorHandleForHeapStart();
-    dev->CreateShaderResourceView(textureData[useTexIndexNum].texBuff.Get(), &srvDesc,
+    dev->CreateShaderResourceView(textureData[useTexIndexNum]->texBuff.Get(), &srvDesc,
         CD3DX12_CPU_DESCRIPTOR_HANDLE(texDsvHeap.Get()->GetCPUDescriptorHandleForHeapStart(), useTexIndexNum,
             dev->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)));
 
     std::string texname = filename;
     std::string dataName = "TextureBuffer_" + texname;
     std::wstring nametemp = std::wstring(dataName.begin(), dataName.end());
-    textureData[useTexIndexNum].texBuff.Get()->SetName(nametemp.c_str());
+    textureData[useTexIndexNum]->texBuff.Get()->SetName(nametemp.c_str());
 
 
 
@@ -205,9 +215,9 @@ UINT TexManager::LoadDivTextureTest(uvAnimData *data,const char *filename, const
     //該当テクスチャのuvオフセットを用意
 
     //アニメーション1枚の画像サイズを算出
-    float animTexSizeX = float(textureData[useNo].metaData.width) / float(numDivTex);
+    float animTexSizeX = float(textureData[useNo]->metaData.width) / float(numDivTex);
     //1枚のサイズ / 全体のサイズ = 1枚あたりのuvのオフセット値
-    float uvoffSetParam = animTexSizeX / float(textureData[useNo].metaData.width);
+    float uvoffSetParam = animTexSizeX / float(textureData[useNo]->metaData.width);
     //uvのオフセット値を元にuvオフセットを設定
     for (int i = 0; i < numDivTex; i++) {
         UVOFFSETS offset = {
@@ -232,11 +242,10 @@ void TexManager::DeleteTexture(UINT texhandle)
         return;
     }
 
-    if (textureData[texhandle].texBuff.Get()) {
-        ID3D12Resource* res = *textureData[texhandle].texBuff.ReleaseAndGetAddressOf();
-
-        delete res;
-        res = nullptr;
+    if (textureData[texhandle]) {
+        delete textureData[texhandle];
+        textureData[texhandle] = nullptr;
+        ExportEngineLogText(L"TexManager", L"DeleteTexture()", L"Texture deleted.", int(texhandle));
     }
 }
 

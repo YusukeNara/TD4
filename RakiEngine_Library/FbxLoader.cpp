@@ -312,6 +312,10 @@ void FbxLoader::ConvertMatrixFromFbx(DirectX::XMMATRIX* dst, const FbxAMatrix& s
     }
 }
 
+FbxLoader::~FbxLoader()
+{
+}
+
 void FbxLoader::ParseSkin(fbxModel* model, FbxMesh* fbxMesh)
 {
     FbxSkin* skin = static_cast<FbxSkin*>(fbxMesh->GetDeformer(0, FbxDeformer::eSkin));

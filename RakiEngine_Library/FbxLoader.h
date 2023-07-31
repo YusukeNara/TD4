@@ -47,7 +47,7 @@ private:
 	// privateなコンストラクタ（シングルトンパターン）
 	FbxLoader() = default;
 	// privateなデストラクタ（シングルトンパターン）
-	~FbxLoader() = default;
+	~FbxLoader();
 	// コピーコンストラクタを禁止（シングルトンパターン）
 	FbxLoader(const FbxLoader& obj) = delete;
 	// コピー代入演算子を禁止（シングルトンパターン）

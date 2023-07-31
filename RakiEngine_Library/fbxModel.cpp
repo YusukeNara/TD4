@@ -7,6 +7,7 @@ const int fbxModel::BONE_INDICES_MAX;
 fbxModel::~fbxModel()
 {
 	if (fbxScene != nullptr) { fbxScene->Destroy(); }
+	TexManager::DeleteTexture(material.texNumber);
 }
 
 void fbxModel::CreateBuffers()

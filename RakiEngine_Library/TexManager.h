@@ -59,14 +59,14 @@ private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 	TexManager() {};
-	~TexManager() {};
+	~TexManager();
 
 	static ID3D12Device *dev;
 
 public:
 
 	//テクスチャデータ配列
-	static std::array<texture,2048> textureData;
+	static std::array<texture*,2048> textureData;
 	//デスクリプタヒープ
 	static ComPtr<ID3D12DescriptorHeap> texDsvHeap;
 	//テクスチャ最大数
