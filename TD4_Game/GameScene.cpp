@@ -31,7 +31,10 @@ void GameScene::Initialize() {
 	timerFlag = false;
 	timerColor = { 1,1,1,1 };
 	timerTime = 0;
+	gameSetFlag = false;
+	gameSetSize = { 360,64 };
 	spriteTimer.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
+	gameSet.Create(TexManager::LoadTexture("Resources/gameSet.png"));
 }
 
 void GameScene::Finalize()
@@ -79,7 +82,17 @@ void GameScene::Update() {
 		mSceneChanger->ChangeScene(eScene_Title);
 	}
 
-	if ((int)timer <= 0) {
+	if ((timer <= 0.01 && timer >= 0)) {
+		gameSetFlag = true;
+	}
+
+	if (gameSetFlag == true)
+	{
+		gameSetSize.x += 1.5f;
+		gameSetSize.y += 1.2f;
+	}
+	if ((int)timer <= -2)
+	{
 		mSceneChanger->ChangeScene(eScene_Result);
 	}
 
@@ -101,6 +114,11 @@ void GameScene::Draw2D()
 	//êßå¿éûä‘ÇÃï\é¶
 	spriteTimer.DrawNumSprite(timerPos.x, timerPos.y, timerSize.x, timerSize.y, (int)timer, timerColor);
 	spriteTimer.Draw();
+	if (gameSetFlag == true)
+	{
+		gameSet.DrawExtendSprite(640 - gameSetSize.x, 360 - gameSetSize.y, 640 + gameSetSize.x, 360 + gameSetSize.y);
+		gameSet.Draw();
+	}
 }
 
 void GameScene::DrawImgui()
