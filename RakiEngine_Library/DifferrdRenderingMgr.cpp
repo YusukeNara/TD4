@@ -3,6 +3,8 @@
 #include "RenderTargetManager.h"
 #include "DirectionalLight.h"
 
+#include "Raki_imguiMgr.h"
+
 void DiferredRenderingMgr::Init(ID3D12Device* dev, ID3D12GraphicsCommandList* cmd)
 {
 	m_dev = dev;
@@ -13,6 +15,29 @@ void DiferredRenderingMgr::Init(ID3D12Device* dev, ID3D12GraphicsCommandList* cm
         //RVector3(0.f, 1.f, 0.f));
      
     DirectionalLight::SetLightDir(0.0f, -1.0f, 1.0f);
+
+    for (int i = 0; i < 4; i++) {
+        if (i == 0) {
+            directionalLights[i].SetLightDirection(0, -1, 1, 1);
+            directionalLights[i].SetLightUseFlag(true);
+        }
+        else {
+            directionalLights[i].SetLightDirection(1, -1, 1, 0.25);
+            directionalLights[i].SetLightUseFlag(true);
+        }
+    }
+    directionalLights[0].SetLightDirection(0, -1, 1, 1.0f);
+    directionalLights[0].SetLightUseFlag(true);
+    directionalLights[0].SetLightUseSpecular(true);
+    directionalLights[1].SetLightDirection(1, 0, 0, 1.0f);
+    directionalLights[1].SetLightUseFlag(true);
+    directionalLights[1].SetLightUseSpecular(false);
+    directionalLights[2].SetLightDirection(-1, 0, 0, 1.0f);
+    directionalLights[2].SetLightUseFlag(true);
+    directionalLights[2].SetLightUseSpecular(false);
+    directionalLights[3].SetLightDirection(0, 1, 0, 1.0f);
+    directionalLights[3].SetLightUseFlag(true);
+    directionalLights[3].SetLightUseSpecular(false);
 
 	ShaderCompile();
 
@@ -66,6 +91,12 @@ void DiferredRenderingMgr::Rendering(RTex* gBuffer, RTex* shadowMap)
 
     //半透明用にデプスはgBufferに、描画先をバックバッファにする
     RenderTargetManager::GetInstance()->SetDSV(gBuffer);
+}
+
+void DiferredRenderingMgr::ShowImGui()
+{
+
+
 }
 
 void DiferredRenderingMgr::ShaderCompile()
@@ -195,7 +226,14 @@ void DiferredRenderingMgr::CreateGraphicsPipeline()
     cbuffer_b1* ConstMapB1 = nullptr;
     result = m_constBuffDirLight->Map(0, nullptr, (void**)&ConstMapB1);
     if (SUCCEEDED(result)) {
-        ConstMapB1->lightDir = DirectionalLight::GetLightDir();
+        for (int i = 0; i < 4; i++) {
+            ConstMapB1->lightData[i].dir = directionalLights[i].GetLightDirection();
+            if (directionalLights[i].GetLightUseFlag()) { ConstMapB1->lightData[i].useFlag = 1; }
+            else { ConstMapB1->lightData[i].useFlag = 0; }
+
+            if (directionalLights[i].GetLightUseSpecular()) { ConstMapB1->lightData[i].useSpecular = 1; }
+            else { ConstMapB1->lightData[i].useSpecular = 0; }
+        }
         m_constBuffDirLight->Unmap(0, nullptr);
     }
 
@@ -321,7 +359,13 @@ void DiferredRenderingMgr::UpdateConstBuff()
     cbuffer_b1* ConstMapB1 = nullptr;
     result = m_constBuffDirLight->Map(0, nullptr, (void**)&ConstMapB1);
     if (SUCCEEDED(result)) {
-        ConstMapB1->lightDir = DirectionalLight::GetLightDir();
+        for (int i = 0; i < 4; i++) {
+            ConstMapB1->lightData[i].dir = directionalLights[i].GetLightDirection();
+            if (directionalLights[i].GetLightUseFlag()) { ConstMapB1->lightData[i].useFlag = 1; }
+            else { ConstMapB1->lightData[i].useFlag = 0; }
+            if (directionalLights[i].GetLightUseSpecular()) { ConstMapB1->lightData[i].useSpecular = 1; }
+            else { ConstMapB1->lightData[i].useSpecular = 0; }
+        }
         m_constBuffDirLight->Unmap(0, nullptr);
     }
 }

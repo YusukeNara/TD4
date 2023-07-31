@@ -21,9 +21,18 @@ public:
     void DrawParticle() override;
 
     Sprite testsp;
+    Sprite spriteTimer;
     //std::shared_ptr<Object3d> testobject;
 
     GameManager gmgr;
+    //éûä‘êßå¿
+    float timer;
+    const int MAX_TIMER = 61;
+    XMFLOAT2 timerSize;
+    XMFLOAT2 timerPos;
+    XMFLOAT4 timerColor;
+    bool timerFlag;
+
 
     int GameFrame;
 };

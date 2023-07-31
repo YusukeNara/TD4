@@ -5,7 +5,7 @@
 
 using namespace Rv3Ease;
 
-TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer,scd) {
+TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection *scd) : BaseScene(changer, scd) {
 	UINT testTex = TexManager::LoadTexture("Resources/titlemojitunage.png");
 	UINT startTex = TexManager::LoadTexture("Resources/Start.png");
 	UINT tutorialTex = TexManager::LoadTexture("Resources/TutorialStart.png");
@@ -15,11 +15,11 @@ TitleScene::TitleScene(ISceneChanger *changer, SceneChangeDirection* scd) : Base
 	titleHage = std::make_shared<Object3d>();
 	titleHage.reset(LoadModel_FBXFile("hage_1"));
 	titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(-30, 0, 0));
-	titleHage->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 8);
+	titleHage->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 0);
 	titlePlayer = std::make_shared<Object3d>();
 	titlePlayer.reset(LoadModel_FBXFile("hage_1"));
 	titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(30, 0, 0));
-	titlePlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 2);
+	titlePlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 0);
 
 	titleAfro = std::make_shared<Object3d>();
 	titleAfro.reset(LoadModel_FBXFile("kamihusahusa"));
@@ -57,7 +57,7 @@ TitleScene::~TitleScene()
 	}
 }
 
-//初期化
+//ﾂ鞘ｰﾅﾃｺ窶ｰﾂｻ
 void TitleScene::Initialize() {
 
 }
@@ -67,7 +67,7 @@ void TitleScene::Finalize()
 
 }
 
-//更新
+//ﾂ更ﾂ新
 void TitleScene::Update() {
 	if (isTitleScroll == true)
 	{
@@ -86,6 +86,7 @@ void TitleScene::Update() {
 	{
 		Animation();
 	}
+
 	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A)
 		|| Input::Get()->isKeyTrigger(DIK_3)) {
 		mSceneChangeDirection->PlayOutDirection();
@@ -95,7 +96,7 @@ void TitleScene::Update() {
 	}
 }
 
-//描画
+//窶｢`窶ｰﾃｦ
 void TitleScene::Draw() {
 	titleHage->DrawObject();
 	titlePlayer->DrawObject();
@@ -145,8 +146,10 @@ void TitleScene::Animation()
 	}
 	else
 	{
-		isTitleScroll = true;
-		animationCount = 0;
+		if (titleSpritePos.y < titleLastPos)
+		{
+			titleSpritePos.y += 2;
+		}
 	}
 	if (animationCount < animationCountMax / 4)
 	{
@@ -154,40 +157,22 @@ void TitleScene::Animation()
 		titleHagePos.x += 2.0f;
 		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titlePlayerPos);
 		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titleHagePos);
-		if (isTitleScroll == false)
-		{
-			titleAfro->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(titlePlayerPos.x + 20, 5, 0));
-		}
+		titleAfro->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(titlePlayerPos.x, 5, 0));
 	}
 	else if (animationCount < (animationCountMax / 4 * 3))
 	{
-		titleHage->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 2);
-		titlePlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 8);
 		titlePlayerPos.x -= 2.0f;
 		titleHagePos.x -= 2.0f;
 		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), titlePlayerPos);
 		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 180, 0), titleHagePos);
-		if (isTitleScroll == false)
-		{
-			titleIppon->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(titleHagePos.x - 18, 32, 0));
-		}
+		titleIppon->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), RVector3(titleHagePos.x, 32, 0));
 	}
 	else if (animationCount < animationCountMax)
 	{
-		titleHage->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 8);
-		titlePlayer->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 2);
 		titlePlayerPos.x += 2.0f;
 		titleHagePos.x += 2.0f;
 		titlePlayer->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titlePlayerPos);
 		titleHage->SetAffineParam(RVector3(0.2f, 0.2f, 0.2f), RVector3(0, 0, 0), titleHagePos);
-	}
-
-	if (isTitleScroll == true)
-	{
-		if (titleSpritePos.y < titleLastPos)
-		{
-			titleSpritePos.y += 2;
-		}
 	}
 }
 
