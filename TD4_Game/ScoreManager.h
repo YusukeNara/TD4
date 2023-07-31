@@ -89,6 +89,7 @@ private:
 
 	//‘ŞE‹à
 	int life;
+
 private:
 	//Å‰‚ÌNumƒZƒbƒg
 	void FirstNumSet();

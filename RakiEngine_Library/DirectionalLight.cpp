@@ -5,6 +5,12 @@
 DirectX::XMFLOAT3 DirectionalLight::dir = { 1.0f,-1.0f,1.0f };
 DirectX::XMMATRIX DirectionalLight::lightCamera;
 
+DirectionalLight::DirectionalLight()
+{
+	lightStatus = { 1.0f,1.0f,1.0f,1.0f };
+	useFlag = true;
+}
+
 void DirectionalLight::SetLightDir(float x, float y, float z)
 {
 	dir.x = x;
@@ -28,4 +34,23 @@ void DirectionalLight::SetLightPos(RVector3 lightPos, RVector3 lightVec, RVector
 	dir = { RVector3(lightVec - lightPos).norm() };
 
 	//dir.y = -dir.y;
+}
+
+void DirectionalLight::SetLightDirection(float x, float y, float z, float lightPower)
+{
+	lightStatus.x = x;
+	lightStatus.y = y;
+	lightStatus.z = z;
+	lightStatus.w = lightPower;
+
+}
+
+void DirectionalLight::SetLightUseFlag(bool useFlag)
+{
+	this->useFlag = useFlag;
+}
+
+void DirectionalLight::SetLightUseSpecular(bool isUse)
+{
+	this->useSpecular = isUse;
 }
