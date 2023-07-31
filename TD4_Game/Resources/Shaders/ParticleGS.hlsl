@@ -38,6 +38,9 @@ void main(
         offset = offset_array[i] * input[0].scale;
 		// 中心からのオフセットをビルボード回転（モデル座標）
         offset = mul(matBill, offset);
+        //さらにパーティクルの回転を適用
+        offset.x = (offset.x * cos(radians(input[0].rot))) - (offset.y * sin(radians(input[0].rot)));
+        offset.y = (offset.x * sin(radians(input[0].rot))) + (offset.y * cos(radians(input[0].rot)));
 		// オフセット分ずらす（ワールド座標）
         element.svpos = input[0].pos + offset;
 		// ビュープロジェクション変換

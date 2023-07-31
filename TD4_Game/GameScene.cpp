@@ -30,6 +30,7 @@ void GameScene::Initialize() {
 	timerPos = { 1280 - 128,0 };
 	timerFlag = false;
 	timerColor = { 1,1,1,1 };
+	timerTime = 0;
 	spriteTimer.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 }
 
@@ -54,11 +55,24 @@ void GameScene::Update() {
 		timerSize = { 64,64 };
 		timerPos = { 1280 - 128,0 };
 	}
+	if ((timer <= 5.01 && timer >= 5) || (timer <= 4.01 && timer >= 4) || (timer <= 3.01 && timer >= 3) || (timer <= 2.01 && timer >= 2) || (timer <= 1.01 && timer >= 1))
+	{
+		timerTime = 0;
+	}
 	if (timerFlag == true)
 	{
-		timerPos = { 640 - 128,360 - 128 };
-		timerSize = { 256,256 };
-		timerColor = { 1,1,1,0.7 };
+		if (timerTime == 0)
+		{
+			timerPos = { 640 - 128,360 - 128 };
+			timerSize = { 256,256 };
+			timerColor = { 1,1,1,0.7 };
+		}
+		else
+		{
+			timerColor.w -= 0.01f;
+		}
+
+		timerTime++;
 	}
 
 	if (Input::Get()->isKeyTrigger(DIK_1)) {

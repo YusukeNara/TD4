@@ -19,6 +19,7 @@ private:
 	eScene mNextScene;    //次のシーン管理変数
 
     std::shared_ptr<SceneChangeDirection> mSceneChangeDirection;
+    bool isChangeDirectioning = false;
 
 public:
     //コンスタラクタ

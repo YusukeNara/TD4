@@ -105,6 +105,7 @@ void TutorialScene::Draw()
 	{
 		headMan->Draw();
 	}
+	player->Draw();
 }
 
 void TutorialScene::Draw2D()

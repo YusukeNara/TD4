@@ -32,6 +32,7 @@ public:
     XMFLOAT2 timerPos;
     XMFLOAT4 timerColor;
     bool timerFlag;
+    int timerTime;
 
 
     int GameFrame;

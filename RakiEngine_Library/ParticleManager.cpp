@@ -12,7 +12,7 @@
 
 const int ParticleManager::MAX_VERTEX;
 
-ParticleManager *ParticleManager::Create(bool is2d) {
+ParticleManager *ParticleManager::Create(bool is2d, ParticleBlendState pBlendState) {
 
 	//パーティクルマネージャー生成
 	ParticleManager *pm = new ParticleManager(
@@ -21,20 +21,20 @@ ParticleManager *ParticleManager::Create(bool is2d) {
 	);
 
 	//生成したものを初期化
-	pm->Initialize(is2d);
+	pm->Initialize(is2d, pBlendState);
 
 	pm->is2DParticle = is2d;
 
 	return pm;
 }
 
-void ParticleManager::Initialize(bool is2d) {
+void ParticleManager::Initialize(bool is2d, ParticleBlendState pBlendState) {
 	//nullチェック
 
 	HRESULT result;
 
 	//パイプライン初期化
-	InitializeGraphicsPipeline(is2d);
+	InitializeGraphicsPipeline(is2d, pBlendState);
 
 	//パーティクル用モデル作成
 	CreateModel();
@@ -101,6 +101,8 @@ void ParticleManager::Update() {
 			vertMap->scale = it->scale;
 			//色
 			vertMap->color = it->color;
+			//回転
+			vertMap->rot = it->rot;
 			// 次の頂点へ
 			vertMap++;
 			if (++vcount >= MAX_VERTEX) {
@@ -137,10 +139,10 @@ void ParticleManager::Draw(UINT drawTexNum)
 		return;
 	}
 
-	//// パイプラインステートの設定
-	//cmd->SetPipelineState(pipeline.Get());
-	//// ルートシグネチャの設定
-	//cmd->SetGraphicsRootSignature(rootsig.Get());
+	// パイプラインステートの設定
+	cmd->SetPipelineState(pipeline.Get());
+	// ルートシグネチャの設定
+	cmd->SetGraphicsRootSignature(rootsig.Get());
 	// プリミティブ形状を設定
 	cmd->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 
@@ -184,6 +186,8 @@ void ParticleManager::Add(ParticleGrainState pgState)
 	p.endFrame = pgState.aliveTime;		//生存時間
 	p.s_color = pgState.color_start;
 	p.e_color = pgState.color_end;
+	p.s_rotation = pgState.rot_start;
+	p.e_rotation = pgState.rot_end;
 }
 
 void ParticleManager::Prototype_Set(ParticlePrototype *proto)
@@ -300,7 +304,7 @@ void ParticleManager::Prototype_Draw(UINT drawTexNum)
 
 
 
-void ParticleManager::InitializeGraphicsPipeline(bool is2d) {
+void ParticleManager::InitializeGraphicsPipeline(bool is2d, ParticleBlendState pBlendState) {
 
 	result = S_FALSE;
 	ComPtr<ID3DBlob> vsBlob; // 頂点シェーダオブジェクト
@@ -467,6 +471,11 @@ void ParticleManager::InitializeGraphicsPipeline(bool is2d) {
 			D3D12_APPEND_ALIGNED_ELEMENT,
 			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
+		{
+			"ROTATE", 0, DXGI_FORMAT_R32_FLOAT, 0,
+			D3D12_APPEND_ALIGNED_ELEMENT,
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
+		},
 	};
 
 
@@ -499,18 +508,43 @@ void ParticleManager::InitializeGraphicsPipeline(bool is2d) {
 	D3D12_RENDER_TARGET_BLEND_DESC blenddesc{};
 	blenddesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;	// RBGA全てのチャンネルを描画
 	blenddesc.BlendEnable = true;
+
+	switch (pBlendState)
+	{
+	case ParticleBlendState::PBLEND_MODE_ADD:
+
+		blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
+		blenddesc.SrcBlend = D3D12_BLEND_ONE;
+		blenddesc.DestBlend = D3D12_BLEND_ONE;
+		break;
+
+	case ParticleBlendState::PBLEND_MODE_MIN:
+
+		blenddesc.BlendOp = D3D12_BLEND_OP_REV_SUBTRACT;
+		blenddesc.SrcBlend = D3D12_BLEND_ONE;
+		blenddesc.DestBlend = D3D12_BLEND_ONE;
+		break;
+
+	case ParticleBlendState::PBLEND_MODE_ALPHA:
+
+		blenddesc.BlendOp = D3D12_BLEND_OP_ADD;//加算
+		blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;//ソースの値を100%使用
+		blenddesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;//デストの値を100%使用
+		break;
+
+	default:
+		break;
+	}
+	blenddesc.BlendOpAlpha = D3D12_BLEND_OP_ADD;
+	blenddesc.SrcBlendAlpha = D3D12_BLEND_ONE;
+	blenddesc.DestBlendAlpha = D3D12_BLEND_ZERO;
+
 	// アルファブレンディング
 	//blenddesc.BlendOp = D3D12_BLEND_OP_ADD;//加算
 	//blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;//ソースの値を100%使用
 	//blenddesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;//デストの値を100%使用
 	//// 減算ブレンディング
-	blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
-	blenddesc.SrcBlend = D3D12_BLEND_ONE;
-	blenddesc.DestBlend = D3D12_BLEND_ONE;
 
-	blenddesc.BlendOpAlpha = D3D12_BLEND_OP_ADD;
-	blenddesc.SrcBlendAlpha = D3D12_BLEND_ONE;
-	blenddesc.DestBlendAlpha = D3D12_BLEND_ZERO;
 
 	// ブレンドステートの設定
 	gpipeline.BlendState.RenderTarget[0] = blenddesc;
@@ -687,6 +721,11 @@ void ParticleDrawManager::Init()
 		},
 		{
 			"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0,
+			D3D12_APPEND_ALIGNED_ELEMENT,
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
+		},
+		{
+			"ROTATE", 0, DXGI_FORMAT_R32_FLOAT, 0,
 			D3D12_APPEND_ALIGNED_ELEMENT,
 			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},

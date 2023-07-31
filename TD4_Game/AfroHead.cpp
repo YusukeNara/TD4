@@ -202,6 +202,7 @@ void AfroHead::SlappingMove()
 		pos.x = pos.x + ShakeOffset;
 		FailCount = 0;
 		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, 5);
+		hairOffset.y = 22.0f;
 		return;
 	}
 
@@ -261,6 +262,7 @@ void AfroHead::FailMove()
 		pos = ShakeBacePos;
 		playerPtr->RetirementMoney -= 20;
 		isFail = false;
+		hairOffset.y = 13.0f;
 		headObjectSelf->ResetAnimation();
 	}
 }
@@ -297,6 +299,7 @@ void AfroHead::CuttingHair()
 		pos.x = pos.x + ShakeOffset;
 		FailCount = 0;
 		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, 5);
+		hairOffset.y = 22.0f;
 		return;
 	}
 
