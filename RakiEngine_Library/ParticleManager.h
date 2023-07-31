@@ -139,6 +139,13 @@ private:
 
 };
 
+enum class ParticleBlendState
+{
+	PBLEND_MODE_ADD,
+	PBLEND_MODE_MIN,
+	PBLEND_MODE_ALPHA,
+};
+
 class ParticleManager
 {
 private:
@@ -156,6 +163,7 @@ public:
 		RVector3	pos;
 		float		scale;
 		XMFLOAT4	color;
+		float		rot;
 		XMMATRIX	worldmat;
 	};
 
@@ -184,12 +192,13 @@ public:
 	/// <summary>
 	/// パーティクルマネージャー生成
 	/// </summary>
-	static ParticleManager *Create(bool is2d = false);
+	static ParticleManager *Create(bool is2d = false,
+		ParticleBlendState pBlendState = ParticleBlendState::PBLEND_MODE_ADD);
 
 	/// <summary>
 	/// パーティクルマネージャー初期化
 	/// </summary>
-	void Initialize(bool is2d);
+	void Initialize(bool is2d, ParticleBlendState pBlendState);
 	
 	/// <summary>
 	/// 全パーティクル更新
@@ -254,7 +263,7 @@ private:
 	/// <summary>
 	/// パーティクル用グラフィックスパイプライン初期化
 	/// </summary>
-	void InitializeGraphicsPipeline(bool is2d);
+	void InitializeGraphicsPipeline(bool is2d, ParticleBlendState pBlendState);
 
 	/// <summary>
 	/// パーティクル用モデル生成
