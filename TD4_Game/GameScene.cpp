@@ -91,11 +91,11 @@ void GameScene::Draw2D()
 
 void GameScene::DrawImgui()
 {
-	ImguiMgr::Get()->StartDrawImgui("time", 100, 100);
+	//ImguiMgr::Get()->StartDrawImgui("time", 100, 100);
 
 	//ImGui::Text("time : %d", 60 - (GameFrame / 60));
 
-	ImguiMgr::Get()->EndDrawImgui();
+	//ImguiMgr::Get()->EndDrawImgui();
 
 
 
