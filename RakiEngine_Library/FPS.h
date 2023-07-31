@@ -39,5 +39,7 @@ public:
 	FPS(const FPS &obj) = delete;
 	FPS &operator=(const FPS &obj) = delete;
 
+	int fCount = 0;
+
 };
 

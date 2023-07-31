@@ -10,6 +10,8 @@
 #include <RakiUtility.h>
 #include <NY_random.h>
 
+
+
 using namespace Rv3Ease;
 
 EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection* scDirect) : BaseScene(changer, scDirect)
@@ -98,6 +100,8 @@ EngineDebugScene::~EngineDebugScene()
 void EngineDebugScene::Initialize()
 {
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0));
+
+	test_ranking.Init();
 }
 
 void EngineDebugScene::Finalize()
@@ -133,7 +137,8 @@ void EngineDebugScene::Update()
 		testp->Add(pgstate);
 	}
 
-
+	//ランキングデータテスト
+	test_ranking.Update();
 
 	//音テスト
 
@@ -166,6 +171,9 @@ void EngineDebugScene::Draw2D()
 
 
 	testNum.Draw();
+
+	//ランキングデータ描画
+	test_ranking.Draw2D();
 }
 
 void EngineDebugScene::DrawImgui()
@@ -273,6 +281,8 @@ void EngineDebugScene::DrawImgui()
 
 
 	myImgui::EndDrawImGui();
+
+	test_ranking.DebugDraw();
 
 }
 
