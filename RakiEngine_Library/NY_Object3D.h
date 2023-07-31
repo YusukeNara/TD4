@@ -140,6 +140,10 @@ public:
 	//再生
 	void PlayAnimation(ANIMATION_PLAYMODE playmode, int animNum = 0);
 
+	void ResetAnimation();
+
+	void PauseAnimation();
+
 	void StopAnimation();
 
 	//デバッグ表示

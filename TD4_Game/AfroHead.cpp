@@ -45,6 +45,7 @@ void AfroHead::ResetFrontEase()
 	FrontStart = pos;
 	FrontEnd = { FrontStart.x,FrontStart.y,FrontStart.z - 100.0f };
 	isFrontEase = true;
+	headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 3);
 }
 
 void AfroHead::Update()
@@ -65,6 +66,7 @@ void AfroHead::Update()
 		{
 			pos.z = FrontEnd.z;
 			isFrontEase = false;
+			headObjectSelf->StopAnimation();
 		}
 		else
 		{
@@ -199,12 +201,14 @@ void AfroHead::SlappingMove()
 		ShakeBacePos = pos;
 		pos.x = pos.x + ShakeOffset;
 		FailCount = 0;
+		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, 5);
 		return;
 	}
 
 	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || Input::isKeyTrigger(DIK_LEFT) && !isSlap)
 	{
 		isSlap = true;
+		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, 7);
 
 		//飛ぶ方向を決定
 		blustVec = RVector3(NY_random::floatrand_sl(30, 0), NY_random::floatrand_sl(30, 0), 0);
@@ -257,6 +261,7 @@ void AfroHead::FailMove()
 		pos = ShakeBacePos;
 		playerPtr->RetirementMoney -= 20;
 		isFail = false;
+		headObjectSelf->ResetAnimation();
 	}
 }
 
@@ -291,6 +296,7 @@ void AfroHead::CuttingHair()
 		ShakeBacePos = pos;
 		pos.x = pos.x + ShakeOffset;
 		FailCount = 0;
+		headObjectSelf->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, 5);
 		return;
 	}
 
