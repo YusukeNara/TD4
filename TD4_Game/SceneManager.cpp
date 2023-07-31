@@ -44,33 +44,42 @@ void SceneManager::Update()
     if(Input::Get()->isKeyTrigger(DIK_F1)) { mNextScene = eScene_Title; }
 
     if (mNextScene != eScene_None) {    //次のシーンがセットされていたら
-        delete nowScene;
-        nowScene = nullptr;
-        
-        switch (mNextScene) {       //シーンによって処理を分岐
-        case eScene_Title:        //次の画面がメニューなら
-            nowScene = (BaseScene*) new TitleScene(this, mSceneChangeDirection.get());
-            break;//以下略
-        case eScene_Tutorial:
-            nowScene = (BaseScene*) new TutorialScene(this, mSceneChangeDirection.get());
-            break;
-        case eScene_Game:
-            nowScene = (BaseScene*) new GameScene(this, mSceneChangeDirection.get());
-            break;
-        case eScene_Result:
-            nowScene = (BaseScene*) new ResultScene(this, mSceneChangeDirection.get());
-            break;
-        case eScene_Debug:
-            nowScene = (BaseScene*) new EngineDebugScene(this, mSceneChangeDirection.get());
-            break;
-        }
-        if (mNextScene != eScene_Debug) {
-            mSceneChangeDirection->PlayInDirection();
-        }
 
-        mNextScene = eScene_None;    //次のシーン情報をクリア
+        if (!isChangeDirectioning) {
+            //シーン終了演出を再生
+            mSceneChangeDirection->PlayOutDirection();
+            isChangeDirectioning = true;
+        }
+        //シーン演出終了時
+        if (mSceneChangeDirection->GetDirectionStatus() == DIRECTION_ENDED && isChangeDirectioning) {
+            delete nowScene;
+            nowScene = nullptr;
 
-        nowScene->Initialize();
+            switch (mNextScene) {       //シーンによって処理を分岐
+            case eScene_Title:        //次の画面がメニューなら
+                nowScene = (BaseScene*) new TitleScene(this, mSceneChangeDirection.get());
+                break;//以下略
+            case eScene_Tutorial:
+                nowScene = (BaseScene*) new TutorialScene(this, mSceneChangeDirection.get());
+                break;
+            case eScene_Game:
+                nowScene = (BaseScene*) new GameScene(this, mSceneChangeDirection.get());
+                break;
+            case eScene_Result:
+                nowScene = (BaseScene*) new ResultScene(this, mSceneChangeDirection.get());
+                break;
+            case eScene_Debug:
+                nowScene = (BaseScene*) new EngineDebugScene(this, mSceneChangeDirection.get());
+                break;
+            }
+            if (mNextScene != eScene_Debug) {
+                mSceneChangeDirection->PlayInDirection();
+            }
+
+            mNextScene = eScene_None;    //次のシーン情報をクリア
+            isChangeDirectioning = false;
+            nowScene->Initialize();
+        }
     }
 
     nowScene->Update(); //シーンの更新
