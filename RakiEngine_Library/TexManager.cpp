@@ -242,7 +242,7 @@ void TexManager::DeleteTexture(UINT texhandle)
         return;
     }
 
-    if (textureData[texhandle]) {
+    if (textureData[texhandle] != nullptr) {
         delete textureData[texhandle];
         textureData[texhandle] = nullptr;
         ExportEngineLogText(L"TexManager", L"DeleteTexture()", L"Texture deleted.", int(texhandle));

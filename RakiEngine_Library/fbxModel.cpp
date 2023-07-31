@@ -4,10 +4,19 @@
 
 const int fbxModel::BONE_INDICES_MAX;
 
+fbxModel::fbxModel()
+{
+	ExportEngineLogText(L"FBXmodel", L"constructor", L"new fbx model", 0);
+}
+
 fbxModel::~fbxModel()
 {
-	if (fbxScene != nullptr) { fbxScene->Destroy(); }
-	TexManager::DeleteTexture(material.texNumber);
+	ExportEngineLogText(L"FBXmodel", L"destructor", L"delete fbx model", 0);
+	if (fbxScene != nullptr) { 
+		TexManager::DeleteTexture(material.texNumber);
+		fbxScene->Destroy(); 
+	}
+
 }
 
 void fbxModel::CreateBuffers()
