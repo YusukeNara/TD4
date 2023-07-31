@@ -97,7 +97,6 @@ void TitleScene::Update() {
 
 //•`‰æ
 void TitleScene::Draw() {
-	//testobject->DrawObject();
 	titleHage->DrawObject();
 	titlePlayer->DrawObject();
 	if ((animationCount != animationCountMax) && isTitleScroll == false)
