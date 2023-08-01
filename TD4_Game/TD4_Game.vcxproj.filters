@@ -49,6 +49,9 @@
     <Filter Include="リソース ファイル\shaders\Particle">
       <UniqueIdentifier>{39333f35-c67d-4358-9a89-746d921d0cee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="rankingsystem">
+      <UniqueIdentifier>{16b931c1-b99d-45f6-98d8-54841eb00356}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -116,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="RankingManager.cpp">
+      <Filter>rankingsystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +272,9 @@
     </ClInclude>
     <ClInclude Include="ResultScene.h">
       <Filter>game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="RankingManager.h">
+      <Filter>rankingsystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -172,6 +172,7 @@
     <ClCompile Include="LightHearHead.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProtoPlayer.cpp" />
+    <ClCompile Include="RankingManager.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SceneChangeDirection.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="ISceneChanger.h" />
     <ClInclude Include="LightHearHead.h" />
     <ClInclude Include="ProtoPlayer.h" />
+    <ClInclude Include="RankingManager.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="SceneChangeDirection.h" />
