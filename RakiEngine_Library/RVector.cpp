@@ -333,6 +333,8 @@ RVector3 Rv3Ease::Rv3Bezier3::Update()
 	if (!isPlay) { return resultPos; }
 	if (frame >= playFrame) { return resultPos; }
 
+	frame++;
+
 	bezier.SetStartPos(ease1.Update());
 	bezier.SetEndPos(ease2.Update());
 

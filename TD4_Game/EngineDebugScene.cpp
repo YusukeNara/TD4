@@ -102,6 +102,10 @@ void EngineDebugScene::Initialize()
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0));
 
 	test_ranking.Init();
+
+	test_ranking.PostScore(10);
+
+	test_ranking.GetRanking();
 }
 
 void EngineDebugScene::Finalize()

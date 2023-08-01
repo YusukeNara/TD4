@@ -1,6 +1,7 @@
 #include "RankingManager.h"
 
 #include <Raki_imguiMgr.h>
+#include <algorithm>
 
 RankingManager::~RankingManager()
 {
@@ -8,28 +9,41 @@ RankingManager::~RankingManager()
 
 void RankingManager::Init()
 {
-    GetRanking();
 
     numSprite.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64,
         TexManager::LoadTexture("Resources/Score.png"));
 
 
     //ランキング表示X基準座標
-    const float EASE_LEFT_OFFSET = 600.0f;
+    const float EASE_LEFT_OFFSET = 750.0f;
     //ランキング表示Y基準座標
     const float EASE_TOP_OFFSET = 160.0f;
     //ランキング表示Y表示間隔
-    const float EASE_Y_OFFSET = 64.0f;
+    const float EASE_Y_OFFSET = 72.0f;
 
     //イージング座標設定
     for (int i = 0; i < rankScoreEase.size(); i++) {
         float ypos = EASE_TOP_OFFSET + (EASE_Y_OFFSET * (i + 1));
 
-        rankScoreEase[i].Init(Rv3Ease::RV3_EASE_TYPE::EASE_CUBIC_OUT,
+        rankScoreEase[i].Init(Rv3Ease::RV3_EASE_TYPE::EASE_CUBIC_INOUT,
             RVector3(1500.f, ypos, 0),
             RVector3(EASE_LEFT_OFFSET, ypos, 0),
             60);
     }
+
+    const float FONT_SIZE = 50.0f;
+    //ベジエ曲線イージングを使用したフォント強調表示
+    emphasisEase.Init(RVector3(FONT_SIZE, 0, 0),
+        RVector3(FONT_SIZE, 0, 0),
+        RVector3(FONT_SIZE * 1.2f, 0, 0),
+        30,
+        Rv3Ease::RV3_EASE_TYPE::EASE_CUBIC_IN);
+    const float FONT_MOVE_OFFSET = 5;
+    emphasisMove.Init(RVector3(0, 0, 0),
+        RVector3(0, 0, 0),
+        RVector3(FONT_MOVE_OFFSET, 0, 0),
+        30,
+        Rv3Ease::RV3_EASE_TYPE::EASE_CUBIC_IN);
 
 }
 
@@ -45,6 +59,15 @@ void RankingManager::Update()
             rankScoreEase[i].Update();
         }
     }
+
+    emphasisEase.Update();
+    emphasisMove.Update();
+    if (emphasisEase.isEnded()) {
+        emphasisEase.Reset();
+    }
+    if (emphasisMove.isEnded()) {
+        emphasisMove.Reset();
+    }
 }
 
 
@@ -53,7 +76,7 @@ void RankingManager::Draw2D()
     if (!isStartDisplayRank) { return; }
 
     //文字サイズ
-    const float FONT_SIZE = 64.f;
+    const float FONT_SIZE = 50.f;
     //スコアの表示位置オフセット
     const float SCORE_POS_X_OFFSET = 120.f;
 
@@ -64,13 +87,30 @@ void RankingManager::Draw2D()
             FONT_SIZE,
             FONT_SIZE,
             i + 1);
-        //スコア
-        numSprite.DrawNumSprite(rankScoreEase[i].GetNowpos().x + SCORE_POS_X_OFFSET,
-            rankScoreEase[i].GetNowpos().y,
-            FONT_SIZE,
-            FONT_SIZE,
-            rankingArray[i] + 10000);
+
+        //ランキング配列にユーザースコアがある場合、強調表示する
+        if (rankingArray[i] == userNewScore) {
+            emphasisEase.Play();
+            emphasisMove.Play();
+            //スコア
+            numSprite.DrawNumSprite(rankScoreEase[i].GetNowpos().x + SCORE_POS_X_OFFSET - emphasisMove.nowPos().x,
+                rankScoreEase[i].GetNowpos().y - emphasisMove.nowPos().y,
+                emphasisEase.nowPos().x,
+                emphasisEase.nowPos().x,
+                rankingArray[i]);
+        }
+        else {
+            //スコア
+            numSprite.DrawNumSprite(rankScoreEase[i].GetNowpos().x + SCORE_POS_X_OFFSET,
+                rankScoreEase[i].GetNowpos().y,
+                FONT_SIZE,
+                FONT_SIZE,
+                rankingArray[i]);
+        }
+
     }
+
+
 
     numSprite.Draw();
 }
@@ -112,11 +152,14 @@ void RankingManager::PostScore(int score)
         }
     }
 
+    userNewScore = score;
 }
 
 std::array<int, 5> RankingManager::GetRanking()
 {
     if (!isRankingGot) {
+        bool isNotConnection = false;
+
         //スコア取得
         try
         {
@@ -134,9 +177,25 @@ std::array<int, 5> RankingManager::GetRanking()
         }
         catch (const std::exception& e)
         {
+            //現在格納されているローカルデータでランキング変動を行う
+            isNotConnection = true;
+
             std::cout << "RankingManager | Exception Detected : %s" << e.what() << std::endl;
         }
+
+        if (isNotConnection) {
+            //スコア更新できる順位を検索
+            auto rankPos = std::ranges::find_if_not(rankingArray, [&](int x) {return x > userNewScore; });
+            //更新できる場合
+            if (rankPos != rankingArray.end()) {
+                std::shift_right(rankPos, rankingArray.end(), 1);
+                *rankPos = userNewScore;
+            }
+        }
     }
+
+
+
 
     return rankingArray;
 }

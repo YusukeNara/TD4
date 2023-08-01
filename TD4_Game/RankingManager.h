@@ -48,7 +48,7 @@ private:
 	pplx::task<int> Post(const std::wstring& url, int score);
 
 	//ランキングデータ配列
-	std::array<int, 5> rankingArray = { 5,4,3,2,1 };
+	std::array<int, 5> rankingArray = { 6,5,4,3,2 };
 
 	//ランキングデータ取得済を判定
 	bool isRankingGot = false;
@@ -59,6 +59,9 @@ private:
 
 	//ランキング表示イージング
 	std::array<Rv3Ease::Rv3Easing, 5> rankScoreEase;
+	//強調表示イージング
+	Rv3Ease::Rv3Bezier3 emphasisEase;
+	Rv3Ease::Rv3Bezier3 emphasisMove;
 
 	//数値スプライト
 	Sprite numSprite;
@@ -68,5 +71,8 @@ private:
 
 	//経過フレーム
 	int frame = 0;
+
+	//ポストされたスコアの保持
+	int userNewScore = 0;
 
 };
