@@ -22,5 +22,5 @@ void Head::loadHeadModel()
 void Head::setStaticData()
 {
 	slapTex = TexManager::LoadTexture("Resources/white1x1.png");
-	pullTex = TexManager::LoadTexture("Resources/blackParticleTex.png");
+	pullTex = TexManager::LoadTexture("Resources/SingleHair.png");
 }
