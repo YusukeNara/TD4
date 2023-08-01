@@ -35,7 +35,10 @@ ResultScene::~ResultScene()
 
 void ResultScene::Initialize()
 {
-
+	//ランキングシステムの初期化
+	rankingSystem.Init();
+	rankingSystem.PostScore(totalScore);
+	rankingSystem.GetRanking();
 }
 
 void ResultScene::Finalize()
@@ -47,6 +50,7 @@ void ResultScene::Update()
 {
 	SceneScroll();
 	Animation();
+	rankingSystem.Update();
 }
 
 void ResultScene::Draw()
@@ -311,6 +315,8 @@ void ResultScene::Draw2D()
 	{
 		spriteRank.Draw();
 	}
+
+	rankingSystem.Draw2D();
 }
 
 void ResultScene::DrawImgui()
@@ -391,6 +397,7 @@ void ResultScene::Animation()
 		else if (animationCount > animationCountMax / 4 * 3)
 		{
 			rankIsDraw = true;
+			rankingSystem.StartDisplayResults();
 		}
 	}
 }

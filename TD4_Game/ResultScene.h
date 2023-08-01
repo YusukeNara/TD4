@@ -3,6 +3,7 @@
 #include "BaseScene.h"
 #include "ISceneChanger.h"
 #include "FbxLoader.h"
+#include "RankingManager.h"
 #include <DirectXMath.h>
 #include <cmath>
 
@@ -72,4 +73,7 @@ public:
     float SCORE_POS_X2 = -353.0f;
     float SCORE_POS_X3 = -321.0f;
     const float SCORE_POS_Y = 360.0f;
+
+    //ランキングシステム
+    RankingManager rankingSystem;
 };
