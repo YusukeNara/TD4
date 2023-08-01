@@ -9,16 +9,70 @@ RankingManager::~RankingManager()
 void RankingManager::Init()
 {
     GetRanking();
+
+    numSprite.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64,
+        TexManager::LoadTexture("Resources/Score.png"));
+
+
+    //ランキング表示X基準座標
+    const float EASE_LEFT_OFFSET = 600.0f;
+    //ランキング表示Y基準座標
+    const float EASE_TOP_OFFSET = 160.0f;
+    //ランキング表示Y表示間隔
+    const float EASE_Y_OFFSET = 64.0f;
+
+    //イージング座標設定
+    for (int i = 0; i < rankScoreEase.size(); i++) {
+        float ypos = EASE_TOP_OFFSET + (EASE_Y_OFFSET * (i + 1));
+
+        rankScoreEase[i].Init(Rv3Ease::RV3_EASE_TYPE::EASE_CUBIC_OUT,
+            RVector3(1500.f, ypos, 0),
+            RVector3(EASE_LEFT_OFFSET, ypos, 0),
+            60);
+    }
+
 }
 
 void RankingManager::Update()
 {
+    if (isStartDisplayRank) {
+        frame++;
 
+        for (int i = 0; i < 5; i++) {
+            if (frame % (15 * (i + 1)) == 0) {
+                rankScoreEase[i].Play();
+            }
+            rankScoreEase[i].Update();
+        }
+    }
 }
 
 
 void RankingManager::Draw2D()
 {
+    if (!isStartDisplayRank) { return; }
+
+    //文字サイズ
+    const float FONT_SIZE = 64.f;
+    //スコアの表示位置オフセット
+    const float SCORE_POS_X_OFFSET = 120.f;
+
+    for (int i = 0; i < 5;i++) {
+        //順位
+        numSprite.DrawNumSprite(rankScoreEase[i].GetNowpos().x,
+            rankScoreEase[i].GetNowpos().y,
+            FONT_SIZE,
+            FONT_SIZE,
+            i + 1);
+        //スコア
+        numSprite.DrawNumSprite(rankScoreEase[i].GetNowpos().x + SCORE_POS_X_OFFSET,
+            rankScoreEase[i].GetNowpos().y,
+            FONT_SIZE,
+            FONT_SIZE,
+            rankingArray[i] + 10000);
+    }
+
+    numSprite.Draw();
 }
 
 void RankingManager::DebugDraw()
@@ -85,6 +139,11 @@ std::array<int, 5> RankingManager::GetRanking()
     }
 
     return rankingArray;
+}
+
+void RankingManager::StartDisplayResults()
+{
+    isStartDisplayRank = true;
 }
 
 template<class T>

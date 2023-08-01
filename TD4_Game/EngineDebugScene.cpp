@@ -137,6 +137,10 @@ void EngineDebugScene::Update()
 		testp->Add(pgstate);
 	}
 
+	if (Input::isKeyTrigger(DIK_R)) {
+		test_ranking.StartDisplayResults();
+	}
+
 	//ランキングデータテスト
 	test_ranking.Update();
 
@@ -159,18 +163,6 @@ void EngineDebugScene::Draw2D()
 {
 	//testsp1.DrawExtendSprite(0, 0, 100, 100, { 1,1,1,0.5 });
 	//testsp2.DrawExtendSprite(100, 100, 100, 100, { 1,1,1,1 });
-
-	testNum.DrawSprite(0, 100);
-
-	testNum.DrawNumSprite(0, 0, 32, 32, dval);
-	testNum.uvOffsetHandle = 1;
-
-	if(dval <20000000){
-		dval += 1;
-	}
-
-
-	testNum.Draw();
 
 	//ランキングデータ描画
 	test_ranking.Draw2D();

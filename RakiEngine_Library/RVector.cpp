@@ -189,6 +189,7 @@ void Rv3Ease::Rv3Easing::Init(RV3_EASE_TYPE type, RVector3 startPos, RVector3 en
 	this->endPos	=	endPos;
 	this->playFrame =	playFrame;
 	this->type		=	type;
+	this->resultPos =	startPos;
 }
 
 void Rv3Ease::Rv3Easing::Play()

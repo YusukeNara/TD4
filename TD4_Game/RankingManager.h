@@ -2,6 +2,7 @@
 
 //RakiEngine
 #include <Sprite.h>
+#include <RVector.h>
 
 //webサーバー関連
 #include <cpprest/filestream.h>
@@ -36,6 +37,9 @@ public:
 	//スコアデータを取得し、配列に格納
 	std::array<int, 5> GetRanking();
 
+	//リザルト表示開始
+	void StartDisplayResults();
+
 private:
 	template <class T>
 	//ランキングデータ取得
@@ -44,7 +48,7 @@ private:
 	pplx::task<int> Post(const std::wstring& url, int score);
 
 	//ランキングデータ配列
-	std::array<int, 5> rankingArray = { 0,0,0,0,0 };
+	std::array<int, 5> rankingArray = { 5,4,3,2,1 };
 
 	//ランキングデータ取得済を判定
 	bool isRankingGot = false;
@@ -52,5 +56,17 @@ private:
 
 	web::json::value json;
 	web::json::value response;
+
+	//ランキング表示イージング
+	std::array<Rv3Ease::Rv3Easing, 5> rankScoreEase;
+
+	//数値スプライト
+	Sprite numSprite;
+
+	//演出開始フラグ
+	bool isStartDisplayRank = false;
+
+	//経過フレーム
+	int frame = 0;
 
 };
