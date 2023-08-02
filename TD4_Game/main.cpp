@@ -52,10 +52,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	FieldDrawer::get()->Init();
 
-	std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
-
-
 	GameSoundMgr::get()->Init();
+
+	std::unique_ptr<SceneManager> sceneMgr = std::make_unique<SceneManager>();
 
 
 #pragma endregion GameValue

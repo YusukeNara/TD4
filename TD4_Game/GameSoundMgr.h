@@ -10,6 +10,7 @@ private:
 	std::unique_ptr<SoundData> titleBgm;
 	std::unique_ptr<SoundData> gameBgm;
 	std::unique_ptr<SoundData> resultBgm;
+	std::unique_ptr<SoundData> tutorialBgm;
 
 	std::array<std::unique_ptr<SoundData>, 3> slapSe = {};
 	std::array<std::unique_ptr<SoundData>, 2> cutSe = {};
@@ -37,6 +38,8 @@ public:
 	void StopGameBGM();
 	void PlayResultBGM();
 	void StopResultBGM();
+	void PlayTutorialBGM();
+	void StopTutorialBGM();
 
 	//SE
 	void PlayCutSE();

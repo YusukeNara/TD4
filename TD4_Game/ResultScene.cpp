@@ -1,5 +1,6 @@
 #include "ResultScene.h"
 #include "ScoreManager.h"
+#include "GameSoundMgr.h"
 
 ResultScene::ResultScene(ISceneChanger* changer, SceneChangeDirection* scd) : BaseScene(changer,scd)
 {
@@ -24,6 +25,8 @@ ResultScene::ResultScene(ISceneChanger* changer, SceneChangeDirection* scd) : Ba
 	totalScore = ScoreManager::GetScore();
 	totalReview = ScoreManager::GetReview();
 	handleNum = ScoreManager::GetHandle();
+
+
 }
 
 ResultScene::~ResultScene()
@@ -31,6 +34,7 @@ ResultScene::~ResultScene()
 	if (resultPlayer) {
 		std::cout << "player deleted" << endl;
 	}
+	GameSoundMgr::get()->StopResultBGM();
 }
 
 void ResultScene::Initialize()
@@ -48,6 +52,11 @@ void ResultScene::Finalize()
 
 void ResultScene::Update()
 {
+	if (mSceneChangeDirection->GetDirectionStatus() == DIRECTION_ENDED && !isBGMPlayed) {
+		GameSoundMgr::get()->PlayResultBGM();
+		isBGMPlayed = true;
+	}
+
 	SceneScroll();
 	Animation();
 	rankingSystem.Update();
