@@ -48,7 +48,7 @@ private:
 	pplx::task<int> Post(const std::wstring& url, int score);
 
 	//ランキングデータ配列
-	std::array<int, 5> rankingArray = { 6,5,4,3,2 };
+	static std::array<int, 5> rankingArray;
 
 	//ランキングデータ取得済を判定
 	bool isRankingGot = false;
