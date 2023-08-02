@@ -48,8 +48,8 @@ public:
     int animationCount = 0;
     int scrollCount = 0;
 
-    bool isScroll = false;
-    bool isTitleScroll = false;
+    bool isScroll;
+    bool isTitleScroll;
 
     XMFLOAT2 titleSpritePos;
 

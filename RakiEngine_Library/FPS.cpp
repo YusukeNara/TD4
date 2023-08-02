@@ -1,5 +1,6 @@
 #include "FPS.h"
 
+
 void FPS::Start()
 {
 	// メインループに入る前に精度を取得しておく
@@ -32,6 +33,21 @@ void FPS::run()
 
 	if (frameTime > 0.0) { // 経過時間が0より大きい(こうしないと下の計算でゼロ除算になると思われ)
 		fps = (fps * 0.99f) + (0.01f / frameTime); // 平均fpsを計算
+
+		fCount++;
+
+		// デバッグ用(デバッガにFSP出す)
+#ifdef UNICODE
+		std::wstringstream stream;
+#else
+		std::stringstream stream;
+#endif
+		stream << fps << " FPS" << std::endl;
+		// カウンタ付けて10回に1回出力、とかにしないと見づらいかもね
+		if (fCount % 30 == 0) {
+			OutputDebugString(stream.str().c_str());
+		}
+
 	}
 
 	timeStart = timeEnd; // 入れ替え

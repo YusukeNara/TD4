@@ -21,9 +21,7 @@ Sprite::Sprite()
 
 Sprite::~Sprite()
 {
-    //明示的開放
-    //spdata.reset();
-    //lineSpdata.reset();
+    TexManager::DeleteTexture(spdata.get()->texNumber);
 }
 
 void Sprite::SetSpriteColorParam(float r, float g, float b, float a)
@@ -165,7 +163,7 @@ void Sprite::CreateSprite(XMFLOAT2 size, XMFLOAT2 anchor, UINT resourceID, bool 
     if (adjustResourceFlag == true)
     {
         //�e�N�X�`�����擾
-        D3D12_RESOURCE_DESC resDesc = TexManager::textureData[resourceID].texBuff->GetDesc();
+        D3D12_RESOURCE_DESC resDesc = TexManager::textureData[resourceID]->texBuff->GetDesc();
         //���\�[�X�ɍ��킹�ăT�C�Y����
         spdata->size = { (float)resDesc.Width,(float)resDesc.Height };
     }
@@ -292,8 +290,8 @@ void Sprite::Create(UINT resourceID)
     spdata->constBuff->Unmap(0, nullptr);
 
     //�e�N�X�`���̃f�t�H���g�T�C�Y���擾
-    TEXTURE_DEFAULT_SIZE.x = float(TexManager::textureData[resourceID].metaData.width);
-    TEXTURE_DEFAULT_SIZE.y = float(TexManager::textureData[resourceID].metaData.height);
+    TEXTURE_DEFAULT_SIZE.x = float(TexManager::textureData[resourceID]->metaData.width);
+    TEXTURE_DEFAULT_SIZE.y = float(TexManager::textureData[resourceID]->metaData.height);
 
     //デフォルトのuvを格納
     spdata->uvOffsets.push_back(XMFLOAT4(0.0, 0.0, 1.0, 1.0));
@@ -394,8 +392,8 @@ void Sprite::Create(UINT resourceID)
     lineSpdata->constBuff->Unmap(0, nullptr);
 
     //�e�N�X�`���̃f�t�H���g�T�C�Y���擾
-    TEXTURE_DEFAULT_SIZE.x = float(TexManager::textureData[resourceID].metaData.width);
-    TEXTURE_DEFAULT_SIZE.y = float(TexManager::textureData[resourceID].metaData.height);
+    TEXTURE_DEFAULT_SIZE.x = float(TexManager::textureData[resourceID]->metaData.width);
+    TEXTURE_DEFAULT_SIZE.y = float(TexManager::textureData[resourceID]->metaData.height);
 
     //デフォルトのuvを格納
     lineSpdata->uvOffsets.push_back(XMFLOAT4(0.0, 0.0, 1.0, 1.0));
@@ -553,8 +551,8 @@ void Sprite::CreateAndSetDivisionUVOffsets(int divAllnum, int divX, int divY, in
     spdata->uvOffsets.shrink_to_fit();
 
     //uvoffsetを計算
-    float x_uvOffset = static_cast<float>(sizeX) / TexManager::textureData[resourceID].metaData.width;
-    float y_uvOffset = static_cast<float>(sizeY) / TexManager::textureData[resourceID].metaData.height;
+    float x_uvOffset = static_cast<float>(sizeX) / TexManager::textureData[resourceID]->metaData.width;
+    float y_uvOffset = static_cast<float>(sizeY) / TexManager::textureData[resourceID]->metaData.height;
 
     int dived = 0;
     //インスタンシング用オフセットコンテナに格納

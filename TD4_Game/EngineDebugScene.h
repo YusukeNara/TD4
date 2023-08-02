@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseScene.h"
+#include "RankingManager.h"
 
 #include <NY_Object3DMgr.h>
 #include <Sprite.h>
@@ -73,4 +74,6 @@ public:
     int differentAnimation = 0;
     bool isRoop = false;
 
+    //ランキングデータ
+    RankingManager test_ranking;
 };
