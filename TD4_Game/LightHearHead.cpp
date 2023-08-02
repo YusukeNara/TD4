@@ -287,8 +287,8 @@ void LightHairHead::PullOutHair()
 		return;
 	}
 
-	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) || 
-		Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) || 
+	if (Input::isXpadButtonPushTrigger(XPAD_BUTTON_X) ||
+		Input::isXpadButtonPushTrigger(XPAD_BUTTON_Y) ||
 		Input::isKeyTrigger(DIK_LEFT) ||
 		Input::isKeyTrigger(DIK_UP))
 	{
@@ -306,25 +306,33 @@ void LightHairHead::PullOutHair()
 		isHairDestroy = true;
 		HeadType = CheraType::SkinHead;
 
+		RVector3 v(
+			NY_random::floatrand_sl(20, -20),
+			25,
+			NY_random::floatrand_sl(20, -20));
+		v = v.norm();
+
 		//パーティクル生成
-		for (int i = 0; i < 30; i++)
+		for (int i = 0; i < 10; i++)
 		{
-			RVector3 v(NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30));
-			v = v.norm();
+			RVector3 posoffset(
+				NY_random::floatrand_sl(5, 0),
+				NY_random::floatrand_sl(5, 0),
+				NY_random::floatrand_sl(5, 0));
 
 			//設定構造体のインスタンス
 			ParticleGrainState pgstate{};
 			//パラメータ設定
-			pgstate.position = RVector3(pos.x + 5, pos.y, pos.z);
-			pgstate.vel = v * 4.0f;
+			pgstate.position = RVector3(pos.x, pos.y + 5, pos.z) + posoffset;
+			pgstate.vel = v * 2.0f;
 			pgstate.acc = RVector3(0, -0.1f, 0);
 			pgstate.color_start = XMFLOAT4(1, 1, 1, 1);
 			pgstate.color_end = XMFLOAT4(1, 1, 1, 1);
 			pgstate.scale_start = 5.0f;
 			pgstate.scale_end = 5.5f;
 			pgstate.aliveTime = 60;
-			pgstate.rot_start = 0.0f;
-			pgstate.rot_end = 360.0f;
+			pgstate.rot_start = 45;
+			pgstate.rot_end = 45;
 
 			PullParticle->Add(pgstate);
 		}
