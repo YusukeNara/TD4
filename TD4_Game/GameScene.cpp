@@ -78,10 +78,6 @@ void GameScene::Update() {
 		timerTime++;
 	}
 
-	if (Input::Get()->isKeyTrigger(DIK_1)) {
-		mSceneChanger->ChangeScene(eScene_Title);
-	}
-
 	if ((timer <= 0.01 && timer >= 0)) {
 		gameSetFlag = true;
 	}
