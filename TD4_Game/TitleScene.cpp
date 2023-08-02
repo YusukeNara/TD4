@@ -45,6 +45,9 @@ TitleScene::TitleScene(ISceneChanger* changer, SceneChangeDirection* scd) : Base
 	buttonBsp.Create(buttonBTex);
 
 	FieldDrawer::get()->SetTitleMode();
+
+	isScroll = false;
+	isTitleScroll = false;
 }
 
 TitleScene::~TitleScene()
@@ -76,6 +79,10 @@ void TitleScene::Update() {
 		{
 			isScroll = true;
 		}
+		if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A)
+			|| Input::Get()->isKeyTrigger(DIK_3)) {
+			mSceneChanger->ChangeScene(eScene_Tutorial);
+		}
 	}
 
 	if (isScroll)
@@ -85,13 +92,6 @@ void TitleScene::Update() {
 	else
 	{
 		Animation();
-	}
-	if (Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A)
-		|| Input::Get()->isKeyTrigger(DIK_3)) {
-		mSceneChangeDirection->PlayOutDirection();
-	}
-	if (mSceneChangeDirection->GetDirectionStatus() == DIRECTION_ENDED) {
-		mSceneChanger->ChangeScene(eScene_Tutorial);
 	}
 }
 

@@ -218,6 +218,10 @@ namespace Rv3Ease {
 
 		void Reset();
 
+		bool isEnded() { return frame >= playFrame; }
+
+		RVector3 nowPos() { return resultPos; }
+
 	private:
 		
 		Rv3Ease::Rv3Easing ease1;

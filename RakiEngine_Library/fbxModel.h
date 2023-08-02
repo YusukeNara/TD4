@@ -97,7 +97,7 @@ private:
 
 public:
 	friend class FbxLoader;
-	fbxModel(){}
+	fbxModel();
 	~fbxModel();
 
 	void CreateBuffers();

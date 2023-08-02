@@ -32,7 +32,7 @@ void GameScene::Initialize() {
 	timerColor = { 1,1,1,1 };
 	timerTime = 0;
 	gameSetFlag = false;
-	gameSetSize = { 360,64 };
+	gameSetSize = { 128,64 };
 	spriteTimer.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/Score.png"));
 	gameSet.Create(TexManager::LoadTexture("Resources/gameSet.png"));
 }
@@ -96,7 +96,7 @@ void GameScene::Update() {
 		mSceneChanger->ChangeScene(eScene_Result);
 	}
 
-	gmgr.Update();
+	gmgr.Update(mSceneChangeDirection->GetDirectionStatus());
 }
 
 //•`‰æ

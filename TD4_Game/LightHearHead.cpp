@@ -53,6 +53,11 @@ void LightHairHead::Update()
 	headObjectSelf->SetAffineParamRotate(rot);
 	hairObjectSelf->SetAffineParamTranslate(pos + hairOffset);
 
+	if (isStop)
+	{
+		return;
+	}
+
 	if (isMostFront && !isFrontEase)
 	{
 		isactive = true;
