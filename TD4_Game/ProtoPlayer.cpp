@@ -1,8 +1,9 @@
 ﻿#include "ProtoPlayer.h"
 
+bool ProtoPlayer::isStop = false;
+
 ProtoPlayer::ProtoPlayer()
 {
-
 	modelPlayer = TexManager::LoadTexture("Resources/blackParticleTex.png");
 
 	UITexHand = TexManager::LoadTexture("Resources/hand.png");
@@ -97,7 +98,10 @@ void ProtoPlayer::Update()
 	barikanObject->SetAffineParam(CutScaleOffset, CutRotationOffset, CutPositionOffset);
 	scissorsObject->SetAffineParam(ClipScaleOffset, ClipRotationOffset, ClipPositionOffset);
 
-
+	if (isStop)
+	{
+		return;
+	}
 
 	Attack();
 
@@ -333,4 +337,9 @@ void ProtoPlayer::ChangeItem()
 ItemType ProtoPlayer::GetItemType()
 {
 	return handItemType;
+}
+
+void ProtoPlayer::setIsStop(bool stop)
+{
+	isStop = stop;
 }

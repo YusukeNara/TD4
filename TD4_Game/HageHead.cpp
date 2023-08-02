@@ -43,6 +43,11 @@ void HageHead::Update()
 	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
 	headObjectSelf->SetAffineParamRotate(rot);
 
+	if (isStop)
+	{
+		return;
+	}
+
 	if (isMostFront && !isFrontEase)
 	{
 		isactive = true;
@@ -200,9 +205,9 @@ void HageHead::SlappingMove()
 			pgstate.acc = -(v / 10);
 			pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
 			pgstate.color_end = XMFLOAT4(1, 0, 0, 1);
-			pgstate.scale_start = 3.0f;
-			pgstate.scale_end = 4.5f;
-			pgstate.aliveTime = 60;
+			pgstate.scale_start = 6.5f;
+			pgstate.scale_end = 0.5f;
+			pgstate.aliveTime = 15;
 
 			SlapParticle->Add(pgstate);
 		}

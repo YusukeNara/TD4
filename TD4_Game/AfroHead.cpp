@@ -19,7 +19,7 @@ void AfroHead::Init()
 	SlapParticle.reset(ParticleManager::Create());
 
 	CutParticle = std::make_unique<ParticleManager>();
-	CutParticle.reset(ParticleManager::Create(false,ParticleBlendState::PBLEND_MODE_MIN));
+	CutParticle.reset(ParticleManager::Create(false, ParticleBlendState::PBLEND_MODE_MIN));
 
 	headObjectSelf = std::make_shared<Object3d>();
 	afroObjectSelf = std::make_shared<Object3d>();
@@ -54,6 +54,11 @@ void AfroHead::Update()
 	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
 	headObjectSelf->SetAffineParamRotate(rot);
 	afroObjectSelf->SetAffineParamTranslate(pos + hairOffset);
+
+	if (isStop)
+	{
+		return;
+	}
 
 	if (isMostFront && !isFrontEase)
 	{
@@ -233,9 +238,9 @@ void AfroHead::SlappingMove()
 			pgstate.acc = -(v / 10);
 			pgstate.color_start = XMFLOAT4(1, 0, 0, 1);
 			pgstate.color_end = XMFLOAT4(1, 0, 0, 1);
-			pgstate.scale_start = 3.0f;
-			pgstate.scale_end = 4.5f;
-			pgstate.aliveTime = 60;
+			pgstate.scale_start = 6.5f;
+			pgstate.scale_end = 0.5f;
+			pgstate.aliveTime = 15;
 
 			SlapParticle->Add(pgstate);
 		}
@@ -311,22 +316,23 @@ void AfroHead::CuttingHair()
 		//パーティクル生成
 		for (int i = 0; i < 40; i++)
 		{
-			RVector3 v(NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30), NY_random::floatrand_sl(30, -30));
+			RVector3 v(
+				NY_random::floatrand_sl(20, -20),
+				17,
+				NY_random::floatrand_sl(20, -20));
 			v = v.norm();
 
 			//設定構造体のインスタンス
 			ParticleGrainState pgstate{};
 			//パラメータ設定
-			pgstate.position = RVector3(pos.x + 5, pos.y, pos.z);
-			pgstate.vel = v * 4.0f;
+			pgstate.position = RVector3(pos.x, pos.y + 5, pos.z);
+			pgstate.vel = v * 2.0f;
 			pgstate.acc = RVector3(0, -0.1f, 0);
 			pgstate.color_start = XMFLOAT4(1, 1, 1, 1);
 			pgstate.color_end = XMFLOAT4(1, 1, 1, 1);
 			pgstate.scale_start = 5.0f;
 			pgstate.scale_end = 5.5f;
 			pgstate.aliveTime = 60;
-			pgstate.rot_start = 0.0f;
-			pgstate.rot_end = 360.0f;
 
 			CutParticle->Add(pgstate);
 		}

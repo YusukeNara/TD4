@@ -52,6 +52,8 @@ public:
 
 	ItemType GetItemType();
 
+	static void setIsStop(bool stop);
+
 	/// <summary>
 	/// 退職金(HP)
 	/// </summary>
@@ -63,6 +65,8 @@ public:
 	const int MaxRetirementMoney = 500;
 
 private:
+
+	static bool isStop;
 
 	RVector3 HandPositionOffset;
 	RVector3 HandRotationOffset;
