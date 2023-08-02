@@ -20,8 +20,6 @@ public:
 
 	void Draw();
 
-	void Control();
-
 private:
 
 	FieldDrawer() = default;

@@ -67,7 +67,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 
 	testp = std::make_unique<ParticleManager>();
 	testp.reset(ParticleManager::Create(false,ParticleBlendState::PBLEND_MODE_MIN));
-	particleTex = TexManager::LoadTexture("Resources/SingleHair.png");
+	particleTex = TexManager::LoadTexture("Resources/effect1.png");
 	pgstate.scale_end = 0.0f;
 	pgstate.scale_start = 10.0f;
 	pgstate.position = RVector3(0, 50, 0);
@@ -131,13 +131,13 @@ void EngineDebugScene::Update()
 		pgstate.position = RVector3(5, 0, 0);
 		pgstate.vel = v * 5.0f;
 		pgstate.acc = RVector3(0, -0.2f, 0);
-		pgstate.color_start = XMFLOAT4(1, 1, 1, 1);
-		pgstate.color_end = XMFLOAT4(1, 1, 1, 1);
+		pgstate.color_start = XMFLOAT4(0.3, 0.3, 0.3, 1);
+		pgstate.color_end = XMFLOAT4(0.3, 0.3, 0.3, 1);
 		pgstate.scale_start = 10.0f;
 		pgstate.scale_end = 10.5f;
 		pgstate.aliveTime = 60;
-		pgstate.rot_start = NY_random::floatrand_sl(360.f, 0.0f);
-		pgstate.rot_end = NY_random::floatrand_sl(360.f, 0.0f);
+		pgstate.rot_start = 0.0f;
+		pgstate.rot_end = 0.0f;
 		testp->Add(pgstate);
 	}
 
