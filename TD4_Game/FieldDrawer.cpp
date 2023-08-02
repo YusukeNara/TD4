@@ -65,10 +65,10 @@ void FieldDrawer::Draw()
 	//for (auto& w : wallObject) {
 	//	if (isgame) { w->DrawObject(); }
 	//}
-	if (isgame) {
-		wallObject[0]->DrawObject();
-		wallObject[2]->DrawObject();
-	}
+	//if (isgame) {
+	//	wallObject[0]->DrawObject();
+	//	wallObject[2]->DrawObject();
+	//}
 
 
 
