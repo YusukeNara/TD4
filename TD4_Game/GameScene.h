@@ -28,7 +28,7 @@ public:
     GameManager gmgr;
     //éûä‘êßå¿
     float timer;
-    const int MAX_TIMER = 11;
+    const int MAX_TIMER = 61;
     XMFLOAT2 timerSize;
     XMFLOAT2 timerPos;
     XMFLOAT4 timerColor;
