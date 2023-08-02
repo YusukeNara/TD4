@@ -3,6 +3,8 @@
 #include <Raki_imguiMgr.h>
 #include <algorithm>
 
+std::array<int, 5> RankingManager::rankingArray = { 6,5,4,3,2 };
+
 RankingManager::~RankingManager()
 {
 }
