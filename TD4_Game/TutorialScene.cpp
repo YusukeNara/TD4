@@ -1,5 +1,7 @@
 #include "TutorialScene.h"
 
+#include "GameSoundMgr.h"
+
 TutorialScene::TutorialScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer,scd)
 {
 	groundTex = TexManager::LoadTexture("Resources/asp3.png");
@@ -77,6 +79,7 @@ void TutorialScene::Initialize()
 
 void TutorialScene::Finalize()
 {
+	GameSoundMgr::get()->StopTutorialBGM();
 }
 
 void TutorialScene::Update()
@@ -249,8 +252,12 @@ void TutorialScene::Draw2D()
 			tutorialSprite27.Draw();
 		}
 
+
+
 		break;
 	case 4:
+		GameSoundMgr::get()->PlayTutorialBGM();
+
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;

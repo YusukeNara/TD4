@@ -1,6 +1,7 @@
 #include "GameScene.h"
 
 #include "FieldDrawer.h"
+#include "GameSoundMgr.h"
 
 GameScene::GameScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseScene(changer, scd) {
 
@@ -13,6 +14,8 @@ GameScene::GameScene(ISceneChanger *changer, SceneChangeDirection* scd) : BaseSc
 
 	FieldDrawer::get()->SetGameMode();
 	GameFrame = 0;
+
+	GameSoundMgr::get()->PlayGameBGM();
 }
 
 GameScene::~GameScene()
@@ -20,6 +23,8 @@ GameScene::~GameScene()
 	/*if (testobject) {
 		std::cout << "Object deleted" << endl;
 	}*/
+
+	GameSoundMgr::get()->StopGameBGM();
 }
 
 //‰Šú‰»

@@ -76,4 +76,6 @@ public:
 
     //ランキングシステム
     RankingManager rankingSystem;
+
+    bool isBGMPlayed = false;
 };

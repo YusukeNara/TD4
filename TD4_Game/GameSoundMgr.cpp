@@ -34,9 +34,11 @@ void GameSoundMgr::Init()
 	titleBgm.reset(Audio::LoadSound_wav("Resources/sounds/bgm/titlebgm.wav"));
 	gameBgm.reset(Audio::LoadSound_wav("Resources/sounds/bgm/gamebgm.wav"));
 	resultBgm.reset(Audio::LoadSound_wav("Resources/sounds/bgm/resultbgm.wav"));
+	tutorialBgm.reset(Audio::LoadSound_wav("Resources/sounds/bgm/tutorial.wav"));
 
 	Audio::SetPlayRoopmode(titleBgm.get(), 255);
 	Audio::SetPlayRoopmode(gameBgm.get(), 255);
+	Audio::SetPlayRoopmode(resultBgm.get(), 0);
 }
 
 void GameSoundMgr::PlayTitleBGM()
@@ -69,10 +71,20 @@ void GameSoundMgr::StopResultBGM()
 	Audio::StopLoadedSound(resultBgm.get());
 }
 
+void GameSoundMgr::PlayTutorialBGM()
+{
+	Audio::PlayLoadedSound(tutorialBgm.get());
+}
+
 void GameSoundMgr::PlayCutSE()
 {
 	int playnum = NY_random::intrand_sl(1, 0);
 	Audio::PlayLoadedSound(cutSe[playnum].get(), true);
+}
+
+void GameSoundMgr::StopTutorialBGM()
+{
+	Audio::StopLoadedSound(tutorialBgm.get());
 }
 
 void GameSoundMgr::PlaySlapSE()

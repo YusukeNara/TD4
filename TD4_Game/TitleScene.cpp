@@ -3,6 +3,8 @@
 
 #include "FieldDrawer.h"
 
+#include "GameSoundMgr.h"
+
 using namespace Rv3Ease;
 
 TitleScene::TitleScene(ISceneChanger* changer, SceneChangeDirection* scd) : BaseScene(changer, scd) {
@@ -48,6 +50,8 @@ TitleScene::TitleScene(ISceneChanger* changer, SceneChangeDirection* scd) : Base
 
 	isScroll = false;
 	isTitleScroll = false;
+
+	GameSoundMgr::get()->PlayTitleBGM();
 }
 
 TitleScene::~TitleScene()
@@ -58,6 +62,8 @@ TitleScene::~TitleScene()
 	if (titlePlayer) {
 		std::cout << "player deleted" << endl;
 	}
+
+	GameSoundMgr::get()->StopTitleBGM();
 }
 
 //‰Šú‰»
