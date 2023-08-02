@@ -96,7 +96,7 @@ void GameScene::Update() {
 		mSceneChanger->ChangeScene(eScene_Result);
 	}
 
-	gmgr.Update();
+	gmgr.Update(mSceneChangeDirection->GetDirectionStatus());
 }
 
 //•`‰æ

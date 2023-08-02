@@ -55,6 +55,11 @@ void AfroHead::Update()
 	headObjectSelf->SetAffineParamRotate(rot);
 	afroObjectSelf->SetAffineParamTranslate(pos + hairOffset);
 
+	if (isStop)
+	{
+		return;
+	}
+
 	if (isMostFront && !isFrontEase)
 	{
 		isactive = true;

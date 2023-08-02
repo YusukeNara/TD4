@@ -32,8 +32,19 @@ void GameManager::Init()
 	headMan->Initialize();
 }
 
-void GameManager::Update()
+void GameManager::Update(DIRECTION_STATUS isSceneChange)
 {
+	if (isSceneChange == DIRECTION_IN || isSceneChange == DIRECTION_OUT)
+	{
+		ProtoPlayer::setIsStop(true);
+		Head::setIsStop(true);
+	}
+	else
+	{
+		ProtoPlayer::setIsStop(false);
+		Head::setIsStop(false);
+	}
+
 	player->Update();
 
 	headMan->Update();

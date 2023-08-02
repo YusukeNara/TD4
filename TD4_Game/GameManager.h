@@ -8,6 +8,7 @@
 #include "Head.h"
 #include "ProtoPlayer.h"
 #include"HeadManager.h"
+#include"SceneChangeDirection.h"
 
 //ゲームフロー管理クラス
 class GameManager
@@ -19,7 +20,7 @@ public:
 
 	void Init();
 
-	void Update();
+	void Update(DIRECTION_STATUS isSceneChange);
 
 	void Draw();
 

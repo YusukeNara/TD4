@@ -41,6 +41,8 @@ public:
 
 	static void setStaticData();
 
+	static void setIsStop(bool stop);
+
 	void SetPlayer(ProtoPlayer* ptr) {
 		this->playerPtr = ptr;
 	}
@@ -54,6 +56,8 @@ public:
 	static std::shared_ptr<fbxModel> headModelStatic;
 	static std::shared_ptr<fbxModel> hairModelStatic;
 	static std::shared_ptr<fbxModel> afroModelStatic;
+
+	static bool isStop;
 
 	//ビンタされた時のパーティクル
 	std::unique_ptr<ParticleManager> SlapParticle;

@@ -43,6 +43,11 @@ void HageHead::Update()
 	headObjectSelf->SetAffineParamTranslate(pos + headOffset);
 	headObjectSelf->SetAffineParamRotate(rot);
 
+	if (isStop)
+	{
+		return;
+	}
+
 	if (isMostFront && !isFrontEase)
 	{
 		isactive = true;
