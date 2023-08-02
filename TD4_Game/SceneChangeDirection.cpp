@@ -4,7 +4,7 @@ using namespace Rv3Ease;
 
 SceneChangeDirection::SceneChangeDirection()
 {
-	spriteBlack.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/blackParticleTex.png"));
+	spriteBlack.CreateAndSetDivisionUVOffsets(10, 10, 1, 64, 64, TexManager::LoadTexture("Resources/white1x1.png"));
 	spritePos = { 0,0 };
 	spriteSize = { 100,100 };
 	status = DIRECTION_IN;
@@ -110,13 +110,15 @@ void SceneChangeDirection::Draw()
 		spriteBlack.DrawExtendSprite(WINDOW_CENTER.x - inDirect.GetNowpos().x,
 			WINDOW_CENTER.y - inDirect.GetNowpos().y,
 			WINDOW_CENTER.x + inDirect.GetNowpos().x,
-			WINDOW_CENTER.y + inDirect.GetNowpos().y);
+			WINDOW_CENTER.y + inDirect.GetNowpos().y,
+			DirectX::XMFLOAT4{ 0,0,0,1 });
 	}
 	else if(drawingStatus == DIRECTION_OUT){
 		spriteBlack.DrawExtendSprite(WINDOW_CENTER.x - outDirect.GetNowpos().x,
 			WINDOW_CENTER.y - outDirect.GetNowpos().y,
 			WINDOW_CENTER.x + outDirect.GetNowpos().x,
-			WINDOW_CENTER.y + outDirect.GetNowpos().y);
+			WINDOW_CENTER.y + outDirect.GetNowpos().y,
+			DirectX::XMFLOAT4{ 0,0,0,1 });
 	}
 	spriteBlack.Draw();
 }
