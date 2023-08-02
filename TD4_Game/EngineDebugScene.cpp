@@ -10,6 +10,8 @@
 #include <RakiUtility.h>
 #include <NY_random.h>
 
+
+
 using namespace Rv3Ease;
 
 EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection* scDirect) : BaseScene(changer, scDirect)
@@ -98,6 +100,12 @@ EngineDebugScene::~EngineDebugScene()
 void EngineDebugScene::Initialize()
 {
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0));
+
+	test_ranking.Init();
+
+	test_ranking.PostScore(10);
+
+	test_ranking.GetRanking();
 }
 
 void EngineDebugScene::Finalize()
@@ -133,7 +141,12 @@ void EngineDebugScene::Update()
 		testp->Add(pgstate);
 	}
 
+	if (Input::isKeyTrigger(DIK_R)) {
+		test_ranking.StartDisplayResults();
+	}
 
+	//ランキングデータテスト
+	test_ranking.Update();
 
 	//音テスト
 
@@ -155,17 +168,8 @@ void EngineDebugScene::Draw2D()
 	//testsp1.DrawExtendSprite(0, 0, 100, 100, { 1,1,1,0.5 });
 	//testsp2.DrawExtendSprite(100, 100, 100, 100, { 1,1,1,1 });
 
-	testNum.DrawSprite(0, 100);
-
-	testNum.DrawNumSprite(0, 0, 32, 32, dval);
-	testNum.uvOffsetHandle = 1;
-
-	if(dval <20000000){
-		dval += 1;
-	}
-
-
-	testNum.Draw();
+	//ランキングデータ描画
+	test_ranking.Draw2D();
 }
 
 void EngineDebugScene::DrawImgui()
@@ -273,6 +277,8 @@ void EngineDebugScene::DrawImgui()
 
 
 	myImgui::EndDrawImGui();
+
+	test_ranking.DebugDraw();
 
 }
 

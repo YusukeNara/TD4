@@ -189,6 +189,7 @@ void Rv3Ease::Rv3Easing::Init(RV3_EASE_TYPE type, RVector3 startPos, RVector3 en
 	this->endPos	=	endPos;
 	this->playFrame =	playFrame;
 	this->type		=	type;
+	this->resultPos =	startPos;
 }
 
 void Rv3Ease::Rv3Easing::Play()
@@ -331,6 +332,8 @@ RVector3 Rv3Ease::Rv3Bezier3::Update()
 {
 	if (!isPlay) { return resultPos; }
 	if (frame >= playFrame) { return resultPos; }
+
+	frame++;
 
 	bezier.SetStartPos(ease1.Update());
 	bezier.SetEndPos(ease2.Update());

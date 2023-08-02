@@ -24,6 +24,9 @@ public:
 
 private:
 
+	FieldDrawer() = default;
+	~FieldDrawer() = default;
+
 
 	std::shared_ptr<Object3d> floorObject;
 	std::array<std::shared_ptr<Object3d>,4> wallObject;
