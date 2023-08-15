@@ -61,6 +61,7 @@ TutorialScene::TutorialScene(ISceneChanger *changer, SceneChangeDirection* scd) 
 
 TutorialScene::~TutorialScene()
 {
+	GameSoundMgr::get()->StopTutorialBGM();
 }
 
 void TutorialScene::Initialize()
@@ -344,6 +345,7 @@ void TutorialScene::Draw2D()
 
 		break;
 	case 6:
+		GameSoundMgr::get()->PlayTutorialBGM();
 		if ((Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) && !Input::Get()->isXpadButtonPushTrigger(XPAD_BUTTON_A) == 0))
 		{
 			tutorialNum++;
