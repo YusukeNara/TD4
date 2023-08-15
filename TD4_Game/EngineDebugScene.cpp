@@ -31,9 +31,9 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 
 	testFBX_NoBone = std::make_shared<Object3d>();
 	std::shared_ptr<fbxModel> testModel = std::make_shared<fbxModel>();
-	testModel.reset(FbxLoader::GetInstance()->LoadFBXFile("hage_1"));
+	testModel.reset(FbxLoader::GetInstance()->LoadFBXFile("SpiralPBR"));
 	testFBX_NoBone.reset(SetModel_FBX(testModel));
-	testFBX_NoBone->SetAffineParam(RVector3(0.1f, 0.1f, 0.1f), RVector3(90, 0, 0), RVector3(-75.0f, 0, -50.0f));
+	testFBX_NoBone->SetAffineParam(RVector3(20.1f, 20.1f, 20.1f), RVector3(90, 0, 0), RVector3(-75.0f, 25, -50.0f));
 
 	testFBX_YesBone = std::make_shared<Object3d>();
 	testFBX_YesBone.reset(SetModel_FBX(testModel));
@@ -41,7 +41,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 
 	testobj = std::make_shared<Object3d>();
 	testobj.reset(LoadModel_FBXFile("SpherePBR"));
-	testobj->SetAffineParam(RVector3(10.1f, 10.1f, 10.1f), RVector3(90, 0, 0), RVector3(0.f, 0, -50.f));
+	testobj->SetAffineParam(RVector3(20.1f, 20.1f, 20.1f), RVector3(90, 0, 0), RVector3(0.f, 25, -50.f));
 
 	RVector3 eye(0.f, 0.f, -200.f);
 	RVector3 target(0.f, 0.f, 0.f);
@@ -101,11 +101,11 @@ void EngineDebugScene::Initialize()
 {
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0));
 
-	test_ranking.Init();
+	//test_ranking.Init();
 
-	test_ranking.PostScore(10);
+	//test_ranking.PostScore(10);
 
-	test_ranking.GetRanking();
+	//test_ranking.GetRanking();
 }
 
 void EngineDebugScene::Finalize()
@@ -146,7 +146,7 @@ void EngineDebugScene::Update()
 	}
 
 	//ランキングデータテスト
-	test_ranking.Update();
+	//test_ranking.Update();
 
 	//音テスト
 
@@ -169,7 +169,7 @@ void EngineDebugScene::Draw2D()
 	//testsp2.DrawExtendSprite(100, 100, 100, 100, { 1,1,1,1 });
 
 	//ランキングデータ描画
-	test_ranking.Draw2D();
+	//test_ranking.Draw2D();
 }
 
 void EngineDebugScene::DrawImgui()
@@ -187,14 +187,14 @@ void EngineDebugScene::DrawImgui()
 	ImGui::Checkbox("isRoop", &isRoop);
 
 	if (ImGui::Button("Play animation")) {
-		if(isRoop){ 
-			testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation); 
-			testFBX_YesBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, differentAnimation);
-		}
-		else{ 
-			testFBX_YesBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, differentAnimation); 
-			testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation);
-		}
+		//if(isRoop){ 
+		//	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation); 
+		//	testFBX_YesBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, differentAnimation);
+		//}
+		//else{ 
+		//	testFBX_YesBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, differentAnimation); 
+		//	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation);
+		//}
 		
 	}
 

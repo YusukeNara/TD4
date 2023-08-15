@@ -219,7 +219,6 @@ void Object3d::UpdateObject3D()
 			ConstMapB1->amdient = fbxmodel->GetMaterial().ambient;
 			ConstMapB1->diffuse = fbxmodel->GetMaterial().diffuse;
 			ConstMapB1->specular = fbxmodel->GetMaterial().specurar;
-			ConstMapB1->alpha = fbxmodel->GetMaterial().alpha;
 			constBuffB1->Unmap(0, nullptr);
 
 			auto& bones = fbxmodel->GetBones();
@@ -324,7 +323,6 @@ void Object3d::UpdateBillBoard3D()
 			ConstMapB1->amdient = fbxmodel->GetMaterial().ambient;
 			ConstMapB1->diffuse = fbxmodel->GetMaterial().diffuse;
 			ConstMapB1->specular = fbxmodel->GetMaterial().specurar;
-			ConstMapB1->alpha = fbxmodel->GetMaterial().alpha;
 			constBuffB1->Unmap(0, nullptr);
 		}
 	}

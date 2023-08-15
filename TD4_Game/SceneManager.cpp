@@ -16,7 +16,7 @@ SceneManager::SceneManager() :mNextScene(eScene_None) {
     }
 
     //各シーンのインスタンス生成
-    nowScene = (BaseScene *) new TitleScene(this,mSceneChangeDirection.get());
+    nowScene = (BaseScene *) new EngineDebugScene(this,mSceneChangeDirection.get());
     Initialize();
 }
 

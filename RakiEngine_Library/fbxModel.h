@@ -60,18 +60,17 @@ struct fbxMaterial
 	DirectX::XMFLOAT3 ambient;      //アンビエント
 	DirectX::XMFLOAT3 diffuse;      //ディフューズ
 	DirectX::XMFLOAT3 specurar;     //スペキュラー
-	float    alpha;        //アルファ
 	std::string		texFileName;  //テクスチャ名
 	UINT			texNumber;    //テクスチャ番号(使用する場合必ず必要)
-	DirectX::TexMetadata mdata = {};
-	DirectX::ScratchImage simg = {};
+
+	//PBRパラメータ
+
 
 	//コンストラクタ
 	fbxMaterial() {
 		ambient = { 1.0f,1.0f,1.0f };
 		diffuse = { 0.8f,0.8f,0.8f };
 		specurar = { 0.8f,0.8f,0.8f };
-		alpha = 1.0f;
 	}
 };
 
