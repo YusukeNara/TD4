@@ -8,10 +8,17 @@ cbuffer cbuff0 : register(b0)
 
 cbuffer cbuff1 : register(b1)
 {
-	float3 m_ambient  : packoffset(c0);   //アンビエント
-	float3 m_diffuse  : packoffset(c1);   //ディフューズ
-	float3 m_specular : packoffset(c2);   //スペキュラー
-	float m_alpha     : packoffset(c2.w); //アルファ
+	//float3 m_ambient  : packoffset(c0);   //アンビエント
+	//float3 m_diffuse  : packoffset(c1);   //ディフューズ
+	//float3 m_specular : packoffset(c2);   //スペキュラー
+	//float m_alpha     : packoffset(c2.w); //アルファ
+    
+    //PBRマテリアル
+    float3 baseColor : packoffset(c0);
+    float metalness : packoffset(c1);
+    float specular : packoffset(c2);
+    float roughness : packoffset(c3);
+
 }
 
 static const int MAX_BONES = 64;
@@ -58,8 +65,8 @@ struct SkinOutput
 //ピクセルシェーダー出力構造体
 struct PixelOutput
 {
-    float4 pixel_color	: SV_TARGET0;
-    float4 normal		: SV_TARGET1;
-    float4 worldPos		: SV_TARGET2;
+    float4 pixel_color	: SV_TARGET0;   //ピクセル基本色
+    float4 normal		: SV_TARGET1;   //法線
+    float4 worldPos		: SV_TARGET2;   //ワールド座標
     float4 zColor       : SV_TARGET3;   //影のみテクスチャ
 };

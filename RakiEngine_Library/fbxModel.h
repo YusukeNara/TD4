@@ -57,20 +57,25 @@ struct Bone
 struct fbxMaterial
 {
 	std::string   mtlName;      //マテリアル名(objファイルからではない場合、使わなくていい？)
-	DirectX::XMFLOAT3 ambient;      //アンビエント
-	DirectX::XMFLOAT3 diffuse;      //ディフューズ
-	DirectX::XMFLOAT3 specurar;     //スペキュラー
+	//DirectX::XMFLOAT3 ambient;      //アンビエント
+	//DirectX::XMFLOAT3 diffuse;      //ディフューズ
 	std::string		texFileName;  //テクスチャ名
 	UINT			texNumber;    //テクスチャ番号(使用する場合必ず必要)
 
 	//PBRパラメータ
-
+	DirectX::XMFLOAT3	baseColor;
+	float				metalness = 1.0f;	//金属度
+	float				specular	= 0.5f;
+	float				roughness = 0.0f;	//粗さ
 
 	//コンストラクタ
 	fbxMaterial() {
-		ambient = { 1.0f,1.0f,1.0f };
-		diffuse = { 0.8f,0.8f,0.8f };
-		specurar = { 0.8f,0.8f,0.8f };
+		//ambient = { 1.0f,1.0f,1.0f };
+		//diffuse = { 0.8f,0.8f,0.8f };
+		baseColor = { 1.0f,1.0f,1.0f };
+		metalness	= 1.0f;
+		specular	= 0.5f;
+		roughness	= 0.0f;
 	}
 };
 

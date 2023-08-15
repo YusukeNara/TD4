@@ -260,25 +260,45 @@ void FbxLoader::ParseMaterial(fbxModel* model, FbxNode* node)
         FbxSurfaceMaterial* material = node->GetMaterial(0);
 
         if (material) {
-            if (material->GetClassId().Is(FbxSurfaceLambert::ClassId)) {
-                //FbxSurfaceLambert* lambert = static_cast<FbxSurfaceLambert*>(material);
-                FbxSurfacePhong* phong = static_cast<FbxSurfacePhong*>(material);
-
-                FbxPropertyT<FbxDouble3> ambient = phong->Ambient;
-                model->material.ambient.x = (float)ambient.Get()[0];
-                model->material.ambient.y = (float)ambient.Get()[1];
-                model->material.ambient.z = (float)ambient.Get()[2];
-
-                FbxPropertyT<FbxDouble3> diffuse = phong->Diffuse;
-                model->material.diffuse.x = (float)diffuse.Get()[0];
-                model->material.diffuse.y = (float)diffuse.Get()[1];
-                model->material.diffuse.z = (float)diffuse.Get()[2];
-
-                FbxPropertyT<FbxDouble3> specular = phong->Specular;
-                model->material.specurar.x = (float)specular.Get()[0];
-                model->material.specurar.y = (float)specular.Get()[1];
-                model->material.specurar.z = (float)specular.Get()[2];
+            //ベースカラー取得
+            const FbxProperty fbxBaseColor = FbxSurfaceMaterialUtils::GetProperty("baseColor", material);
+            if (fbxBaseColor.IsValid()) {
+                FbxDouble3 baseColor = fbxBaseColor.Get<FbxDouble3>();
+                model->material.baseColor.x = (float)baseColor.Buffer()[0];
+                model->material.baseColor.y = (float)baseColor.Buffer()[1];
+                model->material.baseColor.z = (float)baseColor.Buffer()[2];
             }
+            const FbxProperty fbxMetalness = FbxSurfaceMaterialUtils::GetProperty("metalness", material);
+            if (fbxMetalness.IsValid()) {
+                model->material.metalness = fbxMetalness.Get<float>();
+            }
+            const FbxProperty fbxSpecular = FbxSurfaceMaterialUtils::GetProperty("specular", material);
+            if (fbxSpecular.IsValid()) {
+                model->material.specular = fbxSpecular.Get<float>();
+            }
+            const FbxProperty fbxRoughness = FbxSurfaceMaterialUtils::GetProperty("specularRoughness", material);
+            if (fbxRoughness.IsValid()) {
+                model->material.roughness = fbxRoughness.Get<float>();
+            }
+
+
+            //if (material->GetClassId().Is(FbxSurfaceLambert::ClassId)) {
+            //    //FbxSurfaceLambert* lambert = static_cast<FbxSurfaceLambert*>(material);
+            //    FbxSurfacePhong* phong = static_cast<FbxSurfacePhong*>(material);
+
+            //    FbxPropertyT<FbxDouble3> ambient = phong->Ambient;
+            //    model->material.ambient.x = (float)ambient.Get()[0];
+            //    model->material.ambient.y = (float)ambient.Get()[1];
+            //    model->material.ambient.z = (float)ambient.Get()[2];
+
+            //    FbxPropertyT<FbxDouble3> diffuse = phong->Diffuse;
+            //    model->material.diffuse.x = (float)diffuse.Get()[0];
+            //    model->material.diffuse.y = (float)diffuse.Get()[1];
+            //    model->material.diffuse.z = (float)diffuse.Get()[2];
+
+            //    FbxPropertyT<FbxDouble3> specular = phong->Specular;
+            //    model->material.specular = (float)specular.Get()[0];
+            //}
 
             const FbxProperty diffuseProperty = material->FindProperty(FbxSurfaceMaterial::sDiffuse);
             if (diffuseProperty.IsValid()) {

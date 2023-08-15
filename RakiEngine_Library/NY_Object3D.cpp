@@ -216,9 +216,10 @@ void Object3d::UpdateObject3D()
 	if (isThisModel == MODEL_DATA_FBX) {
 		if (SUCCEEDED(constBuffB1->Map(0, nullptr, (void**)&ConstMapB1)))
 		{
-			ConstMapB1->amdient = fbxmodel->GetMaterial().ambient;
-			ConstMapB1->diffuse = fbxmodel->GetMaterial().diffuse;
-			ConstMapB1->specular = fbxmodel->GetMaterial().specurar;
+			ConstMapB1->baseColor = fbxmodel->GetMaterial().baseColor;
+			ConstMapB1->metalness = fbxmodel->GetMaterial().metalness;
+			ConstMapB1->specular = fbxmodel->GetMaterial().specular;
+			ConstMapB1->roughness = fbxmodel->GetMaterial().roughness;
 			constBuffB1->Unmap(0, nullptr);
 
 			auto& bones = fbxmodel->GetBones();
@@ -261,10 +262,7 @@ void Object3d::UpdateObject3D()
 	else {
 		if (SUCCEEDED(constBuffB1->Map(0, nullptr, (void**)&ConstMapB1)))
 		{
-			ConstMapB1->amdient = model->material.ambient;
-			ConstMapB1->diffuse = model->material.diffuse;
-			ConstMapB1->specular = model->material.specurar;
-			ConstMapB1->alpha = model->material.alpha;
+			ConstMapB1->specular = model->material.specurar.x;
 		}
 	}
 
@@ -320,19 +318,17 @@ void Object3d::UpdateBillBoard3D()
 	if (isThisModel == MODEL_DATA_FBX) {
 		if (SUCCEEDED(constBuffB1->Map(0, nullptr, (void**)&ConstMapB1)))
 		{
-			ConstMapB1->amdient = fbxmodel->GetMaterial().ambient;
-			ConstMapB1->diffuse = fbxmodel->GetMaterial().diffuse;
-			ConstMapB1->specular = fbxmodel->GetMaterial().specurar;
+			ConstMapB1->baseColor = fbxmodel->GetMaterial().baseColor;
+			ConstMapB1->metalness = fbxmodel->GetMaterial().metalness;
+			ConstMapB1->specular = fbxmodel->GetMaterial().specular;
+			ConstMapB1->roughness = fbxmodel->GetMaterial().roughness;
 			constBuffB1->Unmap(0, nullptr);
 		}
 	}
 	else {
 		if (SUCCEEDED(constBuffB1->Map(0, nullptr, (void**)&ConstMapB1)))
 		{
-			ConstMapB1->amdient = model->material.ambient;
-			ConstMapB1->diffuse = model->material.diffuse;
-			ConstMapB1->specular = model->material.specurar;
-			ConstMapB1->alpha = model->material.alpha;
+			ConstMapB1->specular = model->material.specurar.x;
 			constBuffB1->Unmap(0, nullptr);
 		}
 	}

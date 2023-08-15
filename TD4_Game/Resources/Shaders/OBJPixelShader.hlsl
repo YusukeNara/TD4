@@ -25,7 +25,7 @@ PixelOutput main(GSOutput input)
 
 	float4 texcolor = tex.Sample(smp, input.uv);
 	
-    result.pixel_color = float4(texcolor.rgb, 1.0f );
+    result.pixel_color = float4(texcolor.rgb * baseColor, 1.0f );
     result.normal.xyz = float3(input.normal.xyz / 2.0f) + 0.5f;
     result.normal.w = texcolor.a;
     result.worldPos = input.worldPos;

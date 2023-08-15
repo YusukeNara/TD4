@@ -31,12 +31,17 @@ struct ConstBufferDataB0
 //定数バッファデータ構造体B1（マテリアルを使用->モデル依存なので複数いらない）
 struct ConstBufferDataB1
 {
-	XMFLOAT3 amdient;  //アンビエント
-	float pad1;//パディング
-	XMFLOAT3 diffuse;  //ディフューズ
-	float pad2;//パディング
-	XMFLOAT3 specular; //スペキュラー
-	float alpha;       //アルファ
+	//XMFLOAT3 amdient;  //アンビエント
+	//float pad1;//パディング
+
+	//XMFLOAT3 diffuse;  //ディフューズ
+	//float pad2;//パディング
+
+	XMFLOAT3 baseColor;	//色
+	float specular;		//スペキュラ
+	float metalness;	//金属度
+	float roughness;	//粗さ
+	float pad3;			//パディング
 };
 
 struct ConstBufferDataSkin
