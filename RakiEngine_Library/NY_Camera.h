@@ -118,6 +118,8 @@ public:
 
 	XMFLOAT3 GetEye() { return _eye; }
 
+	XMFLOAT3 GetDirection();
+
 
 	/// <summary>
 	/// ビュー行列更新（セッタ実行時に自動で実行するのでユーザーが呼び出さなくてよい）

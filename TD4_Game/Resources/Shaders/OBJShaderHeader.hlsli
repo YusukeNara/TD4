@@ -69,4 +69,7 @@ struct PixelOutput
     float4 normal		: SV_TARGET1;   //法線
     float4 worldPos		: SV_TARGET2;   //ワールド座標
     float4 zColor       : SV_TARGET3;   //影のみテクスチャ
+    float metalness     : SV_TARGET4;
+    float specular      : SV_TARGET5;
+    float roughness     : SV_TARGET6;
 };

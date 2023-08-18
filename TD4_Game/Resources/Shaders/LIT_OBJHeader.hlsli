@@ -4,7 +4,8 @@
 //カメラ視点レジスタ b0
 cbuffer cbuff0 : register(b0)
 {
-    float3 eyePos : packoffset(c0);
+    float3 eyePos;
+    float3 cameraDir;
 }
 
 struct DirectionalLight

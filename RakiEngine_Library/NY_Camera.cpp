@@ -93,6 +93,11 @@ XMMATRIX NY_Camera::GetMatrixViewProjection()
 	return _matViewProj;
 }
 
+XMFLOAT3 NY_Camera::GetDirection()
+{
+	return _target;
+}
+
 XMMATRIX NY_Camera::GetMatrixBillBoardAll()
 {
 	return _matBillBoard;

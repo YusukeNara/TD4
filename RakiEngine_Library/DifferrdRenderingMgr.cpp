@@ -209,6 +209,7 @@ void DiferredRenderingMgr::CreateGraphicsPipeline()
     result = m_constBuffEyePos->Map(0, nullptr, (void**)&ConstMapB0);
     if (SUCCEEDED(result)) {
         ConstMapB0->eyePos = camera->GetEye();
+        ConstMapB0->cameraDir = camera->GetDirection();
         m_constBuffEyePos->Unmap(0, nullptr);
     }
 
@@ -352,6 +353,7 @@ void DiferredRenderingMgr::UpdateConstBuff()
     HRESULT result = m_constBuffEyePos->Map(0, nullptr, (void**)&ConstMapB0);
     if (SUCCEEDED(result)) {
         ConstMapB0->eyePos = camera->GetEye();
+        ConstMapB0->cameraDir = camera->GetDirection();
         m_constBuffEyePos->Unmap(0, nullptr);
     }
 

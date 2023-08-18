@@ -118,7 +118,7 @@ public:
 private:
 
 	//コンストラクタ、デストラクタ
-	NY_Object3DManager() {};
+	NY_Object3DManager() = default;
 	~NY_Object3DManager();
 
 public:

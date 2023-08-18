@@ -477,19 +477,26 @@ Pipeline3D NY_Object3DManager::CreateDiferredRenderingPipelineState()
     //ambient
     //diffuse
     //specular
-    RenderTextureOption option[4] = {
+    RenderTextureOption option[7] = {
         {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},
         {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},
         {DXGI_FORMAT_R32G32B32A32_FLOAT,*clearcolors},
         {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},
+        {DXGI_FORMAT_R32_FLOAT,*clearcolors},
+        {DXGI_FORMAT_R32_FLOAT,*clearcolors},
+        {DXGI_FORMAT_R32_FLOAT,*clearcolors},
+
     };
     m_gBuffer.CreateRTex(Raki_WinAPI::window_width, Raki_WinAPI::window_height,
-        clearcolors, 4, option);
-    gpipeline.NumRenderTargets = 4;//描画するパラメータが増えるとここも増える
+        clearcolors, 7, option);
+    gpipeline.NumRenderTargets = 7;//描画するパラメータが増えるとここも増える
     gpipeline.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;//0~255指定のRGBA
     gpipeline.RTVFormats[1] = DXGI_FORMAT_R8G8B8A8_UNORM;//0~255指定のRGBA
     gpipeline.RTVFormats[2] = DXGI_FORMAT_R32G32B32A32_FLOAT;
     gpipeline.RTVFormats[3] = DXGI_FORMAT_R8G8B8A8_UNORM;
+    gpipeline.RTVFormats[4] = DXGI_FORMAT_R32_FLOAT;
+    gpipeline.RTVFormats[5] = DXGI_FORMAT_R32_FLOAT;
+    gpipeline.RTVFormats[6] = DXGI_FORMAT_R32_FLOAT;
     gpipeline.SampleDesc.Count = 1;//1pxにつき1回サンプリング
 
     CD3DX12_DESCRIPTOR_RANGE descRangeSRV{};
@@ -642,11 +649,14 @@ Pipeline3D NY_Object3DManager::CreateFbxPipeline()
     //レンダーターゲット設定
 
     //レンダーターゲットにするGBufferを作成
-    gpipeline.NumRenderTargets = 4;//描画するパラメータが増えるとここも増える
+    gpipeline.NumRenderTargets = 7;//描画するパラメータが増えるとここも増える
     gpipeline.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;//0~255指定のRGBA
     gpipeline.RTVFormats[1] = DXGI_FORMAT_R8G8B8A8_UNORM;//0~255指定のRGBA
     gpipeline.RTVFormats[2] = DXGI_FORMAT_R32G32B32A32_FLOAT;
     gpipeline.RTVFormats[3] = DXGI_FORMAT_R8G8B8A8_UNORM;
+    gpipeline.RTVFormats[4] = DXGI_FORMAT_R32_FLOAT;
+    gpipeline.RTVFormats[5] = DXGI_FORMAT_R32_FLOAT;
+    gpipeline.RTVFormats[6] = DXGI_FORMAT_R32_FLOAT;
     gpipeline.SampleDesc.Count = 1;//1pxにつき1回サンプリング
 
     CD3DX12_DESCRIPTOR_RANGE descRangeSRV{};
