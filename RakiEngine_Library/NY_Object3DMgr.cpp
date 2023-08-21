@@ -482,9 +482,9 @@ Pipeline3D NY_Object3DManager::CreateDiferredRenderingPipelineState()
         {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},
         {DXGI_FORMAT_R32G32B32A32_FLOAT,*clearcolors},
         {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},
-        {DXGI_FORMAT_R32_FLOAT,*clearcolors},
-        {DXGI_FORMAT_R32_FLOAT,*clearcolors},
-        {DXGI_FORMAT_R32_FLOAT,*clearcolors},
+        {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},
+        {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},
+        {DXGI_FORMAT_R8G8B8A8_UNORM,*clearcolors},
 
     };
     m_gBuffer.CreateRTex(Raki_WinAPI::window_width, Raki_WinAPI::window_height,
@@ -494,9 +494,9 @@ Pipeline3D NY_Object3DManager::CreateDiferredRenderingPipelineState()
     gpipeline.RTVFormats[1] = DXGI_FORMAT_R8G8B8A8_UNORM;//0~255指定のRGBA
     gpipeline.RTVFormats[2] = DXGI_FORMAT_R32G32B32A32_FLOAT;
     gpipeline.RTVFormats[3] = DXGI_FORMAT_R8G8B8A8_UNORM;
-    gpipeline.RTVFormats[4] = DXGI_FORMAT_R32_FLOAT;
-    gpipeline.RTVFormats[5] = DXGI_FORMAT_R32_FLOAT;
-    gpipeline.RTVFormats[6] = DXGI_FORMAT_R32_FLOAT;
+    gpipeline.RTVFormats[4] = DXGI_FORMAT_R8G8B8A8_UNORM;
+    gpipeline.RTVFormats[5] = DXGI_FORMAT_R8G8B8A8_UNORM;
+    gpipeline.RTVFormats[6] = DXGI_FORMAT_R8G8B8A8_UNORM;
     gpipeline.SampleDesc.Count = 1;//1pxにつき1回サンプリング
 
     CD3DX12_DESCRIPTOR_RANGE descRangeSRV{};
@@ -634,6 +634,9 @@ Pipeline3D NY_Object3DManager::CreateFbxPipeline()
     gpipeline.BlendState.RenderTarget[1] = blenddesc;
     gpipeline.BlendState.RenderTarget[2] = blenddesc;
     gpipeline.BlendState.RenderTarget[3] = blenddesc;
+    gpipeline.BlendState.RenderTarget[4] = blenddesc;
+    gpipeline.BlendState.RenderTarget[5] = blenddesc;
+    gpipeline.BlendState.RenderTarget[6] = blenddesc;
 
     //デプスステンシルステート設定
     gpipeline.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
@@ -654,9 +657,9 @@ Pipeline3D NY_Object3DManager::CreateFbxPipeline()
     gpipeline.RTVFormats[1] = DXGI_FORMAT_R8G8B8A8_UNORM;//0~255指定のRGBA
     gpipeline.RTVFormats[2] = DXGI_FORMAT_R32G32B32A32_FLOAT;
     gpipeline.RTVFormats[3] = DXGI_FORMAT_R8G8B8A8_UNORM;
-    gpipeline.RTVFormats[4] = DXGI_FORMAT_R32_FLOAT;
-    gpipeline.RTVFormats[5] = DXGI_FORMAT_R32_FLOAT;
-    gpipeline.RTVFormats[6] = DXGI_FORMAT_R32_FLOAT;
+    gpipeline.RTVFormats[4] = DXGI_FORMAT_R8G8B8A8_UNORM;
+    gpipeline.RTVFormats[5] = DXGI_FORMAT_R8G8B8A8_UNORM;
+    gpipeline.RTVFormats[6] = DXGI_FORMAT_R8G8B8A8_UNORM;
     gpipeline.SampleDesc.Count = 1;//1pxにつき1回サンプリング
 
     CD3DX12_DESCRIPTOR_RANGE descRangeSRV{};

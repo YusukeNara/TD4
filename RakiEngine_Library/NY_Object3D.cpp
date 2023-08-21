@@ -575,37 +575,7 @@ void Object3d::StopAnimation()
 void Object3d::DisplayObjectStatus(bool isDisplay)
 {
 
-	ImguiMgr::Get()->StartDrawImgui("objectStatus", 200, 500);
-
-	ImGui::Checkbox("affine param", &isDisplayAffineParam);
-
-	if (isDisplayAffineParam) {
-		ImGui::Text("pos x:%.2f y:%.2f z:%.2f", position.x, position.y, position.z);
-		ImGui::SliderFloat("pos x", &position.x, -10000.0f, 10000.0f);
-		ImGui::SliderFloat("pos y", &position.y, -10000.0f, 10000.0f);
-		ImGui::SliderFloat("pos z", &position.z, -10000.0f, 10000.0f);
-
-		ImGui::Text("rot x:%.2f y:%.2f z:%.2f", rotation.x, rotation.y, rotation.z);
-		ImGui::SliderFloat("rot x", &rotation.x, -10000.0f, 10000.0f);
-		ImGui::SliderFloat("rot y", &rotation.y, -10000.0f, 10000.0f);
-		ImGui::SliderFloat("rot z", &rotation.z, -10000.0f, 10000.0f);
-
-		ImGui::Text("scale x:%.2f y:%.2f z:%.2f", scale.x, scale.y, scale.z);
-		ImGui::SliderFloat("scale x", &scale.x, -10000.0f, 10000.0f);
-		ImGui::SliderFloat("scale y", &scale.y, -10000.0f, 10000.0f);
-		ImGui::SliderFloat("scale z", &scale.z, -10000.0f, 10000.0f);
-	}
-
-	ImGui::Checkbox("bone", &isDisplayBone);
-
 	fbxmodel->DebugMaterialConrtol();
-
-	SetAffineParam(scale, rotation, position);
-
-	ImguiMgr::Get()->EndDrawImgui();
-
-
-
 }
 
 

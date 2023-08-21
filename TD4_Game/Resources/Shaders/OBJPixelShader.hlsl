@@ -41,9 +41,9 @@ PixelOutput main(GSOutput input)
     //result.zColor = MakeShadowTexture(lightMat, cz, lvppos, result.pixel_color);
     result.zColor = float4(texcolor.rgb, 1.0f);
     
-    result.metalness = metalness;
-    result.specular = specular;
-    result.roughness = roughness;
+    result.metalness = float4(metalness, 0, 0, 1);
+    result.specular = float4(specular, 0, 0, 1);
+    result.roughness = float4(roughness, 0, 0, 1);
     
     return result;
 }

@@ -64,9 +64,9 @@ struct fbxMaterial
 
 	//PBRパラメータ
 	DirectX::XMFLOAT3	baseColor;
-	float				metalness = 1.0f;	//金属度
-	float				specular	= 0.5f;
-	float				roughness = 0.0f;	//粗さ
+	float				metalness	= 0.0f;	//金属度
+	float				specular	= 0.3f;
+	float				roughness	= 0.5f;	//粗さ
 
 	//コンストラクタ
 	fbxMaterial() {

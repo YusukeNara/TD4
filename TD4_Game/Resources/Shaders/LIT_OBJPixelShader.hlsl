@@ -12,11 +12,11 @@ Texture2D<float4> worldTex  : register(t2);
 //深度情報テクスチャ
 Texture2D<float4> LdepthTex : register(t3);
 
-Texture2D<float> metalTex : register(t4);
+Texture2D<float4> metalTex : register(t4);
 
-Texture2D<float> specularTex : register(t5);
+Texture2D<float4> specularTex : register(t5);
 
-Texture2D<float> roughTex : register(t6);
+Texture2D<float4> roughTex : register(t6);
 //サンプラーは変更なし
 SamplerState smp : register(s0);
 
@@ -95,9 +95,9 @@ float4 main(VSOutput input) : SV_TARGET
     //スペキュラ強度取得
     float specPower = normalTex.Sample(smp, input.uv).a;
     //金属度
-    float metalness = metalTex.Sample(smp, input.uv).r;
-    float specular = specularTex.Sample(smp, input.uv).r;
-    float roughness = roughTex.Sample(smp, input.uv).r;
+    float metalness = metalTex.Sample(smp, input.uv).x;
+    float specular = specularTex.Sample(smp, input.uv).x;
+    float roughness = roughTex.Sample(smp, input.uv).x;
     
     //法線情報を復元
     normal = (normal * 2.0f) - 1.0f;

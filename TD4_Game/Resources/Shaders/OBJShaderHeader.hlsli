@@ -14,10 +14,13 @@ cbuffer cbuff1 : register(b1)
 	//float m_alpha     : packoffset(c2.w); //アルファ
     
     //PBRマテリアル
-    float3 baseColor : packoffset(c0);
-    float metalness : packoffset(c1);
-    float specular : packoffset(c2);
-    float roughness : packoffset(c3);
+    float3 baseColor;
+
+    float metalness;
+
+    float specular;
+
+    float roughness;
 
 }
 
@@ -69,7 +72,7 @@ struct PixelOutput
     float4 normal		: SV_TARGET1;   //法線
     float4 worldPos		: SV_TARGET2;   //ワールド座標
     float4 zColor       : SV_TARGET3;   //影のみテクスチャ
-    float metalness     : SV_TARGET4;
-    float specular      : SV_TARGET5;
-    float roughness     : SV_TARGET6;
+    float4 metalness    : SV_TARGET4;
+    float4 specular     : SV_TARGET5;
+    float4 roughness    : SV_TARGET6;
 };

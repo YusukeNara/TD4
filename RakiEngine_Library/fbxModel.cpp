@@ -104,6 +104,8 @@ void fbxModel::DebugMaterialConrtol()
 {
 	//imguiを用いたマテリアルコントロール
 
+	ImguiMgr::Get()->StartDrawImgui("material", 100, 300);
+
 	ImGui::Checkbox("material", &isDisplayMaterial);
 
 	if (!isDisplayMaterial) { return; }
@@ -117,4 +119,7 @@ void fbxModel::DebugMaterialConrtol()
 	ImGui::SliderFloat("metalness", &material.metalness, 0.0f, 1.0f);
 	ImGui::SliderFloat("specular", &material.specular, 0.0f, 1.0f);
 	ImGui::SliderFloat("roughness", &material.roughness, 0.0f, 1.0f);
+
+	ImguiMgr::Get()->EndDrawImgui();
+
 }
