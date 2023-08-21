@@ -574,8 +574,6 @@ void Object3d::StopAnimation()
 
 void Object3d::DisplayObjectStatus(bool isDisplay)
 {
-	if (!isDisplay) { return; }
-
 
 	ImguiMgr::Get()->StartDrawImgui("objectStatus", 200, 500);
 
@@ -600,9 +598,13 @@ void Object3d::DisplayObjectStatus(bool isDisplay)
 
 	ImGui::Checkbox("bone", &isDisplayBone);
 
-	ImguiMgr::Get()->EndDrawImgui();
+	fbxmodel->DebugMaterialConrtol();
 
 	SetAffineParam(scale, rotation, position);
+
+	ImguiMgr::Get()->EndDrawImgui();
+
+
 
 }
 

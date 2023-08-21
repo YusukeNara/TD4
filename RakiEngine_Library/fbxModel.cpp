@@ -1,4 +1,5 @@
 #include "fbxModel.h"
+#include "Raki_imguiMgr.h"
 
 #include <iostream>
 
@@ -97,4 +98,23 @@ void fbxModel::Draw()
 
 	RAKI_DX12B_CMD->DrawIndexedInstanced(UINT(indices.size()), 1, 0, 0, 0);
 
+}
+
+void fbxModel::DebugMaterialConrtol()
+{
+	//imguiを用いたマテリアルコントロール
+
+	ImGui::Checkbox("material", &isDisplayMaterial);
+
+	if (!isDisplayMaterial) { return; }
+
+	float colors[3] = { material.baseColor.x,material.baseColor.y,material.baseColor.z };
+
+	ImGui::ColorEdit3("baseColor", colors, ImGuiColorEditFlags_Float);
+	material.baseColor.x = colors[0];
+	material.baseColor.y = colors[1];
+	material.baseColor.z = colors[2];
+	ImGui::SliderFloat("metalness", &material.metalness, 0.0f, 1.0f);
+	ImGui::SliderFloat("specular", &material.specular, 0.0f, 1.0f);
+	ImGui::SliderFloat("roughness", &material.roughness, 0.0f, 1.0f);
 }

@@ -43,7 +43,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 	testobj.reset(LoadModel_FBXFile("SpherePBR"));
 	testobj->SetAffineParam(RVector3(20.1f, 20.1f, 20.1f), RVector3(90, 0, 0), RVector3(0.f, 25, -50.f));
 
-	RVector3 eye(0.f, 0.f, -200.f);
+	RVector3 eye(0.f, 50.f, -200.f);
 	RVector3 target(0.f, 0.f, 0.f);
 	RVector3 up(0.f, 1.f, 0.f);
 	NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
@@ -158,7 +158,7 @@ void EngineDebugScene::Draw()
 	testobj->DrawObject();
 
 	testFBX_NoBone->DrawObject();
-	testFBX_YesBone->DrawObject();
+	//testFBX_YesBone->DrawObject();
 
 	
 }
@@ -170,6 +170,8 @@ void EngineDebugScene::Draw2D()
 
 	//ランキングデータ描画
 	//test_ranking.Draw2D();
+
+	
 }
 
 void EngineDebugScene::DrawImgui()
@@ -249,36 +251,41 @@ void EngineDebugScene::DrawImgui()
 	testobject->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 
 
-	myImgui::StartDrawImGui("SOUND TEST", 100, 300);
+	//myImgui::StartDrawImGui("SOUND TEST", 100, 300);
 
-	if (ImGui::Button("PLAY TITLE BGM")) {
-		GameSoundMgr::get()->PlayTitleBGM();
-	}
-	if (ImGui::Button("PLAY GAME BGM")) {
-		GameSoundMgr::get()->PlayGameBGM();
-	}
-	if (ImGui::Button("PLAY RESULT BGM")) {
-		GameSoundMgr::get()->PlayResultBGM();
-	}
-	if (ImGui::Button("STOP TITLE BGM")) {
-		GameSoundMgr::get()->StopTitleBGM();
-	}
-	if (ImGui::Button("STOP GAME BGM")) {
-		GameSoundMgr::get()->StopGameBGM();
-	}
-	if (ImGui::Button("STOP RESULT BGM")) {
-		GameSoundMgr::get()->StopResultBGM();
-	}
-	if (ImGui::Button("CUT")) { GameSoundMgr::get()->PlayCutSE(); }
-	if (ImGui::Button("SLAP")) { GameSoundMgr::get()->PlaySlapSE(); }
-	if (ImGui::Button("BUTTON")) { GameSoundMgr::get()->PlayButtonSE(); }
-	if (ImGui::Button("CANCEL")) { GameSoundMgr::get()->PlayCancelSE(); }
-	if (ImGui::Button("PULL")) { GameSoundMgr::get()->PlayPullSE(); }
+	//if (ImGui::Button("PLAY TITLE BGM")) {
+	//	GameSoundMgr::get()->PlayTitleBGM();
+	//}
+	//if (ImGui::Button("PLAY GAME BGM")) {
+	//	GameSoundMgr::get()->PlayGameBGM();
+	//}
+	//if (ImGui::Button("PLAY RESULT BGM")) {
+	//	GameSoundMgr::get()->PlayResultBGM();
+	//}
+	//if (ImGui::Button("STOP TITLE BGM")) {
+	//	GameSoundMgr::get()->StopTitleBGM();
+	//}
+	//if (ImGui::Button("STOP GAME BGM")) {
+	//	GameSoundMgr::get()->StopGameBGM();
+	//}
+	//if (ImGui::Button("STOP RESULT BGM")) {
+	//	GameSoundMgr::get()->StopResultBGM();
+	//}
+	//if (ImGui::Button("CUT")) { GameSoundMgr::get()->PlayCutSE(); }
+	//if (ImGui::Button("SLAP")) { GameSoundMgr::get()->PlaySlapSE(); }
+	//if (ImGui::Button("BUTTON")) { GameSoundMgr::get()->PlayButtonSE(); }
+	//if (ImGui::Button("CANCEL")) { GameSoundMgr::get()->PlayCancelSE(); }
+	//if (ImGui::Button("PULL")) { GameSoundMgr::get()->PlayPullSE(); }
 
 
-	myImgui::EndDrawImGui();
+	//myImgui::EndDrawImGui();
 
 	test_ranking.DebugDraw();
+
+
+	testobj->DisplayObjectStatus(true);
+
+	//testFBX_NoBone->DisplayObjectStatus(true);
 
 }
 

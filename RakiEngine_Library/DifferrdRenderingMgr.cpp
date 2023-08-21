@@ -26,17 +26,17 @@ void DiferredRenderingMgr::Init(ID3D12Device* dev, ID3D12GraphicsCommandList* cm
             directionalLights[i].SetLightUseFlag(true);
         }
     }
-    directionalLights[0].SetLightDirection(0, -1, 1, 1.0f);
+    directionalLights[0].SetLightDirection(0, 1, -1, 1.0f);
     directionalLights[0].SetLightUseFlag(true);
     directionalLights[0].SetLightUseSpecular(true);
     directionalLights[1].SetLightDirection(0, 0, 1, 0.5f);
-    directionalLights[1].SetLightUseFlag(true);
+    directionalLights[1].SetLightUseFlag(false);
     directionalLights[1].SetLightUseSpecular(false);
     directionalLights[2].SetLightDirection(-1, 0, 0, 0.5f);
-    directionalLights[2].SetLightUseFlag(true);
+    directionalLights[2].SetLightUseFlag(false);
     directionalLights[2].SetLightUseSpecular(false);
     directionalLights[3].SetLightDirection(1, 0, 0, 0.5f);
-    directionalLights[3].SetLightUseFlag(true);
+    directionalLights[3].SetLightUseFlag(false);
     directionalLights[3].SetLightUseSpecular(false);
 
 	ShaderCompile();
@@ -78,6 +78,19 @@ void DiferredRenderingMgr::Rendering(RTex* gBuffer, RTex* shadowMap)
         CD3DX12_GPU_DESCRIPTOR_HANDLE(gBuffer->GetDescriptorHeapSRV()->GetGPUDescriptorHandleForHeapStart(),
             3,
             m_dev->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)));
+    m_cmd->SetGraphicsRootDescriptorTable(6,
+        CD3DX12_GPU_DESCRIPTOR_HANDLE(gBuffer->GetDescriptorHeapSRV()->GetGPUDescriptorHandleForHeapStart(),
+            4,
+            m_dev->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)));
+    m_cmd->SetGraphicsRootDescriptorTable(7,
+        CD3DX12_GPU_DESCRIPTOR_HANDLE(gBuffer->GetDescriptorHeapSRV()->GetGPUDescriptorHandleForHeapStart(),
+            5,
+            m_dev->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)));
+    m_cmd->SetGraphicsRootDescriptorTable(8,
+        CD3DX12_GPU_DESCRIPTOR_HANDLE(gBuffer->GetDescriptorHeapSRV()->GetGPUDescriptorHandleForHeapStart(),
+            6,
+            m_dev->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)));
+
     //定数バッファ設定（パラメーターを増やすたびにここを確認せよ）
     m_cmd->SetGraphicsRootConstantBufferView(0, m_constBuffEyePos->GetGPUVirtualAddress());
     m_cmd->SetGraphicsRootConstantBufferView(1, m_constBuffDirLight->GetGPUVirtualAddress());
@@ -299,10 +312,16 @@ void DiferredRenderingMgr::CreateGraphicsPipeline()
     descRangeSRV_2.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 2);
     CD3DX12_DESCRIPTOR_RANGE descRangeSRV_3{};
     descRangeSRV_3.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 3);
+    CD3DX12_DESCRIPTOR_RANGE descRangeSRV_4{};
+    descRangeSRV_4.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 4);
+    CD3DX12_DESCRIPTOR_RANGE descRangeSRV_5{};
+    descRangeSRV_5.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 5);
+    CD3DX12_DESCRIPTOR_RANGE descRangeSRV_6{};
+    descRangeSRV_6.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 6);
 
 
     //ルートパラメーターの設定
-    CD3DX12_ROOT_PARAMETER rootparams[6] = {};
+    CD3DX12_ROOT_PARAMETER rootparams[9] = {};
     rootparams[0].InitAsConstantBufferView(0);//b0 スペキュラ用視点座標
     rootparams[1].InitAsConstantBufferView(1);
     //GBufferテクスチャ用（定数バッファをライト配列を入れるのに使う予定だが、現状はなし）
@@ -310,6 +329,9 @@ void DiferredRenderingMgr::CreateGraphicsPipeline()
     rootparams[3].InitAsDescriptorTable(1, &descRangeSRV_1, D3D12_SHADER_VISIBILITY_ALL);//法線テクスチャ
     rootparams[4].InitAsDescriptorTable(1, &descRangeSRV_2, D3D12_SHADER_VISIBILITY_ALL);//ワールド座標テクスチャ
     rootparams[5].InitAsDescriptorTable(1, &descRangeSRV_3, D3D12_SHADER_VISIBILITY_ALL);//深度情報テクスチャ
+    rootparams[6].InitAsDescriptorTable(1, &descRangeSRV_4, D3D12_SHADER_VISIBILITY_ALL);//深度情報テクスチャ
+    rootparams[7].InitAsDescriptorTable(1, &descRangeSRV_5, D3D12_SHADER_VISIBILITY_ALL);//深度情報テクスチャ
+    rootparams[8].InitAsDescriptorTable(1, &descRangeSRV_6, D3D12_SHADER_VISIBILITY_ALL);//深度情報テクスチャ
     //定数バッファ
 
 

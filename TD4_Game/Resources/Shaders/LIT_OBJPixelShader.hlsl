@@ -11,6 +11,12 @@ Texture2D<float4> normalTex : register(t1);
 Texture2D<float4> worldTex  : register(t2);
 //深度情報テクスチャ
 Texture2D<float4> LdepthTex : register(t3);
+
+Texture2D<float> metalTex : register(t4);
+
+Texture2D<float> specularTex : register(t5);
+
+Texture2D<float> roughTex : register(t6);
 //サンプラーは変更なし
 SamplerState smp : register(s0);
 
@@ -37,6 +43,44 @@ float3 DirectionalShadeing(float4 lStatus, float3 normal, float3 worldPos, float
     return result * lStatus.w;
 }
 
+//ue4式拡散反射
+float3 BRDF(float NdotL,float NdotV,float metal,float3 baseColor)
+{
+    if (NdotL < 0 || NdotV < 0)
+    {
+        return float3(0, 0, 0);
+    }
+    
+    float diffref = 1.0f / 3.14f;
+    
+    float3 result = diffref * NdotL * baseColor * (1 - metal);
+    
+    return result;
+}
+
+float DistributionGGX(float alpha,float NdotH)
+{
+    float alpha2 = alpha * alpha;
+    float t = NdotH * NdotH * (alpha2 - 1.0f) + 1.0f;
+    return alpha2 / (3.14f * t * t);
+}
+
+
+
+float3 UE4Specular(float NdotL,float NdotV, float NdotH, float LdotH,float rough)
+{
+    //D項
+    float   D = DistributionGGX(rough * rough, NdotH);
+    //F項
+    float3  F = float3(1, 1, 1);
+    //G項
+    float   G = 0.1f;
+    //m項
+    float   m = 4.0f * NdotL * NdotV;
+    
+    return D * F * G / m;
+}
+
 
 float4 main(VSOutput input) : SV_TARGET
 {
@@ -50,6 +94,10 @@ float4 main(VSOutput input) : SV_TARGET
     float4 depth = LdepthTex.Sample(smp, input.uv);
     //スペキュラ強度取得
     float specPower = normalTex.Sample(smp, input.uv).a;
+    //金属度
+    float metalness = metalTex.Sample(smp, input.uv).r;
+    float specular = specularTex.Sample(smp, input.uv).r;
+    float roughness = roughTex.Sample(smp, input.uv).r;
     
     //法線情報を復元
     normal = (normal * 2.0f) - 1.0f;
@@ -61,17 +109,17 @@ float4 main(VSOutput input) : SV_TARGET
     float3 lig = float3(0, 0, 0);
     
     //並行光源の計算結果
-    for (int i = 0; i < 4; i++)
-    {
-        if (lightStatus[i].isActive)
-        {
-            float3 l = float3(0, 0, 0);
-            float3 d = float3(0, 0, 0);
-            d = DirectionalShadeing(lightStatus[i].lightDir, normal, worldPos, color, lightStatus[i].isUseSpecular);
-            l = (albedo.xyz * d);
-            resultColor.xyz += l;
-        }
-    }
+    //for (int i = 0; i < 4; i++)
+    //{
+    //    if (lightStatus[i].isActive)
+    //    {
+    //        float3 l = float3(0, 0, 0);
+    //        float3 d = float3(0, 0, 0);
+    //        d = DirectionalShadeing(lightStatus[i].lightDir, normal, worldPos, color, lightStatus[i].isUseSpecular);
+    //        l = (albedo.xyz * d);
+    //        resultColor.xyz += l;
+    //    }
+    //}
     
     //拡散反射を計算
     //float3 lig = 0.0f;
@@ -87,6 +135,27 @@ float4 main(VSOutput input) : SV_TARGET
     
     //resultColor = albedo;
     //resultColor.xyz *= lig;
+    
+    float3 camdir = normalize(eyePos - cameraDir);
+    
+    for (int i = 0; i < 4; i++)
+    {
+        if (lightStatus[i].isActive)
+        {
+            //ライトとカメラのハーフベクトル
+            float3 H = normalize(lightStatus[i].lightDir.xyz + camdir);
+            //各ハーフベクトルとの内積
+            float NdotL = dot(normal.xyz, lightStatus[i].lightDir.xyz);
+            float NdotV = dot(normal.xyz, camdir);
+            float NdotH = dot(normal.xyz, H);
+            float LdotH = dot(lightStatus[i].lightDir.xyz, H);
+        
+            float3 diffuseColor = BRDF(NdotL, NdotV, metalness, albedo.xyz * lightStatus[i].lightDir.w);
+            float3 specularColor = UE4Specular(NdotL, NdotV, NdotH, LdotH, roughness);
+        
+            resultColor.xyz += (diffuseColor + specularColor);
+        }
+    }
 
     return resultColor;
 }

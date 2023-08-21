@@ -118,6 +118,8 @@ public:
 
 	static const int BONE_INDICES_MAX = 4;
 
+	void DebugMaterialConrtol();
+
 private:
 	//ƒ‚ƒfƒ‹–¼
 	std::string name;
@@ -143,6 +145,8 @@ private:
 	FbxScene *fbxScene = nullptr;
 
 	std::vector<SkinAnimationPlayInfo> animinfo;
+
+	bool isDisplayMaterial = false;
 };
 
 #pragma warning (pop)
