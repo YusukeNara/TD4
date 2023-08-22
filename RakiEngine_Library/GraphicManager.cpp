@@ -66,3 +66,8 @@ void GraphicManager::FinishDraw()
 {
 	RenderTargetManager::GetInstance()->SwapChainBufferFlip();
 }
+
+void GraphicManager::GraphicDebugDraw()
+{
+	m_deferredRender.ShowImGui();
+}

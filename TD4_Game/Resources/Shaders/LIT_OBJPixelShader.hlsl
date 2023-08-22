@@ -150,7 +150,7 @@ float4 main(VSOutput input) : SV_TARGET
             float NdotH = dot(normal.xyz, H);
             float LdotH = dot(lightStatus[i].lightDir.xyz, H);
         
-            float3 diffuseColor = BRDF(NdotL, NdotV, metalness, albedo.xyz * lightStatus[i].lightDir.w);
+            float3 diffuseColor = BRDF(NdotL, NdotV, metalness, albedo.xyz);
             float3 specularColor = UE4Specular(NdotL, NdotV, NdotH, LdotH, roughness);
         
             resultColor.xyz += (diffuseColor + specularColor);

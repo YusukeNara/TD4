@@ -92,6 +92,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		sceneMgr->DrawImgui();
 
+		graphicmgr.GraphicDebugDraw();
+
 		//描画ここまで
 
 		graphicmgr.FinishDraw();

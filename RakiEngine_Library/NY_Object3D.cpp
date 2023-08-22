@@ -217,9 +217,9 @@ void Object3d::UpdateObject3D()
 		if (SUCCEEDED(constBuffB1->Map(0, nullptr, (void**)&ConstMapB1)))
 		{
 			ConstMapB1->baseColor = fbxmodel->GetMaterial().baseColor;
-			ConstMapB1->metalness = fbxmodel->GetMaterial().metalness;
-			ConstMapB1->specular = fbxmodel->GetMaterial().specular;
-			ConstMapB1->roughness = fbxmodel->GetMaterial().roughness;
+			ConstMapB1->PBRparams.x = fbxmodel->GetMaterial().metalness;
+			ConstMapB1->PBRparams.y = fbxmodel->GetMaterial().specular;
+			ConstMapB1->PBRparams.z = fbxmodel->GetMaterial().roughness;
 			constBuffB1->Unmap(0, nullptr);
 
 			auto& bones = fbxmodel->GetBones();
@@ -262,7 +262,7 @@ void Object3d::UpdateObject3D()
 	else {
 		if (SUCCEEDED(constBuffB1->Map(0, nullptr, (void**)&ConstMapB1)))
 		{
-			ConstMapB1->specular = model->material.specurar.x;
+			ConstMapB1->PBRparams.y = model->material.specurar.x;
 		}
 	}
 
@@ -319,16 +319,16 @@ void Object3d::UpdateBillBoard3D()
 		if (SUCCEEDED(constBuffB1->Map(0, nullptr, (void**)&ConstMapB1)))
 		{
 			ConstMapB1->baseColor = fbxmodel->GetMaterial().baseColor;
-			ConstMapB1->metalness = fbxmodel->GetMaterial().metalness;
-			ConstMapB1->specular = fbxmodel->GetMaterial().specular;
-			ConstMapB1->roughness = fbxmodel->GetMaterial().roughness;
+			ConstMapB1->PBRparams.x = fbxmodel->GetMaterial().metalness;
+			ConstMapB1->PBRparams.y = fbxmodel->GetMaterial().specular;
+			ConstMapB1->PBRparams.z = fbxmodel->GetMaterial().roughness;
 			constBuffB1->Unmap(0, nullptr);
 		}
 	}
 	else {
 		if (SUCCEEDED(constBuffB1->Map(0, nullptr, (void**)&ConstMapB1)))
 		{
-			ConstMapB1->specular = model->material.specurar.x;
+			ConstMapB1->PBRparams.y = model->material.specurar.x;
 			constBuffB1->Unmap(0, nullptr);
 		}
 	}

@@ -33,7 +33,7 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 	std::shared_ptr<fbxModel> testModel = std::make_shared<fbxModel>();
 	testModel.reset(FbxLoader::GetInstance()->LoadFBXFile("SpiralPBR"));
 	testFBX_NoBone.reset(SetModel_FBX(testModel));
-	testFBX_NoBone->SetAffineParam(RVector3(20.1f, 20.1f, 20.1f), RVector3(90, 0, 0), RVector3(-75.0f, 25, -50.0f));
+	testFBX_NoBone->SetAffineParam(RVector3(20.1f, 20.1f, 20.1f), RVector3(90, 0, 0), RVector3(-25.0f, 25, -50.0f));
 
 	testFBX_YesBone = std::make_shared<Object3d>();
 	testFBX_YesBone.reset(SetModel_FBX(testModel));
@@ -41,10 +41,10 @@ EngineDebugScene::EngineDebugScene(ISceneChanger* changer, SceneChangeDirection*
 
 	testobj = std::make_shared<Object3d>();
 	testobj.reset(LoadModel_FBXFile("SpherePBR"));
-	testobj->SetAffineParam(RVector3(20.1f, 20.1f, 20.1f), RVector3(90, 0, 0), RVector3(0.f, 25, -50.f));
+	testobj->SetAffineParam(RVector3(20.1f, 20.1f, 20.1f), RVector3(90, 0, 0), RVector3(25.f, 25, -50.f));
 
-	RVector3 eye(0.f, 50.f, -200.f);
-	RVector3 target(0.f, 0.f, 0.f);
+	RVector3 eye(0.f, 25.f, -150.f);
+	RVector3 target(0.f, 25.f, 0.f);
 	RVector3 up(0.f, 1.f, 0.f);
 	NY_Camera::Get()->SetViewStatusEyeTargetUp(eye, target, up);
 
@@ -100,12 +100,6 @@ EngineDebugScene::~EngineDebugScene()
 void EngineDebugScene::Initialize()
 {
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0));
-
-	//test_ranking.Init();
-
-	//test_ranking.PostScore(10);
-
-	//test_ranking.GetRanking();
 }
 
 void EngineDebugScene::Finalize()
@@ -189,26 +183,8 @@ void EngineDebugScene::DrawImgui()
 	ImGui::Checkbox("isRoop", &isRoop);
 
 	if (ImGui::Button("Play animation")) {
-		//if(isRoop){ 
-		//	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation); 
-		//	testFBX_YesBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, differentAnimation);
-		//}
-		//else{ 
-		//	testFBX_YesBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_FIRST, differentAnimation); 
-		//	testFBX_NoBone->PlayAnimation(ANIMATION_PLAYMODE::ANIM_MODE_ROOP, activeAnimation);
-		//}
-		
 	}
 
-	//ImGui::Text("test cam eye %.2f,%.2f,%.2f", testcam._eyepos.x, testcam._eyepos.y, testcam._eyepos.z);
-	//ImGui::Text("test cam target %.2f,%.2f,%.2f", testcam._targetVec.x, testcam._targetVec.y, testcam._targetVec.z);
-	//ImGui::Text("test cam up %.2f,%.2f,%.2f", testcam._upVec.x, testcam._upVec.y, testcam._upVec.z);
-	//ImGui::Text("test cam up %.2f,%.2f,%.2f,%.2f", q1.x, q1.y, q1.z, q1.w);
-	//ImGui::Text("lightdir %.2f,%.2f,%.2f", DirectionalLight::GetLightDir().x,
-	//	DirectionalLight::GetLightDir().y, DirectionalLight::GetLightDir().z);
-	//ImGui::SliderFloat("camrot", &camrot, 0.f, 2.0f);
-	//ImGui::SliderInt("num", &testNum.uvOffsetHandle, 0, 9);
-	//ImGui::SliderInt("dValue", &dval, -200000000, 200000000);
 	myImgui::EndDrawImGui();
 
 	testcam.Init(RVector3(0, 0, 0), RVector3(0, 0, 1), RVector3(0, 1, 0), camrot);
@@ -249,34 +225,6 @@ void EngineDebugScene::DrawImgui()
 	testFBX_YesBone->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testobj->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
 	testobject->SetAffineParamRotate(RVector3(rotX, rotY, rotZ));
-
-
-	//myImgui::StartDrawImGui("SOUND TEST", 100, 300);
-
-	//if (ImGui::Button("PLAY TITLE BGM")) {
-	//	GameSoundMgr::get()->PlayTitleBGM();
-	//}
-	//if (ImGui::Button("PLAY GAME BGM")) {
-	//	GameSoundMgr::get()->PlayGameBGM();
-	//}
-	//if (ImGui::Button("PLAY RESULT BGM")) {
-	//	GameSoundMgr::get()->PlayResultBGM();
-	//}
-	//if (ImGui::Button("STOP TITLE BGM")) {
-	//	GameSoundMgr::get()->StopTitleBGM();
-	//}
-	//if (ImGui::Button("STOP GAME BGM")) {
-	//	GameSoundMgr::get()->StopGameBGM();
-	//}
-	//if (ImGui::Button("STOP RESULT BGM")) {
-	//	GameSoundMgr::get()->StopResultBGM();
-	//}
-	//if (ImGui::Button("CUT")) { GameSoundMgr::get()->PlayCutSE(); }
-	//if (ImGui::Button("SLAP")) { GameSoundMgr::get()->PlaySlapSE(); }
-	//if (ImGui::Button("BUTTON")) { GameSoundMgr::get()->PlayButtonSE(); }
-	//if (ImGui::Button("CANCEL")) { GameSoundMgr::get()->PlayCancelSE(); }
-	//if (ImGui::Button("PULL")) { GameSoundMgr::get()->PlayPullSE(); }
-
 
 	//myImgui::EndDrawImGui();
 

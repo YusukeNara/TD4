@@ -32,6 +32,8 @@ public:
 
 	void FinishDraw();
 
+	void GraphicDebugDraw();
+
 private:
 
 	DiferredRenderingMgr m_deferredRender;

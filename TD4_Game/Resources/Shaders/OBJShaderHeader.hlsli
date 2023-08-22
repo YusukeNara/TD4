@@ -15,12 +15,14 @@ cbuffer cbuff1 : register(b1)
     
     //PBRƒ}ƒeƒŠƒAƒ‹
     float3 baseColor;
+    
+    float3 PBRParams;
 
-    float metalness;
+    //float metalness;
 
-    float specular;
+    //float specular;
 
-    float roughness;
+    //float roughness;
 
 }
 

@@ -26,17 +26,17 @@ void DiferredRenderingMgr::Init(ID3D12Device* dev, ID3D12GraphicsCommandList* cm
             directionalLights[i].SetLightUseFlag(true);
         }
     }
-    directionalLights[0].SetLightDirection(0, 1, -1, 1.0f);
+    directionalLights[0].SetLightDirection(1, 1, -1, 1.0f);
     directionalLights[0].SetLightUseFlag(true);
     directionalLights[0].SetLightUseSpecular(true);
     directionalLights[1].SetLightDirection(0, 0, 1, 0.5f);
-    directionalLights[1].SetLightUseFlag(false);
+    directionalLights[1].SetLightUseFlag(true);
     directionalLights[1].SetLightUseSpecular(false);
-    directionalLights[2].SetLightDirection(-1, 0, 0, 0.5f);
-    directionalLights[2].SetLightUseFlag(false);
+    directionalLights[2].SetLightDirection(-1, -1, -1, 0.5f);
+    directionalLights[2].SetLightUseFlag(true);
     directionalLights[2].SetLightUseSpecular(false);
-    directionalLights[3].SetLightDirection(1, 0, 0, 0.5f);
-    directionalLights[3].SetLightUseFlag(false);
+    directionalLights[3].SetLightDirection(1, -1, -1, 0.5f);
+    directionalLights[3].SetLightUseFlag(true);
     directionalLights[3].SetLightUseSpecular(false);
 
 	ShaderCompile();
@@ -108,8 +108,23 @@ void DiferredRenderingMgr::Rendering(RTex* gBuffer, RTex* shadowMap)
 
 void DiferredRenderingMgr::ShowImGui()
 {
+    ImguiMgr::Get()->StartDrawImgui("lights", 100, 300);
+    for (int i = 0; i < 4; i++) {
+        std::string text = "light ";
+        text += std::to_string(i);
 
+        bool flag = directionalLights[i].GetLightUseFlag();
+        ImGui::Checkbox(text.c_str(), &flag);
+        directionalLights[i].SetLightUseFlag(flag);
 
+        XMFLOAT4 lightDir = directionalLights[i].GetLightDirection();
+        ImGui::SliderFloat("x", &lightDir.x, -1.0f, 1.0f);
+        ImGui::SliderFloat("y", &lightDir.y, -1.0f, 1.0f);
+        ImGui::SliderFloat("z", &lightDir.z, -1.0f, 1.0f);
+        directionalLights[i].SetLightDirection(lightDir.x, lightDir.y, lightDir.z, 1.0f);
+    }
+
+    ImguiMgr::Get()->EndDrawImgui();
 }
 
 void DiferredRenderingMgr::ShaderCompile()

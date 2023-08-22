@@ -39,9 +39,11 @@ struct ConstBufferDataB1
 
 	XMFLOAT3 baseColor;	//色
 	float pad1;
-	float specular;		//スペキュラ
-	float metalness;	//金属度
-	float roughness;	//粗さ
+	XMFLOAT3 PBRparams;
+	float pad2;
+	//float specular;		//スペキュラ
+	//float metalness;	//金属度
+	//float roughness;	//粗さ
 };
 
 struct ConstBufferDataSkin
