@@ -22,6 +22,10 @@ SamplerState smp : register(s0);
 
 //ピクセルのz値をライト空間の座標に変換する
 
+
+//グローバル変数
+
+
 //並行光源の計算
 float3 DirectionalShadeing(float4 lStatus, float3 normal, float3 worldPos, float3 color, uint useSpecular)
 {
@@ -58,6 +62,30 @@ float3 BRDF(float NdotL,float NdotV,float metal,float3 baseColor)
     return result;
 }
 
+float3 SchlickFrenel3(float3 f0, float3 f90,float cos)
+{
+    float m = saturate(1 - cos);
+    
+    float m2 = m * m;
+    
+    float m5 = m2 * m2 * m;
+    
+    return lerp(f0, f90, m5);
+}
+
+float3 DesneyFrenel(float LdotH,float3 baseColor,float specular,float metalness)
+{
+    float luminance = 0.3f * baseColor.r * 0.6 * baseColor.g * 0.1 * baseColor.b;
+    
+    float3 tintColor = baseColor / luminance;
+    
+    float3 nonMetalColor = specular * 0.08f * tintColor;
+    
+    float3 specularColor = lerp(nonMetalColor, baseColor, metalness);
+    
+    return SchlickFrenel3(specularColor, float3(1, 1, 1), LdotH);
+}
+
 float DistributionGGX(float alpha,float NdotH)
 {
     float alpha2 = alpha * alpha;
@@ -65,16 +93,24 @@ float DistributionGGX(float alpha,float NdotH)
     return alpha2 / (3.14f * t * t);
 }
 
+float GeometricSmith(float cosine,float roughness)
+{
+    float k = (roughness + 1.0f);
+    
+    k = k * k / 8.0f;
+    
+    return cosine / (cosine * (1.0f - k) + k);
+}
 
-
-float3 UE4Specular(float NdotL,float NdotV, float NdotH, float LdotH,float rough)
+float3 UE4Specular(float NdotL, float NdotV, float NdotH, float LdotH, 
+float3 baseColor, float metalness, float specular, float roughness)
 {
     //D項
-    float   D = DistributionGGX(rough * rough, NdotH);
+    float   D = DistributionGGX(roughness * roughness, NdotH);
     //F項
-    float3  F = float3(1, 1, 1);
+    float3  F = DesneyFrenel(LdotH, baseColor, specular, metalness);
     //G項
-    float   G = 0.1f;
+    float   G = GeometricSmith(NdotL, roughness) * GeometricSmith(NdotV, roughness);
     //m項
     float   m = 4.0f * NdotL * NdotV;
     
@@ -151,7 +187,8 @@ float4 main(VSOutput input) : SV_TARGET
             float LdotH = dot(lightStatus[i].lightDir.xyz, H);
         
             float3 diffuseColor = BRDF(NdotL, NdotV, metalness, albedo.xyz);
-            float3 specularColor = UE4Specular(NdotL, NdotV, NdotH, LdotH, roughness);
+            float3 specularColor = UE4Specular(NdotL, NdotV, NdotH, LdotH,
+            albedo.xyz, metalness, specular, roughness);
         
             resultColor.xyz += (diffuseColor + specularColor);
         }
